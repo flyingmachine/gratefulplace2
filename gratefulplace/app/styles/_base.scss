@@ -1,0 +1,40 @@
+// Fonts --------------------------------------------------------------
+@mixin sans-family {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+@mixin serif-family {
+  font-family: Palatino Linotype, Book Antiqua, Palatino, serif;
+}
+
+@mixin monospace-family {
+  font-family: "Bitstream Vera Sans Mono", monospace;
+}
+
+@mixin bshadow {
+  @include single-box-shadow(rgba(0, 0, 0, 0.2), 0, 1px, 2px, 0px);
+}
+
+@mixin chunk {
+  background: white;
+  @include border-radius(3px); 
+  @include bshadow;
+  padding:0 1em;
+  @include trailer;
+  @include clearfix;
+  @include padding-leader;
+  @include box-sizing(border-box);
+}
+
+@mixin alt-font {
+  @include adjust-font-size-to(13px);
+  @include sans-family;
+  line-height: inherit;
+}
+
+// Colors
+$red: #ff5553;
+$purple: #8873e5;
+$blue: #73a1e5;
+$light-blue: #f8fcfd;
+$medium-green: #cdf0cc;

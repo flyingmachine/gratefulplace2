@@ -1,0 +1,479 @@
+// Imports -----------------------------------------------------------
+@import "compass/reset";
+@import "compass/utilities/general/clearfix";
+@import "compass/css3/border-radius";
+@import "compass/typography/vertical_rhythm"; // http://compass-style.org/reference/compass/typography/vertical_rhythm/
+@import "compass/css3/box-shadow";
+@import "compass/css3/box-sizing";
+@import "compass/css3/text-shadow";
+@import "compass/css3/transform";
+@import "compass/css3/";
+
+@import "susy"; // grid
+
+// Grid variables
+$column-width   : 4em;            // each column is 4em wide
+$gutter-width   : 1em;            // 1em gutters between columns
+$grid-padding   : $gutter-width;  // grid-padding equal to gutters
+$base-line-height: 24px;
+$total-columns  : 12;
+
+@import "base";
+@import "formalize";
+
+// To customize vertical ryhthm, see http://compass-style.org/reference/compass/typography/vertical_rhythm/
+@include establish-baseline;
+
+body {
+  background: #87ddfd url("/images/blurbg2.jpg") no-repeat;
+  color: #444;
+  @include serif-family;
+}
+
+h2 {
+  @include sans-family;
+  @include adjust-font-size-to(30px, 1);
+  @include trailer(1, 30px);
+  @include padding-trailer(.5, 30px);
+  @include leader(.5, 30px);
+  border-bottom: 1px solid #999;
+}
+
+h2:first-child, h2.first {
+  margin-top:0;
+}
+
+h3 {
+  @include sans-family;
+  @include adjust-font-size-to(21px, 1);
+  @include box-sizing(border-box);
+  @include leader(1, 21px);
+  @include trailer(.5, 21px);
+}
+
+#signup h3 {
+  margin-top:0;
+}
+
+a {
+  text-decoration: none;
+  color: $blue;
+}
+
+a:visited {
+  color: $purple;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p, blockquote {
+  @include trailer;
+}
+
+blockquote {
+  background: #f0fafd;
+  padding: .5em 1em;
+}
+
+em, i {
+  font-style: italic;
+}
+
+strong {
+  font-weight: bold;
+}
+
+.clearfix {
+  @include clearfix;
+}
+
+.masthead {
+  @include container;
+  @include leader(1);
+
+  .content {
+    @include span-columns(9);
+  }
+
+  .logo {
+    @include span-columns(5, 9);
+  }
+  
+  blockquote {
+    @include span-columns(4 omega, 9);
+    background: none;
+    padding: 0;
+    margin:0;
+    color:#555;
+    cite {
+      display:block;
+      font-style:italic;
+    }
+  }
+
+  .intro a {
+    display:none;
+  }
+}
+
+.content, .markdown-help {
+  ul {
+    list-style: disc inside;
+  }
+}
+
+nav {
+  @include padding-trailer;
+  @include clearfix;
+  @include span-columns(3 omega, 12);
+
+  ul {
+    @include trailer;
+  }
+
+  li {
+    @include trailer(.25);
+  }
+
+  a {
+    background: rgba(255, 255, 255, 0.3);
+    @include bshadow;
+    @include border-radius(0 0 40px 0);
+    color: #444;
+    @include padding-leader(.25);
+    @include padding-trailer(.25);
+    padding-left: .5em;
+    padding-right: .5em;
+    display: block;
+    border-left: 2px solid white;
+
+    &:hover {
+      text-decoration:none;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    &:visited {
+      color: #444;
+    }
+  }
+}
+
+.pagination {
+  a, span {
+    background: rgba(255, 255, 255, 0.3);
+    @include border-radius(3px);
+    color: #444;
+    @include padding-leader(.25);
+    @include padding-trailer(.25);
+    padding-left: .5em;
+    padding-right: .5em;
+    display: block;
+    float: left;
+    margin: 0 .25em 0 0;
+    
+    &:hover, &.current {
+      text-decoration:none;
+      background: rgba(255, 255, 255, 0.6);
+    }
+  }
+}
+
+.page {
+  // page acts as a container for our grid.
+  @include container;
+  @include trailer;
+  @include leader;
+}
+
+#main {
+  @include span-columns(9, 12);
+}
+
+#posts .post, #post .comment, #post .post {
+  @include chunk;
+  @include padding-trailer(.5);
+
+  header, footer {
+    @include alt-font;
+  }
+
+  header {
+    float:right;
+  }
+  
+  footer {
+    @include clearfix;
+    @include leader;
+    @include padding-leader(0.5);
+    @include box-sizing(border-box);
+    border-top:1px solid #ccc;
+  }
+
+  .content {
+    @include adjust-font-size-to(18px);
+
+    p:last-child {
+      margin-bottom:0;
+    }
+
+    .controls {
+      @include alt-font;
+      @include adjust-font-size-to(13px, 1, 18px);
+      
+      .formatting-help {
+        @include adjust-font-size-to(13px, 1, 13px);
+      }  
+    }
+  }
+
+  
+  .author {
+    font-weight:bold;
+    float: right;
+    margin-right:.5em;
+  }
+
+  .date {
+    float:right;
+  }
+
+  .comments {
+    float:left;
+    margin-left:1em;
+  }
+
+  .favorite {
+    float:left;
+    .status {
+      float:left;
+    }
+    
+    a {
+      float:left;
+      display:block;
+      background:#eee;
+      width: 2em;
+      text-align:center;
+      color: #ccc;
+      @include border-radius(1em);
+      margin-right: .5em;
+      
+      &:hover {
+        color:#999;
+        text-decoration:none;
+      }
+    }
+
+    &.added a {
+      background: #ebf4f6;
+      color: $blue;
+      @include transition-property("all");
+      @include rotate(360deg);
+      @include transition-duration(".5s");
+      position: relative;
+      left: 1px;
+    }
+  }
+
+  .moderate {
+    float:right;
+    margin-left: .5em;
+  }
+
+  .edit {
+    float:right;
+    margin-left: .5em;
+  }
+
+  textarea {
+    @include adjust-font-size-to(18px, 1, 18px);
+  }
+}
+
+#post .comment footer {
+  border: none;
+  margin: 0;
+  float: left;
+  color: #999;
+
+  a {
+    color: #aac2e5;
+    &:visited {
+      color: #9889dd;
+    }
+  }
+}
+
+textarea {
+  width:100%;
+  @include box-sizing(border-box);
+  @include adjust-font-size-to(18px);
+  @include serif-family;
+  @include trailer(.5, 18px);
+  border: 1px solid #ddd;
+  height: 5 * $base-line-height;
+}
+
+#new-post, #new-user, .new, .chunk {
+  @include chunk;
+  @include padding-trailer;
+
+  .edit {
+    float:right;
+  }
+}
+
+#new-comment {
+  h3 {
+    margin:0;
+    @include trailer(.5);
+  }
+}
+
+#tips {
+  @include chunk;
+}
+
+form {
+  @include sans-family;
+  @include adjust-font-size-to(14px);
+}
+
+table.input {
+  @include trailer(.5);
+  td {
+    @include padding-trailer(0.5);
+  }
+
+  tr:last-child td {
+    padding-bottom:0
+  }
+  
+  .label {
+    height: 100%;
+    vertical-align:top;
+  }
+  label {
+    text-align:right;
+    padding-right: 10px;
+    display:block;
+  }
+}
+
+.action {
+  @include leader;
+}
+
+.errors {
+  color: $red;
+  @include adjust-font-size-to(15px);
+}
+
+#user-content {
+  h2 {
+    margin-bottom: 0;
+  }
+  .local-nav {
+    @include clearfix;
+    li {
+      float:left;
+      margin-right: 1em;
+    }
+
+    @include trailer(.5);
+  }
+  
+  div.posts, div.comments {
+    border-bottom: 1px solid #eee;
+  }
+  div.post, div.comment {
+    display:block;
+    @include clearfix;
+    @include box-sizing(border-box);
+    @include padding-trailer(.5);
+    @include padding-leader(.5);
+    border-top: 1px solid #eee;
+
+    &.highlight {
+      border-top:1px solid $purple;
+    }
+
+    &:hover {
+      background: $light-blue;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    .meta {
+      float: right;
+      padding: 0 4px;
+      margin: 0 .5em;
+
+      border-left: 1px solid #eee;
+    }
+    
+    .date, .author {
+      float:right;
+      padding: 0 .5em;
+      font-style: italic;
+      text-align: right;
+      @include adjust-font-size-to(13px);
+
+    }
+    .content {
+
+    }
+  }
+}
+
+.sub-section {
+  @include box-sizing(border-box);
+  border-bottom: 1px dotted #ccc;
+  @include padding-trailer;
+
+  &:last-child {
+    @include padding-trailer(.5);
+    border-bottom: none;
+  }
+}
+
+.markdown-help {
+  table {
+    width: 100%;
+  }
+  td:first-child {
+    width: 50%;
+  }
+  td {
+    padding: 0 .5em;
+    border: 1px solid #eee;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.formatting-help {
+  float:right;
+  @include alt-font;
+}
+
+.delete {
+  @include leader;
+
+  input[type="submit"] {
+    @include background-image(linear-gradient(white, #f1d8df));
+  }
+}
+
+#signup {
+  padding: (.5 * $base-line-height) $gutter-width;
+  background: $medium-green;
+  @include border-radius(3px);
+  border: 1px solid #a6e5a4;
+}
