@@ -11,10 +11,11 @@ nav {
   @include transition-property("all");
   @include transition-duration(".3s");
   &:hover {
-    background: rgba(116, 147, 218, .4);
+    background: rgba(252, 236, 205, .4); // orange
+    //background: rgba(116, 147, 218, .4);
 
     a {
-      background: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.3);
     }
   }
 
@@ -27,9 +28,12 @@ nav {
   a {
     background: rgba(255, 255, 255, 0.3);
     color: #444;
-    @include bshadow;
-    @include padding-leader(.25);
-    @include padding-trailer(.25);
+    // @include bshadow;
+    height: rhythm() - rhythm(.05);
+    @include sans-family;
+    @include trailer(.05);
+    @include padding-leader(.5);
+    @include padding-trailer(.5);
     @include transition-property("all");
     @include transition-duration(".3s");
     padding-left: .5em;
@@ -39,7 +43,7 @@ nav {
 
     &:hover {
       text-decoration:none;
-      background: rgba(255, 255, 255, 1);
+      background: rgba(255, 255, 255, .8);
     }
 
     &:visited {

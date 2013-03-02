@@ -4,7 +4,7 @@ angular.module('gratefulplaceApp', [])
   .config ($routeProvider) ->
     $routeProvider
       .when '/',
-        templateUrl: 'views/main.html'
-        controller: 'MainCtrl'
+        templateUrl: 'views/posts/index.html'
+        controller: 'PostsCtrl'
       .otherwise
         redirectTo: '/'

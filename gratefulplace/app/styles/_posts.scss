@@ -1,0 +1,133 @@
+#posts .post, #post .comment, #post .post {
+  @include chunk;
+  @include padding-trailer(.5);
+
+  header, footer {
+    @include alt-font;
+  }
+
+  header {
+    float:right;
+  }
+  
+  footer {
+    @include clearfix;
+    @include leader;
+    @include padding-leader(0.5);
+    @include box-sizing(border-box);
+    border-top:1px solid #ccc;
+  }
+
+  .content {
+    @include adjust-font-size-to(18px);
+
+    p:last-child {
+      margin-bottom:0;
+    }
+
+    .controls {
+      @include alt-font;
+      @include adjust-font-size-to(13px, 1, 18px);
+      
+      .formatting-help {
+        @include adjust-font-size-to(13px, 1, 13px);
+      }  
+    }
+  }
+
+  
+  .author {
+    font-weight:bold;
+    float: right;
+    margin-right:.5em;
+  }
+
+  .date {
+    float:right;
+  }
+
+  .comments {
+    float:left;
+    margin-left:1em;
+  }
+
+  .favorite {
+    float:left;
+    .status {
+      float:left;
+    }
+    
+    a {
+      float:left;
+      display:block;
+      background:#eee;
+      width: 2em;
+      text-align:center;
+      color: #ccc;
+      @include border-radius(1em);
+      margin-right: .5em;
+      
+      &:hover {
+        color:#999;
+        text-decoration:none;
+      }
+    }
+
+    &.added a {
+      background: #ebf4f6;
+      color: $blue;
+      @include transition-property("all");
+      @include rotate(360deg);
+      @include transition-duration(".5s");
+      position: relative;
+      left: 1px;
+    }
+  }
+
+  .moderate {
+    float:right;
+    margin-left: .5em;
+  }
+
+  .edit {
+    float:right;
+    margin-left: .5em;
+  }
+
+  textarea {
+    @include adjust-font-size-to(18px, 1, 18px);
+  }
+}
+
+#post .comment footer {
+  border: none;
+  margin: 0;
+  float: left;
+  color: #999;
+
+  a {
+    color: #aac2e5;
+    &:visited {
+      color: #9889dd;
+    }
+  }
+}
+
+textarea {
+  width:100%;
+  @include box-sizing(border-box);
+  @include adjust-font-size-to(18px);
+  @include serif-family;
+  @include trailer(.5, 18px);
+  border: 1px solid #ddd;
+  height: 5 * $base-line-height;
+}
+
+#new-post, #new-user, .new, .chunk {
+  @include chunk;
+  @include padding-trailer;
+
+  .edit {
+    float:right;
+  }
+}
