@@ -1,2 +1,53 @@
 @import "base";
 
+nav {
+  @include padding-trailer;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 223px;
+  background: rgba(252, 236, 205, .2); // orange
+  
+  @include transition-property("all");
+  @include transition-duration(".3s");
+  &:hover {
+    background: rgba(116, 147, 218, .4);
+
+    a {
+      background: rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  @include padding-leader;
+
+  ul {
+    @include trailer;
+  }
+
+  a {
+    background: rgba(255, 255, 255, 0.3);
+    color: #444;
+    @include bshadow;
+    @include padding-leader(.25);
+    @include padding-trailer(.25);
+    @include transition-property("all");
+    @include transition-duration(".3s");
+    padding-left: .5em;
+    padding-right: .5em;
+    display: block;
+    text-align: right;
+
+    &:hover {
+      text-decoration:none;
+      background: rgba(255, 255, 255, 1);
+    }
+
+    &:visited {
+      color: #444;
+    }
+  }
+}
+
+#main {
+  @include span-columns(9 omega, 12);
+}

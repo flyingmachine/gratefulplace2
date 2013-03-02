@@ -124,42 +124,6 @@ strong {
   }
 }
 
-nav {
-  @include padding-trailer;
-  @include clearfix;
-  @include span-columns(3 omega, 12);
-
-  ul {
-    @include trailer;
-  }
-
-  li {
-    @include trailer(.25);
-  }
-
-  a {
-    background: rgba(255, 255, 255, 0.3);
-    @include bshadow;
-    @include border-radius(0 0 40px 0);
-    color: #444;
-    @include padding-leader(.25);
-    @include padding-trailer(.25);
-    padding-left: .5em;
-    padding-right: .5em;
-    display: block;
-    border-left: 2px solid white;
-
-    &:hover {
-      text-decoration:none;
-      background: rgba(255, 255, 255, 0.7);
-    }
-
-    &:visited {
-      color: #444;
-    }
-  }
-}
-
 .pagination {
   a, span {
     background: rgba(255, 255, 255, 0.3);
@@ -180,7 +144,7 @@ nav {
   }
 }
 
-.page {
+.container {
   // page acts as a container for our grid.
   @include container;
   @include trailer;
@@ -477,3 +441,5 @@ table.input {
   @include border-radius(3px);
   border: 1px solid #a6e5a4;
 }
+
+@import "layout";
