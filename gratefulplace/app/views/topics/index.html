@@ -11,14 +11,14 @@
   <div id="topics">
     <div class="post" ng-repeat="topic in topics">
 
-      <div class="content" ng-bind-html-unsafe="topic.content"></div>
+      <div class="content" ng-bind-html-unsafe="firstPost(topic).content"></div>
       <footer>
         <div class="date">{{topic.date}}</div>
         <div class="author">{{topic.author}}</div>
         <div class="favorite">
           <a href="#">&#9733;</a>
         </div>
-        <a href="#" class="comments">23 replies</a>
+        <a href="/#/topics/{{topic.id}}/" class="comments">23 replies</a>
       </footer>
     </div>
   </div>
