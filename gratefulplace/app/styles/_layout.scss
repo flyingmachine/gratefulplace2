@@ -53,5 +53,10 @@ nav {
 }
 
 #main {
-  @include span-columns(9 omega, 12);
+  @include span-columns(6, 12);
+  @include push(3);
+}
+
+#secondary {
+  @include span-columns(3 omega, 12);
 }

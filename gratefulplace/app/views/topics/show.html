@@ -1,4 +1,13 @@
 <div id="topic">
   <div class="summary"></div>
   <div class="title">{{topic.title}}</div>
+  <div class="posts">
+    <div class="post" ng-repeat="post in topic.posts">
+      <div class="content" ng-bind-html-unsafe="post.content"></div>
+      <footer>
+        <div class="date">{{post.date}}</div>
+        <div class="author">{{post.author}}</div>
+      </footer>
+    </div>
+  </div>
 </div>
