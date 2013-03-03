@@ -2,8 +2,8 @@
 
 angular.module('gratefulplaceApp')
   .controller 'TopicsCtrl', ($scope, Topics) ->
-    Topics.load().then ()->
-      $scope.topics = Topics.data()
+    Topics.all().then (data)->
+      $scope.topics = data
 
     $scope.firstPost = (topic)->
       topic.posts[0]

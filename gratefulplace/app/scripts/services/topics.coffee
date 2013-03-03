@@ -1,15 +1,15 @@
 'use strict';
 angular.module("gratefulplaceApp")
-  .factory "Topics", ["$http", ($http) ->
-    posts = []
-    loadCall = undefined
-    
+  .factory "Topics", ["$http", "$q", ($http, $q) ->
     # Public API here
-    load: ->
-      return loadCall  if loadCall
-      loadCall = $http.get("data/topics.json").then (data)->
-        console.log(data)
-        posts = data.data
-    data: ->
-      posts
+    all: ->
+      deferred = $q.defer()
+      $http.get("data/topics.json").then (data)->
+        deferred.resolve(data.data)
+      deferred.promise
+    find: ->
+      single = $q.defer()
+      @all().then (topics)->
+        single.resolve
+      single.promise
   ]

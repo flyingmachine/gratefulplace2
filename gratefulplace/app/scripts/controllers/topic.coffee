@@ -2,5 +2,5 @@
 
 angular.module('gratefulplaceApp')
   .controller 'TopicCtrl', ($scope, $routeParams, Topics) ->
-    $scope.firstPost = (topic)->
-      topic.posts[0]
+    Topics.find($routeParams.id).then (topic)->
+      $scope.topic = topic
