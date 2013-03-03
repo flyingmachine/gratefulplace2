@@ -17,7 +17,7 @@
 
 @mixin chunk {
   background: white;
-
+  // @include border-radius(2px); 
   @include bshadow;
   padding:0 1em;
   @include trailer;
