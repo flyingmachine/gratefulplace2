@@ -7,9 +7,9 @@ angular.module("gratefulplaceApp")
       $http.get("data/topics.json").then (data)->
         deferred.resolve(data.data)
       deferred.promise
-    find: ->
-      single = $q.defer()
+    find: (id)->
+      deferred = $q.defer()
       @all().then (topics)->
-        single.resolve
-      single.promise
+        deferred.resolve _.find(topics, (topic)-> parseInt(topic.id) == parseInt(id))
+      deferred.promise
   ]
