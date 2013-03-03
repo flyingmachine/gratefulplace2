@@ -6,7 +6,11 @@
       <div class="content" ng-bind-html-unsafe="post.content"></div>
       <footer>
         <div class="date">{{post.date}}</div>
-        <div class="author">{{post.author}}</div>
+        <div class="author">
+          <a href="/#/users/{{post.author.id}}">
+            {{post.author.username}}
+          </a>
+        </div>
       </footer>
     </div>
   </div>

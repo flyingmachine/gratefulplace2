@@ -10,8 +10,14 @@ directory = File.expand_path(File.dirname(__FILE__))
 def pick_random(arr)
   arr[rand(arr.size)]
 end
-
-users = Array.new(20){ Faker::Internet.user_name }
+i = 0
+users = Array.new(20){
+  i += 1
+  {
+    id: i,
+    username: Faker::Internet.user_name
+  }
+}
 i = 0
 topics = Array.new(100) {
   i += 1
