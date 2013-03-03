@@ -1,4 +1,4 @@
-#posts .post, #post .comment, #post .post {
+.post {
   @include chunk;
   @include padding-trailer(.5);
 

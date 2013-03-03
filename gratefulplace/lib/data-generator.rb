@@ -29,4 +29,4 @@ topics = Array.new(100) {
   }
 }
 
-File.open(directory + "/../app/data/posts.json", 'w+'){ |f| f.puts topics.to_json }
+File.open(directory + "/../app/data/topics.json", 'w+'){ |f| f.puts topics.to_json }
