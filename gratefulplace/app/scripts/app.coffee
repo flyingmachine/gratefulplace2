@@ -11,3 +11,7 @@ angular.module('gratefulplaceApp', [])
         controller: 'TopicCtrl'
       .otherwise
         redirectTo: '/'
+  .directive 'peekable', ($rootScope)->
+    restrict: 'A',
+    link: ->
+      $rootScope.$b

@@ -144,13 +144,6 @@ strong {
   }
 }
 
-.container {
-  // page acts as a container for our grid.
-  @include container;
-  @include trailer;
-  @include leader;
-}
-
 #new-comment {
   h3 {
     margin:0;

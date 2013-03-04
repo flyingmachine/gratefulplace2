@@ -1,5 +1,12 @@
 @import "base";
 
+.container {
+  // page acts as a container for our grid.
+  @include container;
+  @include trailer;
+  @include leader;
+}
+
 nav {
   @include padding-trailer;
   position: fixed;
@@ -57,6 +64,7 @@ nav {
   @include push(3);
 }
 
-#secondary {
-  @include span-columns(3 omega, 12);
+#peek {
+  @include span-columns(3 omega, 12);  
 }
+
