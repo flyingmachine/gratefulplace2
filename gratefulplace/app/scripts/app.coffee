@@ -14,4 +14,4 @@ angular.module('gratefulplaceApp', [])
   .directive 'peekable', ($rootScope)->
     restrict: 'A',
     link: ->
-      $rootScope.$b
+      # $rootScope.$broadcast

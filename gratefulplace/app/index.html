@@ -12,7 +12,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="styles/main.css">
   </head>
-  <body ng-app="gratefulplaceApp">
+  <body ng-app="gratefulplaceApp" ng-controller="FoundationCtrl">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -47,7 +47,14 @@
     <script src="components/underscore/underscore-min.js"></script>
     
     <!-- build:js scripts/scripts.js -->
-    <script src="scripts/coffee.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/foundation.js"></script>
+    <script src="scripts/controllers/peek.js"></script>
+    <script src="scripts/controllers/topic.js"></script>
+    <script src="scripts/controllers/topics.js"></script>
+    <script src="scripts/services/peek.js"></script>
+    <script src="scripts/services/topics.js"></script>
+    <script src="scripts/services/users.js"></script>
     <!-- endbuild -->
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
