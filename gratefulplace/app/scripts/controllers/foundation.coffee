@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'FoundationCtrl', ($scope) ->
+  .controller 'FoundationCtrl', ($scope, Users) ->
     $scope.peek = null
     $scope.peekAt = (toPeekAt)->
-      $scope.peek = toPeekAt
+      Users.find(toPeekAt.id).then (data)->
+        $scope.peek = data

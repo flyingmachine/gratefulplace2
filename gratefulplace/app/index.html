@@ -37,6 +37,11 @@
       <div id="peek" ng-controller="PeekCtrl" ng-show="peek">
         <div class="user">
           <div class="username">{{peek.username}}</div>
+          <div class="about">{{peek.about}}</div>
+          <div class="recent-posts" ng-repeat="post in peek.recent_posts">
+            <div class="post" ng-bind-html-unsafe="post.content">
+            </div>
+          </div>
         </div>
       </div>
 
