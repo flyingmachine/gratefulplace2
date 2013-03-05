@@ -43,6 +43,6 @@ topics = Array.new(100) {
 
 File.open(directory + "/../app/data/topics.json", 'w+'){ |f| f.puts topics.to_json }
 
-users.each{|u| u['recent_posts'] = topics.first[:posts][0..3]}
+users.each{|u| u['recent_posts'] = pick_random(topics)[:posts][0...3]}
 
 File.open(directory + "/../app/data/users.json", 'w+'){ |f| f.puts users.to_json }
