@@ -2,8 +2,5 @@
 
 angular.module('gratefulplaceApp')
   .controller 'FoundationCtrl', ($scope) ->
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Testacular'
-    ]
+    $scope.peek =
+      username: "John"
