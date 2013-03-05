@@ -1,4 +1,30 @@
 #peek {
   background: white;
   @include bshadow;
+
+  .user {
+    .username {
+      font-weight: bold;
+    }
+  }
+
+  .post {
+    @include leading-border;
+    @include trailer;
+    border-color: #ccc;
+
+    p:last-child {
+      margin-bottom:0;
+    }
+
+    .date {
+      @include adjust-font-size-to(12px);
+      margin-left: 3px;
+      margin-right: 1px;
+      padding-left: 5px;
+      border-left: 1px solid #eee;
+      float: right;
+      font-style: italic;
+    }
+  }
 }
