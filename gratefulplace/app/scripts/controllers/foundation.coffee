@@ -2,7 +2,6 @@
 
 angular.module('gratefulplaceApp')
   .controller 'FoundationCtrl', ($scope) ->
-    $scope.peek =
-      username: "John"
+    $scope.peek = null
     $scope.peekAt = (toPeekAt)->
       $scope.peek = toPeekAt

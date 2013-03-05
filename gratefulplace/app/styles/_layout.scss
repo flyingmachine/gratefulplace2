@@ -65,6 +65,8 @@ nav {
 }
 
 #peek {
-  @include span-columns(3 omega, 12);  
+  @include span-columns(3 omega, 12, $gutter-width);
+  @include padding-leader;
+  @include padding-trailer;
 }
 

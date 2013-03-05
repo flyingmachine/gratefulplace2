@@ -34,8 +34,10 @@
       </nav>
       <div id="main" ng-view>
       </div>
-      <div id="peek" ng-controller="PeekCtrl">
-        {{peek}}
+      <div id="peek" ng-controller="PeekCtrl" ng-show="peek">
+        <div class="user">
+          <div class="username">{{peek.username}}</div>
+        </div>
       </div>
 
     </div>
