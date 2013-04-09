@@ -256,11 +256,11 @@ module.exports = (grunt) ->
     "cssmin",
     "htmlmin",
     "concat",
-    # "copy",
-    # "cdnify",
-    # "ngmin",
-    # "uglify",
-    # "rev",
-    # "usemin"
+    "copy",
+    "cdnify",
+    "ngmin",
+    "uglify",
+    "rev",
+    "usemin"
   ]
   grunt.registerTask "default", ["build"]
