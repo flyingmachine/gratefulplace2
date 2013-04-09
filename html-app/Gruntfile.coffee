@@ -64,7 +64,7 @@ module.exports = (grunt) ->
       dist:
         files: [
           dot: true
-          src: [".tmp", "<%= yeoman.dist %>/**/*", "!<%= yeoman.dist %>/.git*"]
+          src: [".tmp", "<%= yeoman.dist %>/*", "!<%= yeoman.dist %>/.git*"]
         ]
 
       server: ".tmp"
@@ -121,7 +121,10 @@ module.exports = (grunt) ->
     concat:
       dist:
         files:
-          "<%= yeoman.dist %>/scripts/scripts.js": [".tmp/scripts/{,*/}*.js", "<%= yeoman.app %>/scripts/{,*/}*.js"]
+          "<%= yeoman.dist %>/scripts/scripts.js": [
+            ".tmp/scripts/{,*/}*.js",
+            "<%= yeoman.app %>/scripts/{,*/}*.js"
+          ]
 
     useminPrepare:
       html: "<%= yeoman.app %>/index.html"
@@ -244,20 +247,20 @@ module.exports = (grunt) ->
   ]
   grunt.registerTask "build", [
     "clean:dist",
-    #"jshint",
+    # "jshint",
     # "test",
-    "coffee",
+    "coffee:dist",
     "compass:dist",
     "useminPrepare",
     "imagemin",
     "cssmin",
     "htmlmin",
     "concat",
-    "copy",
-    "cdnify",
-    "ngmin",
-    "uglify",
-    "rev",
-    "usemin"
+    # "copy",
+    # "cdnify",
+    # "ngmin",
+    # "uglify",
+    # "rev",
+    # "usemin"
   ]
   grunt.registerTask "default", ["build"]
