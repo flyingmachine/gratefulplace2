@@ -11,5 +11,5 @@
                 ~@handlers)))
 
 (defroutes routes
-  (compojure.route/files "/" {:root "../public"})
+  (compojure.route/files "/" {:root "../html-app/targets/public"})
   (compojure.route/not-found "Sorry, there's nothing here."))

@@ -11,7 +11,7 @@ module.exports = (grunt) ->
   # configurable paths
   yeomanConfig =
     app: "app"
-    dist: "../public"
+    dist: "targets/public"
 
   try
     yeomanConfig.app = require("./component.json").appPath or yeomanConfig.app
@@ -64,7 +64,7 @@ module.exports = (grunt) ->
       dist:
         files: [
           dot: true
-          src: [".tmp", "<%= yeoman.dist %>/*", "!<%= yeoman.dist %>/.git*"]
+          src: [".tmp", "<%= yeoman.dist %>/**/*", "!<%= yeoman.dist %>/.git*"]
         ]
 
       server: ".tmp"
@@ -210,9 +210,19 @@ module.exports = (grunt) ->
           src: [
             "*.{ico,txt}",
             ".htaccess",
+            "assets/**/*",
+            "styles/**/*.css",
+            "index.html",
+            "views/**/*",
             "components/**/*",
+            "scripts/config/*",
             "images/{,*/}*.{gif,webp}"
           ]
+        ,     
+          expand: true
+          cwd: ".tmp"
+          dest: "<%= yeoman.dist %>"
+          src: ["styles/*main.css", "scripts/*scripts.js"]
         ]
 
   grunt.renameTask "regarde", "watch"
