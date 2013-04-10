@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('gratefulplaceApp', [])
+angular.module('gratefulplaceApp', @App.modules)
   .config ($routeProvider) ->
     $routeProvider
       .when '/',

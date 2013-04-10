@@ -1,15 +1,5 @@
 'use strict';
 angular.module("gratefulplaceApp")
-  .factory "Topics", ["$http", "$q", ($http, $q) ->
-    # Public API here
-    all: ->
-      deferred = $q.defer()
-      $http.get("data/topics.json").then (data)->
-        deferred.resolve(data.data)
-      deferred.promise
-    find: (id)->
-      deferred = $q.defer()
-      @all().then (topics)->
-        deferred.resolve _.find(topics, (topic)-> parseInt(topic.id) == parseInt(id))
-      deferred.promise
+  .factory "Topics", ["$http", "$resource", ($http, $resource) ->
+    $resource '/data/topics/:id'
   ]
