@@ -12,4 +12,6 @@
 
 (defroutes routes
   (compojure.route/files "/" {:root "../html-app/targets/public"})
-  (compojure.route/not-found "Sorry, there's nothing here."))
+  (compojure.route/not-found "Sorry, there's nothing here.")
+
+  )

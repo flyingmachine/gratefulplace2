@@ -4,6 +4,7 @@
         ring.middleware.keyword-params
         ring.middleware.nested-params
         ring.middleware.session
+        ring.middleware.json
         [gratefulplace.middleware.routes :only (routes)]))
 
 ; The ring app
