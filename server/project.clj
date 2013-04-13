@@ -7,7 +7,7 @@
 
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojure-contrib "1.2.0"]
-                 [org.apache.commons/commons-email "1.2"]
+                 [com.datomic/datomic-free "0.8.3862"]
                  [environ "0.4.0"]
                  [ring "1.1.8"]
                  [ring-middleware-format "0.3.0"]
@@ -19,11 +19,18 @@
                  [com.flyingmachine/webutils "0.1.1"]]
 
   :plugins [[lein-ring "0.8.3"]
-            [lein-environ "0.4.0"]]
+            [lein-environ "0.4.0"]
+            [lein-datomic "0.2.0"]]
 
-  :profiles {:dev {:env
-                   {:html-paths ["../html-app/app"
-                                 "../html-app/.tmp"]}}
-             :production {:env {:html-paths ["public"]}}}
+  :datomic {:schemas ["resources/schema" ["schema.edn"]]}
+  
+  :profiles {:dev
+             {:env {:html-paths ["../html-app/app"
+                                 "../html-app/.tmp"]}
+              :datomic {:config "resources/datomic-transactor.properties"
+                        :db-uri "datomic:free://localhost:4334/gp2"}}
+             
+             :production
+             {:env {:html-paths ["public"]}}}
   
   :main gratefulplace.server)

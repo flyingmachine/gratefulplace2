@@ -1,0 +1,19 @@
+[
+ ;; topics
+ {:db/id #db/id[:db.part/db]
+  :db/ident :topic/title
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc "Topic title"
+  :db.install/_attribute :db.part/db}
+
+ ;; posts
+ {:db/id #db/id[:db.part/db]
+  :db/ident :post/content
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc "Post content"
+  :db.install/_attribute :db.part/db}
+]
