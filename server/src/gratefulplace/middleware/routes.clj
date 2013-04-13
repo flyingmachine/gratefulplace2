@@ -26,6 +26,8 @@
   (apply compojure.core/routes
          (map #(compojure.route/files "/" {:root %})
               (env :html-paths)))
+
+  ;; (route ANY "/topics" topics/query)
   (json-resource "topics")
 
   (compojure.route/not-found "Sorry, there's nothing here."))

@@ -4,17 +4,14 @@
         ring.middleware.keyword-params
         ring.middleware.nested-params
         ring.middleware.session
-        [ring.middleware.format-params :only [wrap-restful-params]]
-        [ring.middleware.format-response :only [wrap-restful-response]]
+        ring.middleware.format
         [gratefulplace.middleware.routes :only (routes)]))
 
 ; The ring app
 (def app
   (-> routes
       ;; (wrap-session {:cookie-name "gratefulplace-session" :store (db-session-store)})
-      wrap-restful-params
-      wrap-restful-format
-      ))
+      wrap-restful-format))
 
 (defn -main
   "Start the jetty server"

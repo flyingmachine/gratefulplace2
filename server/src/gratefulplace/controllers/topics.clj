@@ -2,4 +2,4 @@
 
 (defn query
   [params]
-  (pr-str params))
+  {:body {:key "val"}})
