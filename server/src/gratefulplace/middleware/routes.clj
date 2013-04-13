@@ -1,7 +1,8 @@
 (ns gratefulplace.middleware.routes
   (:require compojure.route
             compojure.handler)
-  (:use [compojure.core :only (GET PUT POST ANY defroutes)]))
+  (:use [compojure.core :as compojure.core :only (GET PUT POST ANY defroutes)]
+        environ.core))
 
 
 (defmacro route
@@ -11,7 +12,7 @@
                 ~@handlers)))
 
 (defroutes routes
-  (compojure.route/files "/" {:root "../html-app/targets/public"})
-  (compojure.route/not-found "Sorry, there's nothing here.")
-
-  )
+  (apply compojure.core/routes
+         (map #(compojure.route/files "/" {:root %})
+              (env :html-paths)))
+  (compojure.route/not-found "Sorry, there's nothing here."))
