@@ -8,7 +8,7 @@ environment = switch window.location.port
 prototypeMocks = angular.module('prototypeMocks', [])
 prototypeMocks.factory "$resource", ['$q', '$http', ($q, $http)->
   (url)->
-    url = url.replace("/:id", "")
+    url = "/data" + url.replace("/:id", "")
     query: (fn)->
       $http.get("#{url}.json").then (data)->
         fn(data.data)
