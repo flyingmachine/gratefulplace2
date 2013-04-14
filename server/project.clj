@@ -22,13 +22,17 @@
             [lein-environ "0.4.0"]
             [lein-datomic "0.2.0"]]
 
-  :datomic {:schemas ["resources/schema" ["schema.edn"]]}
+  :datomic {:schemas ["resources/schema" ["schema.edn" "seed-data.edn"]]}
   
   :profiles {:dev
              {:env {:html-paths ["../html-app/app"
-                                 "../html-app/.tmp"]}
+                                 "../html-app/.tmp"]
+                    :datomic {:config "resources/datomic-transactor.properties"
+                              :db-uri "datomic:free://localhost:4334/gp2"}}
               :datomic {:config "resources/datomic-transactor.properties"
-                        :db-uri "datomic:free://localhost:4334/gp2"}}
+                        :db-uri "datomic:free://localhost:4334/gp2"
+                        :username ""
+                        :password ""}}
              
              :production
              {:env {:html-paths ["public"]}}}

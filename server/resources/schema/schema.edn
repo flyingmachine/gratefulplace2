@@ -16,4 +16,11 @@
   :db/fulltext true
   :db/doc "Post content"
   :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :post/topic
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "A post's topic"
+  :db.install/_attribute :db.part/db}
 ]
