@@ -30,9 +30,7 @@
                     :datomic {:config "resources/datomic-transactor.properties"
                               :db-uri "datomic:free://localhost:4334/gp2"}}
               :datomic {:config "resources/datomic-transactor.properties"
-                        :db-uri "datomic:free://localhost:4334/gp2"
-                        :username ""
-                        :password ""}}
+                        :db-uri "datomic:free://localhost:4334/gp2"}}
              
              :production
              {:env {:html-paths ["public"]}}}
