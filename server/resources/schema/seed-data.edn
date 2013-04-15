@@ -1,11 +1,11 @@
 [
- {:district/region :region/e, :db/id #db/id[:db.part/user -1000001], :district/name "East"}
-
  {:topic/title "First topic"
   :db/id #db/id[:db.part/user -1000001]}
 
  {:post/content "First post content"
-  :post/topic #db/id[:db.part/user -1000001]}
+  :post/topic #db/id[:db.part/user -1000001]
+  :db/id #db/id[:db.part/user -1000100]}
  {:post/content "Second post content"
-  :post/topic #db/id[:db.part/user -1000001]}
+  :post/topic #db/id[:db.part/user -1000001]
+  :db/id #db/id[:db.part/user -1000101]}
 ]
