@@ -7,7 +7,7 @@
 
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojure-contrib "1.2.0"]
-                 [com.datomic/datomic-free "0.8.3862"]
+                 [com.datomic/datomic-free "0.8.3889"]
                  [environ "0.4.0"]
                  [ring "1.1.8"]
                  [ring-middleware-format "0.3.0"]
