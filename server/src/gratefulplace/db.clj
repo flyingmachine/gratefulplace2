@@ -21,13 +21,19 @@
           {}
           (:attributes (get collections collection))))
 
+(defn entseq->maps
+  [collection seq]
+  (map (partial ent->map collection) seq))
+
 (def collections
   {:topics
    {:all :topic/title
-    :attributes [:topic/title]}})
+    :attributes [:topic/title]}
+   :posts
+   {:all :post/topic
+    :attributes [:post/content]}})
 
 (defn all
   [collection]
   (let [coldef (get collections collection)]
     (map ent (q [:find '?c :where ['?c (:all coldef)]]))))
-

@@ -1,5 +1,6 @@
-(ns gratefulplace.controllers.topics)
+(ns gratefulplace.controllers.topics
+  (:require [gratefulplace.db :as db]))
 
 (defn query
   [params]
-  {:body {:key "val"}})
+  (db/entseq->maps :topics (db/all :topics)))
