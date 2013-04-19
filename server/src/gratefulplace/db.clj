@@ -15,11 +15,16 @@
 (def ent
   #(d/entity (db) (first %)))
 
+(defn ent->map
+  [collection entity]
+  (reduce (fn [acc attr] (conj acc [attr (attr entity)]))
+          {}
+          (:attributes (get collections collection))))
+
 (def collections
   {:topics
    {:all :topic/title
     :attributes [:topic/title]}})
-
 
 (defn all
   [collection]
