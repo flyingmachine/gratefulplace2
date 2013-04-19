@@ -1,5 +1,5 @@
 'use strict';
 angular.module("gratefulplaceApp")
-  .factory "Topics", ["$http", "$resource", ($http, $resource) ->
+  .factory "Topics", ["$resource", ($resource) ->
     $resource '/topics/:id'
   ]

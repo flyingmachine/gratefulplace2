@@ -1,6 +1,5 @@
 [
  ;; topics
-
  {:db/id #db/id[:db.part/db]
   :db/ident :topic/title
   :db/valueType :db.type/string

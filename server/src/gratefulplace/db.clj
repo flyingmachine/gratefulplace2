@@ -8,6 +8,21 @@
   []
   '(d/db conn))
 
+;; '[:find ?c :where [?c :topic/title]]
 (def q
   #(d/q % (db)))
+
+(def ent
+  #(d/entity (db) (first %)))
+
+(def collections
+  {:topics
+   {:all :topic/title
+    :attributes [:topic/title]}})
+
+
+(defn all
+  [collection]
+  (let [coldef (get collections collection)]
+    (map ent (q [:find '?c :where ['?c (:all coldef)]]))))
 

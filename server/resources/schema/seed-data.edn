@@ -2,10 +2,20 @@
  {:topic/title "First topic"
   :db/id #db/id[:db.part/user -1000001]}
 
- {:post/content "First post content"
+ {:post/content "T1 First post content"
   :post/topic #db/id[:db.part/user -1000001]
   :db/id #db/id[:db.part/user -1000100]}
- {:post/content "Second post content"
+ {:post/content "T1 Second post content"
   :post/topic #db/id[:db.part/user -1000001]
+  :db/id #db/id[:db.part/user -1000101]}
+
+ {:topic/title "Second topic"
+  :db/id #db/id[:db.part/user -1000002]}
+
+ {:post/content "T2 First post content"
+  :post/topic #db/id[:db.part/user -1000002]
+  :db/id #db/id[:db.part/user -1000100]}
+ {:post/content "T2 Second post content"
+  :post/topic #db/id[:db.part/user -1000002]
   :db/id #db/id[:db.part/user -1000101]}
 ]
