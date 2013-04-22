@@ -8,6 +8,14 @@
   []
   '(d/db conn))
 
+(def collections
+  {:topics
+   {:all :topic/title
+    :attributes [:topic/title]}
+   :posts
+   {:all :post/topic
+    :attributes [:post/content]}})
+
 ;; '[:find ?c :where [?c :topic/title]]
 (def q
   #(d/q % (db)))
@@ -24,14 +32,6 @@
 (defn entseq->maps
   [collection seq]
   (map (partial ent->map collection) seq))
-
-(def collections
-  {:topics
-   {:all :topic/title
-    :attributes [:topic/title]}
-   :posts
-   {:all :post/topic
-    :attributes [:post/content]}})
 
 (defn all
   [collection]

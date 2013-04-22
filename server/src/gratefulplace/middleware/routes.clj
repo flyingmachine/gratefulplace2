@@ -18,7 +18,7 @@
   `(ANY (str "/" ~resource-name)
         []
         (resource
-         :available-media-types ["text/html" "application/json"]
+         :available-media-types ["application/json"]
          :handle-ok #(~(symbol (str resource-name "/query"))
                       (get-in % [:request :params])))))
 
