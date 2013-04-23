@@ -8,6 +8,13 @@
   :db/doc "Topic title"
   :db.install/_attribute :db.part/db}
 
+ {:db/id #db/id[:db.part/db]
+  :db/ident :topic/first-post
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "Post which initiates topic"
+  :db.install/_attribute :db.part/db}
+
  ;; posts
  {:db/id #db/id[:db.part/db]
   :db/ident :post/content
@@ -22,5 +29,12 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "A post's topic"
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id[:db.part/db]
+  :db/ident :post/position
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc "Position in topic"
   :db.install/_attribute :db.part/db}
 ]

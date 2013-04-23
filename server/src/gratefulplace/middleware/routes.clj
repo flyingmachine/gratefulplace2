@@ -13,21 +13,11 @@
             (->> params#
                 ~@handlers)))
 
-(defmacro json-resource
-  [resource-name]
-  `(ANY (str "/" ~resource-name)
-        []
-        (resource
-         :available-media-types ["application/json"]
-         :handle-ok #(~(symbol (str resource-name "/query"))
-                      (get-in % [:request :params])))))
-
 (defroutes routes
   (apply compojure.core/routes
          (map #(compojure.route/files "/" {:root %})
               (env :html-paths)))
 
-  ;; (route ANY "/topics" topics/query)
-  (json-resource "topics")
-
+  (route GET "/topics" topics/query)
+  
   (compojure.route/not-found "Sorry, there's nothing here."))

@@ -1,5 +1,6 @@
 [
  {:topic/title "First topic"
+  :topic/first-post #db/id[:db.part/user -1000100]
   :db/id #db/id[:db.part/user -1000001]}
 
  {:post/content "T1 First post content"
@@ -10,12 +11,12 @@
   :db/id #db/id[:db.part/user -1000101]}
 
  {:topic/title "Second topic"
+  :topic/first-post #db/id [:db.part/user -1000200]
   :db/id #db/id[:db.part/user -1000002]}
 
  {:post/content "T2 First post content"
   :post/topic #db/id[:db.part/user -1000002]
-  :db/id #db/id[:db.part/user -1000100]}
+  :db/id #db/id[:db.part/user -1000200]}
  {:post/content "T2 Second post content"
   :post/topic #db/id[:db.part/user -1000002]
-  :db/id #db/id[:db.part/user -1000101]}
-]
+  :db/id #db/id[:db.part/user -1000201]}]
