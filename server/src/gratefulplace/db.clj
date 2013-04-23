@@ -1,9 +1,11 @@
 (ns gratefulplace.db
   (:require [datomic.api :as d])
-  (:use environ.core))
+  (:use environ.core
+        gratefulplace.utils))
 
 (declare ent->map)
 
+(def ^:dynamic *remove-key-namespace* false)
 (def db-uri (:db-uri (env :datomic)))
 (def conn (d/connect db-uri))
 (defmacro db
@@ -26,13 +28,17 @@
 (def ent
   #(d/entity (db) (first %)))
 
+(defn datomic-key
+  [key]
+  (remove-key-namespace key))
+
 (defn attr-value
   [attr entity]
   (if (keyword? attr)
-    [attr (attr entity)]
+    [(datomic-key attr) (attr entity)]
     (let [[attr collection] attr
           child-entity (attr entity)]
-      [attr (ent->map collection child-entity)])))
+      [(datomic-key attr) (ent->map collection child-entity)])))
 
 (defn ent->map
   [collection entity]
