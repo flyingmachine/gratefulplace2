@@ -16,10 +16,11 @@
   {:topics
    {:all :topic/title
     :attributes [:topic/title
+                 :db/id
                  [:topic/first-post :posts]]}
    :posts
    {:all :post/topic
-    :attributes [:post/content]}})
+    :attributes [:db/id :post/content]}})
 
 ;; '[:find ?c :where [?c :topic/title]]
 (def q

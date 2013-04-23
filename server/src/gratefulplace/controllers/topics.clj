@@ -4,4 +4,6 @@
 (defn query
   [params]
   (binding [db/*remove-key-namespace* true]
-    (db/entseq->maps :topics (db/all :topics))))
+    (map #(conj % [:post-count
+                   (ffirst (db/q [:find '(count ?c) :where ['?c :post/topic (:id %)]]))])
+         (db/entseq->maps :topics (db/all :topics)))))
