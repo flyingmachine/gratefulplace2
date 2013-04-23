@@ -3,4 +3,5 @@
 
 (defn query
   [params]
-  (db/entseq->maps :topics (db/all :topics)))
+  (binding [db/*remove-key-namespace* true]
+    (db/entseq->maps :topics (db/all :topics))))

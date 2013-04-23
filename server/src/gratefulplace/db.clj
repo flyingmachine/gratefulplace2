@@ -30,7 +30,9 @@
 
 (defn datomic-key
   [key]
-  (remove-key-namespace key))
+  (if *remove-key-namespace*
+    (remove-key-namespace key)
+    key))
 
 (defn attr-value
   [attr entity]
@@ -49,7 +51,7 @@
 
 (defn entseq->maps
   [collection seq]
-  (map (partial ent->map collection) seq))
+  (map (bound-fn [x] (ent->map collection x)) seq))
 
 (defn all
   [collection]
