@@ -19,5 +19,6 @@
               (env :html-paths)))
 
   (route GET "/topics" topics/query)
+  (route GET "/topics/:id" topics/show)
   
   (compojure.route/not-found "Sorry, there's nothing here."))
