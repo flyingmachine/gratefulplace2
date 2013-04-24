@@ -55,6 +55,9 @@
   (map (bound-fn [x] (ent->map collection x)) seq))
 
 (defn all
-  [collection]
-  (let [coldef (get collections collection)]
-    (map #(ent (first %)) (q [:find '?c :where ['?c (:all coldef)]]))))
+  [collection & conditions]
+  (let [coldef (get collections collection)
+        conditions (concat [['?c (:all coldef)]]
+                           (map #(concat ['?c] %) conditions))]
+    (map #(ent (first %)) (q {:find ['?c]
+                              :where conditions} ))))
