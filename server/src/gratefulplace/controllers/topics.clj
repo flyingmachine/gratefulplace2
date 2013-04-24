@@ -10,7 +10,7 @@
   (binding [db/*remove-key-namespace* true]
     (map #(conj % [:post-count
                    (ffirst (db/q [:find '(count ?c) :where ['?c :post/topic (:id %)]]))])
-         {:body (db/entseq->maps :topics (db/all :topics))})))
+         (db/entseq->maps :topics (db/all :topics)))))
 
 (defn show
   [params]
