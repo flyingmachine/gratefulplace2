@@ -27,7 +27,7 @@
   #(d/q % (db)))
 
 (def ent
-  #(d/entity (db) (first %)))
+  #(d/entity (db) %))
 
 (defn datomic-key
   [key]
@@ -57,8 +57,4 @@
 (defn all
   [collection]
   (let [coldef (get collections collection)]
-    (map ent (q [:find '?c :where ['?c (:all coldef)]]))))
-
-(defn one
-  [id]
-  (d/q '[:find ?eid :in $ ?eid :where [?eid]] (db) id))
+    (map #(ent (first %)) (q [:find '?c :where ['?c (:all coldef)]]))))
