@@ -1,5 +1,6 @@
 (ns gratefulplace.controllers.topics
-  (:require [gratefulplace.db :as db]))
+  (:require [gratefulplace.db.query :as db]
+            [gratefulplace.db.transform :as t]))
 
 (defmacro id
   []
@@ -7,14 +8,10 @@
 
 (defn query
   [params]
-  (binding [db/*remove-key-namespace* true]
-    (map #(merge % {:post-count (ffirst (db/q [:find '(count ?c) :where ['?c :post/topic (:id %)]]))})
-         (db/entseq->maps :topics (db/all :topics)))))
+  (map #(t/transform-entity (dissoc (:topic t/rules) :posts) %)
+       (db/all :topic/title)))
 
 (defn show
   [params]
-  (binding [db/*remove-key-namespace* true]
-    (let [id (id)]
-      {:body (->> (db/ent id)
-                  (db/ent->map :topics)
-                  (merge {:posts (db/entseq->maps :posts (db/all :posts [:post/topic id]))}))})))
+  (let [id (id)]
+    {:body (t/transform-entity (dissoc (:topic t/rules) :first-post) (db/ent id))}))
