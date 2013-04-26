@@ -3,18 +3,29 @@
 
 (declare rules transform-entity)
 
+(defn one
+  [ref-fn rules]
+  #(transform-entity rules (ref-fn %)))
+
+(defn many
+  [remote-key rules]
+  (fn [ent] (map #(transform-entity rules %)
+                (db/all remote-key [remote-key (:db/id ent)]))))
+
+(defn ref-count
+  [ref-attr]
+  #(ffirst (db/q [:find '(count ?c) :where ['?c ref-attr (:db/id %)]])))
+
 (def rules
   {:topic {:id :db/id
            :title :topic/title
-           :first-post #(transform-entity (:post rules) (:topic/first-post %))
-           :posts (fn [ent] (map #(transform-entity (:post rules) %)
-                                (db/all :post/content [:post/topic (:db/id ent)])))
-           :author #(transform-entity (:user rules) (:content/author %))
-           :post-count #(ffirst (db/q [:find '(count ?c) :where ['?c :post/topic (:db/id %)]]))}
+           :first-post (one :topic/first-post (:post rules))
+           :posts (many :post/topic (:post rules))
+           :author (one :content/author (:user rules))
+           :post-count (ref-count :post/topic)}
    :post {:id :db/id
           :content :post/content
-          :author #(transform-entity (:user rules) (:content/author %))}
-   
+          :author (one :content/author (:user rules))}
    :user {:id :db/id
           :username :user/username
           :email :user/email}})
