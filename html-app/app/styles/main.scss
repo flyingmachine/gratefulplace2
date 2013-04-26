@@ -294,6 +294,7 @@ table.input {
   padding: (.5 * $base-line-height) $gutter-width;
   background: $medium-green;
   @include border-radius(3px);
+  @include trailer;
   border: 1px solid #a6e5a4;
 }
 

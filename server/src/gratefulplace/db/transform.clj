@@ -9,8 +9,15 @@
            :first-post #(transform-entity (:post rules) (:topic/first-post %))
            :posts (fn [ent] (map #(transform-entity (:post rules) %)
                                 (db/all :post/content [:post/topic (:db/id ent)])))
+           :author #(transform-entity (:user rules) (:content/author %))
            :post-count #(ffirst (db/q [:find '(count ?c) :where ['?c :post/topic (:db/id %)]]))}
-   :post {:content :post/content}})
+   :post {:id :db/id
+          :content :post/content
+          :author #(transform-entity (:user rules) (:content/author %))}
+   
+   :user {:id :db/id
+          :username :user/username
+          :email :user/email}})
 
 (defn transform-entity
   ;; Given a map of transformations, apply them such that a map is

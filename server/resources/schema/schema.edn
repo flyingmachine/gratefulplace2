@@ -1,4 +1,26 @@
 [
+ ;; users
+ {:db/id #db/id [:db.part/db]
+  :db/ident :user/username
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id [:db.part/db]
+  :db/ident :user/password
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id [:db.part/db]
+  :db/ident :user/email
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db.install/_attribute :db.part/db}
+ 
  ;; topics
  {:db/id #db/id[:db.part/db]
   :db/ident :topic/title
@@ -36,5 +58,13 @@
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one
   :db/doc "Position in topic"
+  :db.install/_attribute :db.part/db}
+
+ ;; content
+ {:db/id #db/id[:db.part/db]
+  :db/ident :content/author
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "General author attribute"
   :db.install/_attribute :db.part/db}
 ]

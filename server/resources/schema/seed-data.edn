@@ -1,22 +1,39 @@
-[
+[{:user/username "flyingmachine"
+  :user/password "password"
+  :user/email "daniel@flyingmachinestudios.com"
+  :db/id #db/id [:db.part/user -1000000]}
+
+ {:user/username "joebob"
+  :user/password "password"
+  :user/email "joebob@bobjoe.com"
+  :db/id #db/id [:db.part/user -1000001]}
+
+ ;; first topic
  {:topic/title "First topic"
-  :topic/first-post #db/id[:db.part/user -1000100]
-  :db/id #db/id[:db.part/user -1000001]}
+  :topic/first-post #db/id[:db.part/user -3000000]
+  :content/author #db/id[:db.part/user -1000000]
+  :db/id #db/id[:db.part/user -2000000]}
 
  {:post/content "T1 First post content"
-  :post/topic #db/id[:db.part/user -1000001]
-  :db/id #db/id[:db.part/user -1000100]}
+  :post/topic #db/id[:db.part/user -2000000]
+  :content/author #db/id[:db.part/user -1000000]
+  :db/id #db/id[:db.part/user -3000000]}
  {:post/content "T1 Second post content"
-  :post/topic #db/id[:db.part/user -1000001]
-  :db/id #db/id[:db.part/user -1000101]}
+  :post/topic #db/id[:db.part/user -2000000]
+  :content/author #db/id[:db.part/user -1000001]
+  :db/id #db/id[:db.part/user -3000001]}
 
+ ;; second topic
  {:topic/title "Second topic"
-  :topic/first-post #db/id [:db.part/user -1000200]
-  :db/id #db/id[:db.part/user -1000002]}
+  :topic/first-post #db/id [:db.part/user -3000002]
+  :content/author #db/id[:db.part/user -1000001]
+  :db/id #db/id[:db.part/user -2000001]}
 
  {:post/content "T2 First post content"
-  :post/topic #db/id[:db.part/user -1000002]
-  :db/id #db/id[:db.part/user -1000200]}
+  :post/topic #db/id[:db.part/user -2000001]
+  :content/author #db/id[:db.part/user -1000001]
+  :db/id #db/id[:db.part/user -3000002]}
  {:post/content "T2 Second post content"
-  :post/topic #db/id[:db.part/user -1000002]
-  :db/id #db/id[:db.part/user -1000201]}]
+  :post/topic #db/id[:db.part/user -2000001]
+  :content/author #db/id[:db.part/user -1000000]
+  :db/id #db/id[:db.part/user -3000003]}]
