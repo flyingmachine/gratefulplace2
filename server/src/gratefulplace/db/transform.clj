@@ -4,8 +4,8 @@
 (declare rules transform-entity)
 
 (defmacro one
-  [ref-fn rules]
-  `#(transform-entity ~rules (~ref-fn %)))
+  [ent-fn rules]
+  `#(transform-entity ~rules (~ent-fn %)))
 
 (defmacro many
   [remote-key rules]
@@ -16,7 +16,7 @@
   [ref-attr]
   #(ffirst (db/q [:find '(count ?c) :where ['?c ref-attr (:db/id %)]])))
 
-(def rules
+(def oldrules
   {:topic {:id :db/id
            :title :topic/title
            :first-post (one :topic/first-post (:post rules))
@@ -29,6 +29,40 @@
    :user {:id :db/id
           :username :user/username
           :email :user/email}})
+
+{:id :db/id
+ :first-post {:arity :one
+              :fn :topic/first-post
+              :rule-key :post
+              :except :post/topic}
+ }
+
+(defn except
+  [x exceptor]
+  (apply dissoc x (:except exceptor)))
+
+(defn ref-fn
+  [ruleset options]
+  (let [rules (except (get ruleset (:rule-key options)) options)]
+    (if (= :one (:arity options))
+      (one (:fn options) rules)
+      (many (:fn options) rules))))
+
+(defn apply-modifications
+  "Provides a more succinct way of defining rules on the fly"
+  [ruleset primary-rule-key modifications]
+  (let [primary-rule (except (primary-rule-key ruleset) modifications)]
+    (reduce (fn [[attr-name transformation]]
+              (if (map? transformation)
+                [attr-name
+                 (apply-modifications
+                  ruleset
+                  (:rule-key transformation)
+                  (merge transformation
+                         (get (:with modifications) attr-name)))]
+                [attr-name transformation]))
+            {}
+            primary-rule)))
 
 (defn transform-entity
   ;; Given a map of transformations, apply them such that a map is
