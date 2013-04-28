@@ -30,12 +30,36 @@
           :username :user/username
           :email :user/email}})
 
-{:id :db/id
- :first-post {:arity :one
-              :fn :topic/first-post
-              :rule-key :post
-              :except :post/topic}
- }
+
+(def rulesets
+  {:topic {:attributes {:id :db/id
+                        :title :topic/title
+                        :post-count (ref-count :post/topic)}
+           :relationships {:first-post {:relationship :one
+                                        :fn :topic/post
+                                        :ruleset :post}
+                           :posts {:arity :many
+                                   :fn :post/topic
+                                   :ruleset :post}
+                           :author {:arity :one
+                                    :fn :content/author
+                                    :ruleset :user}}}
+   :post {:id :db/id
+          :content :post/content
+          :refs
+          {:author (one :content/author (:user rules))
+           :topic :post/topic}}
+   :user {:id :db/id
+          :username :user/username
+          :email :user/email
+          :topics {:arity :many
+                   :fn :content/author
+                   :ruleset :topic
+                   :exclude [:author]}
+          :posts {:arity :many
+                  :fn :content/author
+                  :ruleset :post
+                  :exclude [:author]}}})
 
 (defn except
   [x exceptor]
