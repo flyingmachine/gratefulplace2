@@ -89,11 +89,9 @@
   [entity directives]
   (let [serialize-retrieved #(serialize
                               %
-                              (:serializer directives)
+                              (eval (:serializer directives))
                               (:options directives))
         retrieved ((:retriever directives) entity)]
-    (println "DIRECTIVES" directives)
-    (println "RETRIEVED" retrieved)
     (cond
      (= :one (:arity directives)) (serialize-retrieved retrieved)
      (= :many (:arity directives)) (map serialize-retrieved retrieved))))
@@ -118,10 +116,3 @@
      (merge
       (serialize-attributes entity (:attributes serializer) options)
       (serialize-relationships entity (:relationships serializer) options))))
-
-
-(serialize
- {:topic/title "test" :db/id 1 :topic/first-post {:db/id 1 :post/content "content"}} 
- topic
- {:exclude [:id]
-  :include {:first-post {:include :topic}}})
