@@ -1,12 +1,12 @@
 (ns gratefulplace.db.serialize
   (:require [gratefulplace.db.query :as db]))
 
-(declare topic post user serialize)
+(declare serialize)
 
+;; define a serializer
 (defn attr
   [name retriever]
   {name (eval retriever)})
-
 
 (defn has
   [name arity directives]
@@ -36,29 +36,7 @@
                (quote [~@fields])))))
 
 
-(defserializer topic
-  (attr :id :db/id)
-  (attr :title :topic/title)
-  (attr :post-count (ref-count :post/topic))
-  (attr :author-id :content/author)
-  (has-one :first-post :serializer post :retriever :topic/first-post)
-  (has-one :author :serializer user :retriever :content/author))
-
-(defserializer post
-  (attr :id :db/id)
-  (attr :content :post/content)
-  (attr :topic-id :post/topic)
-  (attr :author-id :content/author)
-  (has-one :author :serializer user :retriever :content/author)
-  (has-one :topic :serializer topic :retriever :post/topic))
-
-(defserializer user
-  (attr :id :db/id)
-  (attr :username :user/username)
-  (attr :email :user/email)
-  (has-many :topics :serializer topic :retriever #(db/all :topic/title [:content/author (:db/id %)]))
-  (has-many :posts :serializer post :retriever #(db/all :post/content [:content/author (:db/id %)])))
-
+;; serialize
 (defn apply-options-to-attributes
   [attributes options]
   (apply dissoc attributes (:exclude options)))

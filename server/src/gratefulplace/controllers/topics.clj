@@ -1,6 +1,7 @@
 (ns gratefulplace.controllers.topics
   (:require [gratefulplace.db.query :as db]
-            [gratefulplace.db.transform :as t]))
+            [gratefulplace.db.serializers :as ss]
+            [gratefulplace.db.serialize :as s]))
 
 (defmacro id
   []
@@ -8,10 +9,10 @@
 
 (defn query
   [params]
-  (map #(t/transform-entity (dissoc (:topic t/rules) :posts) %)
+  (map #(s/serialize % ss/topic {:include :first-post})
        (db/all :topic/title)))
 
 (defn show
   [params]
   (let [id (id)]
-    {:body (t/transform-entity (dissoc (:topic t/rules) :first-post) (db/ent id))}))
+    {:body (s/serialize ss/topic (db/ent id))}))
