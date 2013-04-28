@@ -3,14 +3,14 @@
 
 (declare rules transform-entity)
 
-(defn one
+(defmacro one
   [ref-fn rules]
-  #(transform-entity rules (ref-fn %)))
+  `#(transform-entity ~rules (~ref-fn %)))
 
-(defn many
+(defmacro many
   [remote-key rules]
-  (fn [ent] (map #(transform-entity rules %)
-                (db/all remote-key [remote-key (:db/id ent)]))))
+  `(fn [ent#] (map #(transform-entity ~rules %)
+                 (db/all ~remote-key [~remote-key (:db/id ent#)]))))
 
 (defn ref-count
   [ref-attr]
