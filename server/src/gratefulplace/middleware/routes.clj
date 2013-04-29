@@ -18,7 +18,11 @@
          (map #(compojure.route/files "/" {:root %})
               (env :html-paths)))
 
+  ;; Topics
   (route GET "/topics" topics/query)
   (route GET "/topics/:id" topics/show)
+
+  ;; Users
+  (POST "/users" [] users/create!)
   
   (compojure.route/not-found "Sorry, there's nothing here."))

@@ -29,7 +29,7 @@
 <div id="new-user">
   <h2>Join the Community</h2>
   <div id="signup">
-    <form method="POST" action="/users">
+    <form ng-submit="submitRegistration()">
       <div class="clearfix">
         <table class="input">
           <tbody><tr>
@@ -37,7 +37,7 @@
                 <label for="signup-username">Username</label>
               </td>
               <td>
-                <input value="" type="text" name="username" id="login-username">
+                <input value="" type="text" name="username" id="login-username" ng-model="registration.username">
               </td>
             </tr>
             <tr>
@@ -45,7 +45,7 @@
                 <label for="signup-password">Password</label>
               </td>
               <td>
-                <input type="password" name="password" id="signup-password">
+                <input type="password" name="password" id="signup-password" ng-model="registration.password">
               </td>
             </tr>
             <tr>
@@ -53,7 +53,7 @@
                 <label for="signup-email">Email</label>
               </td>
               <td>
-                <input type="text" name="email" id="signup-email">
+                <input type="text" name="email" id="signup-email" ng-model="registration.email">
               </td>
             </tr>
         </tbody></table>

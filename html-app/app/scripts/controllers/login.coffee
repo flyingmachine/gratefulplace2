@@ -1,9 +1,12 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'LoginCtrl', ($scope, Session) ->
-    Topics.query (data)->
-      $scope.topics = data
-
-    $scope.firstPost = (topic)->
-      topic.posts[0]
+  .controller 'LoginCtrl', ($scope, Users) ->
+    $scope.registration =
+      username: ""
+      password: ""
+      email: ""
+    $scope.submitRegistration = ->
+      user = new Users($scope.registration)
+      user.$save()
+      

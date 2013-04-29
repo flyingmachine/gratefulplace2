@@ -16,6 +16,11 @@
 (def ent
   #(d/entity (db) %))
 
+(defn one
+  [conditions]
+  (q {:find '?c
+      :where conditions}))
+
 (defn all
   [common-attribute & conditions]
   (let [conditions (concat [['?c common-attribute]]
