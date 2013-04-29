@@ -77,7 +77,7 @@
 (defn serialize-relationships
   [entity relationships options]
   (reduce (fn [acc [attr-name serialization-directives]]
-            {attr-name (serialize-relationship entity serialization-directives)})
+            (merge acc {attr-name (serialize-relationship entity serialization-directives)}))
           {}
           (apply-options-to-relationships
            relationships
