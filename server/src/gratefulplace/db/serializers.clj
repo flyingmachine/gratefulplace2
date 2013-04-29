@@ -5,19 +5,22 @@
   (attr :id :db/id)
   (attr :title :topic/title)
   (attr :post-count (ref-count :post/topic))
-  (attr :author-id :content/author)
+  (attr :author-id (comp :db/id :content/author))
   (has-one :first-post
            :serializer gratefulplace.db.serializers/post
            :retriever :topic/first-post)
   (has-one :author
            :serializer gratefulplace.db.serializers/user
-           :retriever :content/author))
+           :retriever :content/author)
+  (has-many :posts
+            :serializer gratefulplace.db.serializers/post
+            :retriever #(db/all :topic/title [:post/topic (:db/id %)])))
 
 (defserializer post
   (attr :id :db/id)
   (attr :content :post/content)
-  (attr :topic-id :post/topic)
-  (attr :author-id :content/author)
+  (attr :topic-id (comp :db/id :post/topic))
+  (attr :author-id (comp :db/id :content/author))
   (has-one :author
            :serializer gratefulplace.db.serializers/user
            :retriever :content/author)

@@ -89,7 +89,7 @@
   ;; the same, and the return values are derived by applying the
   ;; values of the transformation map to the supplied entity
   ([entity serializer]
-     (serialize serializer entity {}))
+     (serialize entity serializer {}))
   ([entity serializer options]
      (merge
       (serialize-attributes entity (:attributes serializer) options)
