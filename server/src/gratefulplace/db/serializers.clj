@@ -14,7 +14,7 @@
            :retriever :content/author)
   (has-many :posts
             :serializer gratefulplace.db.serializers/post
-            :retriever #(db/all :topic/title [:post/topic (:db/id %)])))
+            :retriever #(db/all :post/topic [:post/topic (:db/id %)])))
 
 (defserializer post
   (attr :id :db/id)

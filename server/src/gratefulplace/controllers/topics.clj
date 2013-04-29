@@ -15,4 +15,4 @@
 (defn show
   [params]
   (let [id (id)]
-    {:body (s/serialize ss/topic (db/ent id))}))
+    {:body (s/serialize (db/ent id) ss/topic {:include :posts})}))

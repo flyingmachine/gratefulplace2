@@ -69,7 +69,7 @@
                               %
                               (eval (:serializer directives))
                               (:options directives))
-        retrieved ((:retriever directives) entity)]
+        retrieved ((eval (:retriever directives)) entity)]
     (cond
      (= :one (:arity directives)) (serialize-retrieved retrieved)
      (= :many (:arity directives)) (map serialize-retrieved retrieved))))
