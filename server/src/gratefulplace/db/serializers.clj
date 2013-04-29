@@ -1,4 +1,5 @@
 (ns gratefulplace.db.serializers
+  (:require [gratefulplace.db.query :as db])
   (:use [gratefulplace.db.serialize]))
 
 (defserializer topic
@@ -14,7 +15,7 @@
            :retriever :content/author)
   (has-many :posts
             :serializer gratefulplace.db.serializers/post
-            :retriever #(db/all :post/topic [:post/topic (:db/id %)])))
+            :retriever #(gratefulplace.db.query/all :post/topic [:post/topic (:db/id %)])))
 
 (defserializer post
   (attr :id :db/id)
@@ -34,7 +35,7 @@
   (attr :email :user/email)
   (has-many :topics
             :serializer gratefulplace.db.serializers/topic
-            :retriever #(db/all :topic/title [:content/author (:db/id %)]))
+            :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))
   (has-many :posts
             :serializer gratefulplace.db.serializers/post
-            :retriever #(db/all :post/content [:content/author (:db/id %)])))
+            :retriever #(gratefulplace.db.query/all :post/content [:content/author (:db/id %)])))
