@@ -10,7 +10,9 @@
       (>= (count %) 4)
       (<= (count %) 24))
     "That username is already taken"
-    #(not (db/one [:user/username %]))]
+    #(and
+      (not (empty? %))
+      (not (db/one [:user/username %])))]
    
    :password
    ["Your password must be at least 4 characters long"
