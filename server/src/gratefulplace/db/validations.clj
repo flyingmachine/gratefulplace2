@@ -6,14 +6,17 @@
   {:username
    ["Your username must be between 4 and 24 characters long"
     #(and
+      (not (empty? %))
       (>= (count %) 4)
       (<= (count %) 24))
     "That username is already taken"
-    #(not (db/one [:username %]))]
+    #(not (db/one [:user/username %]))]
    
    :password
    ["Your password must be at least 4 characters long"
-    #(>= (count %) 4)]
+    #(and
+      (not (empty? %))
+      (>= (count %) 4))]
    
    :change-password
    ["Your passwords do not match"
@@ -21,7 +24,7 @@
 
     "Your password must be at least 4 characters long"
     #(>= (count (:new-password %)) 4)]
-  
+   
    :email
    ["You must enter a valid email address"
     #(and

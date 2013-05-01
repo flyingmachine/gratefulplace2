@@ -1,7 +1,8 @@
 (ns gratefulplace.middleware.routes
   (:require compojure.route
             compojure.handler
-            [gratefulplace.controllers.topics :as topics])
+            [gratefulplace.controllers.topics :as topics]
+            [gratefulplace.controllers.users :as users])
   (:use [compojure.core :as compojure.core :only (GET PUT POST ANY defroutes)]
         [liberator.core :only [resource]]
         environ.core))

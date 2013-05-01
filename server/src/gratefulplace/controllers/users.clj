@@ -2,8 +2,6 @@
   (:require [gratefulplace.db.validations :as validations])
   (:use [flyingmachine.webutils.validation :only (if-valid)]))
 
-
-
 (defn create!
   [req]
   (let [{:keys [uri request-method params]} req]
