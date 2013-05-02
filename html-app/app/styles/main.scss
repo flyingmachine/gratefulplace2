@@ -298,6 +298,26 @@ table.input {
   border: 1px solid #a6e5a4;
 }
 
+form tr td:first-child{
+  height: 100%;
+  vertical-align: top;
+}
+
+.error {
+  color: #cb5d6d;
+}
+
+
+input.ng-dirty.ng-invalid {
+}
+
+input.ng-valid {
+}
+
+input.ng-pristine {
+
+}
+
 @import "layout";
 @import "posts";
 @import "peek";

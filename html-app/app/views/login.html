@@ -29,7 +29,7 @@
 <div id="new-user">
   <h2>Join the Community</h2>
   <div id="signup">
-    <form ng-submit="submitRegistration()">
+    <form ng-submit="submitRegistration()" novalidate>
       <div class="clearfix">
         <table class="input">
           <tbody><tr>
@@ -37,15 +37,32 @@
                 <label for="signup-username">Username</label>
               </td>
               <td>
-                <input value="" type="text" name="username" id="login-username" ng-model="registration.username">
+                <input value=""
+                       type="text"
+                       name="username"
+                       id="login-username"
+                       ng-model="registration.username"
+                       required >
               </td>
+              <div class="error" error-messages="errors.username"></div>
             </tr>
             <tr>
               <td>
                 <label for="signup-password">Password</label>
               </td>
               <td>
-                <input type="password" name="password" id="signup-password" ng-model="registration.password">
+                <input type="password"
+                       name="password"
+                       id="signup-password"
+                       ng-model="registration.password"
+                       required>
+                <div class="error" ng-show="errors.password">
+                  <ul>
+                    <li ng-repeat="error in errors.password">
+                      {{error}}
+                    </li>
+                  </ul>
+                </div>
               </td>
             </tr>
             <tr>
@@ -53,7 +70,11 @@
                 <label for="signup-email">Email</label>
               </td>
               <td>
-                <input type="text" name="email" id="signup-email" ng-model="registration.email">
+                <input type="email"
+                       name="email"
+                       id="signup-email"
+                       ng-model="registration.email"
+                       required>
               </td>
             </tr>
         </tbody></table>
@@ -71,7 +92,9 @@
         </div>
       </div>
       <div class="action">
-        <input value="Join Grateful Place" type="submit">
+        <input value="Join Grateful Place"
+               type="submit"
+               ng-disabled="form.$invalid">
       </div>
     </form>
   </div>
