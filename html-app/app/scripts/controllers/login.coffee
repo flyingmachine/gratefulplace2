@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'LoginCtrl', ($scope, $filter, Users) ->
+  .controller 'LoginCtrl', ($scope, $location, Users) ->
     $scope.errors = {}
     
     $scope.registration =
@@ -10,6 +10,8 @@ angular.module('gratefulplaceApp')
       email: ""
 
     registrationSuccess = ->
+      $location.path "/"
+      $scope.$apply()
 
     registrationFailure = (response)->
       $scope.errors = response.data.errors

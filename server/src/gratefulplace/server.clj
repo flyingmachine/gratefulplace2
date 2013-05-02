@@ -21,7 +21,7 @@
 (def app
   (-> routes
       ;; (wrap-session {:cookie-name "gratefulplace-session" :store (db-session-store)})
-      wrap-restful-format
+      (wrap-restful-format :formats [:json-kw])
       wrap-exception
       wrap-keyword-params
       wrap-nested-params
