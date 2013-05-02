@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'LoginCtrl', ($scope, Users) ->
+  .controller 'LoginCtrl', ($scope, $filter, Users) ->
     $scope.errors = {}
     
     $scope.registration =

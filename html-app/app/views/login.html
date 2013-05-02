@@ -43,8 +43,8 @@
                        id="login-username"
                        ng-model="registration.username"
                        required >
+                <div class="error" error-messages="errors.username"></div>
               </td>
-              <div class="error" error-messages="errors.username"></div>
             </tr>
             <tr>
               <td>
@@ -56,13 +56,7 @@
                        id="signup-password"
                        ng-model="registration.password"
                        required>
-                <div class="error" ng-show="errors.password">
-                  <ul>
-                    <li ng-repeat="error in errors.password">
-                      {{error}}
-                    </li>
-                  </ul>
-                </div>
+                <div class="error" error-messages="errors.password"></div>
               </td>
             </tr>
             <tr>
@@ -75,6 +69,7 @@
                        id="signup-email"
                        ng-model="registration.email"
                        required>
+                <div class="error" error-messages="errors.email"></div>
               </td>
             </tr>
         </tbody></table>
