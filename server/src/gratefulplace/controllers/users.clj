@@ -1,5 +1,8 @@
 (ns gratefulplace.controllers.users
-  (:require [gratefulplace.db.validations :as validations])
+  (:require [gratefulplace.db.validations :as validations]
+            [gratefulplace.db.serialize :as s]
+            [gratefulplace.db.serializers :as ss]
+            [gratefulplace.db.query :as q])
   (:use [flyingmachine.webutils.validation :only (if-valid)]))
 
 (defn create!
@@ -12,6 +15,8 @@
        (:create validations/user)
        errors
 
-       {:body "success"}
+       (do
+         (q/t [(s/serialize params ss/user->txdata)])
+         {:body "success"})
        {:body {:errors errors}
         :status 412}))))

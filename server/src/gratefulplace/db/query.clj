@@ -30,3 +30,6 @@
                            (map #(concat ['?c] %) conditions))]
     (map #(ent (first %)) (q {:find ['?c]
                               :where conditions}))))
+
+(def t
+  #(d/transact conn %))
