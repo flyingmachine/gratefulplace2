@@ -1,10 +1,10 @@
 [{:user/username "flyingmachine"
-  :user/password "password"
+  :user/password "$2a$10$iLBiogT.GcTHz1nDpZ.tR.X/hClBNICizX2wqyPLwt3KCxmSFs6eW" ;; "password"
   :user/email "daniel@flyingmachinestudios.com"
   :db/id #db/id [:db.part/user -1000000]}
 
  {:user/username "joebob"
-  :user/password "password"
+  :user/password "$2a$10$iLBiogT.GcTHz1nDpZ.tR.X/hClBNICizX2wqyPLwt3KCxmSFs6eW" ;; "password"
   :user/email "joebob@bobjoe.com"
   :db/id #db/id [:db.part/user -1000001]}
 
