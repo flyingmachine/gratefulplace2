@@ -17,6 +17,6 @@
 
        (do
          (q/t [(s/serialize params ss/user->txdata)])
-         {:body "success"})
+         (cemerick.friend.workflows/make-auth (select-keys params [:username :email])))
        {:body {:errors errors}
         :status 412}))))
