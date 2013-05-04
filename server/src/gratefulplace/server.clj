@@ -5,7 +5,9 @@
         ring.middleware.nested-params
         ring.middleware.session
         ring.middleware.format
-        [gratefulplace.middleware.routes :only (routes)]))
+        [gratefulplace.middleware.routes :only (routes)]
+        [gratefulplace.middleware.auth :only (auth)]
+        [gratefulplace.middleware.db-session-store :only (db-session-store)]))
 
 (defn wrap-exception [f]
   (fn [request]
@@ -17,10 +19,17 @@
           {:status 500
            :body "Exception caught"})))))
 
+(defn debug [f]
+  (fn [{:keys [uri request-method params session] :as request}]
+    (println session)
+    (f request)))
+
 ; The ring app
 (def app
   (-> routes
-      ;; (wrap-session {:cookie-name "gratefulplace-session" :store (db-session-store)})
+      auth
+      debug
+      (wrap-session {:cookie-name "gratefulplace-session" :store (db-session-store {})})
       (wrap-restful-format :formats [:json-kw])
       wrap-exception
       wrap-keyword-params

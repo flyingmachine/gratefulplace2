@@ -20,7 +20,7 @@
   [& conditions]
   (let [conditions (map #(concat ['?c] %) conditions)]
     (->(q {:find ['?c]
-                    :where conditions})
+           :where conditions})
        ffirst
        ent)))
 
