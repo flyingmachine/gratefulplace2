@@ -8,13 +8,14 @@
   (:use [flyingmachine.webutils.validation :only (if-valid)]))
 
 (defn registration-success-response
-  [req]
+  [params]
+  "If the request gets this far, it means that user registration was successful."
   (if (friend/current-authentication)
     {:body "success"}))
 
 (defn attempt-registration
   [req]
-    (let [{:keys [uri request-method params session]} req]
+  (let [{:keys [uri request-method params session]} req]
     (when (and (= uri "/users")
                (= request-method :post))
       (if-valid

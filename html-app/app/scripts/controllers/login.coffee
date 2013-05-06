@@ -1,22 +1,21 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'LoginCtrl', ($scope, $location, Users) ->
+  .controller 'LoginCtrl', ($scope, $http, $location, Users) ->
     $scope.errors = {}
     
-    $scope.registration =
+    $scope.login =
       username: ""
       password: ""
-      email: ""
 
-    registrationSuccess = ->
+    loginSuccess = ->
       $location.path "/"
       $scope.$apply()
 
-    registrationFailure = (response)->
+    loginFailure = (response)->
       $scope.errors = response.data.errors
       
-    $scope.submitRegistration = ->
-      user = new Users($scope.registration)
-      user.$save([], registrationSuccess, registrationFailure)
-      
+    $scope.submitLogin = ->
+      $http.post("/login", $scope.login)
+        .success(loginSuccess)
+        .error(loginFailure)
