@@ -24,6 +24,6 @@
   (route GET "/topics/:id" topics/show)
 
   ;; Users
-  (POST "/users" [] users/create!)
+  (POST "/users" [] users/registration-success-response)
   
   (compojure.route/not-found "Sorry, there's nothing here."))

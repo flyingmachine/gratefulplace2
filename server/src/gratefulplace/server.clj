@@ -15,7 +15,6 @@
       (catch Exception e
         (do
           (println e)
-          (println request)
           {:status 500
            :body "Exception caught"})))))
 
@@ -28,7 +27,7 @@
 (def app
   (-> routes
       auth
-      debug
+      ;; debug
       (wrap-session {:cookie-name "gratefulplace-session" :store (db-session-store {})})
       (wrap-restful-format :formats [:json-kw])
       wrap-exception

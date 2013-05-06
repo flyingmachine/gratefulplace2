@@ -27,7 +27,7 @@
   (friend/authenticate
    ring-app
    {:credential-fn (partial creds/bcrypt-credential-fn credential-fn)
-    :workflows [users/create! session-store-authorize]
+    :workflows [users/attempt-registration]
     :login-uri "/login"
     :unauthorized-redirect-uri "/login"
     :default-landing-uri "/"}))
