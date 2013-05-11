@@ -1,7 +1,11 @@
 (ns gratefulplace.db.serializers
   (:require [gratefulplace.db.query :as db]
             cemerick.friend.credentials)
-  (:use [gratefulplace.db.serialize]))
+  (:use [flyingmachine.serialize.core]))
+
+(defn ref-count
+  [ref-attr]
+  #(ffirst (db/q [:find '(count ?c) :where ['?c ref-attr (:db/id %)]])))
 
 (defserializer ent->topic
   (attr :id :db/id)

@@ -16,7 +16,8 @@
                  [com.cemerick/friend "0.1.5"]
                  [crypto-random "1.1.0"]
                  [org.clojure/tools.namespace "0.2.2"]
-                 [com.flyingmachine/webutils "0.1.1"]]
+                 [com.flyingmachine/webutils "0.1.1"]
+                 [flyingmachine/serialize "0.1.0"]]
 
   :plugins [[lein-ring "0.8.3"]
             [lein-environ "0.4.0"]
@@ -29,7 +30,9 @@
               :env {:html-paths ["../html-app/app"
                                  "../html-app/.tmp"]
                     :datomic {:config "resources/datomic-transactor.properties"
-                              :db-uri "datomic:free://localhost:4334/gp2"}}
+                              :schemas ["resources/schema" ["schema.edn" "seed-data.edn"]]
+                              :db-uri "datomic:free://localhost:4334/gp2"
+                              :test-uri "datomic:mem://gp2"}}
               :datomic {:config "resources/datomic-transactor.properties"
                         :db-uri "datomic:free://localhost:4334/gp2"}}
              

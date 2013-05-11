@@ -2,7 +2,8 @@
   (:use midje.sweet)
   (:require [gratefulplace.controllers.topics :as topics]))
 
-(fact "test fact"
-  (+ 1 2) => 3)
+(fact "query returns all topics"
+  ;; (topics/query {}) => []
+  )
 
 

@@ -1,7 +1,6 @@
 (ns gratefulplace.db.query
   (:require [datomic.api :as d])
-  (:use environ.core
-        gratefulplace.utils))
+  (:use environ.core))
 
 (def db-uri (:db-uri (env :datomic)))
 (def conn (d/connect db-uri))

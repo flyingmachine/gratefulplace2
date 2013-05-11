@@ -1,11 +1,8 @@
 (ns gratefulplace.controllers.topics
   (:require [gratefulplace.db.query :as db]
             [gratefulplace.db.serializers :as ss]
-            [gratefulplace.db.serialize :as s]))
-
-(defmacro id
-  []
-  '(read-string (re-find #"^\d+$" (:id params))))
+            [gratefulplace.db.serialize :as s])
+  (:use gratefulplace.controllers.shared))
 
 (defn query
   [params]
