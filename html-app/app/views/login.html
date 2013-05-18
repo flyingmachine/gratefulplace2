@@ -4,12 +4,18 @@
   <form ng-submit="submitLogin()" novalidate>
     <div class="clearfix">
       <table class="input">
-        <tbody><tr>
+        <tbody>
+          <tr>
             <td>
               <label for="login-username">Username</label>
             </td>
             <td>
-              <input value="" type="text" name="username" id="login-username">
+              <input value=""
+                     type="text"
+                     name="username"
+                     id="login-username"
+                     ng-model="login.username"
+                     required />
             </td>
           </tr>
           <tr>
@@ -17,7 +23,11 @@
               <label for="login-password">Password</label>
             </td>
             <td>
-              <input type="password" name="password" id="login-password">
+              <input type="password"
+                     name="password"
+                     id="login-password"
+                     ng-model="login.password"
+                     required>
             </td>
           </tr>
       </tbody></table>
@@ -34,13 +44,13 @@
         <table class="input">
           <tbody><tr>
               <td>
-                <label for="signup-username">Username</label>
+                <label for="registration-username">Username</label>
               </td>
               <td>
                 <input value=""
                        type="text"
                        name="username"
-                       id="login-username"
+                       id="registration-username"
                        ng-model="registration.username"
                        required >
                 <div class="error" error-messages="errors.username"></div>
@@ -48,12 +58,12 @@
             </tr>
             <tr>
               <td>
-                <label for="signup-password">Password</label>
+                <label for="registration-password">Password</label>
               </td>
               <td>
                 <input type="password"
                        name="password"
-                       id="signup-password"
+                       id="registration-password"
                        ng-model="registration.password"
                        required>
                 <div class="error" error-messages="errors.password"></div>

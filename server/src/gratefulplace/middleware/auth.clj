@@ -29,7 +29,7 @@
    {:credential-fn (partial creds/bcrypt-credential-fn credential-fn)
     :workflows [(workflows/interactive-form
                  :redirect-on-auth? false
-                 :login-failure-handler (fn [req] {:body "failure" :status 412}))
+                 :login-failure-handler (fn [req] {:body {:errors {:username "invalid username or password"}} :status 412}))
                 users/attempt-registration
                 session-store-authorize]
     :redirect-on-auth? false

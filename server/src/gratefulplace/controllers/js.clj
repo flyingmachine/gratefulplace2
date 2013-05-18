@@ -5,10 +5,11 @@
   [params]
   (let [session-js
         (fn [username]
-          (str
-           "angular.module('gratefulplaceApp').value('loadedSession', {username:'"
-           username
-           "'})"))]
+          {:body (str
+                  "angular.module('gratefulplaceApp').value('loadedSession', {username:'"
+                  username
+                  "'})")
+           :headers {"content-type" "application/javascript"}})]
     (if-let [auth (friend/current-authentication)]
       (session-js (:username auth))
       (session-js ""))))
