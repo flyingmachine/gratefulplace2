@@ -14,7 +14,6 @@
 (deftype DbSessionStore [key-attr data-attr partition auto-key-change?]
   SessionStore
   (read-session [_ key]
-    (println "Key" key)
     (if key
       (if-let [data (data-attr (q/one [key-attr (str->uuid key)]))]
         (read-string data)
@@ -32,7 +31,6 @@
       (q/t [txdata])
       (str uuid-key)))
   (delete-session [_ key]
-    (println "deleting session")
     (q/t [:db.fn/retractEntity (key->eid key-attr key)])
     nil))
 

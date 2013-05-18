@@ -10,6 +10,7 @@
                  [com.datomic/datomic-free "0.8.3889"]
                  [environ "0.4.0"]
                  [ring "1.2.0-beta2"]
+                 [ring-mock "0.1.4"]
                  [ring-middleware-format "0.3.0"]
                  [compojure "1.1.5"]
                  [liberator "0.8.0"]

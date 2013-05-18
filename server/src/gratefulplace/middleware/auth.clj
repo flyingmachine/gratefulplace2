@@ -10,7 +10,7 @@
 
 (defn user
   [username]
-  (if-let [user-ent (q/one {:user/username username})]
+  (if-let [user-ent (q/one [:user/username username])]
     (s/serialize user-ent ss/ent->user)))
 
 (defn credential-fn
@@ -27,7 +27,11 @@
   (friend/authenticate
    ring-app
    {:credential-fn (partial creds/bcrypt-credential-fn credential-fn)
-    :workflows [(workflows/interactive-form) users/attempt-registration session-store-authorize]
+    :workflows [(workflows/interactive-form
+                 :redirect-on-auth? false
+                 :login-failure-handler (fn [req] {:body "failure" :status 412}))
+                users/attempt-registration
+                session-store-authorize]
     :redirect-on-auth? false
     :login-uri "/login"
     :unauthorized-redirect-uri "/login"}))
