@@ -1,7 +1,7 @@
-<div id="login" class="new">
+<div id="login" class="new" ng-controller="LoginCtrl">
   <h2>Log In</h2>
   <div class="clearfix"></div>
-  <form method="POST" action="/login">
+  <form ng-submit="submitLogin()" novalidate>
     <div class="clearfix">
       <table class="input">
         <tbody><tr>
@@ -25,6 +25,7 @@
     <input value="Log In" type="submit">
   </form>
 </div>
+
 <div id="new-user" ng-controller="RegisterCtrl">
   <h2>Join the Community</h2>
   <div id="signup">

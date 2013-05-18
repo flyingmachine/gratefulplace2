@@ -24,6 +24,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
+      Welcome, {{currentSession.username}}
       <nav>
         <ul>
           <li><a href="#">Notifications</a></li>
@@ -60,12 +61,14 @@
     <!-- build:js(.tmp) scripts/scripts.js -->
     <script src="scripts/init.js"></script>
     <script src="scripts/app.js"></script>
+    <script src="scripts/load_session.js"></script>
     <script src="scripts/controllers/foundation.js"></script>
     <script src="scripts/controllers/peek.js"></script>
     <script src="scripts/controllers/topic.js"></script>
     <script src="scripts/controllers/topics.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/services/current_session.js"></script>
     <script src="scripts/services/peek.js"></script>
     <script src="scripts/services/topics.js"></script>
     <script src="scripts/services/users.js"></script>

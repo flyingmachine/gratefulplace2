@@ -13,7 +13,6 @@ prototypeMocks.factory "$resource", ['$q', '$http', ($q, $http)->
       $http.get("#{url}.json").then (data)->
         fn(data.data)
     get: (options, fn)->
-      console.log fn
       @query (records)->
         fn(_.find(records, (record)-> parseInt(record.id) == parseInt(options.id)))
   ]

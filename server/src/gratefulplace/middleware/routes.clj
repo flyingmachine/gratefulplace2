@@ -4,6 +4,7 @@
             [gratefulplace.controllers.topics :as topics]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
+            [gratefulplace.controllers.js :as js]
             [cemerick.friend :as friend])
   (:use [compojure.core :as compojure.core :only (GET PUT POST ANY defroutes)]
         [liberator.core :only [resource]]
@@ -17,6 +18,8 @@
                 ~@handlers)))
 
 (defroutes routes
+  (route GET "/scripts/load_session.js" js/load_session)
+  
   (apply compojure.core/routes
          (map #(compojure.route/files "/" {:root %})
               (env :html-paths)))
