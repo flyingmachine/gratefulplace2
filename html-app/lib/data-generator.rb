@@ -22,7 +22,7 @@ users = Array.new(20){
 i = 0
 topics = Array.new(100) {
   i += 1
-  {
+  h = {
     id: i,
     title: Faker::Lorem.sentence(rand(5) + 5),
     author: pick_random(users),
@@ -39,6 +39,8 @@ topics = Array.new(100) {
       }
     }
   }
+  h['first-post'] = h[:posts].first
+  h
 }
 
 File.open(directory + "/../app/data/topics.json", 'w+'){ |f| f.puts topics.to_json }
