@@ -6,39 +6,49 @@
             [cemerick.friend :as friend])
   (:use gratefulplace.controllers.shared))
 
+(def single-topic-serialize-options
+  {:include
+    {:posts {:include
+             {:author {:exclude [:email :password]}}}}})
+
+(def index-topic-serialize-options
+  {:include {:first-post {}
+             :author {:exclude [:email :password]}}})
+
 (defn query
   [params]
   (map #(s/serialize
          %
          ss/ent->topic
-         {:include {:first-post {}
-                    :author {:exclude [:email]}}})
+         index-topic-serialize-options)
        (db/all :topic/first-post)))
 
 (defn show
   [params]
-  (let [id (id)]
-    {:body (s/serialize
-            (db/ent id)
-            ss/ent->topic
-            {:include
-             {:posts {:include
-                      {:author {:exclude [:email]}}}}})}))
+  {:body (s/serialize
+          (db/ent (id))
+          ss/ent->topic
+          single-topic-serialize-options)})
 
-;; TODO more functional way to build the topic
 (defn create!
   [params]
-  (let [author-id (:id (friend/current-authentication))
-        topic-base {:topic/first-post #db/id[:db.part/user -200]
+  (let [topic-tempid (d/tempid :db.part/user -1)
+        post-tempid (d/tempid :db.part/user -2)
+        author-id (:id (friend/current-authentication))
+        topic-base {:topic/first-post post-tempid
                     :content/author author-id
-                    :db/id #db/id[:db.part/user -100]}
+                    :db/id topic-tempid}
         topic (if-let [title (:title params)]
                 (merge topic-base {:topic/title title})
                 topic-base)]
-    (println
-     (db/t [topic
-            {:post/content (:content params)
-             :post/topic #db/id[:db.part/user -100]
-             :content/author author-id
-             :db/id #db/id[:db.part/user -200]}])))
-  {:body {}})
+    {:body
+     (-> (db/t [topic
+                {:post/content (:content params)
+                 :post/topic topic-tempid
+                 :content/author author-id
+                 :db/id post-tempid}])
+         deref
+         :tempids
+         (db/resolve-tempid topic-tempid)
+         db/ent
+         (s/serialize ss/ent->topic index-topic-serialize-options))}))

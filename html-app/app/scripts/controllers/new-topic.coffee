@@ -1,9 +1,9 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'NewTopicCtrl', ($scope, $routeParams, $resource, Topic) ->
+  .controller 'NewTopicCtrl', ($rootScope, $scope, $routeParams, $resource, Topic, CurrentSession) ->
     $scope.submitNewTopic = ->
       topic = new Topic($scope.newTopic)
-      console.log $scope.newTopic
-      topic.$save()
-      
+      topic.$save (t, x)->
+        $rootScope.$broadcast('topic.created', t)
+        $scope.newTopic = null

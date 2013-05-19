@@ -32,3 +32,7 @@
 
 (def t
   #(d/transact conn %))
+
+(defn resolve-tempid
+  [tempids tempid]
+  (d/resolve-tempid (db) tempids tempid))
