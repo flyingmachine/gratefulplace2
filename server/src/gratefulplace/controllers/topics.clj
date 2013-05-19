@@ -4,7 +4,8 @@
             [gratefulplace.db.serializers :as ss]
             [gratefulplace.db.serialize :as s]
             [cemerick.friend :as friend])
-  (:use gratefulplace.controllers.shared))
+  (:use gratefulplace.controllers.shared
+        gratefulplace.utils))
 
 (def single-topic-serialize-options
   {:include
@@ -35,12 +36,10 @@
   (let [topic-tempid (d/tempid :db.part/user -1)
         post-tempid (d/tempid :db.part/user -2)
         author-id (:id (friend/current-authentication))
-        topic-base {:topic/first-post post-tempid
-                    :content/author author-id
-                    :db/id topic-tempid}
-        topic (if-let [title (:title params)]
-                (merge topic-base {:topic/title title})
-                topic-base)]
+        topic (remove-nils-from-map {:topic/title (:title params)
+                                     :topic/first-post post-tempid
+                                     :content/author author-id
+                                     :db/id topic-tempid})]
     {:body
      (-> (db/t [topic
                 {:post/content (:content params)
@@ -51,4 +50,4 @@
          :tempids
          (db/resolve-tempid topic-tempid)
          db/ent
-         (s/serialize ss/ent->topic index-topic-serialize-options))}))
+         (s/serialize ss/ent->topic index-to))}))
