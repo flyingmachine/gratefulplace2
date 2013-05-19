@@ -18,6 +18,9 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
     CurrentSession.logout()
     $location.path "/"
 
-  $scope.showNewTopic = ($event)->
-    $scope.newTopic = {}
+  $scope.toggleNewTopicForm = ($event)->
+    $scope.showNewTopicForm = !$scope.showNewTopicForm
     $event.preventDefault()
+    
+  $scope.$on 'topic.created', ->
+    $scope.showNewTopicForm = false

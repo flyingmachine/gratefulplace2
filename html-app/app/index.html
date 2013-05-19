@@ -28,7 +28,7 @@
         <ul>
           <li><a href="#"
                  ng-show="currentSession"
-                 ng-click="showNewTopic($event)">New Topic</a></li>
+                 ng-click="toggleNewTopicForm($event)">New Topic</a></li>
           <li><a href="#" ng-show="currentSession">Notifications</a></li>
           <li><a href="#" ng-show="currentSession">Friend Activity</a></li>
           <li><a href="#" ng-show="currentSession">Your Account</a></li>
@@ -39,7 +39,7 @@
         </ul>
       </nav>
       <div id="main">
-        <div id="new-topic" ng-controller="NewTopicCtrl" ng-show="newTopic">
+        <div id="new-topic" ng-controller="NewTopicCtrl" ng-show="showNewTopicForm">
           <h3>New Topic</h3>
           <form ng-submit="submitNewTopic()">
             <table class="input">
