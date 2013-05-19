@@ -6,13 +6,19 @@
 
 (defn query
   [params]
-  (map #(s/serialize % ss/ent->topic {:include {:first-post {}
-                                                :author {:exclude [:email]}}})
+  (map #(s/serialize
+         %
+         ss/ent->topic
+         {:include {:first-post {}
+                    :author {:exclude [:email]}}})
        (db/all :topic/title)))
 
 (defn show
   [params]
   (let [id (id)]
-    {:body (s/serialize (db/ent id) ss/ent->topic {:include
-                                                   {:posts {:include
-                                                            {:author {:exclude [:email]}}}}})}))
+    {:body (s/serialize
+            (db/ent id)
+            ss/ent->topic
+            {:include
+             {:posts {:include
+                      {:author {:exclude [:email]}}}}})}))
