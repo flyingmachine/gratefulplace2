@@ -1,11 +1,13 @@
 (ns gratefulplace.controllers.users
   (:require [gratefulplace.db.validations :as validations]
+            [gratefulplace.db.query :as db]
             [gratefulplace.db.serialize :as s]
             [gratefulplace.db.serializers :as ss]
             [gratefulplace.db.query :as q]
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
-  (:use [flyingmachine.webutils.validation :only (if-valid)]))
+  (:use [flyingmachine.webutils.validation :only (if-valid)]
+        gratefulplace.controllers.shared))
 
 (defn registration-success-response
   [params]
@@ -30,3 +32,7 @@
           {:cemerick.friend/redirect-on-auth? false}))
        {:body {:errors errors}
         :status 412}))))
+
+(defn show
+  [params]
+  {:body (s/serialize (db/ent (id)) ss/ent->user {:exclude [:password]})})

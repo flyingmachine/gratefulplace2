@@ -10,8 +10,9 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
   
   $scope.peek = null
   $scope.peekAt = (toPeekAt)->
-    Users.get(id: toPeekAt.id).then (data)->
+    Users.get id: toPeekAt.id, (data)->
       $scope.peek = data
+      console.log $scope.peek
 
   $scope.logout = ->
     CurrentSession.logout()

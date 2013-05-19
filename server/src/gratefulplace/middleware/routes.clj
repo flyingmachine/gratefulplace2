@@ -30,6 +30,7 @@
 
   ;; Users
   (POST "/users" [] users/registration-success-response)
+  (route GET "/users/:id" users/show)
 
   ;; auth
   (route POST "/login" session/create!)
