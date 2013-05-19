@@ -26,6 +26,7 @@
     <div class="container">
       <nav>
         <ul>
+          <li><a href="#/">Home</a></li>
           <li><a href="#"
                  ng-show="currentSession"
                  ng-click="toggleNewTopicForm($event)">New Topic</a></li>
@@ -68,6 +69,9 @@
               <div class="error" error-messages="newTopicErrors.content"></div>
             </div>
             <input type="submit" value="Create Topic" />
+            <a href="#"
+               class="cancel"
+               ng-click="toggleNewTopicForm($event)">Cancel</a>
           </form>
         </div>
         <div ng-view>

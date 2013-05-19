@@ -326,6 +326,10 @@ input.ng-pristine {
   }
 }
 
+.cancel, .cancel:visited {
+  float: right;
+}
+
 @import "layout";
 @import "posts";
 @import "peek";
