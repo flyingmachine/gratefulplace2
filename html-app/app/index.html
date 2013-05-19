@@ -26,6 +26,9 @@
     <div class="container">
       <nav>
         <ul>
+          <li><a href="#"
+                 ng-show="currentSession"
+                 ng-click="showNewTopic($event)">New Topic</a></li>
           <li><a href="#" ng-show="currentSession">Notifications</a></li>
           <li><a href="#" ng-show="currentSession">Friend Activity</a></li>
           <li><a href="#" ng-show="currentSession">Your Account</a></li>
@@ -35,7 +38,40 @@
           <li><a href="#/login" ng-hide="currentSession">Log In / Register</a></li>
         </ul>
       </nav>
-      <div id="main" ng-view>
+      <div id="main">
+        <div id="new-topic" ng-controller="NewTopicCtrl" ng-show="newTopic">
+          <h3>New Topic</h3>
+          <form ng-submit="submitNewTopic()">
+            <table class="input">
+              <tbody>
+                <tr>
+                  <td>
+                    <label for="new-topic-title">Title (optional)</label>
+                  </td>
+                  <td>
+                    <input value=""
+                           type="text"
+                           name="new-topic-title"
+                           id="new-topic-title"
+                           ng-model="newTopic.title"/>
+                    <div class="error" error-messages="newTopicErrors.title"></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
+              <textarea
+                 name="new-topic-content"
+                 id="new-topic-content"
+                 ng-model="newTopic.content"
+                 required></textarea>
+              <div class="error" error-messages="newTopicErrors.content"></div>
+            </div>
+            <input type="submit" value="Create Topic" />
+          </form>
+        </div>
+        <div ng-view>
+        </div>
       </div>
       <div id="more">
         <div ng-show="currentSession">
@@ -71,12 +107,13 @@
     <script src="scripts/controllers/foundation.js"></script>
     <script src="scripts/controllers/peek.js"></script>
     <script src="scripts/controllers/topic.js"></script>
+    <script src="scripts/controllers/new-topic.js"></script>
     <script src="scripts/controllers/topics.js"></script>
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/register.js"></script>
     <script src="scripts/services/current_session.js"></script>
     <script src="scripts/services/peek.js"></script>
-    <script src="scripts/services/topics.js"></script>
+    <script src="scripts/services/topic.js"></script>
     <script src="scripts/services/users.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/directives/error-messages.js"></script>

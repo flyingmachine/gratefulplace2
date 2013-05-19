@@ -318,6 +318,14 @@ input.ng-pristine {
 
 }
 
+#new-topic {
+  @include chunk;
+  @include padding-trailer;
+  h3 {
+    margin-top: 0;
+  }
+}
+
 @import "layout";
 @import "posts";
 @import "peek";

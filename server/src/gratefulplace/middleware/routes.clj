@@ -27,6 +27,7 @@
   ;; Topics
   (route GET "/topics" topics/query)
   (route GET "/topics/:id" topics/show)
+  (route POST "/topics" topics/create!)
 
   ;; Users
   (POST "/users" [] users/registration-success-response)
