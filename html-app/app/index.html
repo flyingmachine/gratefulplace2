@@ -24,32 +24,38 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      Welcome, {{currentSession.username}}
       <nav>
         <ul>
-          <li><a href="#">Notifications</a></li>
-          <li><a href="#">Friend Activity</a></li>
-          <li><a href="#">Your Account</a></li>
-          <li><a href="#" ng-click="logout()">Log Out</a></li>
+          <li><a href="#" ng-show="currentSession">Notifications</a></li>
+          <li><a href="#" ng-show="currentSession">Friend Activity</a></li>
+          <li><a href="#" ng-show="currentSession">Your Account</a></li>
+          <li><a href="#"
+                 ng-click="logout()"
+                 ng-show="currentSession">Log Out</a></li>
+          <li><a href="#/login" ng-hide="currentSession">Log In / Register</a></li>
         </ul>
       </nav>
       <div id="main" ng-view>
       </div>
-      <div id="peek" ng-controller="PeekCtrl" ng-show="peek">
-        <div class="user">
-          <div class="username">{{peek.username}}</div>
-          <div class="about">{{peek.about}}</div>
+      <div id="more">
+        <div ng-show="currentSession">
+          Welcome, {{currentSession.username}}
         </div>
-        <div class="recent-posts">
-          <h3>Recent Posts</h3>
-          <div class="post" ng-repeat="post in peek.recent_posts">
-            <div class="date">{{post.date}}</div>
-            <div class="content" ng-bind-html-unsafe="post.content">
+        <div id="peek" ng-controller="PeekCtrl" ng-show="peek">
+          <div class="user">
+            <div class="username">{{peek.username}}</div>
+            <div class="about">{{peek.about}}</div>
+          </div>
+          <div class="recent-posts">
+            <h3>Recent Posts</h3>
+            <div class="post" ng-repeat="post in peek.recent_posts">
+              <div class="date">{{post.date}}</div>
+              <div class="content" ng-bind-html-unsafe="post.content">
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
     <script src="components/angular/angular.js"></script>

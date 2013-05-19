@@ -64,8 +64,14 @@ nav {
   @include push(3);
 }
 
+#more {
+  @include span-columns(3 omega, 12);
+  @include padding-leader;
+  @include padding-trailer;
+}
+
 #peek {
-  @include span-columns(3 omega, 12, $gutter-width);
+  padding: 0 $gutter-width;
   @include padding-leader;
   @include padding-trailer;
 }
