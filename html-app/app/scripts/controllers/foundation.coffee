@@ -3,7 +3,6 @@
 angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $location, Users, CurrentSession) ->
   refreshSession = ->
     $scope.currentSession = CurrentSession.get()
-    console.log $scope.currentSession
   $scope.$on 'auth.logged-in', refreshSession
   $scope.$on 'auth.logged-out', refreshSession
   refreshSession()
@@ -12,7 +11,6 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
   $scope.peekAt = (toPeekAt)->
     Users.get id: toPeekAt.id, (data)->
       $scope.peek = data
-      console.log $scope.peek
 
   $scope.logout = ->
     CurrentSession.logout()

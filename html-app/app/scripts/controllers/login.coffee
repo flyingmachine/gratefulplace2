@@ -13,7 +13,6 @@ angular.module('gratefulplaceApp')
       $location.path "/"
 
     loginFailure = (response)->
-      console.log response
       $scope.errors = response.errors
       
     $scope.submitLogin = ->

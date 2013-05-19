@@ -2,7 +2,5 @@
 
 angular.module('gratefulplaceApp')
   .controller 'TopicCtrl', ($scope, $routeParams, Topic) ->
-    Topic.get(id: $routeParams.id, (topic)->
-      console.log(topic)
+    Topic.get id: $routeParams.id, (topic)->
       $scope.topic = topic
-    )
