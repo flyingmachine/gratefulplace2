@@ -12,6 +12,7 @@
   (attr :title :topic/title)
   (attr :post-count (ref-count :post/topic))
   (attr :author-id (comp :db/id :content/author))
+  (attr :last-posted-to-at :topic/last-posted-to-at)
   (has-one :first-post
            :serializer gratefulplace.db.serializers/ent->post
            :retriever :topic/first-post)

@@ -18,11 +18,13 @@
 
 (defn query
   [params]
-  (map #(s/serialize
-         %
-         ss/ent->topic
-         index-topic-serialize-options)
-       (db/all :topic/first-post)))
+  (sort-by :last-posted-to-at
+           #(compare %2 %1)
+           (map #(s/serialize
+                  %
+                  ss/ent->topic
+                  index-topic-serialize-options)
+                (db/all :topic/first-post))))
 
 (defn show
   [params]
@@ -38,6 +40,7 @@
         author-id (:id (friend/current-authentication))
         topic (remove-nils-from-map {:topic/title (:title params)
                                      :topic/first-post post-tempid
+                                     :topic/last-posted-to-at (java.util.Date.)
                                      :content/author author-id
                                      :db/id topic-tempid})]
     {:body
@@ -50,4 +53,4 @@
          :tempids
          (db/resolve-tempid topic-tempid)
          db/ent
-         (s/serialize ss/ent->topic index-to))}))
+         (s/serialize ss/ent->topic index-topic-serialize-options))}))

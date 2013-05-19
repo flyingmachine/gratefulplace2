@@ -56,6 +56,13 @@
   :db/doc "Post which initiates topic"
   :db.install/_attribute :db.part/db}
 
+ {:db/id #db/id[:db.part/db]
+  :db/ident :topic/last-posted-to-at
+  :db/valueType :db.type/instant
+  :db/cardinality :db.cardinality/one
+  :db/doc "Time of last post to this topic"
+  :db.install/_attribute :db.part/db}
+
  ;; posts
  {:db/id #db/id[:db.part/db]
   :db/ident :post/content
@@ -85,5 +92,4 @@
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "General author attribute"
-  :db.install/_attribute :db.part/db}
-]
+  :db.install/_attribute :db.part/db}]
