@@ -1,5 +1,5 @@
 (ns gratefulplace.controllers.shared)
 
-(defmacro id
-  []
-  '(read-string (re-find #"^\d+$" (:id params))))
+(defn id
+  [str-id]
+  (read-string (re-find #"^\d+$" str-id)))

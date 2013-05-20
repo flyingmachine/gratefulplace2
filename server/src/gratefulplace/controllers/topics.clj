@@ -29,7 +29,7 @@
 (defn show
   [params]
   {:body (s/serialize
-          (db/ent (id))
+          (db/ent (id (:id params)))
           ss/ent->topic
           single-topic-serialize-options)})
 

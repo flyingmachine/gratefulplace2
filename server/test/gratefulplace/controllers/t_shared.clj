@@ -3,5 +3,5 @@
   (:require [gratefulplace.controllers.shared :as shared]))
 
 (fact "id converts a string to an integer using params"
-  (let [params {:id "1"}] (shared/id)) => 1
-  (let [params {:id "17592186045420"}] (shared/id)) => 17592186045420)
+  (let (shared/id "1")) => 1
+  (let (shared/id "17592186045420")) => 17592186045420)

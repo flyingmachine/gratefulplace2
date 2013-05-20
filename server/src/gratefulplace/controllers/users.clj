@@ -35,4 +35,4 @@
 
 (defn show
   [params]
-  {:body (s/serialize (db/ent (id)) ss/ent->user {:exclude [:password]})})
+  {:body (s/serialize (db/ent (id (:id params))) ss/ent->user {:exclude [:password]})})

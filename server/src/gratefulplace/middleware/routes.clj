@@ -2,12 +2,12 @@
   (:require compojure.route
             compojure.handler
             [gratefulplace.controllers.topics :as topics]
+            [gratefulplace.controllers.posts :as posts]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
             [gratefulplace.controllers.js :as js]
             [cemerick.friend :as friend])
   (:use [compojure.core :as compojure.core :only (GET PUT POST ANY defroutes)]
-        [liberator.core :only [resource]]
         environ.core))
 
 
@@ -28,6 +28,9 @@
   (route GET "/topics" topics/query)
   (route GET "/topics/:id" topics/show)
   (route POST "/topics" topics/create!)
+
+  ;; Posts
+  (route POST "/posts" posts/create!)
 
   ;; Users
   (POST "/users" [] users/registration-success-response)

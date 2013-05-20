@@ -132,3 +132,9 @@ textarea {
   }
 }
 
+.reply {
+  @include trailer;
+  textarea {
+    height: 2 * $base-line-height;
+  }
+}
