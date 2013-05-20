@@ -86,6 +86,13 @@
   :db/doc "Position in topic"
   :db.install/_attribute :db.part/db}
 
+ {:db/id #db/id[:db.part/db]
+  :db/ident :post/created-at
+  :db/valueType :db.type/instant
+  :db/cardinality :db.cardinality/one
+  :db/doc "When the post was created"
+  :db.install/_attribute :db.part/db}
+ 
  ;; content
  {:db/id #db/id[:db.part/db]
   :db/ident :content/author

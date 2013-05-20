@@ -17,10 +17,12 @@
 
  {:post/content "T1 First post content"
   :post/topic #db/id[:db.part/user -20]
+  :post/created-at #inst "2013-05-19T19:41:20.909-00:00"
   :content/author #db/id[:db.part/user -10]
   :db/id #db/id[:db.part/user -30]}
  {:post/content "T1 Second post content"
   :post/topic #db/id[:db.part/user -20]
+  :post/created-at #inst "2013-05-19T19:41:20.909-00:00"
   :content/author #db/id[:db.part/user -11]
   :db/id #db/id[:db.part/user -31]}
 
@@ -33,9 +35,11 @@
 
  {:post/content "T2 First post content"
   :post/topic #db/id[:db.part/user -21]
+  :post/created-at #inst "2013-05-19T19:41:20.909-00:00"
   :content/author #db/id[:db.part/user -11]
   :db/id #db/id[:db.part/user -32]}
  {:post/content "T2 Second post content"
   :post/topic #db/id[:db.part/user -21]
+  :post/created-at #inst "2013-05-19T19:41:20.909-00:00"
   :content/author #db/id[:db.part/user -10]
   :db/id #db/id[:db.part/user -33]}]
