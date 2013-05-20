@@ -21,7 +21,9 @@
            :retriever :content/author)
   (has-many :posts
             :serializer gratefulplace.db.serializers/ent->post
-            :retriever #(gratefulplace.db.query/all :post/topic [:post/topic (:db/id %)])))
+            :retriever #(sort-by :post/created-at
+                                 #(compare %2 %1)
+                                 (:post/_topic %))))
 
 (defserializer ent->post
   (attr :id :db/id)

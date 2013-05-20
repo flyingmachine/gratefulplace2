@@ -14,6 +14,7 @@
         author-id (:id (friend/current-authentication))
         post (remove-nils-from-map {:post/content (:content params)
                                     :post/topic topic-id
+                                    :post/created-at (java.util.Date.)
                                     :content/author author-id
                                     :db/id post-tempid})]
     {:body
