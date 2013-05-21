@@ -46,4 +46,7 @@
                    {:post/content (:content params)
                     :post/topic topic-tempid
                     :content/author author-id
-                    :db/id post-tempid}]))}))
+                    :db/id post-tempid}])
+            topic-tempid
+            ss/ent->topic
+            index-topic-serialize-options)}))

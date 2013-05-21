@@ -20,4 +20,7 @@
     {:body (serialize-tx-result
             (db/t [post
                    {:db/id topic-id
-                    :topic/last-posted-to-at (java.util.Date.)}]))}))
+                    :topic/last-posted-to-at (java.util.Date.)}])
+            post-tempid
+            ss/ent->post
+            {:include author-inclusion-options})}))
