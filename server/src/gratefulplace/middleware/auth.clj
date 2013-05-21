@@ -1,7 +1,7 @@
 (ns gratefulplace.middleware.auth
   (:require [gratefulplace.controllers.users :as users]
             [gratefulplace.db.query :as q]
-            [gratefulplace.db.serialize :as s]
+            [flyingmachine.serialize.core :as s]
             [gratefulplace.db.serializers :as ss]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]

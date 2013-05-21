@@ -1,7 +1,7 @@
 (ns gratefulplace.controllers.users
   (:require [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
-            [gratefulplace.db.serialize :as s]
+            [flyingmachine.serialize.core :as s]
             [gratefulplace.db.serializers :as ss]
             [gratefulplace.db.query :as q]
             [cemerick.friend :as friend]

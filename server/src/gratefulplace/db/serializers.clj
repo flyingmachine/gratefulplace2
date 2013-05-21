@@ -22,7 +22,6 @@
   (has-many :posts
             :serializer gratefulplace.db.serializers/ent->post
             :retriever #(sort-by :post/created-at
-                                 #(compare %2 %1)
                                  (:post/_topic %))))
 
 (defserializer ent->post

@@ -2,19 +2,18 @@
   (:require [datomic.api :as d]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.serializers :as ss]
-            [gratefulplace.db.serialize :as s]
+            [flyingmachine.serialize.core :as s]
             [cemerick.friend :as friend])
   (:use gratefulplace.controllers.shared
         gratefulplace.utils))
 
 (def single-topic-serialize-options
-  {:include
-    {:posts {:include
-             {:author {:exclude [:email :password]}}}}})
+  {:include {:posts (merge author-inclusion-options)}})
 
 (def index-topic-serialize-options
-  {:include {:first-post {}
-             :author {:exclude [:email :password]}}})
+  (merge-with merge
+              {:include {:first-post {}}}
+              author-inclusion-options))
 
 (defn query
   [params]
@@ -43,14 +42,9 @@
                                      :topic/last-posted-to-at (java.util.Date.)
                                      :content/author author-id
                                      :db/id topic-tempid})]
-    {:body
-     (-> (db/t [topic
-                {:post/content (:content params)
-                 :post/topic topic-tempid
-                 :content/author author-id
-                 :db/id post-tempid}])
-         deref
-         :tempids
-         (db/resolve-tempid topic-tempid)
-         db/ent
-         (s/serialize ss/ent->topic index-topic-serialize-options))}))
+    {:body (serialize-tx-result
+            (db/t [topic
+                   {:post/content (:content params)
+                    :post/topic topic-tempid
+                    :content/author author-id
+                    :db/id post-tempid}]))}))
