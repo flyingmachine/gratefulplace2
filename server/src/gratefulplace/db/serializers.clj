@@ -1,7 +1,8 @@
 (ns gratefulplace.db.serializers
   (:require [gratefulplace.db.query :as db]
             cemerick.friend.credentials)
-  (:use [flyingmachine.serialize.core]))
+  (:use [flyingmachine.serialize.core]
+        [gratefulplace.utils]))
 
 (defn ref-count
   [ref-attr]

@@ -16,13 +16,12 @@
 
 (defn query
   [params]
-  (sort-by :last-posted-to-at
-           #(compare %2 %1)
-           (map #(s/serialize
-                  %
-                  ss/ent->topic
-                  index-topic-serialize-options)
-                (db/all :topic/first-post))))
+  (reverse-by :last-posted-to-at
+              (map #(s/serialize
+                     %
+                     ss/ent->topic
+                     index-topic-serialize-options)
+                   (db/all :topic/first-post))))
 
 (defn show
   [params]
