@@ -3,7 +3,7 @@
             [gratefulplace.db.query :as db]))
 
 (def author-inclusion-options
-  {:include {:author {:exclude [:email :password]}}})
+  {:author {:exclude [:email :password]}})
 
 (defn id
   [str-id]

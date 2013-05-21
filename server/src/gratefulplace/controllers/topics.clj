@@ -8,12 +8,11 @@
         gratefulplace.utils))
 
 (def single-topic-serialize-options
-  {:include {:posts (merge author-inclusion-options)}})
+  {:include {:posts {:include author-inclusion-options}}})
 
 (def index-topic-serialize-options
-  (merge-with merge
-              {:include {:first-post {}}}
-              author-inclusion-options))
+  {:include (merge {:first-post {}}
+                   author-inclusion-options)})
 
 (defn query
   [params]
