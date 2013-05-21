@@ -31,7 +31,6 @@
               :env {:html-paths ["../html-app/app"
                                  "../html-app/.tmp"]
                     :datomic {:config "resources/datomic-transactor.properties"
-                              :schemas ["resources/schema" ["schema.edn" "seed-data.edn"]]
                               :db-uri "datomic:free://localhost:4334/gp2"
                               :test-uri "datomic:mem://gp2"}}
               :datomic {:config "resources/datomic-transactor.properties"

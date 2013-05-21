@@ -4,9 +4,9 @@
 
 (def db-uri (:db-uri (env :datomic)))
 (def conn (d/connect db-uri))
-(defmacro db
+(defn db
   []
-  '(d/db conn))
+  (d/db conn))
 
 ;; '[:find ?c :where [?c :topic/title]]
 (def q
