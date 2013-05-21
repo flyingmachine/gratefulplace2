@@ -2,11 +2,13 @@
   (:require [datomic.api :as d])
   (:use environ.core))
 
-(def db-uri (:db-uri (env :datomic)))
-(def conn (d/connect db-uri))
+(def ^:dynamic *db-uri* (:db-uri (env :datomic)))
+(defn conn
+  []
+  (d/connect *db-uri*))
 (defn db
   []
-  (d/db conn))
+  (d/db (conn)))
 
 ;; '[:find ?c :where [?c :topic/title]]
 (def q
@@ -31,7 +33,7 @@
                               :where conditions}))))
 
 (def t
-  #(d/transact conn %))
+  #(d/transact (conn) %))
 
 (defn resolve-tempid
   [tempids tempid]

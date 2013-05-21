@@ -6,8 +6,8 @@
 
 (defn recreate
   []
-  (d/delete-database q/db-uri)
-  (d/create-database q/db-uri))
+  (d/delete-database q/*db-uri*)
+  (d/create-database q/*db-uri*))
 
 (defn load-schema
   []
