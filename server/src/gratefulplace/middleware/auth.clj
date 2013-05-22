@@ -11,7 +11,7 @@
 (defn user
   [username]
   (if-let [user-ent (q/one [:user/username username])]
-    (s/serialize user-ent ss/ent->user)))
+    (s/serialize user-ent ss/ent->userauth)))
 
 (defn credential-fn
   [username]

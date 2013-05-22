@@ -7,7 +7,7 @@
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
   (:use [flyingmachine.webutils.validation :only (if-valid)]
-        gratefulplace.controllers.shared))
+        gratefulplace.utils))
 
 (defn registration-success-response
   [params]
@@ -35,4 +35,4 @@
 
 (defn show
   [params]
-  {:body (s/serialize (db/ent (id (:id params))) ss/ent->user {:exclude [:password]})})
+  {:body (s/serialize (db/ent (str->int (:id params))) ss/ent->user {:exclude [:password]})})

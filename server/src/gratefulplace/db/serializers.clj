@@ -41,7 +41,6 @@
   (attr :id :db/id)
   (attr :username :user/username)
   (attr :email :user/email)
-  (attr :password :user/password)
   (has-many :topics
             :serializer gratefulplace.db.serializers/ent->topic
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))
@@ -49,6 +48,11 @@
             :serializer gratefulplace.db.serializers/ent->post
             :retriever #(gratefulplace.db.query/all :post/content [:content/author (:db/id %)])))
 
+(defserializer ent->userauth
+  (attr :id :db/id)
+  (attr :password :user/password)
+  (attr :username :user/username)
+  (attr :email :user/email))
 
 (defserializer user->txdata
   (attr :db/id #(or (:id %) #db/id[:db.part/user]))

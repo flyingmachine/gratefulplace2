@@ -7,9 +7,6 @@
   (:use gratefulplace.controllers.shared
         gratefulplace.utils))
 
-(def single-topic-serialize-options
-  {:include {:posts {:include author-inclusion-options}}})
-
 (def index-topic-serialize-options
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
@@ -26,9 +23,9 @@
 (defn show
   [params]
   {:body (s/serialize
-          (db/ent (id (:id params)))
+          (db/ent (str->int (:id params)))
           ss/ent->topic
-          single-topic-serialize-options)})
+          {:include {:posts {:include author-inclusion-options}}})})
 
 (defn create!
   [params]
