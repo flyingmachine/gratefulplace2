@@ -1,9 +1,10 @@
 (ns gratefulplace.controllers.t-topics
   (:use midje.sweet)
-  (:require [gratefulplace.controllers.topics :as topics]))
+  (:require [gratefulplace.db.test :as tdb]
+            [gratefulplace.controllers.topics :as topics]))
 
-(fact "query returns all topics"
-  ;; (topics/query {}) => []
-  )
+(tdb/with-test-db
+  (fact "query returns all topics"
+    (topics/query {}) => (two-of map?)))
 
 
