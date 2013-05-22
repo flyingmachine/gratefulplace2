@@ -28,10 +28,11 @@
           {:include {:posts {:include author-inclusion-options}}})})
 
 (defn create!
-  [params]
+  [params auth]
+  (println "params" params)
   (let [topic-tempid (d/tempid :db.part/user -1)
         post-tempid (d/tempid :db.part/user -2)
-        author-id (:id (friend/current-authentication))
+        author-id (:id auth)
         topic (remove-nils-from-map {:topic/title (:title params)
                                      :topic/first-post post-tempid
                                      :topic/last-posted-to-at (java.util.Date.)
@@ -45,4 +46,5 @@
                     :db/id post-tempid}])
             topic-tempid
             ss/ent->topic
-            index-topic-serialize-options)}))
+            index-topic-serialize-options)
+     :status 200}))

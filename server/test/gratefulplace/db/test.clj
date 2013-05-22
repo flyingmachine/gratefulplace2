@@ -11,12 +11,13 @@
 (defmacro with-test-db
   [& body]
   `(binding [q/*db-uri* test-db-uri]
+     (initialize)
      ~@body))
 
 (defn initialize
   []
-  (with-test-db
-    (manage/recreate)
-    ;; TODO Not sure why I have to put this doall here before the swap!
-    (doall (manage/load-schema)))
+  (manage/recreate)
+  ;; TODO Not sure why I have to put this doall here before the
+  ;; swap!
+  (doall (manage/load-schema))
     (swap! initialized (fn [_] true)))

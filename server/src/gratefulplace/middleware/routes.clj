@@ -12,13 +12,18 @@
 
 
 (defmacro route
-  [method path & handlers]
+  [method path handler]
   `(~method ~path {params# :params}
-            (->> params#
-                ~@handlers)))
+            (~handler params#)))
+
+(defmacro authroute
+  [method path handler]
+  (let [params (quote params)]
+    `(~method ~path {:keys [~params] :as req#}
+              (~handler ~params (friend/current-authentication req#)))))
 
 (defroutes routes
-  (route GET "/scripts/load_session.js" js/load_session)
+  (authroute GET "/scripts/load_session.js" js/load-session)
   
   (apply compojure.core/routes
          (map #(compojure.route/files "/" {:root %})
@@ -27,10 +32,10 @@
   ;; Topics
   (route GET "/topics" topics/query)
   (route GET "/topics/:id" topics/show)
-  (route POST "/topics" topics/create!)
+  (authroute POST "/topics" topics/create!)
 
   ;; Posts
-  (route POST "/posts" posts/create!)
+  (authroute POST "/posts" posts/create!)
 
   ;; Users
   (POST "/users" [] users/registration-success-response)
@@ -41,5 +46,8 @@
   (friend/logout
    (ANY "/logout" []
         (ring.util.response/redirect "/")))
+
+  (ANY "/debug" {:keys [x] :as r}
+       (str x))
   
   (compojure.route/not-found "Sorry, there's nothing here."))
