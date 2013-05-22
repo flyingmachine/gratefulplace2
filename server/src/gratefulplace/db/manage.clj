@@ -11,5 +11,5 @@
 
 (defn load-schema
   []
-  (map #(q/t (read-string (slurp %)))
+  (map (bound-fn [f] (q/t (read-string (slurp f))))
        (.listFiles (File. "resources/migrations"))))
