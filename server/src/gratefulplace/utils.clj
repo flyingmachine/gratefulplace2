@@ -15,10 +15,12 @@
   (read-string (re-find #"^\d+$" str)))
 
 (defn serialize-tx-result
-  [tx tempid serializer serializer-options]
-  (-> tx
-      deref
-      :tempids
-      (db/resolve-tempid tempid)
-      db/ent
-      (s/serialize serializer serializer-options)))
+  ([tx tempid serializer]
+     (serialize-tx-result tx tempid serializer {}))
+  ([tx tempid serializer serializer-options]
+     (-> tx
+         deref
+         :tempids
+         (db/resolve-tempid tempid)
+         db/ent
+         (s/serialize serializer serializer-options))))

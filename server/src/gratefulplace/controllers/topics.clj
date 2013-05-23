@@ -29,6 +29,7 @@
 
 (defn create!
   [params auth]
+  (println auth)
   (let [topic-tempid (d/tempid :db.part/user -1)
         post-tempid (d/tempid :db.part/user -2)
         author-id (:id auth)

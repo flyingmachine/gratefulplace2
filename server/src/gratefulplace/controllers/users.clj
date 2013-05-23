@@ -1,6 +1,7 @@
 (ns gratefulplace.controllers.users
   (:require [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
+            [datomic.api :as d]
             [flyingmachine.serialize.core :as s]
             [gratefulplace.db.serializers :as ss]
             [gratefulplace.db.query :as q]
@@ -24,10 +25,13 @@
        (:create validations/user)
        errors
 
-       (do
-         (q/t [(s/serialize params ss/user->txdata)])
+       (let [user-tempid (d/tempid :db.part/user -1)
+             user (serialize-tx-result
+                   (q/t [(s/serialize (merge params {:id user-tempid}) ss/user->txdata)])
+                   user-tempid
+                   ss/ent->user)]
          (cemerick.friend.workflows/make-auth
-          (select-keys params [:username])
+          user
           {:cemerick.friend/redirect-on-auth? false}))
        {:body {:errors errors}
         :status 412}))))
