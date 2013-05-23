@@ -38,7 +38,7 @@
   (authroute POST "/posts" posts/create!)
 
   ;; Users
-  (POST "/users" [] users/registration-success-response)
+  (authroute POST "/users" users/registration-success-response)
   (route GET "/users/:id" users/show)
 
   ;; auth

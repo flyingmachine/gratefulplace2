@@ -10,10 +10,9 @@
         gratefulplace.utils))
 
 (defn registration-success-response
-  [params]
+  [params auth]
   "If the request gets this far, it means that user registration was successful."
-  (if (friend/current-authentication)
-    {:body "success"}))
+  (if auth {:body auth}))
 
 (defn attempt-registration
   [req]
