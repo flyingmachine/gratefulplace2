@@ -2,35 +2,15 @@
   <div class="summary"></div>
   <div class="title">{{topic.title}}</div>
   <div class="posts">
-    <div class="post">
-      <div class="content" ng-bind-html-unsafe="firstPost.content">
-      </div>
-      <footer>
-        <div class="date">{{firstPost.date}}</div>
-        <div class="author">
-          <a href="" ng-click="peekAt(firstPost.author)">
-            {{firstPost.author.username}}
-          </a>
-        </div>
-      </footer>
-    </div>
+    <post post="firstPost">
+    </post>
     <div class="reply">
       <form ng-submit="submitReply()">
         <textarea ng-model="reply.content" placeholder="Post a reply..."></textarea>
         <input type="submit" value="Post Reply" />
       </form>
     </div>
-    <div class="post" ng-repeat="post in topic.posts">
-      <div class="content" ng-bind-html-unsafe="post.content">
-      </div>
-      <footer>
-        <div class="date">{{post.date}}</div>
-        <div class="author">
-          <a href="" ng-click="peekAt(post.author)">
-            {{post.author.username}}
-          </a>
-        </div>
-      </footer>
-    </div>
+    <post post="post" ng-repeat="post in topic.posts">
+    </post>
   </div>
 </div>
