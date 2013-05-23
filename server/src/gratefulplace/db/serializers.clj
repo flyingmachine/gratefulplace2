@@ -59,3 +59,7 @@
   (attr :user/username :username)
   (attr :user/email :email)
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:password %))))
+
+(defserializer post->txdata
+  (attr :db/id #(or (str->int (:id %)) #db/id[:db.part/user]))
+  (attr :post/content :content))

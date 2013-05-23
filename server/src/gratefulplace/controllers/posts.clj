@@ -5,7 +5,19 @@
             [flyingmachine.serialize.core :as s]
             [cemerick.friend :as friend])
   (:use gratefulplace.controllers.shared
+        gratefulplace.models.permissions
         gratefulplace.utils))
+
+(defn update
+  [params auth]
+  (let [record (s/serialize
+                (db/ent (str->int (:id params)))
+                (ss/ent->post)
+                {:include author-inclusion-options})]
+    (protect
+     (can-modify-record? record auth)
+     (db/t [(s/serialize params ss/post->txdata)])
+     {:status 200})))
 
 (defn create!
   [params auth]

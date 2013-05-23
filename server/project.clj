@@ -24,7 +24,10 @@
             [lein-environ "0.4.0"]
             [lein-datomic "0.2.0"]]
 
-  :profiles {:dev
+  :profiles {:user
+             {:env {:moderator-names ["flyingmachine"]}}
+             
+             :dev
              {:dependencies [[midje "1.5.0"]]
               :env {:html-paths ["../html-app/app"
                                  "../html-app/.tmp"]

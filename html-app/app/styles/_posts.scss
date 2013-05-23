@@ -13,9 +13,22 @@
   footer {
     @include clearfix;
     @include leader;
-    @include padding-leader(0.5);
     @include box-sizing(border-box);
-    border-top:1px solid #ccc;
+    @include padding-leader(.5);
+    border-top: 1px solid #eee;
+
+    color: #999;
+
+    // Fade
+    /* 
+    a {
+      color: #aac2e5;
+    }
+    
+    a:visited {
+      color: #a99de3;
+    }
+    */
   }
 
   .content {
@@ -38,21 +51,22 @@
   
   .author {
     font-weight:bold;
-    float: right;
+    line-height: 22px;
+    float: left;
     margin-right:.5em;
   }
 
   .date {
-    float:right;
+    float:left;
   }
 
   .comments {
-    float:left;
-    margin-left:1em;
+    float:right;
+    margin-right:.5em;
   }
 
-  .favorite {
-    float:left;
+  .like {
+    float:right;
     .status {
       float:left;
     }

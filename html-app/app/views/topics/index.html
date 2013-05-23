@@ -2,13 +2,15 @@
   <div class="post" ng-repeat="topic in topics">
     <div class="content" ng-bind-html-unsafe="topic['first-post'].content"></div>
     <footer>
-      <div class="date">{{topic.date}}</div>
       <div class="author">
+        by
         <a href="" ng-click="peekAt(topic.author)">
           {{topic.author.username}}
         </a>
       </div>
-      <div class="favorite">
+      <div class="date">{{formatCreatedAt(topic['created-at'])}}</div>
+
+      <div class="like">
         <a href="#">&#9733;</a>
       </div>
       <a href="/#/topics/{{topic.id}}/" class="comments">

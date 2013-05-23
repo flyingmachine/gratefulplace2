@@ -10,6 +10,9 @@ angular.module('gratefulplaceApp').controller 'TopicsCtrl', ($scope, Topic) ->
   $scope.firstPost = (topic)->
     topic.posts[0]
 
+  $scope.formatCreatedAt = (date)->
+    moment(date).format("MMM D, YYYY h:mma")
+
   $scope.formatPostCount = (postCount)->
     switch postCount
       when 1 then "no replies"

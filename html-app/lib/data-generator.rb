@@ -26,6 +26,7 @@ topics = Array.new(100) {
     id: i,
     title: Faker::Lorem.sentence(rand(5) + 5),
     author: pick_random(users),
+    "created-at" => Time.now.to_s,
     posts: Array.new(rand(30) + 1) {
       user = pick_random(users)
       user = {
@@ -35,11 +36,12 @@ topics = Array.new(100) {
       {
         author: user,
         content: Faker::Lorem.paragraphs(rand(3) + 1).collect{|p| "<p>#{p}</p>"}.join,
-        date: Date.today.to_s
+        "created-at" => Time.now.to_s
       }
     }
   }
   h['first-post'] = h[:posts].first
+  h['post-count'] = h[:posts].size
   h
 }
 
