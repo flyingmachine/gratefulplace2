@@ -17,18 +17,14 @@
     @include padding-leader(.5);
     border-top: 1px solid #eee;
 
-    color: #999;
-
     // Fade
-    /* 
-    a {
-      color: #aac2e5;
-    }
-    
-    a:visited {
-      color: #a99de3;
-    }
-    */
+    color: #999;
+    // a {
+    //   color: #aac2e5;
+    // }
+    // a:visited {
+    //   color: #a99de3;
+    // }
   }
 
   .content {
@@ -150,5 +146,19 @@ textarea {
   @include trailer;
   textarea {
     height: 2 * $base-line-height;
+  }
+}
+
+#main .replies .post {
+  footer {
+    border: none;
+    padding-top: 0;
+    
+    a {
+      color: #aac2e5;
+    }
+    a:visited {
+      color: #a99de3;
+    }
   }
 }
