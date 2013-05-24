@@ -9,10 +9,18 @@ files = [
   JASMINE_ADAPTER,
   'app/components/angular/angular.js',
   'app/components/angular-mocks/angular-mocks.js',
+  "app/components/angular-resource/angular-resource.js",
+  "app/components/angular-cookies/angular-cookies.js",
+  "app/components/angular-sanitize/angular-sanitize.js",
+  "app/components/underscore/underscore-min.js",
+  "app/components/moment/moment.js",
+  '.tmp/scripts/init.js',
   'app/scripts/*.js',
   'app/scripts/**/*.js',
   'test/mock/**/*.js',
-  'test/spec/**/*.js'
+  'test/spec/**/*.js',
+  '.tmp/scripts/**/*.js',
+  '.tmp/spec/**/*.js'
 ];
 
 // list of files to exclude
