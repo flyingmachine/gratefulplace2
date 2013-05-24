@@ -72,7 +72,6 @@
     text-align:center;
     color: #aaa;
     @include border-radius(1em);
-    margin-right: .5em;
     
     &:hover {
       color:#333;
@@ -141,7 +140,9 @@ textarea {
 }
 
 .reply {
-  @include trailer;
+  @include chunk;
+  @include padding-trailer;
+  @include padding-leader;
   textarea {
     height: 2 * $base-line-height;
   }
