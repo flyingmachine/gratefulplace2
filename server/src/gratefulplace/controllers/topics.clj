@@ -42,6 +42,7 @@
             (db/t [topic
                    {:post/content (:content params)
                     :post/topic topic-tempid
+                    :post/created-at (java.util.Date.)
                     :content/author author-id
                     :db/id post-tempid}])
             topic-tempid
