@@ -36,6 +36,7 @@
 
   ;; Posts
   (authroute POST "/posts" posts/create!)
+  (authroute POST "/posts/:id" posts/update!)
 
   ;; Users
   (authroute POST "/users" users/registration-success-response)

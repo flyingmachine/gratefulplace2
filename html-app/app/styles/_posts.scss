@@ -1,4 +1,3 @@
-
 #main .post {
   @include chunk;
   @include padding-trailer(.5);
@@ -99,6 +98,15 @@
   .edit {
     float:right;
     margin-left: .5em;
+    display: none;
+    &:hover {
+      cursor: pointer;
+      color: $blue;
+    }
+  }
+
+  &:hover .edit {
+    display: block;
   }
 
   textarea {

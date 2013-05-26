@@ -8,12 +8,13 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
-(defn update
+(defn update!
   [params auth]
   (let [record (s/serialize
                 (db/ent (str->int (:id params)))
-                (ss/ent->post)
-                {:include author-inclusion-options})]
+                ss/ent->post
+                {:include author-inclusion-options
+                 :exclude [:content :created-at :topic-id]})]
     (protect
      (can-modify-record? record auth)
      (db/t [(s/serialize params ss/post->txdata)])

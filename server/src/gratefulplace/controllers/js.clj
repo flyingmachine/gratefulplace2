@@ -8,5 +8,5 @@
           {:body (str "angular.module('gratefulplaceApp').value('loadedSession', " value ")")
            :headers {"content-type" "application/javascript"}})]
     (if auth
-      (session-js (str "{username:'" (:username auth) "'}"))
+      (session-js (str "{username:'" (:username auth) "', id: " (:id auth) "}"))
       (session-js "null"))))

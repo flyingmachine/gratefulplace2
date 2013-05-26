@@ -2,12 +2,40 @@ angular.module('gratefulplaceApp').directive 'post', ->
   restrict: "E"
   scope:
     post: '='
-  controller: ['$scope', ($scope)->
+  controller: ['$scope', 'Authorize', 'Post', ($scope, Authorize, Post)->
     $scope.formatCreatedAt = (date)->
       moment(date).format("MMM D, YYYY h:mma")
+
+    $scope.showEdit = ->
+      Authorize.canModifyContent($scope.post)
+
+    $scope.toggleEdit = ($event)->
+      $scope.post.editing = !$scope.post.editing
+      $event && $event.preventDefault()
+
+    $scope.updatePost = ->
+      post = new Post($scope.post)
+      post.$save (p)->
+        $scope.post = p
+        $scope.toggleEdit()
   ]
-  template: '<div class="post">
-      <div class="content" ng-bind-html-unsafe="post.content">
+  template: '
+    <div class="post">
+      <i class="edit icon-pencil"
+         ng-show="showEdit()"
+         ng-click="toggleEdit()"></i>
+      <div class="content"
+           ng-bind-html-unsafe="post.content"
+           ng-show="!post.editing">
+      </div>
+      <div class="content-edit" ng-show="post.editing">
+        <form ng-submit="updatePost()">
+          <textarea ng-model="post.content"></textarea>
+          <input type="submit" value="Save" />
+          <a href="#"
+             ng-click="toggleEdit($event)"
+             class="cancel">Cancel</a>
+        </form>
       </div>
       <footer>
         <div class="author">
