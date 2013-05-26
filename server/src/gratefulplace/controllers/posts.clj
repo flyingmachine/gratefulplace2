@@ -24,11 +24,10 @@
   [params auth]
   (let [post-tempid (d/tempid :db.part/user -1)
         topic-id (:topic params)
-        author-id (:id auth)
         post (remove-nils-from-map {:post/content (:content params)
                                     :post/topic topic-id
                                     :post/created-at (java.util.Date.)
-                                    :content/author author-id
+                                    :content/author (:id auth)
                                     :db/id post-tempid})]
     {:body (serialize-tx-result
             (db/t [post
