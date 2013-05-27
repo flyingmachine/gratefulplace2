@@ -19,8 +19,8 @@ angular.module('gratefulplaceApp').directive 'post', ->
 
     $scope.updatePost = ->
       postResource().$save((p)->
-        $scope.post = p
         $scope.toggleEdit()
+        $scope.post = p
       , (res)->
         $scope.errors = res.data.errors
       )

@@ -26,7 +26,7 @@
     params validations/post errors
     (do
       (db/t [(s/serialize params ss/post->txdata)])
-      OK)
+      {:body (record (str->int (:id params)))})
     (invalid errors))))
 
 (defn create!
