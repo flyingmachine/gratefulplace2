@@ -10,21 +10,24 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
+(defn record
+  [id]
+  (s/serialize
+   (db/ent id)
+   ss/ent->post
+   {:include author-inclusion-options
+    :exclude [:content :created-at :topic-id]}))
+
 (defn update!
   [params auth]
-  (let [record (s/serialize
-                (db/ent (str->int (:id params)))
-                ss/ent->post
-                {:include author-inclusion-options
-                 :exclude [:content :created-at :topic-id]})]
-    (protect
-     (can-modify-record? record auth)
-     (if-valid
-      params validations/post errors
-      (do
-        (db/t [(s/serialize params ss/post->txdata)])
-        {:status 200})
-      (invalid errors)))))
+  (protect
+   (can-modify-record? (record (str->int (:id params))) auth)
+   (if-valid
+    params validations/post errors
+    (do
+      (db/t [(s/serialize params ss/post->txdata)])
+      OK)
+    (invalid errors))))
 
 (defn create!
   [params auth]
@@ -45,3 +48,11 @@
              ss/ent->post
              {:include author-inclusion-options})})
    (invalid errors)))
+
+(defn delete!
+  [params auth]
+  (let [id (str->int (:id params))]
+    (protect
+     (can-modify-record? (record id) auth)
+     (db/t [[:db.fn/retractEntity id]])
+     OK)))

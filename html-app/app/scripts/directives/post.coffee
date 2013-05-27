@@ -3,6 +3,9 @@ angular.module('gratefulplaceApp').directive 'post', ->
   scope:
     post: '='
   controller: ['$scope', 'Authorize', 'Post', ($scope, Authorize, Post)->
+    postResource = ->
+      new Post($scope.post)
+    
     $scope.formatCreatedAt = (date)->
       moment(date).format("MMM D, YYYY h:mma")
 
@@ -15,16 +18,19 @@ angular.module('gratefulplaceApp').directive 'post', ->
       $event && $event.preventDefault()
 
     $scope.updatePost = ->
-      post = new Post($scope.post)
-      post.$save((p)->
+      postResource().$save((p)->
         $scope.post = p
         $scope.toggleEdit()
       , (res)->
         $scope.errors = res.data.errors
       )
+
+    $scope.delete = ->
+      postResource().$delete ->
+        $scope.post.deleted = true
   ]
   template: '
-    <div class="post" ng-class="{editing: post.editing}">
+    <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">
       <div class="error" error-messages="errors.authorization"></div>
       <i class="edit icon-pencil"
          ng-show="showEdit()"
@@ -42,7 +48,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
             <a href="#"
                ng-click="toggleEdit($event)"
                class="cancel">Cancel</a>
-            <input type="submit" value="Delete" class="delete" />
+            <input type="button" value="Delete" class="delete" ng-click="delete()" />
           </div>
         </form>
       </div>

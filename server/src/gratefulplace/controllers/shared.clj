@@ -7,3 +7,6 @@
   [errors]
   {:body {:errors errors}
    :status 412})
+
+(def OK
+  {:status 200})

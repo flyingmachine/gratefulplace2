@@ -125,6 +125,10 @@
       margin-right: .5em;
     }
   }
+
+  &.deleted {
+    display: none;
+  }
 }
 
 #post .comment footer {

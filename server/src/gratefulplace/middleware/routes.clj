@@ -7,7 +7,7 @@
             [gratefulplace.controllers.session :as session]
             [gratefulplace.controllers.js :as js]
             [cemerick.friend :as friend])
-  (:use [compojure.core :as compojure.core :only (GET PUT POST ANY defroutes)]
+  (:use [compojure.core :as compojure.core :only (GET PUT POST DELETE ANY defroutes)]
         environ.core))
 
 
@@ -37,6 +37,7 @@
   ;; Posts
   (authroute POST "/posts" posts/create!)
   (authroute POST "/posts/:id" posts/update!)
+  (authroute DELETE "/posts/:id" posts/delete!)
 
   ;; Users
   (authroute POST "/users" users/registration-success-response)
