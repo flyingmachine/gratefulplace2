@@ -6,10 +6,10 @@
     </post>
     <div class="reply">
       <form ng-submit="submitReply()">
+        <div class="error" error-messages="errors.content"></div>
         <textarea
            ng-model="reply.content"
            placeholder="Post a reply..."></textarea>
-        <div class="error" error-messages="errors.content"></div>
         <input type="submit" value="Post Reply" />
       </form>
     </div>

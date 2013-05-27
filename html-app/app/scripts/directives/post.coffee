@@ -23,7 +23,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
       )
   ]
   template: '
-    <div class="post">
+    <div class="post" ng-class="{editing: post.editing}">
       <div class="error" error-messages="errors.authorization"></div>
       <i class="edit icon-pencil"
          ng-show="showEdit()"
