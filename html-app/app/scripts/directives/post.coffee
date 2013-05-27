@@ -15,12 +15,16 @@ angular.module('gratefulplaceApp').directive 'post', ->
 
     $scope.updatePost = ->
       post = new Post($scope.post)
-      post.$save (p)->
+      post.$save((p)->
         $scope.post = p
         $scope.toggleEdit()
+      , (res)->
+        $scope.errors = res.data.errors
+      )
   ]
   template: '
     <div class="post">
+      <div class="error" error-messages="errors.authorization"></div>
       <i class="edit icon-pencil"
          ng-show="showEdit()"
          ng-click="toggleEdit()"></i>
@@ -28,6 +32,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
            ng-bind-html-unsafe="post.content"
            ng-show="!post.editing">
       </div>
+      <div class="error" error-messages="errors.content"></div>
       <div class="content-edit" ng-show="post.editing">
         <form ng-submit="updatePost()">
           <textarea ng-model="post.content"></textarea>

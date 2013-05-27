@@ -36,5 +36,6 @@
 ;; Pretty sure there's something in onlisp about this
 (defmacro protect [check & body]
   `(if (not ~check)
-     {:status 401}
+     {:status 401
+      :body {:errors {:authorization ["You are not authorized to do that."]}}}
      (do ~@body)))
