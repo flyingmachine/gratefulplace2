@@ -10,7 +10,8 @@ angular.module('gratefulplaceApp').directive 'post', ->
       Authorize.canModifyContent($scope.post)
 
     $scope.toggleEdit = ($event)->
-      $scope.post.editing = !$scope.post.editing
+      if Authorize.canModifyContent($scope.post)
+        $scope.post.editing = !$scope.post.editing
       $event && $event.preventDefault()
 
     $scope.updatePost = ->
