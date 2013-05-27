@@ -261,6 +261,7 @@ table.input {
 }
 
 .markdown-help {
+  @include leader(2);
   table {
     width: 100%;
   }
@@ -335,6 +336,8 @@ input.ng-pristine {
     top: 2px;
   }
 }
+
+
 
 @import "layout";
 @import "posts";

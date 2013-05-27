@@ -1,5 +1,5 @@
 angular.module('gratefulplaceApp').directive 'post', ->
-  restrict: "E"
+  restrict: 'E'
   scope:
     post: '='
   controller: ['$scope', 'Authorize', 'Post', ($scope, Authorize, Post)->
