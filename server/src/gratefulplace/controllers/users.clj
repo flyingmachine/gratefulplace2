@@ -8,6 +8,7 @@
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
   (:use [flyingmachine.webutils.validation :only (if-valid)]
+        gratefulplace.controllers.shared
         gratefulplace.utils))
 
 (defn registration-success-response
@@ -33,8 +34,7 @@
          (cemerick.friend.workflows/make-auth
           user
           {:cemerick.friend/redirect-on-auth? false}))
-       {:body {:errors errors}
-        :status 412}))))
+       (invalid errors)))))
 
 (defn show
   [params]

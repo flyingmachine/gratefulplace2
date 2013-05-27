@@ -43,3 +43,8 @@
                        conj
                        "You didn't enter the correct value for your current password"
                        #(BCrypt/checkpw (:current-password %) pw)))})
+
+(def post
+  {:content
+   ["Your post can't be blank."
+    #(not-empty %)]})

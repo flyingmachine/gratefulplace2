@@ -9,8 +9,9 @@ angular.module('gratefulplaceApp')
     $scope.submitReply = ->
       post = new Post($scope.reply)
       post.topic = $scope.topic.id
-      post.$save (p)->
+      post.$save((p)->
         $scope.topic.posts.push(p)
+      , (res)->
+        $scope.errors = res.data.errors
+      )
       $scope.reply = {}
-      
-      
