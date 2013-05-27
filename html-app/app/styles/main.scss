@@ -282,14 +282,6 @@ table.input {
   @include alt-font;
 }
 
-.delete {
-  @include leader;
-
-  input[type="submit"] {
-    @include background-image(linear-gradient(white, #f1d8df));
-  }
-}
-
 #signup {
   padding: (.5 * $base-line-height) $gutter-width;
   background: $medium-green;

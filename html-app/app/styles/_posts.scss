@@ -112,6 +112,19 @@
   textarea {
     @include adjust-font-size-to(18px, 1, 18px);
   }
+
+  input.delete {
+    @include background-image(linear-gradient(white, #f1d8df));
+    float: right;
+  }
+
+  .actions {
+    @include clearfix;
+    .save, .cancel {
+      float: left;
+      margin-right: .5em;
+    }
+  }
 }
 
 #post .comment footer {

@@ -37,10 +37,13 @@ angular.module('gratefulplaceApp').directive 'post', ->
       <div class="content-edit" ng-show="post.editing">
         <form ng-submit="updatePost()">
           <textarea ng-model="post.content"></textarea>
-          <input type="submit" value="Save" />
-          <a href="#"
-             ng-click="toggleEdit($event)"
-             class="cancel">Cancel</a>
+          <div class="actions">
+            <input type="submit" value="Save" class="save" />
+            <a href="#"
+               ng-click="toggleEdit($event)"
+               class="cancel">Cancel</a>
+            <input type="submit" value="Delete" class="delete" />
+          </div>
         </form>
       </div>
       <footer>
