@@ -26,8 +26,9 @@ angular.module('gratefulplaceApp').directive 'post', ->
       )
 
     $scope.delete = ->
-      postResource().$delete ->
-        $scope.post.deleted = true
+      if confirm "Are you sure you want to delete this post?"
+        postResource().$delete ->
+          $scope.post.deleted = true
   ]
   template: '
     <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">
@@ -49,6 +50,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
                ng-click="toggleEdit($event)"
                class="cancel">Cancel</a>
             <input type="button" value="Delete" class="delete" ng-click="delete()" />
+            <a href="#" class="toggle-formatting-help">formatting help</a>
           </div>
         </form>
       </div>

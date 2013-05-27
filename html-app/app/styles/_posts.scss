@@ -118,20 +118,6 @@
     float: right;
   }
 
-  .actions {
-    @include clearfix;
-    .save, .cancel {
-      float: left;
-      margin-right: .5em;
-    }
-    .cancel {
-      @include adjust-font-size-to(14px);
-      font-weight:bold;
-      position: relative;
-      top: 2px;
-    }
-  }
-
   &.deleted {
     display: none;
   }

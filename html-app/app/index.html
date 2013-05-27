@@ -70,10 +70,13 @@
                  required></textarea>
               <div class="error" error-messages="newTopicErrors.content"></div>
             </div>
-            <input type="submit" value="Create Topic" />
-            <a href="#"
-               class="cancel"
-               ng-click="toggleNewTopicForm($event)">Cancel</a>
+            <div class="actions">
+              <input type="submit" class="save" value="Create Topic"/>
+              <a href="#"
+                 class="cancel"
+                 ng-click="toggleNewTopicForm($event)">Cancel</a>
+              <a href="#" class="toggle-formatting-help">formatting help</a>
+            </div>
           </form>
         </div>
         <div ng-view>

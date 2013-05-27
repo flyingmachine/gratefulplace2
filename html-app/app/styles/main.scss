@@ -318,8 +318,22 @@ input.ng-pristine {
   }
 }
 
-.cancel, .cancel:visited {
-  float: right;
+.actions {
+  @include clearfix;
+  .save, .cancel {
+    float: left;
+    margin-right: .5em;
+  }
+  .toggle-formatting-help {
+    float: right;
+    margin-right: .5em;
+  }
+  a {
+    @include adjust-font-size-to(14px);
+    font-weight:bold;
+    position: relative;
+    top: 2px;
+  }
 }
 
 @import "layout";
