@@ -5,6 +5,7 @@
             [flyingmachine.serialize.core :as s]
             [cemerick.friend :as friend])
   (:use gratefulplace.controllers.shared
+        gratefulplace.models.permissions
         gratefulplace.utils))
 
 (def index-topic-serialize-options
@@ -18,7 +19,7 @@
                      %
                      ss/ent->topic
                      index-topic-serialize-options)
-                   (db/all :topic/first-post))))
+                   (db/all :topic/first-post [:content/deleted false]))))
 
 (defn show
   [params]
@@ -49,3 +50,12 @@
             ss/ent->topic
             index-topic-serialize-options)
      :status 200}))
+
+(defn delete!
+  [params auth]
+  (let [id (str->int (:id params))]
+    (protect
+     (can-modify-record? (record id) auth)
+     (db/t [{:db/id id
+             :content/deleted true}])
+     OK)))

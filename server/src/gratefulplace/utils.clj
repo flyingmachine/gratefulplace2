@@ -35,3 +35,10 @@
   [content]
   (let [content (or (:content content) content)]
     (markdown/md-to-html-string (xml-str content))))
+
+(defn mask-deleted
+  [content-fn]
+  (fn [ent]
+    (if (:content/deleted ent)
+      "<em>This was deleted</em>"
+      (content-fn ent))))

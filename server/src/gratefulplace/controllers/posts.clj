@@ -54,5 +54,6 @@
   (let [id (str->int (:id params))]
     (protect
      (can-modify-record? (record id) auth)
-     (db/t [[:db.fn/retractEntity id]])
+     (db/t [{:db/id id
+             :content/deleted true}])
      OK)))
