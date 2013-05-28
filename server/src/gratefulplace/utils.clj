@@ -40,5 +40,5 @@
   [content-fn]
   (fn [ent]
     (if (:content/deleted ent)
-      "<em>This was deleted</em>"
+      "<em>deleted</em>"
       (content-fn ent))))

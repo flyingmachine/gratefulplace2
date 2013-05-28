@@ -28,7 +28,9 @@ angular.module('gratefulplaceApp').directive 'post', ->
     $scope.delete = ->
       if confirm "Are you sure you want to delete this post?"
         postResource().$delete ->
+          $scope.post['formatted-content'] = '<em>deleted</em>'
           $scope.post.deleted = true
+          $scope.toggleEdit()
   ]
   template: '
     <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">

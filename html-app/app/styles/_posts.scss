@@ -119,7 +119,11 @@
   }
 
   &.deleted {
-    display: none;
+    opacity: 0.5;
+
+    .like  {
+      display: none;
+    }
   }
 }
 
