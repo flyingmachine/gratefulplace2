@@ -1,6 +1,7 @@
 (ns gratefulplace.utils
   (:require [flyingmachine.serialize.core :as s]
-            [gratefulplace.db.query :as db]))
+            [gratefulplace.db.query :as db]
+            [markdown.core :as markdown]))
 
 (defn remove-nils-from-map
   [record]
@@ -24,3 +25,13 @@
          (db/resolve-tempid tempid)
          db/ent
          (s/serialize serializer serializer-options))))
+
+(defn- xml-str
+ "Like clojure.core/str but escapes < > and &."
+ [x]
+  (-> x str (.replace "&" "&amp;") (.replace "<" "&lt;") (.replace ">" "&gt;")))
+
+(defn md-content
+  [content]
+  (let [content (or (:content content) content)]
+    (markdown/md-to-html-string (xml-str content))))

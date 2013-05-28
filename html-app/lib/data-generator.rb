@@ -33,9 +33,11 @@ topics = Array.new(100) {
         id: user[:id],
         username: user[:username]
       }
+      content = Faker::Lorem.paragraphs(rand(3) + 1).collect{|p| "#{p}"}.join("\n\n")
       {
         author: user,
-        content: Faker::Lorem.paragraphs(rand(3) + 1).collect{|p| "<p>#{p}</p>"}.join,
+        content: content,
+        "formatted-content" => content,
         "created-at" => Time.now.to_s
       }
     }

@@ -28,6 +28,7 @@
 (defserializer ent->post
   (attr :id :db/id)
   (attr :content :post/content)
+  (attr :formatted-content #(md-content (:post/content %)))
   (attr :created-at :post/created-at)
   (attr :topic-id (comp :db/id :post/topic))
   (attr :author-id (comp :db/id :content/author))
