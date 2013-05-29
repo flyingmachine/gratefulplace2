@@ -1,5 +1,6 @@
 <div id="topics">
   <div class="post" ng-repeat="topic in topics">
+    <h3 class="title" ng-show="topic.title">{{topic.title}}</h3>
     <div class="content" ng-bind-html-unsafe="topic['first-post'].content"></div>
     <footer>
       <div class="author">

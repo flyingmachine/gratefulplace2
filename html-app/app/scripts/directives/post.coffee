@@ -1,8 +1,12 @@
+'use strict'
+
 angular.module('gratefulplaceApp').directive 'post', ->
-  restrict: 'E'
+  restrict: 'EA'
   scope:
-    post: '='
-  controller: ['$scope', 'Authorize', 'Post', ($scope, Authorize, Post)->
+    post: '=model'
+    firstPost: '&'
+  controller: ['$scope', 'Authorize', 'Post', 'Topic', ($scope, Authorize, Post, Topic)->
+    # TODO refactor this - shouldn't need to be a function
     postResource = ->
       new Post($scope.post)
     
@@ -25,12 +29,17 @@ angular.module('gratefulplaceApp').directive 'post', ->
         $scope.errors = res.data.errors
       )
 
+    deleteSuccess = ->
+      $scope.post['formatted-content'] = '<em>deleted</em>'
+      $scope.post.deleted = true
+      $scope.post.editing = false
+    
     $scope.delete = ->
       if confirm "Are you sure you want to delete this post?"
-        postResource().$delete ->
-          $scope.post['formatted-content'] = '<em>deleted</em>'
-          $scope.post.deleted = true
-          $scope.toggleEdit()
+        if $scope.firstPost()
+          topic = new Topic(id: $scope.post['topic-id'])
+          topic.$delete()
+        postResource().$delete deleteSuccess
   ]
   template: '
     <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">

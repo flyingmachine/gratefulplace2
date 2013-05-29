@@ -34,7 +34,6 @@
 
 (defn create!
   [params auth]
-  (println auth)
   (let [topic-tempid (d/tempid :db.part/user -1)
         post-tempid (d/tempid :db.part/user -2)
         author-id (:id auth)
@@ -42,6 +41,7 @@
                                      :topic/first-post post-tempid
                                      :topic/last-posted-to-at (java.util.Date.)
                                      :content/author author-id
+                                     :content/deleted false
                                      :db/id topic-tempid})]
     {:body (serialize-tx-result
             (db/t [topic
@@ -59,7 +59,7 @@
   [params auth]
   (let [id (str->int (:id params))]
     (protect
-     (can-modify-record?)
+     (can-modify-record? (record id) auth)
      (db/t [{:db/id id
              :content/deleted true}])
      OK)))

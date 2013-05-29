@@ -33,6 +33,7 @@
   (route GET "/topics" topics/query)
   (route GET "/topics/:id" topics/show)
   (authroute POST "/topics" topics/create!)
+  (authroute DELETE "/topics/:id" topics/delete!)
 
   ;; Posts
   (authroute POST "/posts" posts/create!)

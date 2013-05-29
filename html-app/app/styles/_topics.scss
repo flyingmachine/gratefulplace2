@@ -1,6 +1,13 @@
-#topic h2 {
+#topics h3.title {
+  margin-top: 0;
+  @include sans-family;
+  @include box-sizing(border-box);
   color: #333;
-  border-bottom: 1px solid #555;
+}
+
+#topic h2 {
+  color: #444;
+  border-bottom: 1px solid #666;
   @include box-sizing(border-box);
   @include adjust-font-size-to(27px, 1);
   @include padding-trailer(.5, 27px);

@@ -2,7 +2,7 @@
   <div class="summary"></div>
   <h2>{{topic.title}}</h2>
   <div class="posts">
-    <post post="firstPost">
+    <post model="firstPost" first-post="true">
     </post>
     <div class="reply">
       <form ng-submit="submitReply()">
@@ -18,7 +18,7 @@
       </form>
     </div>
     <div class="replies">
-      <post post="post" ng-repeat="post in topic.posts">
+      <post model="post" ng-repeat="post in topic.posts">
       </post>
     </div>
   </div>

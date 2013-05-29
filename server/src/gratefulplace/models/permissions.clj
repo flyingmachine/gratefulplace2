@@ -29,8 +29,9 @@
 (defn can-modify-record?
   [record auth]
   (or
-   (= (get-in record [:author :username]) (:username auth))
+   (= (:author-id record) (:id auth))
    (= (get-in record [:author :id]) (:id auth))
+   (= (get-in record [:author :username]) (:username auth))
    (moderator? (:username auth))))
 
 ;; Pretty sure there's something in onlisp about this
