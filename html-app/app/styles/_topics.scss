@@ -1,0 +1,9 @@
+#topic h2 {
+  color: #333;
+  border-bottom: 1px solid #555;
+  @include box-sizing(border-box);
+  @include adjust-font-size-to(27px, 1);
+  @include padding-trailer(.5, 27px);
+  @include trailer(.5, 27px);
+  @include leader(0);
+}

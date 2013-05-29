@@ -12,6 +12,13 @@
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
+(defn record
+  [id]
+  (s/serialize
+   (db/ent id)
+   ss/ent->topic
+   {:include {:posts {:include author-inclusion-options}}}))
+
 (defn query
   [params]
   (reverse-by :last-posted-to-at
@@ -23,10 +30,7 @@
 
 (defn show
   [params]
-  {:body (s/serialize
-          (db/ent (str->int (:id params)))
-          ss/ent->topic
-          {:include {:posts {:include author-inclusion-options}}})})
+  {:body (record (str->int (:id params)))})
 
 (defn create!
   [params auth]
@@ -55,7 +59,7 @@
   [params auth]
   (let [id (str->int (:id params))]
     (protect
-     (can-modify-record? (record id) auth)
+     (can-modify-record?)
      (db/t [{:db/id id
              :content/deleted true}])
      OK)))

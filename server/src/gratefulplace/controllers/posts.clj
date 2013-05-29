@@ -20,14 +20,15 @@
 
 (defn update!
   [params auth]
-  (protect
-   (can-modify-record? (record (str->int (:id params))) auth)
-   (if-valid
-    params validations/post errors
-    (do
-      (db/t [(s/serialize params ss/post->txdata)])
-      {:body (record (str->int (:id params)))})
-    (invalid errors))))
+  (let [retrieve-record (fn [] (record (str->int (:id params))))]
+    (protect
+     (can-modify-record? (retrieve-record) auth)
+     (if-valid
+      params validations/post errors
+      (do
+        (db/t [(s/serialize params ss/post->txdata)])
+        {:body (retrieve-record)})
+      (invalid errors)))))
 
 (defn create!
   [params auth]
