@@ -10,17 +10,14 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
-(defn record
-  [id]
-  (s/serialize
-   (db/ent id)
-   ss/ent->post
-   {:include author-inclusion-options
-    :exclude [:content :created-at :topic-id]}))
+(defserialization record
+  ss/ent->post
+  {:include author-inclusion-options
+   :exclude [:content :created-at :topic-id]})
 
 (defn update!
   [params auth]
-  (let [retrieve-record (fn [] (record (str->int (:id params))))]
+  (let [retrieve-record (fn [] (record (id)))]
     (protect
      (can-modify-record? (retrieve-record) auth)
      (if-valid
@@ -52,7 +49,7 @@
 
 (defn delete!
   [params auth]
-  (let [id (str->int (:id params))]
+  (let [id (id)]
     (protect
      (can-modify-record? (record id) auth)
      (db/t [{:db/id id

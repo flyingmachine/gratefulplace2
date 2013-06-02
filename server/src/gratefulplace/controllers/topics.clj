@@ -12,14 +12,9 @@
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-(defn- record
-  [id]
-  (if-let [ent (db/ent id)]
-    (s/serialize
-     ent
-     ss/ent->topic
-     {:include {:posts {:include author-inclusion-options}}})
-    nil))
+(defserialization record
+  ss/ent->topic
+  {:include {:posts {:include author-inclusion-options}}})
 
 (defn query
   [params]
@@ -32,7 +27,7 @@
 
 (defn show
   [params]
-  (if-let [topic (record (str->int (:id params)))]
+  (if-let [topic (record (id))]
     {:body topic}
     NOT-FOUND))
 
@@ -66,7 +61,7 @@
 
 (defn delete!
   [params auth]
-  (let [id (str->int (:id params))]
+  (let [id (id)]
     (protect
      (can-modify-record? (record id) auth)
      (db/t [{:db/id id
