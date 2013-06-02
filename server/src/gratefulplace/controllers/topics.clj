@@ -1,10 +1,12 @@
 (ns gratefulplace.controllers.topics
   (:require [datomic.api :as d]
+            [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.serializers :as ss]
             [flyingmachine.serialize.core :as s]
             [cemerick.friend :as friend])
-  (:use gratefulplace.controllers.shared
+  (:use [flyingmachine.webutils.validation :only (if-valid)]
+        gratefulplace.controllers.shared
         gratefulplace.models.permissions
         gratefulplace.utils))
 
@@ -33,31 +35,33 @@
 
 (defn create!
   [params auth]
-  (if (:id auth)
-    (if (:content params)
-      (let [topic-tempid (d/tempid :db.part/user -1)
-            post-tempid (d/tempid :db.part/user -2)
-            author-id (:id auth)
-            topic (remove-nils-from-map
-                   {:topic/title (:title params)
-                    :topic/first-post post-tempid
-                    :topic/last-posted-to-at (now)
-                    :content/author author-id
-                    :content/deleted false
-                    :db/id topic-tempid})
-            post {:post/content (:content params)
-                  :post/topic topic-tempid
-                  :post/created-at (now)
+  (protect
+   (:id auth)
+   
+   (if-valid
+    params validations/post errors
+    (let [topic-tempid (d/tempid :db.part/user -1)
+          post-tempid (d/tempid :db.part/user -2)
+          author-id (:id auth)
+          topic (remove-nils-from-map
+                 {:topic/title (:title params)
+                  :topic/first-post post-tempid
+                  :topic/last-posted-to-at (now)
                   :content/author author-id
-                  :db/id post-tempid}]
-        {:body (serialize-tx-result
-                (db/t [topic post])
-                topic-tempid
-                ss/ent->topic
-                index-topic-serialize-options)
-         :status 200})
-      (invalid [{:content "Your topic must have content"}]))
-    NOT-AUTHORIZED))
+                  :content/deleted false
+                  :db/id topic-tempid})
+          post {:post/content (:content params)
+                :post/topic topic-tempid
+                :post/created-at (now)
+                :content/author author-id
+                :db/id post-tempid}]
+      {:body (serialize-tx-result
+              (db/t [topic post])
+              topic-tempid
+              ss/ent->topic
+              index-topic-serialize-options)
+       :status 200})
+    (invalid [{:content "Your topic must have content"}]))))
 
 (defn delete!
   [params auth]
