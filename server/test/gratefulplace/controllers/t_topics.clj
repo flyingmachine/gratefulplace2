@@ -11,7 +11,8 @@
 (defn auth
   ([] (auth "flyingmachine"))
   ([username]
-     {:id (:db/id (q/one [:user/username username]))}))
+     {:id (:db/id (q/one [:user/username username]))
+      :username username}))
 
 (defn topic-id
   []
@@ -25,11 +26,11 @@
 
   ;; Creation
   (fact "creating a topic with a valid user results in success"
-    (topics/create! {:content "test4"} (auth))
+    (topics/create! {:content "test"} (auth))
     => (contains {:status 200}))
 
   (fact "creating a topic without a user results in failure"
-    (topics/create! {:content "test4"} nil)
+    (topics/create! {:content "test"} nil)
     => (contains {:status 401}))
 
   (fact "creating a topic without content returns errors"

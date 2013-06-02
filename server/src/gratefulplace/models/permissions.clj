@@ -2,7 +2,7 @@
   (:use gratefulplace.utils
         environ.core))
 
-(def moderator-usernames (env :moderator_names))
+(def moderator-usernames (env :moderator-names))
 
 (defn moderator? [username]
   (some #(= % username) moderator-usernames))

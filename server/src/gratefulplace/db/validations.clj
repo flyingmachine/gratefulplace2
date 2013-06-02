@@ -44,7 +44,20 @@
                        "You didn't enter the correct value for your current password"
                        #(BCrypt/checkpw (:current-password %) pw)))})
 
+(def post-validations
+  {:content
+   ["Your post can't be blank."
+    #(not-empty %)]
+
+   :topic-id
+   ["Your post must have a topic"
+    #(not (nil? %))]})
+
 (def post
+  {:create post-validations
+   :update (select-keys post-validations [:content])})
+
+(def topic
   {:content
    ["Your post can't be blank."
     #(not-empty %)]})

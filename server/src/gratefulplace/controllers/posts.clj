@@ -21,7 +21,7 @@
     (protect
      (can-modify-record? (retrieve-record) auth)
      (if-valid
-      params validations/post errors
+      params (:update validations/post) errors
       (do
         (db/t [(s/serialize params ss/post->txdata)])
         {:body (retrieve-record)})
@@ -29,23 +29,25 @@
 
 (defn create!
   [params auth]
-  (if-valid
-   params validations/post errors
-   (let [post-tempid (d/tempid :db.part/user -1)
-         topic-id (:topic params)
-         post (remove-nils-from-map {:post/content (:content params)
-                                     :post/topic topic-id
-                                     :post/created-at (java.util.Date.)
-                                     :content/author (:id auth)
-                                     :db/id post-tempid})]
-     {:body (serialize-tx-result
-             (db/t [post
-                    {:db/id topic-id
-                     :topic/last-posted-to-at (java.util.Date.)}])
-             post-tempid
-             ss/ent->post
-             {:include author-inclusion-options})})
-   (invalid errors)))
+  (protect
+   (:id auth)
+   (if-valid
+    params (:create validations/post) errors
+    (let [post-tempid (d/tempid :db.part/user -1)
+          topic-id (:topic-id params)
+          post (remove-nils-from-map {:post/content (:content params)
+                                      :post/topic topic-id
+                                      :post/created-at (java.util.Date.)
+                                      :content/author (:id auth)
+                                      :db/id post-tempid})]
+      {:body (serialize-tx-result
+              (db/t [post
+                     {:db/id topic-id
+                      :topic/last-posted-to-at (java.util.Date.)}])
+              post-tempid
+              ss/ent->post
+              {:include author-inclusion-options})})
+    (invalid errors))))
 
 (defn delete!
   [params auth]

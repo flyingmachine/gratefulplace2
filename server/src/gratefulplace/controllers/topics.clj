@@ -39,7 +39,7 @@
    (:id auth)
    
    (if-valid
-    params validations/post errors
+    params validations/topic errors
     (let [topic-tempid (d/tempid :db.part/user -1)
           post-tempid (d/tempid :db.part/user -2)
           author-id (:id auth)
@@ -61,7 +61,7 @@
               ss/ent->topic
               index-topic-serialize-options)
        :status 200})
-    (invalid [{:content "Your topic must have content"}]))))
+    (invalid errors))))
 
 (defn delete!
   [params auth]
