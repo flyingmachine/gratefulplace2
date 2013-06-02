@@ -43,19 +43,20 @@
       (let [topic-tempid (d/tempid :db.part/user -1)
             post-tempid (d/tempid :db.part/user -2)
             author-id (:id auth)
-            topic (remove-nils-from-map {:topic/title (:title params)
-                                         :topic/first-post post-tempid
-                                         :topic/last-posted-to-at (java.util.Date.)
-                                         :content/author author-id
-                                         :content/deleted false
-                                         :db/id topic-tempid})]
+            topic (remove-nils-from-map
+                   {:topic/title (:title params)
+                    :topic/first-post post-tempid
+                    :topic/last-posted-to-at (now)
+                    :content/author author-id
+                    :content/deleted false
+                    :db/id topic-tempid})
+            post {:post/content (:content params)
+                  :post/topic topic-tempid
+                  :post/created-at (now)
+                  :content/author author-id
+                  :db/id post-tempid}]
         {:body (serialize-tx-result
-                (db/t [topic
-                       {:post/content (:content params)
-                        :post/topic topic-tempid
-                        :post/created-at (java.util.Date.)
-                        :content/author author-id
-                        :db/id post-tempid}])
+                (db/t [topic post])
                 topic-tempid
                 ss/ent->topic
                 index-topic-serialize-options)

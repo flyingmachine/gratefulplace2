@@ -42,3 +42,7 @@
     (if (:content/deleted ent)
       "<em>deleted</em>"
       (content-fn ent))))
+
+(defn now
+  []
+  (java.util.Date.))
