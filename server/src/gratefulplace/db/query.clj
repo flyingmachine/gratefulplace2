@@ -14,8 +14,11 @@
 (def q
   #(d/q % (db)))
 
-(def ent
-  #(d/entity (db) %))
+(defn ent
+  [id]
+  (if-let [exists (ffirst (d/q '[:find ?eid :in $ ?eid :where [?eid]] (db) id))]
+    (d/entity (db) exists)
+    nil))
 
 (defn one
   [& conditions]

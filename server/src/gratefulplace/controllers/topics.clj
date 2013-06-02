@@ -12,12 +12,14 @@
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-(defn record
+(defn- record
   [id]
-  (s/serialize
-   (db/ent id)
-   ss/ent->topic
-   {:include {:posts {:include author-inclusion-options}}}))
+  (if-let [ent (db/ent id)]
+    (s/serialize
+     ent
+     ss/ent->topic
+     {:include {:posts {:include author-inclusion-options}}})
+    nil))
 
 (defn query
   [params]
@@ -30,30 +32,36 @@
 
 (defn show
   [params]
-  {:body (record (str->int (:id params)))})
+  (if-let [topic (record (str->int (:id params)))]
+    {:body topic}
+    NOT-FOUND))
 
 (defn create!
   [params auth]
-  (let [topic-tempid (d/tempid :db.part/user -1)
-        post-tempid (d/tempid :db.part/user -2)
-        author-id (:id auth)
-        topic (remove-nils-from-map {:topic/title (:title params)
-                                     :topic/first-post post-tempid
-                                     :topic/last-posted-to-at (java.util.Date.)
-                                     :content/author author-id
-                                     :content/deleted false
-                                     :db/id topic-tempid})]
-    {:body (serialize-tx-result
-            (db/t [topic
-                   {:post/content (:content params)
-                    :post/topic topic-tempid
-                    :post/created-at (java.util.Date.)
-                    :content/author author-id
-                    :db/id post-tempid}])
-            topic-tempid
-            ss/ent->topic
-            index-topic-serialize-options)
-     :status 200}))
+  (if (:id auth)
+    (if (:content params)
+      (let [topic-tempid (d/tempid :db.part/user -1)
+            post-tempid (d/tempid :db.part/user -2)
+            author-id (:id auth)
+            topic (remove-nils-from-map {:topic/title (:title params)
+                                         :topic/first-post post-tempid
+                                         :topic/last-posted-to-at (java.util.Date.)
+                                         :content/author author-id
+                                         :content/deleted false
+                                         :db/id topic-tempid})]
+        {:body (serialize-tx-result
+                (db/t [topic
+                       {:post/content (:content params)
+                        :post/topic topic-tempid
+                        :post/created-at (java.util.Date.)
+                        :content/author author-id
+                        :db/id post-tempid}])
+                topic-tempid
+                ss/ent->topic
+                index-topic-serialize-options)
+         :status 200})
+      (invalid [{:content "Your topic must have content"}]))
+    NOT-AUTHORIZED))
 
 (defn delete!
   [params auth]

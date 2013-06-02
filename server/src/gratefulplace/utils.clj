@@ -13,7 +13,7 @@
 
 (defn str->int
   [str]
-  (read-string (re-find #"^\d+$" str)))
+  (read-string (re-find #"^-?\d+$" str)))
 
 (defn serialize-tx-result
   ([tx tempid serializer]

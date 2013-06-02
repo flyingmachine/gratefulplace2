@@ -13,3 +13,8 @@
   []
   (map (bound-fn [f] (q/t (read-string (slurp f))))
        (.listFiles (File. "resources/migrations"))))
+
+(defn reload
+  []
+  (recreate)
+  (load-schema))
