@@ -314,6 +314,7 @@ input.ng-pristine {
 #new-topic {
   @include chunk;
   @include padding-trailer;
+  border-bottom: rhythm(.5) solid $medium-green;
   h3 {
     margin-top: 0;
   }
