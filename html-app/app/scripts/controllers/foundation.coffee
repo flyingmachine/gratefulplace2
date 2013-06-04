@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $location, Users, CurrentSession) ->
+angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $location, User, CurrentSession) ->
   refreshSession = ->
     $scope.currentSession = CurrentSession.get()
   $scope.$on 'auth.logged-in', refreshSession
@@ -9,7 +9,7 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
   
   $scope.peek = null
   $scope.peekAt = (toPeekAt)->
-    Users.get id: toPeekAt.id, (data)->
+    User.get id: toPeekAt.id, (data)->
       $scope.peek = data
 
   $scope.logout = ->

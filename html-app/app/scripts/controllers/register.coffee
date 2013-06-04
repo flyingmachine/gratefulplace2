@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'RegisterCtrl', ($scope, $location, CurrentSession, Users) ->
+  .controller 'RegisterCtrl', ($scope, $location, CurrentSession, User) ->
     $scope.errors = {}
     
     $scope.registration =
@@ -18,6 +18,6 @@ angular.module('gratefulplaceApp')
       $scope.errors = response.data.errors
       
     $scope.submitRegistration = ->
-      user = new Users($scope.registration)
+      user = new User($scope.registration)
       user.$save([], registrationSuccess, registrationFailure)
       

@@ -11,6 +11,9 @@ angular.module('gratefulplaceApp', @App.modules)
         controller: 'TopicCtrl'
       .when '/login',
         templateUrl: 'views/login.html'
+      .when '/profile',
+        templateUrl: 'views/profiles/show.html'
+        controller: 'ProfileCtrl'
       .otherwise
         redirectTo: '/'
   .directive 'peekable', ($rootScope)->
