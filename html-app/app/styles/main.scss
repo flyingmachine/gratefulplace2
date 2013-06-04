@@ -85,6 +85,11 @@ strong {
   font-weight: bold;
 }
 
+sup {
+  vertical-align: super;
+  @include adjust-font-size-to(12px);
+}
+
 .clearfix {
   @include clearfix;
 }

@@ -11,8 +11,7 @@
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="styles/main.css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="components/font-awesome/css/font-awesome.min.css">
   </head>
   <body ng-app="gratefulplaceApp" ng-controller="FoundationCtrl">
     <!--[if lt IE 7]>
@@ -29,39 +28,31 @@
       <nav>
         <ul>
           <li><a href="#/">Home</a></li>
-          <li><a href="#"
-                 ng-show="currentSession"
-                 ng-click="toggleNewTopicForm($event)">New Topic</a></li>
-          <li><a href="#/" ng-show="currentSession">Notifications</a></li>
-          <li><a href="#/" ng-show="currentSession">Friend Activity</a></li>
-          <li><a href="#/" ng-show="currentSession">Your Account</a></li>
-          <li><a href="#/logout"
-                 ng-click="logout()"
-                 ng-show="currentSession">Log Out</a></li>
-          <li><a href="#/login" ng-hide="currentSession">Log In / Register</a></li>
+          <li ng-show="currentSession">
+            <a href="#" ng-click="toggleNewTopicForm($event)">New Topic</a>
+          </li>
+          <li ng-show="currentSession"><a href="#/">Notifications</a></li>
+          <li ng-show="currentSession"><a href="#/">Friend Activity</a></li>
+          <li ng-show="currentSession"><a href="#/profile">Your Profile</a></li>
+          <li ng-show="currentSession">
+            <a href="#/logout" ng-click="logout()">Log Out</a>
+          </li>
+          <li ng-hide="currentSession"><a href="#/login">Log In / Register</a></li>
         </ul>
       </nav>
       <div id="main">
         <div id="new-topic" ng-controller="NewTopicCtrl" ng-show="showNewTopicForm">
-          <h3>New Topic</h3>
+          <h3>Start a New Topic</h3>
           <form ng-submit="submitNewTopic()">
-            <table class="input">
-              <tbody>
-                <tr>
-                  <td>
-                    <label for="new-topic-title">Title (optional)</label>
-                  </td>
-                  <td>
-                    <input value=""
-                           type="text"
-                           name="new-topic-title"
-                           id="new-topic-title"
-                           ng-model="newTopic.title"/>
-                    <div class="error" error-messages="newTopicErrors.title"></div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <div>
+              <input value=""
+                     type="text"
+                     name="new-topic-title"
+                     id="new-topic-title"
+                     placeholder="Title (optional)"
+                     ng-model="newTopic.title"/>
+              <div class="error" error-messages="newTopicErrors.title"></div>
+            </div>
             <div>
               <textarea
                  name="new-topic-content"
