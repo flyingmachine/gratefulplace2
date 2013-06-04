@@ -23,7 +23,7 @@
               (~handler ~params (friend/current-authentication req#)))))
 
 (defroutes routes
-  (authroute GET "/scripts/load_session.js" js/load-session)
+  (authroute GET "/scripts/load-session.js" js/load-session)
   
   (apply compojure.core/routes
          (map #(compojure.route/files "/" {:root %})
