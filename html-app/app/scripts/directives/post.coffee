@@ -14,7 +14,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
       moment(date).format("MMM D, YYYY h:mma")
 
     $scope.showEdit = ->
-      Authorize.canModifyContent($scope.post)
+      $scope.post && !$scope.post.deleted && Authorize.canModifyContent($scope.post)
 
     $scope.toggleEdit = ($event)->
       if Authorize.canModifyContent($scope.post)

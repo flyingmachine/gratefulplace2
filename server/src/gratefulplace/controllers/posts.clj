@@ -19,7 +19,10 @@
   [params auth]
   (let [retrieve-record (fn [] (record (id)))]
     (protect
-     (can-modify-record? (retrieve-record) auth)
+     (let [post (retrieve-record)]
+       (and
+        (not (:deleted post))
+        (can-modify-record? (retrieve-record) auth)))
      (if-valid
       params (:update validations/post) errors
       (do
