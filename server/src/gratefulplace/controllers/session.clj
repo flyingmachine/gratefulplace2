@@ -4,4 +4,4 @@
 (defn create!
   [params]
   (if-let [auth (friend/current-authentication)]
-    {:body (select-keys auth [:username])}))
+    {:body (select-keys auth [:username :id])}))
