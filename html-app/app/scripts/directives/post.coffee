@@ -43,9 +43,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
   ]
   template: '
     <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">
-      <i class="edit icon-pencil"
-         ng-show="showEdit()"
-         ng-click="toggleEdit()"></i>
+      <i class="edit icon-pencil" ng-show="showEdit()" ng-click="toggleEdit()"></i>
       <div class="content"
            ng-bind-html-unsafe="post[\'formatted-content\']"
            ng-show="!post.editing">

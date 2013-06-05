@@ -95,16 +95,6 @@
     margin-left: .5em;
   }
 
-  .edit {
-    float:right;
-    margin-left: .5em;
-    display: none;
-    &:hover {
-      cursor: pointer;
-      color: $blue;
-    }
-  }
-
   &:hover .edit, &.editing .edit {
     display: block;
   }

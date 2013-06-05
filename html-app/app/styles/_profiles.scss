@@ -1,3 +1,7 @@
 #about {
   padding: 0 1em;
+
+  .content-edit {
+    @include trailer;
+  }
 }

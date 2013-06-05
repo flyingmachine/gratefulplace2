@@ -339,6 +339,16 @@ input.ng-pristine {
   }
 }
 
+.edit {
+  float:right;
+  margin-left: .5em;
+  display: none;
+  &:hover {
+    cursor: pointer;
+    color: $blue;
+  }
+}
+
 .chunk {
   @include chunk;
 }
