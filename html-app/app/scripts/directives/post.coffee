@@ -43,7 +43,6 @@ angular.module('gratefulplaceApp').directive 'post', ->
   ]
   template: '
     <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">
-      <div class="error" error-messages="errors.authorization"></div>
       <i class="edit icon-pencil"
          ng-show="showEdit()"
          ng-click="toggleEdit()"></i>
@@ -54,6 +53,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
       <div class="error" error-messages="errors.content"></div>
       <div class="content-edit" ng-show="post.editing">
         <form ng-submit="updatePost()">
+          <div class="error" error-messages="errors.authorization"></div>
           <textarea ng-model="post.content"></textarea>
           <div class="actions">
             <input type="submit" value="Save" class="save" />
