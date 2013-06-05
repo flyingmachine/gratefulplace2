@@ -1,6 +1,6 @@
 angular.module('gratefulplaceApp').directive 'errorMessages',  ->
   restrict: 'A'
-  replace: false
+  replace: true
   scope:
     messages: '=errorMessages'
-  template: '<ul><li ng-repeat="message in messages">{{message}}</li></ul>'
+  template: '<div class="error" ng-show="messages"><ul><li ng-repeat="message in messages">{{message}}</li></ul></div>'

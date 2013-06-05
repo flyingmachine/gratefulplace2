@@ -50,8 +50,8 @@ angular.module('gratefulplaceApp').directive 'post', ->
            ng-bind-html-unsafe="post[\'formatted-content\']"
            ng-show="!post.editing">
       </div>
-      <div class="error" error-messages="errors.content"></div>
       <div class="content-edit" ng-show="post.editing">
+        <div class="error" error-messages="errors.content"></div>
         <form ng-submit="updatePost()">
           <div class="error" error-messages="errors.authorization"></div>
           <textarea ng-model="post.content"></textarea>
