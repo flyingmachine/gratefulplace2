@@ -44,6 +44,8 @@
   (attr :id :db/id)
   (attr :username :user/username)
   (attr :email :user/email)
+  (attr :about :user/about)
+  (attr :formatted-about #(md-content (:user/about %)))
   (has-many :topics
             :serializer gratefulplace.db.serializers/ent->topic
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))

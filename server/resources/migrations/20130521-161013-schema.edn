@@ -19,83 +19,89 @@
   :db.install/_attribute :db.part/db}
  
  ;; users
- {:db/id #db/id [:db.part/db]
-  :db/ident :user/username
+ {:db/ident :user/username
+  :db/id #db/id [:db.part/db]
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db.install/_attribute :db.part/db}
+
+ {:db/ident :user/password
+  :db/id #db/id [:db.part/db]
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db.install/_attribute :db.part/db}
+
+ {:db/ident :user/email
+  :db/id #db/id [:db.part/db]
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/fulltext true
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id [:db.part/db]
-  :db/ident :user/password
-  :db/valueType :db.type/string
-  :db/cardinality :db.cardinality/one
-  :db/fulltext true
-  :db.install/_attribute :db.part/db}
-
- {:db/id #db/id [:db.part/db]
-  :db/ident :user/email
+  :db/ident :user/about
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/fulltext true
   :db.install/_attribute :db.part/db}
  
  ;; topics
- {:db/id #db/id[:db.part/db]
-  :db/ident :topic/title
+ {:db/ident :topic/title
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/fulltext true
   :db/doc "Topic title"
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id[:db.part/db]
-  :db/ident :topic/first-post
+ {:db/ident :topic/first-post
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "Post which initiates topic"
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id[:db.part/db]
-  :db/ident :topic/last-posted-to-at
+ {:db/ident :topic/last-posted-to-at
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "Time of last post to this topic"
   :db.install/_attribute :db.part/db}
 
  ;; posts
- {:db/id #db/id[:db.part/db]
-  :db/ident :post/content
+ {:db/ident :post/content
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/fulltext true
   :db/doc "Post content"
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id[:db.part/db]
-  :db/ident :post/topic
+ {:db/ident :post/topic
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "A post's topic"
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id[:db.part/db]
-  :db/ident :post/created-at
+ {:db/ident :post/created-at
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "When the post was created"
   :db.install/_attribute :db.part/db}
  
  ;; content
- {:db/id #db/id[:db.part/db]
-  :db/ident :content/author
+ {:db/ident :content/author
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "General author attribute"
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id[:db.part/db]
-  :db/ident :content/deleted
+ {:db/ident :content/deleted
+  :db/id #db/id[:db.part/db]
   :db/valueType :db.type/boolean
   :db/cardinality :db.cardinality/one
   :db/doc "Whether the content is deleted"

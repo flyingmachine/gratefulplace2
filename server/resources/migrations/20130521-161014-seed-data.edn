@@ -1,11 +1,13 @@
 [{:user/username "flyingmachine"
   :user/password "$2a$10$iLBiogT.GcTHz1nDpZ.tR.X/hClBNICizX2wqyPLwt3KCxmSFs6eW" ;; "password"
   :user/email "daniel@flyingmachinestudios.com"
+  :user/about "Pizza\n\nTacos\n\n* list item 1\n* list item 2"
   :db/id #db/id [:db.part/user -10]}
 
  {:user/username "joebob"
   :user/password "$2a$10$iLBiogT.GcTHz1nDpZ.tR.X/hClBNICizX2wqyPLwt3KCxmSFs6eW" ;; "password"
   :user/email "joebob@bobjoe.com"
+  :user/about "I hail from a long line of joebobs"
   :db/id #db/id [:db.part/user -11]}
 
  ;; first topic

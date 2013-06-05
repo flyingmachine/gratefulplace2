@@ -36,7 +36,7 @@ h2 {
   @include trailer(1, 30px);
   @include padding-trailer(.5, 30px);
   @include leader(.5, 30px);
-  border-bottom: 1px solid #999;
+  border-bottom: 1px solid #666;
 }
 
 h2:first-child, h2.first {
@@ -75,6 +75,11 @@ p, blockquote {
 blockquote {
   background: #f0fafd;
   padding: .5em 1em;
+}
+
+ul {
+  list-style: disc inside;
+  @include trailer;
 }
 
 em, i {
@@ -120,12 +125,6 @@ sup {
 
   .intro a {
     display:none;
-  }
-}
-
-.content, .markdown-help {
-  ul {
-    list-style: disc inside;
   }
 }
 
@@ -248,9 +247,6 @@ table.input {
       @include adjust-font-size-to(13px);
 
     }
-    .content {
-
-    }
   }
 }
 
@@ -343,9 +339,13 @@ input.ng-pristine {
   }
 }
 
+.chunk {
+  @include chunk;
+}
 
 
 @import "layout";
 @import "topics";
 @import "posts";
 @import "peek";
+@import "profiles";

@@ -1,1 +1,7 @@
 <h2>{{user.username}}'s Profile</h2>
+
+<div id="about" class="chunk">
+  <h3>About {{user.username}}</h3>
+  <div ng-bind-html-unsafe="user['formatted-about']">
+  </div>
+</div>

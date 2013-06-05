@@ -30,6 +30,7 @@ nav {
 
   ul {
     @include trailer;
+    list-style: none;
   }
 
   a {
