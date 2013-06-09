@@ -1,7 +1,18 @@
 #about {
-  padding: 0 1em;
+  position: relative;
+  .gravatar {
+    position: absolute;
+    // top: rhythm(-.25);
+    top: 0;
+    right: .5 * $gutter-width;
+    @include padding-leader(.5);
+    background: $light-blue;
+  }
+  .chunk {
+    padding: 0 1em;
 
-  .content-edit {
-    @include trailer;
+    .content-edit {
+      @include trailer;
+    }
   }
 }

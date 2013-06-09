@@ -65,6 +65,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
       </div>
       <footer>
         <div class="author">
+          <img ng-src="{{post.author.gravatar}}" class="gravatar"/>
           <a href="" ng-click="peekAt(post.author)">
             {{post.author.username}}
           </a>

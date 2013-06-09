@@ -15,6 +15,8 @@
     @include leader;
     @include box-sizing(border-box);
     @include padding-leader(.5);
+    position: relative;
+    padding-left: 28px;
     border-top: 1px solid #eee;
 
     // Fade
@@ -25,6 +27,11 @@
     // a:visited {
     //   color: #a99de3;
     // }
+
+    .gravatar {
+      position: absolute;
+      left: 0;
+    }
   }
 
   .content {

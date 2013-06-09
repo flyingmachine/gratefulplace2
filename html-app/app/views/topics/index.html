@@ -4,7 +4,7 @@
     <div class="content" ng-bind-html-unsafe="topic['first-post']['formatted-content']"></div>
     <footer>
       <div class="author">
-        by
+        <img ng-src="{{topic.author.gravatar}}" class="gravatar"/>
         <a href="" ng-click="peekAt(topic.author)">
           {{topic.author.username}}
         </a>

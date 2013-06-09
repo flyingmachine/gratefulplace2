@@ -74,13 +74,10 @@
         </div>
       </div>
       <div id="more">
-        <div ng-show="currentSession">
-          Welcome, {{currentSession.username}}
-        </div>
         <div id="peek" ng-controller="PeekCtrl" ng-show="peek">
           <div class="user">
-            <div class="username">{{peek.username}}</div>
-            <div class="about">{{peek.about}}</div>
+            <h3 class="username">{{peek.username}}</h3>
+            <div class="about" ng-bind-html-unsafe="peek['formatted-about']"></div>
           </div>
           <div class="recent-posts">
             <h3>Recent Posts</h3>

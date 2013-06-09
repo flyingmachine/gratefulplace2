@@ -2,7 +2,8 @@
   (:require [gratefulplace.db.query :as db]
             cemerick.friend.credentials)
   (:use [flyingmachine.serialize.core]
-        [gratefulplace.utils]))
+        [gratefulplace.utils]
+        [clavatar.core]))
 
 (defn ref-count
   [ref-attr]
@@ -46,6 +47,8 @@
   (attr :email :user/email)
   (attr :about :user/about)
   (attr :formatted-about #(md-content (:user/about %)))
+  (attr :gravatar #(gravatar (:user/email %) :size 22 :default :identicon))
+  (attr :large-gravatar #(gravatar (:user/email %) :size 48 :default :identicon))
   (has-many :topics
             :serializer gratefulplace.db.serializers/ent->topic
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))

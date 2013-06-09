@@ -19,7 +19,8 @@
                  [org.clojure/tools.namespace "0.2.2"]
                  [com.flyingmachine/webutils "0.1.1"]
                  [flyingmachine/serialize "0.1.0"]
-                 [markdown-clj "0.9.25"]]
+                 [markdown-clj "0.9.25"]
+                 [clavatar "0.2.1"]]
 
   :plugins [[lein-ring "0.8.3"]
             [lein-environ "0.4.0"]
