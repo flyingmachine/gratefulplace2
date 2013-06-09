@@ -46,6 +46,9 @@
           ss/ent->user
           {:exclude [:password]})})
 
+;; TODO more definite way of updating specified fields? perhaps
+;; creating a route which passes the fields as an argument to the
+;; controller?
 (defn update-about!
   [params auth]
   (protect
