@@ -6,7 +6,7 @@ angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $ht
 
   loadedSessionUser = ->
     unless loggedOut
-      new User(loadedSession)
+      user = new User(loadedSession)
     else
       false
   

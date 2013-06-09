@@ -3,6 +3,7 @@
 angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $location, User, CurrentSession) ->
   refreshSession = ->
     $scope.currentSession = CurrentSession.get()
+    console.log $scope.currentSession
   $scope.$on 'auth.logged-in', refreshSession
   $scope.$on 'auth.logged-out', refreshSession
   refreshSession()

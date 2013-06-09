@@ -7,14 +7,23 @@ environment = switch window.location.port
 
 prototypeMocks = angular.module('prototypeMocks', [])
 prototypeMocks.factory "$resource", ['$q', '$http', ($q, $http)->
+  $save = (success, fail)->
+    success(@)
+  
   (url)->
     url = "/data" + url.replace("/:id", "")
-    query: (fn)->
+    constructor = (obj)->
+      obj.$save = $save
+      obj
+    
+    constructor.query = (fn)->
       $http.get("#{url}.json").then (data)->
-        fn(data.data)
-    get: (options, fn)->
+        fn(_.map(data.data, (r)-> new constructor(r)))
+    constructor.get = (options, fn)->
       @query (records)->
-        fn(_.find(records, (record)-> parseInt(record.id) == parseInt(options.id)))
+        record = _.find(records, (record)-> parseInt(record.id) == parseInt(options.id))
+        fn(new constructor(record))
+    constructor
   ]
 
 modules = ['ngResource']
