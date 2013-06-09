@@ -1,10 +1,17 @@
 'use strict'
-angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $http, $rootScope)->
+
+angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $http, $rootScope, User)->
   currentSession = null
   loggedOut = !loadedSession
+
+  loadedSessionUser = ->
+    unless loggedOut
+      new User(loadedSession)
+    else
+      false
   
   get = ()->
-    currentSession || (!loggedOut && loadedSession)
+    currentSession ||= loadedSessionUser()
   
   get: get
   set: (newSession)->

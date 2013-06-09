@@ -3,10 +3,16 @@
 <div id="about" class="chunk">
   <h3>About {{user.username}}</h3>
   <i class="edit icon-pencil" ng-show="showEdit()" ng-click="toggleEdit()"></i>
-  <div ng-bind-html-unsafe="user['formatted-about']" ng-show="!editing">
+  <p ng-hide="user['formatted-about']">
+    Tell folks a little about yourself &mdash; click the pencil icon
+    to the right to edit your profile.
+  </p>
+  <div ng-bind-html-unsafe="user['formatted-about']" ng-show="!editing
+&& user['formatted-about']">
   </div>
   <div class="content-edit" ng-show="editing">
     <form ng-submit="updateProfile()">
+      <div class="error" error-messages="errorMessages"></div>
       <textarea ng-model="user.about" class="auto-expand"></textarea>
       <div class="actions">
         <input type="submit" value="Save" class="save" />

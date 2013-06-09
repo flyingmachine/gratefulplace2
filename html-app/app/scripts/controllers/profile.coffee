@@ -14,4 +14,12 @@ angular.module('gratefulplaceApp')
     $scope.toggleEdit = ($event)->
       $scope.editing = !$scope.editing
       $event && $event.preventDefault()
+
+    $scope.updateProfile = ->
+      $scope.user.$save((u)->
+        $scope.toggleEdit()
+        $scope.user['formatted-about'] = u['formatted-about']
+      , (res)->
+        $scope.errorMessages = res.data.errors
+      )
     

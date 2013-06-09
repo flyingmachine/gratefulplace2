@@ -42,3 +42,7 @@
           (db/ent (str->int (:id params)))
           ss/ent->user
           {:exclude [:password]})})
+
+(defn update!
+  [params auth]
+  "test")
