@@ -7,7 +7,6 @@ angular.module('gratefulplaceApp')
     
     User.get id: CurrentSession.get().id, (user)->
       $scope.user = user
-      console.log user
 
     $scope.showEdit = ->
       true
@@ -15,5 +14,4 @@ angular.module('gratefulplaceApp')
     $scope.toggleEdit = ($event)->
       $scope.editing = !$scope.editing
       $event && $event.preventDefault()
-      
     

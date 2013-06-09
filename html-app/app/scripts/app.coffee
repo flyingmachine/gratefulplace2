@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp', @App.modules)
-  .config ($routeProvider) ->
+  .config ($routeProvider)->
     $routeProvider
       .when '/',
         templateUrl: 'views/topics/index.html',
