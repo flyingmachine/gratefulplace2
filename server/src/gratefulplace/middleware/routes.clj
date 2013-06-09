@@ -42,7 +42,7 @@
 
   ;; Users
   (authroute POST "/users" users/registration-success-response)
-  (authroute POST "/users/:id" users/update!)
+  (authroute POST "/users/:id/about" users/update-about!)
   (route GET "/users/:id" users/show)
 
   ;; auth

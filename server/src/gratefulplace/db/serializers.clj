@@ -60,9 +60,10 @@
   (attr :email :user/email))
 
 (defserializer user->txdata
-  (attr :db/id #(or (:id %) #db/id[:db.part/user]))
+  (attr :db/id #(or (str->int (:id %)) #db/id[:db.part/user]))
   (attr :user/username :username)
   (attr :user/email :email)
+  (attr :user/about :about)
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:password %))))
 
 (defserializer post->txdata

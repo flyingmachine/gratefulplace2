@@ -8,8 +8,11 @@
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
   (:use [flyingmachine.webutils.validation :only (if-valid)]
+        gratefulplace.models.permissions
         gratefulplace.controllers.shared
         gratefulplace.utils))
+
+(defserialization record ss/ent->user)
 
 (defn registration-success-response
   [params auth]
@@ -43,6 +46,9 @@
           ss/ent->user
           {:exclude [:password]})})
 
-(defn update!
+(defn update-about!
   [params auth]
-  "test")
+  (protect
+   (current-user-id? (id) auth)
+   (db/t [(s/serialize params ss/user->txdata {:exclude [:user/username :user/email :user/password]})])
+   {:body (record (id))}))
