@@ -17,9 +17,11 @@ prototypeMocks.factory "$resource", ['$q', '$http', ($q, $http)->
         fn(_.find(records, (record)-> parseInt(record.id) == parseInt(options.id)))
   ]
 
+modules = ['ngResource']
+switch environment
+  when 'prototype' then modules.push 'prototypeMocks'
+
 @App =
   config: {}
   environment: environment
-  modules: switch environment
-    when 'prototype' then ['ngResource', 'prototypeMocks']
-    else ['ngResource']
+  modules: modules
