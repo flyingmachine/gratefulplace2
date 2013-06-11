@@ -9,9 +9,9 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
   refreshSession()
   
   $scope.peek = null
-  $scope.peekAt = (toPeekAt)->
-    User.get id: toPeekAt.id, (data)->
-      $scope.peek = data
+  $scope.peekAt = (peekType, peekData)->
+    $scope.peekInclude = "views/peeks/#{peekType}.html"
+    $scope.peek = peekData
 
   $scope.logout = ->
     CurrentSession.logout()

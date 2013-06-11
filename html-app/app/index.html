@@ -75,18 +75,7 @@
       </div>
       <div id="more">
         <div id="peek" ng-controller="PeekCtrl" ng-show="peek">
-          <div class="user">
-            <h3 class="username">{{peek.username}}</h3>
-            <div class="about" ng-bind-html-unsafe="peek['formatted-about']"></div>
-          </div>
-          <div class="recent-posts">
-            <h3>Recent Posts</h3>
-            <div class="post" ng-repeat="post in peek.recent_posts">
-              <div class="date">{{post.date}}</div>
-              <div class="content" ng-bind-html-unsafe="post.content">
-              </div>
-            </div>
-          </div>
+          <ng-include src="peekInclude" ng-show="peekInclude"></ng-include>
         </div>
       </div>
     </div>
