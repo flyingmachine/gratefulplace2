@@ -13,8 +13,9 @@
       Tell folks a little about yourself &mdash; click the pencil icon
       to the right to edit your profile.
     </p>
-    <div ng-bind-html-unsafe="user['formatted-about']" ng-show="!editing
-                                                                && user['formatted-about']">
+    <div
+       ng-bind-html-unsafe="user['formatted-about']"
+       ng-show="!editing&& user['formatted-about']">
     </div>
     <div class="content-edit" ng-show="editing">
       <form ng-submit="updateProfile()">
