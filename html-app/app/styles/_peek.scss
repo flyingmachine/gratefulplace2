@@ -1,9 +1,17 @@
-#peek {
-  background: white;
-  @include bshadow;
+#more {
+  .peek {
+    padding: 0 $gutter-width;
+    @include padding-leader;
+    @include padding-trailer;
+    @include border-radius(2px);
+  }
 
-  .user {
-    
+  .peek.white {
+    background: white;
+    @include bshadow;
+  }
+
+  .user {    
     .username {
       margin-top:0;
     }
@@ -26,6 +34,38 @@
       border-left: 1px solid #eee;
       float: right;
       font-style: italic;
+    }
+  }
+
+  .nav {
+    @include leader(2.5);
+    list-style: none;
+    
+    a {
+      background: rgba(255, 255, 255, 0.3);
+      color: #444;
+      // @include bshadow;
+      height: rhythm() - rhythm(.05);
+      @include border-radius(2px);
+      @include sans-family;
+      @include trailer(.05);
+      @include padding-leader(.5);
+      @include padding-trailer(.5);
+      @include transition-property("all");
+      @include transition-duration(".3s");
+      padding-left: .5em;
+      padding-right: .5em;
+      display: block;
+      text-align: left;
+
+      &:hover, &.active {
+        text-decoration: none;
+        background: rgba(255, 255, 255, .8);
+      }
+
+      &:visited {
+        color: #444;
+      }
     }
   }
 }

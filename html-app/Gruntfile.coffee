@@ -19,23 +19,23 @@ module.exports = (grunt) ->
     yeoman: yeomanConfig
     watch:
       coffee:
-        files: ["<%= yeoman.app %>/scripts/{,*/}*.coffee"]
+        files: ["<%= yeoman.app %>/scripts/**/*.coffee"]
         tasks: ["coffee:dist"]
 
       coffeeTest:
-        files: ["test/spec/{,*/}*.coffee"]
+        files: ["test/spec/**/*.coffee"]
         tasks: ["coffee:test"]
 
       compass:
-        files: ["<%= yeoman.app %>/styles/{,*/}*.{scss,sass}"]
+        files: ["<%= yeoman.app %>/styles/**/*.{scss,sass}"]
         tasks: ["compass"]
 
       livereload:
         files: [
-          "<%= yeoman.app %>/{,*/}*.html",
-          "{.tmp,<%= yeoman.app %>}/styles/{,*/}*.css",
-          "{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js",
-          "<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}"
+          "<%= yeoman.app %>/**/*.html",
+          "{.tmp,<%= yeoman.app %>}/styles/**/*.css",
+          "{.tmp,<%= yeoman.app %>}/scripts/**/*.js",
+          "<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}"
         ]
         tasks: ["livereload"]
 
@@ -73,7 +73,7 @@ module.exports = (grunt) ->
       options:
         jshintrc: ".jshintrc"
 
-      all: ["Gruntfile.js", "<%= yeoman.app %>/scripts/{,*/}*.js"]
+      all: ["Gruntfile.js", "<%= yeoman.app %>/scripts/**/*.js"]
 
     karma:
       unit:
@@ -85,7 +85,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: "<%= yeoman.app %>/scripts"
-          src: "{,*/}*.coffee"
+          src: "**/*.coffee"
           dest: ".tmp/scripts"
           ext: ".js"
         ]
@@ -94,7 +94,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: "test/spec"
-          src: "{,*/}*.coffee"
+          src: "**/*.coffee"
           dest: ".tmp/spec"
           ext: ".js"
         ]
@@ -122,8 +122,8 @@ module.exports = (grunt) ->
       dist:
         files:
           "<%= yeoman.dist %>/scripts/scripts.js": [
-            ".tmp/scripts/{,*/}*.js",
-            "<%= yeoman.app %>/scripts/{,*/}*.js"
+            ".tmp/scripts/**/*.js",
+            "<%= yeoman.app %>/scripts/**/*.js"
           ]
 
     useminPrepare:
@@ -132,8 +132,8 @@ module.exports = (grunt) ->
         dest: "<%= yeoman.dist %>"
 
     usemin:
-      html: ["<%= yeoman.dist %>/{,*/}*.html"]
-      css: ["<%= yeoman.dist %>/styles/{,*/}*.css"]
+      html: ["<%= yeoman.dist %>/**/*.html"]
+      css: ["<%= yeoman.dist %>/styles/**/*.css"]
       options:
         dirs: ["<%= yeoman.dist %>"]
 
@@ -142,7 +142,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: "<%= yeoman.app %>/images"
-          src: "{,*/}*.{png,jpg,jpeg}"
+          src: "**/*.{png,jpg,jpeg}"
           dest: "<%= yeoman.dist %>/images"
         ]
 
@@ -150,8 +150,8 @@ module.exports = (grunt) ->
       dist:
         files:
           "<%= yeoman.dist %>/styles/main.css": [
-            ".tmp/styles/{,*/}*.css",
-            "<%= yeoman.app %>/styles/{,*/}*.css"
+            ".tmp/styles/**/*.css",
+            "<%= yeoman.app %>/styles/**/*.css"
           ]
 
     htmlmin:
@@ -197,9 +197,9 @@ module.exports = (grunt) ->
       dist:
         files:
           src: [
-            "<%= yeoman.dist %>/scripts/{,*/}*.js",
-            "<%= yeoman.dist %>/styles/{,*/}*.css",
-            "<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}",
+            "<%= yeoman.dist %>/scripts/**/*.js",
+            "<%= yeoman.dist %>/styles/**/*.css",
+            "<%= yeoman.dist %>/images/**/*.{png,jpg,jpeg,gif,webp}",
             "<%= yeoman.dist %>/styles/fonts/*"
           ]
 
@@ -219,7 +219,7 @@ module.exports = (grunt) ->
             "views/**/*",
             "components/**/*",
             "scripts/config/*",
-            "images/{,*/}*.{gif,webp}"
+            "images/**/*.{gif,webp}"
           ]
         ,     
           expand: true

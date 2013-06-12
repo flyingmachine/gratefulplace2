@@ -12,6 +12,8 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
   $scope.peekAt = (peekType, peekData)->
     $scope.peekInclude = "views/peeks/#{peekType}.html"
     $scope.peek = peekData
+  $scope.clearPeek = ->
+    $scope.peek = null
 
   $scope.logout = ->
     CurrentSession.logout()

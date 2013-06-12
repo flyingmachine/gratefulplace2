@@ -33,7 +33,7 @@
           </li>
           <li ng-show="currentSession"><a href="#/">Notifications</a></li>
           <li ng-show="currentSession"><a href="#/">Friend Activity</a></li>
-          <li ng-show="currentSession"><a href="#/profile">Your Profile</a></li>
+          <li ng-show="currentSession"><a href="#/profile/about">Your Profile</a></li>
           <li ng-show="currentSession">
             <a href="#/logout" ng-click="logout()">Log Out</a>
           </li>
@@ -73,10 +73,8 @@
         <div ng-view>
         </div>
       </div>
-      <div id="more">
-        <div id="peek" ng-controller="PeekCtrl" ng-show="peek">
-          <ng-include src="peekInclude" ng-show="peekInclude"></ng-include>
-        </div>
+      <div id="more" ng-show="peek">
+        <ng-include src="peekInclude" ng-show="peekInclude"></ng-include>
       </div>
     </div>
     <div class="markdown-help hidden">
@@ -158,7 +156,7 @@
     <script src="scripts/aspects/route-auth.js"></script>
     <script src="scripts/controllers/foundation.js"></script>
     <script src="scripts/controllers/peek.js"></script>
-    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/controllers/profile/about.js"></script>
     <script src="scripts/controllers/topic.js"></script>
     <script src="scripts/controllers/new-topic.js"></script>
     <script src="scripts/controllers/topics.js"></script>

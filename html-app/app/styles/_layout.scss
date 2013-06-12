@@ -69,11 +69,3 @@ nav {
   @include span-columns(3 omega, 12);
   @include padding-trailer;
 }
-
-#peek {
-  padding: 0 $gutter-width;
-  @include padding-leader;
-  @include padding-trailer;
-  @include border-radius(2px);
-}
-

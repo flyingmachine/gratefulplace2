@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'ProfileCtrl', ($scope, User, CurrentSession) ->
+  .controller 'ProfileAboutCtrl', ($scope, User, CurrentSession) ->
 
     $scope.editing = false
     
@@ -22,4 +22,7 @@ angular.module('gratefulplaceApp')
       , (res)->
         $scope.errorMessages = res.data.errors
       )
-    
+
+    $scope.peekAt "profile/about-nav", {tab: "about"}
+
+    $scope.$on "$destroy", $scope.clearPeek
