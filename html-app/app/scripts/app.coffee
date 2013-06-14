@@ -17,6 +17,9 @@ angular.module('gratefulplaceApp', @App.modules)
       .when '/profile/password',
         templateUrl: 'views/profile/password.html'
         controller: 'ProfilePasswordCtrl'
+      .when '/profile/email',
+        templateUrl: 'views/profile/email.html'
+        controller: 'ProfileEmailCtrl'
       .otherwise
         redirectTo: '/'
   .directive 'peekable', ($rootScope)->

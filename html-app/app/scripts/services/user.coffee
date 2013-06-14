@@ -4,6 +4,9 @@ angular.module("gratefulplaceApp").factory "User", ["$resource", ($resource) ->
     saveAbout:
       method: 'POST'
       params: {attribute: 'about'}
+    saveEmail:
+      method: 'POST'
+      params: {attribute: 'email'}
     changePassword:
       method: 'POST'
       params: {attribute: 'password'}

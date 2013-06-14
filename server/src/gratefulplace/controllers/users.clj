@@ -54,6 +54,17 @@
    (db/t [(s/serialize params ss/user->txdata {:exclude [:user/username :user/email :user/password]})])
    {:body (record (id))}))
 
+(defn update-email!
+  [params auth]
+  (protect
+   (current-user-id? (id) auth)
+   (if-valid
+    params (:update-email validations/user) errors
+    (do
+      (db/t [{:db/id (id) :user/email (:email params)}])
+      {:body (record (id))})
+    (invalid errors))))
+
 (defn- password-params
   [params]
   (let [user (authrecord (id))]
