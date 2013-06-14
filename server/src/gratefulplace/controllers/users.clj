@@ -13,6 +13,7 @@
         gratefulplace.utils))
 
 (defserialization record ss/ent->user)
+(defserialization authrecord ss/ent->userauth)
 
 (defn registration-success-response
   [params auth]
@@ -25,10 +26,7 @@
     (when (and (= uri "/users")
                (= request-method :post))
       (if-valid
-       params
-       (:create validations/user)
-       errors
-
+       params (:create validations/user) errors
        (let [user-tempid (d/tempid :db.part/user -1)
              user (serialize-tx-result
                    (q/t [(s/serialize (merge params {:id user-tempid}) ss/user->txdata)])
@@ -55,3 +53,20 @@
    (current-user-id? (id) auth)
    (db/t [(s/serialize params ss/user->txdata {:exclude [:user/username :user/email :user/password]})])
    {:body (record (id))}))
+
+(defn- password-params
+  [params]
+  (let [user (authrecord (id))]
+    {:new-password (select-keys params [:new-password :new-password-confirmation])
+     :current-password (merge (select-keys params [:current-password]) {:password (:password user)})}))
+
+(defn change-password!
+  [params auth]
+  (protect
+   (current-user-id? (id) auth)
+   (if-valid
+    (password-params params) validations/change-password errors
+    (do
+      (db/t [(s/serialize params ss/change-password->txdata)])
+      OK)
+    (invalid errors))))

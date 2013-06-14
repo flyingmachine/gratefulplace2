@@ -51,7 +51,7 @@ h3 {
   @include trailer(.5, 21px);
 }
 
-#signup h3 {
+#signup h3, .chunk h3:first-child {
   margin-top:0;
 }
 
@@ -192,6 +192,12 @@ table.input {
 .errors {
   color: $red;
   @include adjust-font-size-to(15px);
+}
+
+.success {
+  background: $medium-green;
+  padding: 0 $gutter-width;
+  @include trailer;
 }
 
 #user-content {

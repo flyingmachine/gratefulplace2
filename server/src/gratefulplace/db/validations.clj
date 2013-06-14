@@ -20,13 +20,6 @@
       (not-empty %)
       (>= (count %) 4))]
    
-   :change-password
-   ["Your passwords do not match"
-    #(= (:new-password %) (:new-password-confirmation %))
-
-    "Your password must be at least 4 characters long"
-    #(>= (count (:new-password %)) 4)]
-   
    :email
    ["You must enter a valid email address"
     #(and
@@ -35,14 +28,19 @@
 
 (def user
   {:create (select-keys user-validations [:username :password :email])
-   :update-email (select-keys user-validations [:email])
-   :change-password (fn [pw]
-                      (update-in
-                       (select-keys user-validations [:change-password])
-                       [:change-password]
-                       conj
-                       "You didn't enter the correct value for your current password"
-                       #(BCrypt/checkpw (:current-password %) pw)))})
+   :update-email (select-keys user-validations [:email])})
+
+(def change-password
+  {:new-password
+   ["Your passwords do not match"
+    #(= (:new-password %) (:new-password-confirmation %))
+
+    "Your password must be at least 4 characters long"
+    #(>= (count (:new-password %)) 4)]
+   
+   :current-password
+   ["You didn't enter the correct value for your current password"
+    #(BCrypt/checkpw (:current-password %) (:password %))]})
 
 (def post-validations
   {:content

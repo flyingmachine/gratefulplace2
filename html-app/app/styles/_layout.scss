@@ -69,3 +69,9 @@ nav {
   @include span-columns(3 omega, 12);
   @include padding-trailer;
 }
+
+.vertical-fields {
+  .field {
+    @include trailer;
+  }
+}

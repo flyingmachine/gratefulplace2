@@ -9,10 +9,16 @@
     background: $light-blue;
   }
   .chunk {
-    padding: 0 1em;
+    padding-bottom: 0;
 
     .content-edit {
       @include trailer;
     }
+  }
+}
+
+#change-password {
+  table td:first-child {
+    padding-right: $gutter-width;
   }
 }
