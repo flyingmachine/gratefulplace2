@@ -13,7 +13,7 @@
                  [ring-mock "0.1.4"]
                  [ring-middleware-format "0.3.0"]
                  [compojure "1.1.5"]
-                 [liberator "0.8.0"]
+                 [liberator "0.9.0"]
                  [com.cemerick/friend "0.1.5"]
                  [crypto-random "1.1.0"]
                  [org.clojure/tools.namespace "0.2.2"]
