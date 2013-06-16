@@ -2,8 +2,8 @@
   (:require [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
             [datomic.api :as d]
-            [flyingmachine.serialize.core :as s]
-            [gratefulplace.db.serializers :as ss]
+            [gratefulplace.db.maprules :as mr]
+            [flyingmachine.cartographer.core :as c]
             [gratefulplace.db.query :as q]
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
@@ -12,8 +12,8 @@
         gratefulplace.controllers.shared
         gratefulplace.utils))
 
-(defserialization record ss/ent->user)
-(defserialization authrecord ss/ent->userauth)
+(defmapifier record mr/ent->user)
+(defmapifier authrecord mr/ent->userauth)
 
 (defn registration-success-response
   [params auth]
@@ -28,10 +28,10 @@
       (if-valid
        params (:create validations/user) errors
        (let [user-tempid (d/tempid :db.part/user -1)
-             user (serialize-tx-result
-                   (q/t [(s/serialize (merge params {:id user-tempid}) ss/user->txdata)])
+             user (mapify-tx-result
+                   (q/t [(c/mapify (merge params {:id user-tempid}) mr/user->txdata)])
                    user-tempid
-                   ss/ent->user)]
+                   mr/ent->user)]
          (cemerick.friend.workflows/make-auth
           user
           {:cemerick.friend/redirect-on-auth? false}))
@@ -39,9 +39,9 @@
 
 (defn show
   [params]
-  {:body (s/serialize
+  {:body (c/mapify
           (db/ent (str->int (:id params)))
-          ss/ent->user
+          mr/ent->user
           {:exclude [:password]})})
 
 ;; TODO more definite way of updating specified fields? perhaps
@@ -51,7 +51,7 @@
   [params auth]
   (protect
    (current-user-id? (id) auth)
-   (db/t [(s/serialize params ss/user->txdata {:exclude [:user/username :user/email :user/password]})])
+   (db/t [(c/mapify params mr/user->txdata {:exclude [:user/username :user/email :user/password]})])
    {:body (record (id))}))
 
 (defn update-email!
@@ -78,6 +78,6 @@
    (if-valid
     (password-params params) validations/change-password errors
     (do
-      (db/t [(s/serialize params ss/change-password->txdata)])
+      (db/t [(c/mapify params mr/change-password->txdata)])
       OK)
     (invalid errors))))

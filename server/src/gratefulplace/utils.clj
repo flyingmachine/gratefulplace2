@@ -1,5 +1,5 @@
 (ns gratefulplace.utils
-  (:require [flyingmachine.serialize.core :as s]
+  (:require [flyingmachine.cartographer.core :as c]
             [gratefulplace.db.query :as db]
             [markdown.core :as markdown]))
 
@@ -17,16 +17,16 @@
     (read-string (re-find #"^-?\d+$" str))
     str))
 
-(defn serialize-tx-result
-  ([tx tempid serializer]
-     (serialize-tx-result tx tempid serializer {}))
-  ([tx tempid serializer serializer-options]
+(defn mapify-tx-result
+  ([tx tempid rules]
+     (mapify-tx-result tx tempid rules {}))
+  ([tx tempid rules mapify-options]
      (-> tx
          deref
          :tempids
          (db/resolve-tempid tempid)
          db/ent
-         (s/serialize serializer serializer-options))))
+         (c/mapify rules mapify-options))))
 
 (defn- xml-str
  "Like clojure.core/str but escapes < > and &."

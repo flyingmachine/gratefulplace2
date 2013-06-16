@@ -1,7 +1,7 @@
 (ns gratefulplace.controllers.shared
   (:require [gratefulplace.db.query :as db]
-            [gratefulplace.db.serializers :as ss]
-            [flyingmachine.serialize.core :as s]))
+            [gratefulplace.db.maprules :as mr]
+            [flyingmachine.cartographer.core :as c]))
 
 (def author-inclusion-options
   {:author {:exclude [:email]}})
@@ -24,12 +24,12 @@
   []
   '(str->int (:id params)))
 
-(defmacro defserialization
-  [fn-name & serialize-args]
+(defmacro defmapifier
+  [fn-name & mapify-args]
   `(defn- ~fn-name
      [id#]
      (if-let [ent# (db/ent id#)]
-       (s/serialize
+       (c/mapify
         ent#
-        ~@serialize-args)
+        ~@mapify-args)
        nil)))

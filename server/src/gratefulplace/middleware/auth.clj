@@ -1,8 +1,8 @@
 (ns gratefulplace.middleware.auth
   (:require [gratefulplace.controllers.users :as users]
             [gratefulplace.db.query :as q]
-            [flyingmachine.serialize.core :as s]
-            [gratefulplace.db.serializers :as ss]
+            [gratefulplace.db.maprules :as mr]
+            [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])))
@@ -11,7 +11,7 @@
 (defn user
   [username]
   (if-let [user-ent (q/one [:user/username username])]
-    (s/serialize user-ent ss/ent->userauth)))
+    (c/mapify user-ent mr/ent->userauth)))
 
 (defn credential-fn
   [username]

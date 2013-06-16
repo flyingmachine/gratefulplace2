@@ -2,29 +2,29 @@
   (:require [datomic.api :as d]
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
-            [gratefulplace.db.serializers :as ss]
-            [flyingmachine.serialize.core :as s]
+            [gratefulplace.db.maprules :as mr]
+            [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
         gratefulplace.utils))
 
-(def index-topic-serialize-options
+(def index-topic-mapify-options
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-(defserialization record
-  ss/ent->topic
+(defmapifier record
+  mr/ent->topic
   {:include {:posts {:include author-inclusion-options}}})
 
 (defn query
   [params]
   (reverse-by :last-posted-to-at
-              (map #(s/serialize
+              (map #(c/mapify
                      %
-                     ss/ent->topic
-                     index-topic-serialize-options)
+                     mr/ent->topic
+                     index-topic-mapify-options)
                    (db/all :topic/first-post [:content/deleted false]))))
 
 (defn show
@@ -55,11 +55,11 @@
                 :post/created-at (now)
                 :content/author author-id
                 :db/id post-tempid}]
-      {:body (serialize-tx-result
+      {:body (mapify-tx-result
               (db/t [topic post])
               topic-tempid
-              ss/ent->topic
-              index-topic-serialize-options)
+              mr/ent->topic
+              index-topic-mapify-options)
        :status 200})
     (invalid errors))))
 
