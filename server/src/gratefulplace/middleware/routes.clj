@@ -30,11 +30,12 @@
               (env :html-paths)))
 
   ;; Topics
-  (route GET "/topics" topics/query)
+  (GET "/topics" [] topics/query)
   (route GET "/topics/:id" topics/show)
   (authroute POST "/topics" topics/create!)
   (authroute DELETE "/topics/:id" topics/delete!)
-
+  (ANY "/liberator" [] topics/query-liberator)
+  
   ;; Posts
   (authroute POST "/posts" posts/create!)
   (authroute POST "/posts/:id" posts/update!)

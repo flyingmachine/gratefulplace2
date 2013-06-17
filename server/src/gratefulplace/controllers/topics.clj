@@ -6,40 +6,48 @@
             [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
+        [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
         gratefulplace.utils))
 
-(def index-topic-mapify-options
-  {:include (merge {:first-post {}}
-                   author-inclusion-options)})
+(defn index-mapify
+  [ent]
+  (c/mapify
+   ent
+   mr/ent->topic
+   {:include (merge {:first-post {}}
+                   author-inclusion-options)}))
 
 (defmapifier record
   mr/ent->topic
   {:include {:posts {:include author-inclusion-options}}})
 
-(defn query
-  [params]
-  (reverse-by :last-posted-to-at
-              (map #(c/mapify
-                     %
-                     mr/ent->topic
-                     index-topic-mapify-options)
-                   (db/all :topic/first-post [:content/deleted false]))))
+(defresource query
+  :available-media-types ["application/json"]
+  :handle-ok (fn [ctx]
+               (reverse-by :last-posted-to-at
+                           (map index-mapify
+                                (db/all :topic/first-post [:content/deleted false])))))
 
-(defn show
-  [params]
-  (if-let [topic (record (id))]
-    {:body topic}
-    NOT-FOUND))
+(defresource show [params]
+  :available-media-types ["application/json"]
+  :exists? (fn [ctx]
+             (if-let [topic (record (id))]
+               {:record topic}))
+  :handle-ok (fn [ctx]
+               (get ctx :record)))
 
-(defn create!
-  [params auth]
-  (protect
-   (:id auth)
-   
-   (if-valid
-    params validations/topic errors
+(defresource create [params auth]
+  :available-media-types ["application/json"]
+  :allowed? (fn [_] (:id auth))
+  :malformed? (fn [_]
+                (if-valid
+                 params validations/topic errors
+                 false
+                 [true {:errors errors}]))
+  :handle-ok
+  (fn [_]
     (let [topic-tempid (d/tempid :db.part/user -1)
           post-tempid (d/tempid :db.part/user -2)
           author-id (:id auth)
@@ -55,19 +63,15 @@
                 :post/created-at (now)
                 :content/author author-id
                 :db/id post-tempid}]
-      {:body (mapify-tx-result
-              (db/t [topic post])
-              topic-tempid
-              mr/ent->topic
-              index-topic-mapify-options)
-       :status 200})
-    (invalid errors))))
+      (mapify-tx-result
+       (db/t [topic post])
+       topic-tempid
+       mr/ent->topic
+       index-topic-mapify-options)))
+  
+  :handle-malformed (fn [ctx] (:errors ctx)))
 
-(defn delete!
-  [params auth]
-  (let [id (id)]
-    (protect
-     (can-modify-record? (record id) auth)
-     (db/t [{:db/id id
-             :content/deleted true}])
-     OK)))
+(defresource delete! [params auth]
+  :allowed? (fn [_] (can-modify-record? (record (id)) auth))
+  :handle-ok (fn [_] (db/t [{:db/id (id)
+                            :content/deleted true}])))

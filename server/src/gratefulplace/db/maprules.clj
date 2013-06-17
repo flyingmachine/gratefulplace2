@@ -9,12 +9,18 @@
   [ref-attr]
   #(ffirst (db/q [:find '(count ?c) :where ['?c ref-attr (:db/id %)]])))
 
+(def date-format (java.text.SimpleDateFormat. "yyyy/dd/MM HH:mm:ss zzz"))
+
+(defn format-date
+  [date]
+  (.format date-format date))
+
 (defmaprules ent->topic
   (attr :id :db/id)
   (attr :title :topic/title)
   (attr :post-count (ref-count :post/topic))
   (attr :author-id (comp :db/id :content/author))
-  (attr :last-posted-to-at :topic/last-posted-to-at)
+  (attr :last-posted-to-at (comp format-date :topic/last-posted-to-at))
   (has-one :first-post
            :rules gratefulplace.db.maprules/ent->post
            :retriever :topic/first-post)
@@ -31,7 +37,7 @@
   (attr :content (mask-deleted :post/content))
   (attr :formatted-content (mask-deleted #(md-content (:post/content %))))
   (attr :deleted :content/deleted)
-  (attr :created-at :post/created-at)
+  (attr :created-at (comp format-date :post/created-at))
   (attr :topic-id (comp :db/id :post/topic))
   (attr :author-id (comp :db/id :content/author))
   (has-one :author
