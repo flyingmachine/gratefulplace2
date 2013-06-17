@@ -34,7 +34,6 @@
   (route GET "/topics/:id" topics/show)
   (authroute POST "/topics" topics/create!)
   (authroute DELETE "/topics/:id" topics/delete!)
-  (ANY "/liberator" [] topics/query-liberator)
   
   ;; Posts
   (authroute POST "/posts" posts/create!)

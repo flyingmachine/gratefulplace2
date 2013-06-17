@@ -11,13 +11,16 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
+(def index-mapify-options
+  {:include (merge {:first-post {}}
+                   author-inclusion-options)})
+
 (defn index-mapify
   [ent]
   (c/mapify
    ent
    mr/ent->topic
-   {:include (merge {:first-post {}}
-                   author-inclusion-options)}))
+   index-mapify-options))
 
 (defmapifier record
   mr/ent->topic
@@ -38,15 +41,16 @@
   :handle-ok (fn [ctx]
                (get ctx :record)))
 
-(defresource create [params auth]
+(defresource create! [params auth]
+  :allowed-methods [:post]
   :available-media-types ["application/json"]
-  :allowed? (fn [_] (:id auth))
+  :authorized? (fn [_] (:id auth))
   :malformed? (fn [_]
                 (if-valid
                  params validations/topic errors
                  false
                  [true {:errors errors}]))
-  :handle-ok
+  :handle-created
   (fn [_]
     (let [topic-tempid (d/tempid :db.part/user -1)
           post-tempid (d/tempid :db.part/user -2)
@@ -67,7 +71,7 @@
        (db/t [topic post])
        topic-tempid
        mr/ent->topic
-       index-topic-mapify-options)))
+       index-mapify-options)))
   
   :handle-malformed (fn [ctx] (:errors ctx)))
 

@@ -10,7 +10,7 @@ angular.module('gratefulplaceApp').controller 'TopicsCtrl', ($scope, Topic, User
   $scope.firstPost = (topic)->
     topic.posts[0]
 
-  $scope.formatCreatedAt = (date)->
+  $scope.formatDateTime = (date)->
     moment(date).format("MMM D, YYYY h:mma")
 
   $scope.peekAtAuthor = (author)->

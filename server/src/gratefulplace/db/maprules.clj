@@ -9,7 +9,7 @@
   [ref-attr]
   #(ffirst (db/q [:find '(count ?c) :where ['?c ref-attr (:db/id %)]])))
 
-(def date-format (java.text.SimpleDateFormat. "yyyy/dd/MM HH:mm:ss zzz"))
+(def date-format (java.text.SimpleDateFormat. "yyyy-MM-dd HH:mm:ss zzz"))
 
 (defn format-date
   [date]
