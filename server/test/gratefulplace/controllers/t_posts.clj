@@ -1,18 +1,13 @@
 (ns gratefulplace.controllers.t-posts
-  (:use midje.sweet)
   (:require [gratefulplace.db.test :as tdb]
             [gratefulplace.db.query :as q]
             [gratefulplace.db.manage :as db-manage]
-            [gratefulplace.controllers.posts :as posts]))
+            [gratefulplace.controllers.posts :as posts])
+  (:use midje.sweet
+        gratefulplace.controllers.test-helpers))
 
 (background
  (before :contents (tdb/with-test-db (db-manage/recreate) (db-manage/load-schema))))
-
-(defn auth
-  ([] (auth "flyingmachine"))
-  ([username]
-     {:id (:db/id (q/one [:user/username username]))
-      :username username}))
 
 (defn post-id
   ([] (post-id "flyingmachine"))
