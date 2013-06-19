@@ -20,7 +20,8 @@
                  [com.flyingmachine/webutils "0.1.1"]
                  [flyingmachine/cartographer "0.1.1"]
                  [markdown-clj "0.9.25"]
-                 [clavatar "0.2.1"]]
+                 [clavatar "0.2.1"]
+                 [org.clojure/data.json "0.2.2"]]
 
   :plugins [[lein-ring "0.8.3"]
             [lein-environ "0.4.0"]

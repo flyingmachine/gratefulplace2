@@ -23,17 +23,22 @@
     (println session)
     (f request)))
 
-; The ring app
-(def app
-  (-> routes
-      auth
-      ;; debug
+(defn wrap
+  [to-wrap]
+  (-> to-wrap
       (wrap-session {:cookie-name "gratefulplace-session" :store (db-session-store {})})
       (wrap-restful-format :formats [:json-kw])
       wrap-exception
       wrap-keyword-params
       wrap-nested-params
       wrap-params))
+
+; The ring app
+(def app
+  (-> routes
+      auth
+      ;; debug
+      wrap))
 
 (defn -main
   "Start the jetty server"

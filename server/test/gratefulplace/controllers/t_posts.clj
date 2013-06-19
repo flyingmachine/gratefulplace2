@@ -7,7 +7,7 @@
         gratefulplace.controllers.test-helpers))
 
 (background
- (before :contents (tdb/with-test-db (db-manage/recreate) (db-manage/load-schema))))
+ (before :contents (tdb/with-test-db (db-manage/reload))))
 
 (defn post-id
   ([] (post-id "flyingmachine"))
