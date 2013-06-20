@@ -48,3 +48,32 @@
 (defn now
   []
   (java.util.Date.))
+
+
+
+(defn argperms
+  "Used to create all argument permutations for defnd"
+  [arglist]
+  (let [[base defaulted] (split-with (comp not vector?) arglist)
+        argcount (count arglist)]
+    (loop [defaulted defaulted
+           base {:argnames (into [] base)
+                 :application (into [] (concat base (map second defaulted)))}
+           arglists [base]]
+      (if (empty? defaulted)
+        arglists
+        (let [position (- argcount (count defaulted))
+              argname (ffirst defaulted)
+              new-base {:argnames (conj (:argnames base) argname)
+                        :application (assoc (:application base) position argname)}]
+          (recur (rest defaulted) new-base (conj arglists new-base)))))))
+
+(defmacro defnd
+  ;; defn with default arguments
+  [name args & body]
+  (let [arglists (reverse (argperms args))]
+    `(defn ~name
+       (~(:argnames (first arglists))
+        ~@body)
+       ~@(map #(list (:argnames %) (:application %))
+              (rest arglists)))))
