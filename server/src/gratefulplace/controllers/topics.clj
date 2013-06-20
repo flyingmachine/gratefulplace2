@@ -36,8 +36,7 @@
 (defresource show [params]
   :available-media-types ["application/json"]
   :exists? (exists? (record (id)))
-  :handle-ok (fn [ctx]
-               (get ctx :record)))
+  :handle-ok record-in-ctx)
 
 (defresource create! [params auth]
   :allowed-methods [:post]
@@ -66,11 +65,8 @@
                topic-tempid
                mr/ent->topic
                index-mapify-options)}))
-  :handle-created (fn [ctx] (get ctx :record))
-  
-
-  :handle-malformed (fn [ctx]
-                      {:errors (:errors ctx)}))
+  :handle-created record-in-ctx
+  :handle-malformed (fn [ctx] {:errors (:errors ctx)}))
 
 (defresource delete! [params auth]
   :exists? exists-in-ctx?

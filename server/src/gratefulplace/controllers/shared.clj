@@ -50,6 +50,12 @@
   (if record
     {:record record}))
 
-(defn exists-in-ctx?
+(defn record-in-ctx
   [ctx]
   (get ctx :record))
+
+(def exists-in-ctx? record-in-ctx)
+
+(defn errors-in-ctx
+  [ctx]
+  (get ctx :errors))
