@@ -1,7 +1,8 @@
 (ns gratefulplace.controllers.shared
   (:require [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
-            [flyingmachine.cartographer.core :as c]))
+            [flyingmachine.cartographer.core :as c])
+  (:use [flyingmachine.webutils.validation :only (if-valid)]))
 
 (def author-inclusion-options
   {:author {:exclude [:email]}})
@@ -33,3 +34,19 @@
         ent#
         ~@mapify-args)
        nil)))
+
+
+(defmacro validator
+  [params validation]
+  `(fn [ctx#]
+     (if-valid
+      ~params ~validation errors#
+      false
+      [true {:errors errors#
+             :representation {:media-type "application/json"}}])))
+
+(defmacro exists?
+  [finder]
+  `(fn [_#]
+     (if-let [record# ~finder]
+       {:record record#})))

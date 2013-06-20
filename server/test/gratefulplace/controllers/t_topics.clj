@@ -6,46 +6,49 @@
   (:use midje.sweet
         gratefulplace.controllers.test-helpers))
 
-(background
- (before :contents (tdb/with-test-db (db-manage/reload)))
- (around :facts (tdb/with-test-db ?form)))
+(setup-db-background)
 
 (defn topic-id
   []
   (:db/id (q/one [:topic/title])))
 
+(defn topic-url
+  []
+  (str "/topics/" (topic-id)))
+
 (fact "query returns all topics"
-  (response-data topics/query :get {})
+  (response-data :get "/topics" {})
   => (two-of map?))
 
-
 (fact "creating a topic with a valid user results in success"
-  (response-data topics/create! :post {:content "test"} (auth))
-  => (contains {:status 200}))
+  (let [response (res :post "/topics" {:content "test"} (auth))
+        data (data response)]
+    response => (contains {:status 201})
+    data => (contains {"post-count" 1})))
 
 (fact "creating a topic without a user results in failure"
-  (topics/create! {:content "test"} nil)
+  (res :post "/topics" {:content "test"} nil)
   => (contains {:status 401}))
 
 (fact "creating a topic without content returns errors"
-  (topics/create! {} (auth))
-  => (contains {:status 412}))
+  (res :post "/topics" {} (auth))
+  => (contains {:status 400}))
 
 ;; Showing
 
 (fact "attempting to view an existing topic returns the topic"
   (let [id (topic-id)]
-    (:body (topics/show {:id (str id)}))
-    => (contains {:id id})))
+    (response-data :get (topic-url))
+    => (contains {"id" id})))
 
 (fact "attempting to view a nonexistent topic returns not found"
-  (topics/show {:id "-1"})
+  (res :get "/topics/101010")
   => (contains {:status 404}))
 
 (facts "topics can only be deleted by their authors"
-       (fact "deleting a topic as the author results in success"
-         (topics/delete! {:id (str (topic-id))} (auth "flyingmachine"))
-         => (contains {:status 200}))
-       (fact "deleting a topic as not the author results in failure"
-         (topics/delete! {:id (str (topic-id))} (auth "joebob"))
-         => (contains {:status 401})))
+  (fact "deleting a topic as the author results in success"
+    (res :delete (topic-url) nil (auth "flyingmachine"))
+    => (contains {:status 204}))
+  (fact "deleting a topic as not the author results in failure"
+    (res :delete (topic-url) nil (auth "joebob"))
+    => (contains {:status 401})))

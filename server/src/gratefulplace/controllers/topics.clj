@@ -45,11 +45,7 @@
   :allowed-methods [:post]
   :available-media-types ["application/json"]
   :authorized? (fn [_] (:id auth))
-  :malformed? (fn [_]
-                (if-valid
-                 params validations/topic errors
-                 false
-                 [true {:errors errors}]))
+  :malformed? (validator params validations/topic)
   :handle-created
   (fn [_]
     (let [topic-tempid (d/tempid :db.part/user -1)
@@ -72,10 +68,15 @@
        topic-tempid
        mr/ent->topic
        index-mapify-options)))
-  
-  :handle-malformed (fn [ctx] (:errors ctx)))
+
+  :handle-malformed (fn [ctx]
+                      {:errors (:errors ctx)}))
 
 (defresource delete! [params auth]
-  :allowed? (fn [_] (can-modify-record? (record (id)) auth))
-  :handle-ok (fn [_] (db/t [{:db/id (id)
-                            :content/deleted true}])))
+  :exists? (fn [ctx]
+             (if-let [topic (record (id))]
+               {:record topic}))
+  :allowed-methods [:delete]
+  :authorized? (fn [_] (can-modify-record? (record (id)) auth))
+  :handle-accepted (fn [_] (db/t [{:db/id (id)
+                                  :content/deleted true}])))
