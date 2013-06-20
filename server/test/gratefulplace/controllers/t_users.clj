@@ -6,10 +6,7 @@
   (:use midje.sweet
         gratefulplace.controllers.test-helpers))
 
-(background
- (before :contents (tdb/with-test-db (db-manage/reload)))
- (around :facts (tdb/with-test-db ?form)))
-
+(setup-db-background)
 
 (fact "valid password change params update a user's password"
       (users/change-password! {:id (:id (auth))

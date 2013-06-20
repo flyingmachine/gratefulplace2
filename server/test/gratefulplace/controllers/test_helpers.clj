@@ -51,8 +51,18 @@ and assume that routing has already taken place"
   ([method path params auth]
      (data (res method path params auth))))
 
-(defn setup-db-background
+(defmacro setup-db-background
   []
-  (background
-   (before :contents (tdb/with-test-db (db-manage/reload)))
-   (around :facts (tdb/with-test-db ?form))))
+  `(background
+    (before :contents (tdb/with-test-db (db-manage/reload)))
+    (around :facts (tdb/with-test-db ?form))))
+
+(defn topic-id
+  []
+  (:db/id (q/one [:topic/title])))
+
+(defn topic-url
+  ([]
+     (topic-url (topic-id)))
+  ([topic-id]
+     (str "/topics/" topic-id)))

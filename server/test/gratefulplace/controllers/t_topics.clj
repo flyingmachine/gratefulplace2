@@ -8,16 +8,6 @@
 
 (setup-db-background)
 
-(defn topic-id
-  []
-  (:db/id (q/one [:topic/title])))
-
-(defn topic-url
-  ([]
-     (topic-url (topic-id)))
-  ([topic-id]
-     (str "/topics/" topic-id)))
-
 (fact "query returns all topics"
   (response-data :get "/topics" {})
   => (two-of map?))

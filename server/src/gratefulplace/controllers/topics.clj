@@ -41,7 +41,7 @@
 (defresource create! [params auth]
   :allowed-methods [:post]
   :available-media-types ["application/json"]
-  :authorized? (fn [_] (:id auth))
+  :authorized? (logged-in? auth)
   :malformed? (validator params validations/topic)
   :post! (fn [_]
            (let [topic-tempid (d/tempid :db.part/user -1)
@@ -69,11 +69,12 @@
   :handle-malformed (fn [ctx] {:errors (:errors ctx)}))
 
 (defresource delete! [params auth]
-  :exists? exists-in-ctx?
   :allowed-methods [:delete]
+  :available-media-types ["application/json"]
   :authorized? (fn [_]
                  (let [topic (record (id))]
                    (if (can-modify-record? topic auth)
                      {:record topic})))
+  :exists? exists-in-ctx?
   :handle-accepted (fn [_] (db/t [{:db/id (id)
                                   :content/deleted true}])))

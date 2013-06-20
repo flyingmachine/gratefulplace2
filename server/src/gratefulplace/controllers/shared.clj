@@ -5,7 +5,7 @@
   (:use [flyingmachine.webutils.validation :only (if-valid)]))
 
 (def author-inclusion-options
-  {:author {:exclude [:email]}})
+  {:author {:only [:id :username :gravatar]}})
 
 (defn invalid
   [errors]

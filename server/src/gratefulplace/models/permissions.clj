@@ -13,6 +13,9 @@
 (defn current-user-id [auth]
   (:id auth))
 
+(defn logged-in? [auth]
+  auth)
+
 (defn current-user-id?
   [id auth]
   (= id (current-user-id auth)))
