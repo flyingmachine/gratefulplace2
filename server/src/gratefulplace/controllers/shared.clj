@@ -45,8 +45,11 @@
       [true {:errors errors#
              :representation {:media-type "application/json"}}])))
 
-(defmacro exists?
-  [finder]
-  `(fn [_#]
-     (if-let [record# ~finder]
-       {:record record#})))
+(defn exists?
+  [record]
+  (if record
+    {:record record}))
+
+(defn exists-in-ctx?
+  [ctx]
+  (get ctx :record))

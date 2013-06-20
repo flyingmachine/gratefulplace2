@@ -35,9 +35,7 @@
 
 (defresource show [params]
   :available-media-types ["application/json"]
-  :exists? (fn [ctx]
-             (if-let [topic (record (id))]
-               {:record topic}))
+  :exists? (exists? (record (id)))
   :handle-ok (fn [ctx]
                (get ctx :record)))
 
@@ -46,37 +44,40 @@
   :available-media-types ["application/json"]
   :authorized? (fn [_] (:id auth))
   :malformed? (validator params validations/topic)
-  :handle-created
-  (fn [_]
-    (let [topic-tempid (d/tempid :db.part/user -1)
-          post-tempid (d/tempid :db.part/user -2)
-          author-id (:id auth)
-          topic (remove-nils-from-map
-                 {:topic/title (:title params)
-                  :topic/first-post post-tempid
-                  :topic/last-posted-to-at (now)
-                  :content/author author-id
-                  :content/deleted false
-                  :db/id topic-tempid})
-          post {:post/content (:content params)
-                :post/topic topic-tempid
-                :post/created-at (now)
-                :content/author author-id
-                :db/id post-tempid}]
-      (mapify-tx-result
-       (db/t [topic post])
-       topic-tempid
-       mr/ent->topic
-       index-mapify-options)))
+  :post! (fn [_]
+           (let [topic-tempid (d/tempid :db.part/user -1)
+                 post-tempid (d/tempid :db.part/user -2)
+                 author-id (:id auth)
+                 topic (remove-nils-from-map
+                        {:topic/title (:title params)
+                         :topic/first-post post-tempid
+                         :topic/last-posted-to-at (now)
+                         :content/author author-id
+                         :content/deleted false
+                         :db/id topic-tempid})
+                 post {:post/content (:content params)
+                       :post/topic topic-tempid
+                       :post/created-at (now)
+                       :content/author author-id
+                       :db/id post-tempid}]
+             {:record
+              (mapify-tx-result
+               (db/t [topic post])
+               topic-tempid
+               mr/ent->topic
+               index-mapify-options)}))
+  :handle-created (fn [ctx] (get ctx :record))
+  
 
   :handle-malformed (fn [ctx]
                       {:errors (:errors ctx)}))
 
 (defresource delete! [params auth]
-  :exists? (fn [ctx]
-             (if-let [topic (record (id))]
-               {:record topic}))
+  :exists? exists-in-ctx?
   :allowed-methods [:delete]
-  :authorized? (fn [_] (can-modify-record? (record (id)) auth))
+  :authorized? (fn [_]
+                 (let [topic (record (id))]
+                   (if (can-modify-record? topic auth)
+                     {:record topic})))
   :handle-accepted (fn [_] (db/t [{:db/id (id)
                                   :content/deleted true}])))

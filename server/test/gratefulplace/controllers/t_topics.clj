@@ -13,8 +13,10 @@
   (:db/id (q/one [:topic/title])))
 
 (defn topic-url
-  []
-  (str "/topics/" (topic-id)))
+  ([]
+     (topic-url (topic-id)))
+  ([topic-id]
+     (str "/topics/" topic-id)))
 
 (fact "query returns all topics"
   (response-data :get "/topics" {})
@@ -49,6 +51,9 @@
   (fact "deleting a topic as the author results in success"
     (res :delete (topic-url) nil (auth "flyingmachine"))
     => (contains {:status 204}))
+  (fact "deleting a non-existent topic results in nonexistent code"
+    (res :delete (topic-url "101010") nil (auth "flyingmachine"))
+    => (contains {:status 404}))
   (fact "deleting a topic as not the author results in failure"
     (res :delete (topic-url) nil (auth "joebob"))
     => (contains {:status 401})))
