@@ -60,3 +60,8 @@
 (defn errors-in-ctx
   [ctx]
   {:errors (get ctx :errors)})
+
+(defn delete-content
+  [id]
+  (db/t [{:db/id id
+          :content/deleted true}]))

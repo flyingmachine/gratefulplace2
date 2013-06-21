@@ -20,7 +20,7 @@
 
 (defn debug [f]
   (fn [{:keys [uri request-method params session] :as request}]
-    (println session)
+    (println params)
     (f request)))
 
 (defn wrap

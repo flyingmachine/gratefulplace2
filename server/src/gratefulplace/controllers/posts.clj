@@ -17,22 +17,25 @@
    :exclude [:content :created-at :topic-id]})
 
 (defresource update! [params auth]
-  :allowed-methods [:put]
+  :allowed-methods [:put :post]
   :available-media-types ["application/json"]
 
   :malformed? (validator params (:update validations/post))
   :handle-malformed errors-in-ctx
 
-  :exists? (exists? (record (id)))
+  :authorized? (fn [_]
+                 (let [post (record (id))]
+                   (if (and (not (:deleted post)) (can-modify-record? post auth))
+                     {:record post})))
+
+  :exists? record-in-ctx
   
-  :authorized? (fn [ctx]
-                 (let [post (:record ctx)]
-                   (and (not (:deleted post)) (can-modify-record? post auth))))
-  
-  :put! (fn [_] (db/t [(c/mapify params mr/post->txdata)]))
+  :put! (fn [_]
+          ;; {:db/id 17592186045495 :post/content "test"
+          (db/t [(c/mapify params mr/post->txdata)]))
   :new? false
   :respond-with-entity? true
-  :handle-ok (record (id)))
+  :handle-ok (fn [_] (record (id))))
 
 (defresource create! [params auth]
   :allowed-methods [:post]
@@ -60,12 +63,12 @@
                {:include author-inclusion-options})}))
   :handle-created record-in-ctx)
 
-
-(defn delete!
-  [params auth]
-  (let [id (id)]
-    (protect
-     (can-modify-record? (record id) auth)
-     (db/t [{:db/id id
-             :content/deleted true}])
-     OK)))
+(defresource delete! [params auth]
+  :allowed-methods [:delete]
+  :available-media-types ["application/json"]
+  :authorized? (fn [_]
+                 (let [post (record (id))]
+                   (if (can-modify-record? post auth)
+                     {:record post})))
+  :exists? exists-in-ctx?
+  :delete! (fn [_] (delete-content (id))))

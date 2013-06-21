@@ -36,21 +36,24 @@
     (let [username "flyingmachine"
           post-id (post-id username)]
       (response-data :put (post-path post-id) {:content "new content"} (auth username))
-      => (contains {"id" post-id}))))
+      => (contains {"id" post-id
+                    "formatted-content" "<p>new content</p>"}))))
 
 (facts "posts can only be deleted by their authors or moderators"
   (fact "deleting a post as the author results in success"
-    (posts/delete! {:id (str (post-id "flyingmachine"))} (auth "flyingmachine"))
-    => (contains {:status 200}))
+    (res :delete (post-path (post-id "flyingmachine")) nil (auth "flyingmachine"))
+    => (contains {:status 204}))
   (fact "deleting a post as a moderator results in success"
-    (posts/delete! {:id (str (post-id "joebob"))} (auth "flyingmachine"))
-    => (contains {:status 200}))
+    (res :delete (post-path (post-id "joebob")) nil (auth "flyingmachine"))
+    => (contains {:status 204}))
   (fact "deleting a post as not the author results in failure"
-    (posts/delete! {:id (str (post-id "flyingmachine"))} (auth "joebob"))
+    (res :delete (post-path (post-id "flyingmachine")) nil (auth "joebob"))
     => (contains {:status 401})))
 
 (fact "you can't update a deleted post"
-  (let [post-id (post-id "flyingmachine")]
-    (do (posts/delete! {:id (str post-id)} (auth "flyingmachine"))
-        (posts/update! {:id (str post-id) :content "new content"} (auth "flyingmachine")))
+  (let [username "flyingmachine"
+        auth (auth username)
+        post-id (post-id username)]
+    (do (res :delete (post-path post-id) nil auth)
+        (res :put (post-path post-id) {:content "new content"} auth))
     => (contains {:status 401})))

@@ -78,5 +78,4 @@
                    (if (can-modify-record? topic auth)
                      {:record topic})))
   :exists? exists-in-ctx?
-  :delete! (fn [_] (db/t [{:db/id (id)
-                          :content/deleted true}])))
+  :delete! (fn [_] (delete-content (id))))
