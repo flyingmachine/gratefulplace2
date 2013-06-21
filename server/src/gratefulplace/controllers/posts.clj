@@ -30,9 +30,8 @@
 
   :exists? record-in-ctx
   
-  :put! (fn [_]
-          ;; {:db/id 17592186045495 :post/content "test"
-          (db/t [(c/mapify params mr/post->txdata)]))
+  :put! (fn [_] (db/t [(c/mapify params mr/post->txdata)]))
+  :post! (fn [_] (db/t [(c/mapify params mr/post->txdata)]))
   :new? false
   :respond-with-entity? true
   :handle-ok (fn [_] (record (id))))
