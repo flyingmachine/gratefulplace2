@@ -6,6 +6,7 @@
             [clojure.data.json :as json])
   (:use midje.sweet
         gratefulplace.utils
+        gratefulplace.paths
         [ring.mock.request :only [request header content-type]]))
 
 (defn auth
@@ -51,9 +52,3 @@
 (defn topic-id
   []
   (:db/id (q/one [:topic/title])))
-
-(defn topic-url
-  ([]
-     (topic-url (topic-id)))
-  ([topic-id]
-     (str "/topics/" topic-id)))

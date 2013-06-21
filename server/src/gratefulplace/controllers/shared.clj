@@ -37,6 +37,7 @@
 
 
 (defmacro validator
+  "Used in malformed? which is why truth values are reversed"
   [params validation]
   `(fn [ctx#]
      (if-valid
@@ -58,4 +59,4 @@
 
 (defn errors-in-ctx
   [ctx]
-  (get ctx :errors))
+  {:errors (get ctx :errors)})

@@ -37,7 +37,7 @@
   
   ;; Posts
   (authroute POST "/posts" posts/create!)
-  (authroute POST "/posts/:id" posts/update!)
+  (authroute PUT "/posts/:id" posts/update!)
   (authroute DELETE "/posts/:id" posts/delete!)
 
   ;; Users
