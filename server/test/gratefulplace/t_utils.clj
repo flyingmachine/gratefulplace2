@@ -8,3 +8,10 @@
 (fact "str->int converts a string to an integer using params"
   (utils/str->int "1") => 1
   (utils/str->int "17592186045420") => 17592186045420)
+
+(fact "defnpd creates positional defaults"
+  (utils/defnpd test-defnpd [a b [c 1] [d 1]]
+    (+ a b c d))
+  (test-defnpd 2 2) => 6
+  (test-defnpd 2 2 2) => 7
+  (test-defnpd 2 2 2 2) => 8)

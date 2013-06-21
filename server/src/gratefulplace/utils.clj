@@ -51,29 +51,29 @@
 
 
 
-(defn argperms
-  "Used to create all argument permutations for defnd"
-  [arglist]
-  (let [[base defaulted] (split-with (comp not vector?) arglist)
-        argcount (count arglist)]
-    (loop [defaulted defaulted
-           base {:argnames (into [] base)
-                 :application (into [] (concat base (map second defaulted)))}
-           arglists [base]]
-      (if (empty? defaulted)
-        arglists
-        (let [position (- argcount (count defaulted))
-              argname (ffirst defaulted)
-              new-base {:argnames (conj (:argnames base) argname)
-                        :application (assoc (:application base) position argname)}]
-          (recur (rest defaulted) new-base (conj arglists new-base)))))))
-
-(defmacro defnd
-  ;; defn with default arguments
+(defmacro defnpd
+  ;; defn with default positional arguments
   [name args & body]
-  (let [arglists (reverse (argperms args))]
+  (let [unpack-defaults
+        (fn [args]
+          (let [[undefaulted defaulted] (split-with (comp not vector?) args)
+                argcount (count args)]
+            (loop [defaulted defaulted
+                   argset {:argnames (into [] undefaulted)
+                           :application (into [] (concat undefaulted (map second defaulted)))}
+                   unpacked-args [argset]
+                   position (count undefaulted)]
+              (if (empty? defaulted)
+                unpacked-args
+                (let [argname (ffirst defaulted)
+                      new-argset {:argnames (conj (:argnames argset) argname)
+                                  :application (assoc (:application argset) position argname)}]
+                  (recur (rest defaulted) new-argset (conj unpacked-args new-argset) (inc position)))))))
+        unpacked-args (unpack-defaults args)]
+    
     `(defn ~name
-       (~(:argnames (first arglists))
+       (~(:argnames (last unpacked-args))
         ~@body)
-       ~@(map #(list (:argnames %) (:application %))
-              (rest arglists)))))
+       ~@(map #(list (:argnames %)
+                     `(~name ~@(:application %)))
+              (drop-last unpacked-args)))))
