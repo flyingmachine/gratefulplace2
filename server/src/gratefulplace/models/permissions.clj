@@ -4,8 +4,11 @@
 
 (def moderator-usernames (env :moderator-names))
 
-(defn moderator? [username]
-  (some #(= % username) moderator-usernames))
+(defmulti moderator? class)
+(defmethod moderator? String
+  [username] (some #(= % username) moderator-usernames))
+(defmethod moderator? clojure.lang.IPersistentMap
+  [m] (moderator? (:username m)))
 
 (defn current-username [auth]
   (:username auth))
@@ -29,15 +32,14 @@
    (= user (current-username auth))
    (= (:username user) (current-username auth))))
 
-(defn can-modify-record?
+(defn author?
   [record auth]
   (or
    (= (:author-id record) (:id auth))
    (= (get-in record [:author :id]) (:id auth))
    (and
     (not (nil? (:username auth)))
-    (= (get-in record [:author :username]) (:username auth)))
-   (moderator? (:username auth))))
+    (= (get-in record [:author :username]) (:username auth)))))
 
 ;; Pretty sure there's something in onlisp about this
 (defmacro protect [check & body]

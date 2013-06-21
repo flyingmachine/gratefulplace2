@@ -43,7 +43,7 @@
     (res :delete (topic-path (topic-id)) nil (auth "flyingmachine"))
     => (contains {:status 204}))
   (fact "deleting a non-existent topic results in nonexistent code"
-    (res :delete (topic-url "101010") nil (auth "flyingmachine"))
+    (res :delete (topic-path "101010") nil (auth "flyingmachine"))
     => (contains {:status 404}))
   (fact "deleting a topic as not the author results in failure"
     (res :delete (topic-path (topic-id)) nil (auth "joebob"))

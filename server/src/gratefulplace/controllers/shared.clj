@@ -2,7 +2,8 @@
   (:require [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c])
-  (:use [flyingmachine.webutils.validation :only (if-valid)]))
+  (:use [flyingmachine.webutils.validation :only (if-valid)]
+        gratefulplace.models.permissions))
 
 (def author-inclusion-options
   {:author {:only [:id :username :gravatar]}})
@@ -46,6 +47,10 @@
       [true {:errors errors#
              :representation {:media-type "application/json"}}])))
 
+
+
+;; working with liberator
+
 (defn exists?
   [record]
   (if record
@@ -61,7 +66,21 @@
   [ctx]
   {:errors (get ctx :errors)})
 
-(defn delete-content
-  [id]
-  (db/t [{:db/id id
+(defn delete-record-in-ctx
+  [ctx]
+  (db/t [{:db/id (get-in ctx [:record :id])
           :content/deleted true}]))
+
+(defmacro can-delete-record?
+  [record auth]
+  `(fn [_#]
+     (let [record# ~record]
+       (if (or (author? record# ~auth) (moderator? ~auth))
+         {:record record#}))))
+
+(defmacro can-update-record?
+  [record auth]
+  `(fn [_#]
+     (let [record# ~record]
+       (if (and (author? record# ~auth) (not (:deleted ~record)))
+         {:record record#}))))

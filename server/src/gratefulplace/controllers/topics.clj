@@ -73,9 +73,6 @@
 (defresource delete! [params auth]
   :allowed-methods [:delete]
   :available-media-types ["application/json"]
-  :authorized? (fn [_]
-                 (let [topic (record (id))]
-                   (if (can-modify-record? topic auth)
-                     {:record topic})))
+  :authorized? (can-delete-record? (record (id)) auth)
   :exists? exists-in-ctx?
-  :delete! (fn [_] (delete-content (id))))
+  :delete! delete-record-in-ctx)

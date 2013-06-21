@@ -23,13 +23,8 @@
   :malformed? (validator params (:update validations/post))
   :handle-malformed errors-in-ctx
 
-  :authorized? (fn [_]
-                 (let [post (record (id))]
-                   (if (and (not (:deleted post)) (can-modify-record? post auth))
-                     {:record post})))
-
+  :authorized? (can-update-record? (record (id)) auth)
   :exists? record-in-ctx
-  
   :put! (fn [_] (db/t [(c/mapify params mr/post->txdata)]))
   :post! (fn [_] (db/t [(c/mapify params mr/post->txdata)]))
   :new? false
@@ -65,9 +60,6 @@
 (defresource delete! [params auth]
   :allowed-methods [:delete]
   :available-media-types ["application/json"]
-  :authorized? (fn [_]
-                 (let [post (record (id))]
-                   (if (can-modify-record? post auth)
-                     {:record post})))
+  :authorized? (can-delete-record? (record (id)) auth)
   :exists? exists-in-ctx?
-  :delete! (fn [_] (delete-content (id))))
+  :delete! delete-record-in-ctx)
