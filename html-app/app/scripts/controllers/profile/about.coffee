@@ -16,7 +16,7 @@ angular.module('gratefulplaceApp')
       $event && $event.preventDefault()
 
     $scope.updateProfile = ->
-      $scope.user.$saveAbout((u)->
+      $scope.user.$save((u)->
         $scope.toggleEdit()
         $scope.user['formatted-about'] = u['formatted-about']
       , (res)->

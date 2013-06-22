@@ -28,7 +28,7 @@
 
 (def user
   {:create (select-keys user-validations [:username :password :email])
-   :update-email (select-keys user-validations [:email])})
+   :update (select-keys user-validations [:email])})
 
 (def change-password
   {:new-password
