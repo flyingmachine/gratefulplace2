@@ -20,13 +20,18 @@
     (d/entity (db) exists)
     nil))
 
-(defn one
+(defn eid
   [& conditions]
   (let [conditions (map #(concat ['?c] %) conditions)]
-    (->(q {:find ['?c]
-           :where conditions})
-       ffirst
-       (when ent))))
+    (-> {:find ['?c]
+         :where conditions}
+        q
+        ffirst)))
+
+(defn one
+  [& conditions]
+  (if-let [id (apply eid conditions)]
+    (ent id)))
 
 (defn all
   [common-attribute & conditions]

@@ -21,7 +21,7 @@
       {}))
   (write-session [_ key data]
     (let [uuid-key (str->uuid key)
-          eid (when uuid-key (key->eid key-attr uuid-key))
+          eid (when uuid-key (q/eid [key-attr uuid-key]))
           key-change? (or (not eid) auto-key-change?)
           uuid-key (if key-change?
                      (java.util.UUID/randomUUID) uuid-key)
