@@ -5,7 +5,6 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
     $scope.currentSession = CurrentSession.get()
     console.log $scope.currentSession
   $scope.$on 'auth.logged-in', refreshSession
-  $scope.$on 'auth.logged-out', refreshSession
   refreshSession()
   
   $scope.peek = null
@@ -14,10 +13,6 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
     $scope.peek = peekData
   $scope.clearPeek = ->
     $scope.peek = null
-
-  $scope.logout = ->
-    CurrentSession.logout()
-    $location.path "/"
 
   $scope.toggleNewTopicForm = ($event)->
     $scope.showNewTopicForm = !$scope.showNewTopicForm

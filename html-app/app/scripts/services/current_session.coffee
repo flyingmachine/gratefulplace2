@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $http, $rootScope, User)->
+angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $q, $http, $rootScope, User)->
   currentSession = null
   loggedOut = !loadedSession
 
@@ -17,9 +17,4 @@ angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $ht
   set: (newSession)->
     currentSession = newSession
     $rootScope.$broadcast "auth.logged-in"
-  logout: ->
-    $http.get('/logout')
-    currentSession = null
-    loggedOut = true
-    $rootScope.$broadcast "auth.logged-out"
   
