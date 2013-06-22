@@ -26,7 +26,7 @@
     (->(q {:find ['?c]
            :where conditions})
        ffirst
-       ent)))
+       (when ent))))
 
 (defn all
   [common-attribute & conditions]
