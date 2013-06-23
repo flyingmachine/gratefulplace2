@@ -16,6 +16,8 @@ angular.module('gratefulplaceApp').controller 'TopicsCtrl', ($scope, Topic, User
   $scope.peekAtAuthor = (author)->
     User.get id: author.id, (data)->
       $scope.peek.show("user", data)
+
+  $scope.secondaryNav.show "topics"
   
   $scope.formatPostCount = (postCount)->
     switch postCount
