@@ -37,35 +37,6 @@
         </ul>
       </nav>
       <div id="main">
-        <div id="new-topic" ng-controller="NewTopicCtrl" ng-show="showNewTopicForm">
-          <h3>Start a New Topic</h3>
-          <form ng-submit="submitNewTopic()">
-            <div>
-              <input value=""
-                     type="text"
-                     name="new-topic-title"
-                     id="new-topic-title"
-                     placeholder="Title (optional)"
-                     ng-model="newTopic.title"/>
-              <div class="error" error-messages="newTopicErrors.title"></div>
-            </div>
-            <div>
-              <textarea
-                 name="new-topic-content"
-                 id="new-topic-content"
-                 ng-model="newTopic.content"
-                 required></textarea>
-              <div class="error" error-messages="newTopicErrors.content"></div>
-            </div>
-            <div class="actions">
-              <input type="submit" class="save" value="Create Topic"/>
-              <a href="#"
-                 class="cancel"
-                 ng-click="toggleNewTopicForm($event)">Cancel</a>
-              <a href="#" class="toggle-formatting-help">formatting help</a>
-            </div>
-          </form>
-        </div>
         <div ng-view>
         </div>
       </div>
