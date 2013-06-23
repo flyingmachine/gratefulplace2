@@ -61,8 +61,10 @@ nav.primary {
 }
 
 nav.secondary {
-  @include leader(2.5);
-  list-style: none;
+  ul {
+    list-style: none;
+    @include leader(1);
+  }
   
   a {
     background: rgba(255, 255, 255, 0.3);
@@ -89,6 +91,10 @@ nav.secondary {
     &:visited {
       color: #444;
     }
+  }
+
+  .about {
+    @include leader(2.5);
   }
 }
 
