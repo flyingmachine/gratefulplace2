@@ -23,6 +23,4 @@ angular.module('gratefulplaceApp')
         $scope.errorMessages = res.data.errors
       )
 
-    $scope.peekAt "profile/about-nav", {tab: "about"}
-
-    $scope.$on "$destroy", $scope.clearPeek
+    $scope.secondaryNav.show "profile/about-nav", {tab: "about"}

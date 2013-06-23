@@ -25,7 +25,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <nav>
+      <nav class="primary">
         <ul>
           <li><a href="#/">Home</a></li>
           <li ng-show="currentSession">
@@ -72,8 +72,11 @@
         <div ng-view>
         </div>
       </div>
-      <div id="more" ng-show="peek">
-        <ng-include src="peekInclude" ng-show="peekInclude"></ng-include>
+      <div id="more">
+        <nav class="secondary">
+          <ng-include src="secondaryNav.include()"></ng-include>
+        </nav>
+        <ng-include src="peek.include()" ng-show="peek.data"></ng-include>
       </div>
     </div>
     <div class="markdown-help hidden">

@@ -9,7 +9,7 @@ angular.module('gratefulplaceApp')
     User.get id: CurrentSession.get().id, (user)->
       $scope.user = user
 
-    $scope.peekAt "profile/about-nav", {tab: "password"}
+    $scope.secondaryNav.show "profile/about-nav", {tab: "password"}
 
     validate = ->
       $scope.errors = {}

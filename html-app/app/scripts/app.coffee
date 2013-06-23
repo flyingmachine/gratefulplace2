@@ -22,7 +22,3 @@ angular.module('gratefulplaceApp', @App.modules)
         controller: 'ProfileEmailCtrl'
       .otherwise
         redirectTo: '/'
-  .directive 'peekable', ($rootScope)->
-    restrict: 'A',
-    link: ->
-      # $rootScope.$broadcast

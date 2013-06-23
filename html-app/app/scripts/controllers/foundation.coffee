@@ -6,13 +6,32 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
     console.log $scope.currentSession
   $scope.$on 'auth.logged-in', refreshSession
   refreshSession()
-  
-  $scope.peek = null
-  $scope.peekAt = (peekType, peekData)->
-    $scope.peekInclude = "views/peeks/#{peekType}.html"
-    $scope.peek = peekData
-  $scope.clearPeek = ->
-    $scope.peek = null
+
+  # begin secondary handlers
+  $scope.secondaryHandlers = []
+  defineSecondaryHandler = (name, rootPath)->
+    $scope.secondaryHandlers.push name
+    handler =
+      data: null
+      path: null
+      include: ->
+        if @path
+          rootPath + @path + ".html"
+      show: (path, data)->
+        @path = path
+        @data = data
+      clear: ->
+        @path = null
+        @data = null
+    $scope[name] = handler
+
+  defineSecondaryHandler "peek", "views/peeks/"
+  defineSecondaryHandler "secondaryNav", "views/secondary-navs/"
+  # end secondary handlers
+
+  $scope.$on "$routeChangeStart", (event, next, current)->
+    _.each $scope.secondaryHandlers, (h)->
+      $scope[h].clear()
 
   $scope.toggleNewTopicForm = ($event)->
     $scope.showNewTopicForm = !$scope.showNewTopicForm

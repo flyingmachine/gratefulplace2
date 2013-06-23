@@ -15,8 +15,8 @@ angular.module('gratefulplaceApp').controller 'TopicsCtrl', ($scope, Topic, User
 
   $scope.peekAtAuthor = (author)->
     User.get id: author.id, (data)->
-      $scope.peekAt("user", data)
-
+      $scope.peek.show("user", data)
+  
   $scope.formatPostCount = (postCount)->
     switch postCount
       when 1 then "no replies"

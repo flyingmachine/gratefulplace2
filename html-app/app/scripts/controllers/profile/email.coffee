@@ -13,4 +13,4 @@ angular.module('gratefulplaceApp')
         $scope.errors = res.data.errors
       )
 
-    $scope.peekAt "profile/about-nav", {tab: "email"}
+    $scope.secondaryNav.show "profile/about-nav", {tab: "email"}
