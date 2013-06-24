@@ -21,7 +21,7 @@ angular.module('gratefulplaceApp', @App.modules)
         templateUrl: 'views/profile/email.html'
         controller: 'ProfileEmailCtrl'
       .when '/watched-topics',
-        templateUrl: 'view/watched-topics.html',
+        templateUrl: 'views/watched-topics.html',
         controller: 'WatchedTopicsCtrl'
       .otherwise
         redirectTo: '/'

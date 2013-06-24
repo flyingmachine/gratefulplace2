@@ -3,6 +3,7 @@
             compojure.handler
             [gratefulplace.controllers.topics :as topics]
             [gratefulplace.controllers.watches :as watches]
+            [gratefulplace.controllers.watched-topics :as watched-topics]
             [gratefulplace.controllers.posts :as posts]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
@@ -38,6 +39,8 @@
 
   ;; Watches
   (authroute POST "/watches" watches/create!)
+
+  (authroute GET "/watched-topics" watched-topics/query)
   
   ;; Posts
   (authroute POST "/posts" posts/create!)
