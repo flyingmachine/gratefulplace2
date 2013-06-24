@@ -33,9 +33,8 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
     _.each $scope.secondaryHandlers, (h)->
       $scope[h].clear()
 
-  $scope.toggleNewTopicForm = ($event)->
+  $scope.toggleNewTopicForm = ()->
     $scope.showNewTopicForm = !$scope.showNewTopicForm
-    $event.preventDefault()
     
   $scope.$on 'topic.created', ->
     $scope.showNewTopicForm = false
