@@ -28,7 +28,7 @@
       <nav class="primary">
         <ul>
           <li><a href="#/">Home</a></li>
-          <li ng-show="currentSession"><a href="#/toipcs/watched">Watched Threads</a></li>
+          <li ng-show="currentSession"><a href="#/topics/watched">Watched Threads</a></li>
           <li ng-show="currentSession"><a href="#/profile/about">Your Profile</a></li>
           <li ng-show="currentSession">
             <a href="/logout">Log Out</a>
@@ -130,11 +130,12 @@
     <script src="scripts/controllers/profile/about.js"></script>
     <script src="scripts/controllers/profile/email.js"></script>
     <script src="scripts/controllers/profile/password.js"></script>
-    <script src="scripts/controllers/topic.js"></script>
-    <script src="scripts/controllers/new-topic.js"></script>
-    <script src="scripts/controllers/topics.js"></script>
     <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/new-topic.js"></script>
     <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/controllers/topic.js"></script>
+    <script src="scripts/controllers/topics.js"></script>
+    <script src="scripts/controllers/watched-topics.js"></script>
     <script src="scripts/services/authorize.js"></script>
     <script src="scripts/services/current_session.js"></script>
     <script src="scripts/services/peek.js"></script>
@@ -142,6 +143,7 @@
     <script src="scripts/services/topic.js"></script>
     <script src="scripts/services/user.js"></script>
     <script src="scripts/services/watch.js"></script>
+    <script src="scripts/services/watched-topic.js"></script>
     <script src="scripts/directives/auto-expand.js"></script>
     <script src="scripts/directives/error-messages.js"></script>
     <script src="scripts/directives/post.js"></script>
