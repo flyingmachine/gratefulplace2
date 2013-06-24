@@ -11,9 +11,14 @@
   :db/id #db/id [:db.part/user -11]}
 
  ;; first topic
+ {:watch/user #db/id[:db.part/user -10]
+  :watch/kind :watch
+  :db/id #db/id[:db.part/user -40]}
+ 
  {:topic/title "First topic"
   :topic/first-post #db/id[:db.part/user -30]
   :topic/last-posted-to-at #inst "2013-05-19T19:41:20.909-00:00"
+  :topic/watches [#db/id[:db.part/user -40]]
   :content/author #db/id[:db.part/user -10]
   :content/deleted false
   :db/id #db/id[:db.part/user -20]}

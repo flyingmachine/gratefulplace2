@@ -24,7 +24,8 @@
 
 (defmapifier record
   mr/ent->topic
-  {:include {:posts {:include author-inclusion-options}}})
+  {:include {:posts {:include author-inclusion-options}
+             :watches {}}})
 
 (defresource query
   :available-media-types ["application/json"]

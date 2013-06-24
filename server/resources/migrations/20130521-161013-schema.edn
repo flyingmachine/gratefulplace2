@@ -45,6 +45,13 @@
   :db/cardinality :db.cardinality/one
   :db/fulltext true
   :db.install/_attribute :db.part/db}
+
+ {:db/id #db/id [:db.part/db]
+  :db/ident :user/watch-updates
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "Topics the user is watching which have been updated"
+  :db.install/_attribute :db.part/db}
  
  ;; topics
  {:db/ident :topic/title
@@ -67,6 +74,28 @@
   :db/valueType :db.type/instant
   :db/cardinality :db.cardinality/one
   :db/doc "Time of last post to this topic"
+  :db.install/_attribute :db.part/db}
+
+ {:db/ident :topic/watches
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/doc "Users watching this topic"
+  :db.install/_attribute :db.part/db}
+
+ ;; watches
+ {:db/ident :watch/user
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "User watching a topic"
+  :db.install/_attribute :db.part/db}
+ 
+ {:db/ident :watch/kind
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/doc "Kind of watch: watch or mute"
   :db.install/_attribute :db.part/db}
 
  ;; posts

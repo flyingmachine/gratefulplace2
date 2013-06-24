@@ -30,7 +30,10 @@
   (has-many :posts
             :rules gratefulplace.db.maprules/ent->post
             :retriever #(sort-by :post/created-at
-                                 (:post/_topic %))))
+                                 (:post/_topic %)))
+  (has-many :watches
+            :rules gratefulplace.db.maprules/ent->watch
+            :retriever :topic/watches))
 
 (defmaprules ent->post
   (attr :id :db/id)
@@ -67,6 +70,10 @@
   (attr :password :user/password)
   (attr :username :user/username)
   (attr :email :user/email))
+
+(defmaprules ent->watch
+  (attr :kind :watch/kind)
+  (attr :user-id (comp :db/id :watch/user)))
 
 (defmaprules user->txdata
   (attr :db/id #(or (str->int (:id %)) #db/id[:db.part/user]))

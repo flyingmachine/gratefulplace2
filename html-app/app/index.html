@@ -28,7 +28,7 @@
       <nav class="primary">
         <ul>
           <li><a href="#/">Home</a></li>
-          <li ng-show="currentSession"><a href="#/">Notifications</a></li>
+          <li ng-show="currentSession"><a href="#/toipcs/watched">Watched Threads</a></li>
           <li ng-show="currentSession"><a href="#/profile/about">Your Profile</a></li>
           <li ng-show="currentSession">
             <a href="/logout">Log Out</a>
@@ -44,7 +44,7 @@
         <nav class="secondary">
           <ng-include src="secondaryNav.include()"></ng-include>
         </nav>
-        <ng-include src="peek.include()" ng-show="peek.data"></ng-include>
+        <ng-include src="peek.include()"></ng-include>
       </div>
     </div>
     <div class="markdown-help hidden">
@@ -126,6 +126,7 @@
     <script src="scripts/aspects/route-auth.js"></script>
     <script src="scripts/controllers/foundation.js"></script>
     <script src="scripts/controllers/peek.js"></script>
+    <script src="scripts/controllers/peek/watches.js"></script>
     <script src="scripts/controllers/profile/about.js"></script>
     <script src="scripts/controllers/profile/email.js"></script>
     <script src="scripts/controllers/profile/password.js"></script>
