@@ -72,6 +72,7 @@
   (attr :email :user/email))
 
 (defmaprules ent->watch
+  (attr :id :db/id)
   (attr :kind :watch/kind)
   (attr :user-id (comp :db/id :watch/user))
   (attr :topic-id (comp :db/id :watch/topic)))

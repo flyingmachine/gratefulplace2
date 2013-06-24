@@ -2,6 +2,7 @@
   (:require compojure.route
             compojure.handler
             [gratefulplace.controllers.topics :as topics]
+            [gratefulplace.controllers.watches :as watches]
             [gratefulplace.controllers.posts :as posts]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
@@ -34,6 +35,9 @@
   (route GET "/topics/:id" topics/show)
   (authroute POST "/topics" topics/create!)
   (authroute DELETE "/topics/:id" topics/delete!)
+
+  ;; Watches
+  (authroute POST "/watches" watches/create!)
   
   ;; Posts
   (authroute POST "/posts" posts/create!)

@@ -1,4 +1,10 @@
 <div class="peek white" ng-controller="PeekWatchesCtrl">
+  <div>
+    <form ng-submit="createWatch()">
+      <h3>Watch this</h3>
+      <input type="submit" value="Watch" />
+    </form>
+  </div>
   <div ng-show="watching()">
     <h3>Watching</h3>
   </div>
