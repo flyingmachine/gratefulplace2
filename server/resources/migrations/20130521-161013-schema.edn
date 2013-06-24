@@ -76,19 +76,18 @@
   :db/doc "Time of last post to this topic"
   :db.install/_attribute :db.part/db}
 
- {:db/ident :topic/watches
-  :db/id #db/id[:db.part/db]
-  :db/valueType :db.type/ref
-  :db/cardinality :db.cardinality/many
-  :db/doc "Users watching this topic"
-  :db.install/_attribute :db.part/db}
-
  ;; watches
  {:db/ident :watch/user
   :db/id #db/id[:db.part/db]
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
   :db/doc "User watching a topic"
+  :db.install/_attribute :db.part/db}
+
+ {:db/ident :watch/topic
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}
  
  {:db/ident :watch/kind

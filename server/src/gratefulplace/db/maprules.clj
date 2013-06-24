@@ -33,7 +33,7 @@
                                  (:post/_topic %)))
   (has-many :watches
             :rules gratefulplace.db.maprules/ent->watch
-            :retriever :topic/watches))
+            :retriever #(:watch/_topic %)))
 
 (defmaprules ent->post
   (attr :id :db/id)
@@ -73,7 +73,8 @@
 
 (defmaprules ent->watch
   (attr :kind :watch/kind)
-  (attr :user-id (comp :db/id :watch/user)))
+  (attr :user-id (comp :db/id :watch/user))
+  (attr :topic-id (comp :db/id :watch/topic)))
 
 (defmaprules user->txdata
   (attr :db/id #(or (str->int (:id %)) #db/id[:db.part/user]))
