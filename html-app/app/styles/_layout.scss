@@ -61,9 +61,9 @@ nav.primary {
 }
 
 nav.secondary {
+  @include leader;
   ul {
     list-style: none;
-    @include leader(1);
   }
   
   a {
@@ -96,6 +96,11 @@ nav.secondary {
   .about {
     @include leader(2.5);
   }
+}
+
+.secondary {
+  @include leader;
+  @include trailer;
 }
 
 #main {

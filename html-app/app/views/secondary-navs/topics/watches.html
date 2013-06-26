@@ -1,13 +1,18 @@
-<div class="peek white" ng-controller="SecondaryNavWatchesCtrl">
-  <div>
-    <form ng-submit="createWatch()">
-      <input type="submit" value="Watch" />
-    </form>
-  </div>
+<div id="watch-status" class="secondary" ng-controller="SecondaryNavWatchesCtrl">
   <div ng-show="watching()">
     <h3>Watching</h3>
+    <p>
+      You will get notifications when this topic is updated. This
+      topic will appear in your "watched topics" list.
+    </p>
+    <form ng-submit="destroyWatch()">
+      <input type="submit" value="Stop Watching" />
+    </form>
   </div>
   <div ng-hide="watching()">
     <h3>Not Watching</h3>
+    <form ng-submit="createWatch()">
+      <input type="submit" value="Watch" />
+    </form>
   </div>
 </div>

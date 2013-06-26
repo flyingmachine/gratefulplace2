@@ -22,3 +22,16 @@
                    :watch/user (:user-id params)}])
            {:record {}})
   :handle-created record-in-ctx)
+
+(defresource delete! [params auth]
+  :allowed-methods [:delete]
+  :available-media-types ["application/json"]
+  :authorized? (fn [_]
+                 (let [watch-id (:id params)
+                       auth-id (:id auth)
+                       watch {:watch/user {:db/id auth-id}}]
+                   (if (and watch
+                            (= (:db/id (:watch/user watch)) auth-id))
+                         {:record {:id watch-id}})))
+  :exists? exists-in-ctx?
+  :delete! delete-record-in-ctx)

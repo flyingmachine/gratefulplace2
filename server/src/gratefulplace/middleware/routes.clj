@@ -39,6 +39,7 @@
 
   ;; Watches
   (authroute POST "/watches" watches/create!)
+  (authroute DELETE "/watches/:id" watches/delete!)
 
   (authroute GET "/watched-topics" watched-topics/query)
   

@@ -22,8 +22,8 @@
                            (map (comp record first)
                                 (d/q '[:find ?topic
                                        :in $ ?userid
-                                       :where [?topic :content/deleted false]
-                                              [?watch :watch/topic ?topic]
-                                              [?watch :watch/user ?userid]]
+                                       :where [?watch :watch/user ?userid]
+                                       [?watch :watch/topic ?topic]
+                                       [?topic :content/deleted false]]
                                      (db/db)
                                      (:id auth))))))
