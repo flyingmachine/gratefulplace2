@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'TopicsCtrl', ($scope, Topic, User) ->
+angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic, User) ->
   $scope.$on 'topic.created', (e, topic)->
     $scope.topics.unshift topic
   

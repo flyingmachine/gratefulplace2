@@ -5,10 +5,10 @@ angular.module('gratefulplaceApp', @App.modules)
     $routeProvider
       .when '/',
         templateUrl: 'views/topics/index.html',
-        controller: 'TopicsCtrl'
+        controller: 'TopicsQueryCtrl'
       .when '/topics/:id',
         templateUrl: 'views/topics/show.html',
-        controller: 'TopicCtrl'
+        controller: 'TopicsShowCtrl'
       .when '/login',
         templateUrl: 'views/login.html'
       .when '/profile/about',
