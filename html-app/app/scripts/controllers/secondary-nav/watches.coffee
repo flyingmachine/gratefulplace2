@@ -1,12 +1,12 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'PeekWatchesCtrl', ($scope, $routeParams, Watch) ->
+  .controller 'SecondaryNavWatchesCtrl', ($scope, $routeParams, Watch) ->
     $scope.watching = ->
       $scope.watchStatus()
     
     $scope.watchStatus = _.memoize(->
-      watch = _.find $scope.peek.data.watches, (watch)->
+      watch = _.find $scope.secondaryNav.data.watches, (watch)->
         watch['user-id'] == $scope.currentSession.id
       if watch
         watch.kind
