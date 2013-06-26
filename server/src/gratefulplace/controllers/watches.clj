@@ -27,9 +27,9 @@
   :allowed-methods [:delete]
   :available-media-types ["application/json"]
   :authorized? (fn [_]
-                 (let [watch-id (:id params)
+                 (let [watch-id (str->int (:id params))
                        auth-id (:id auth)
-                       watch {:watch/user {:db/id auth-id}}]
+                       watch (db/ent watch-id)]
                    (if (and watch
                             (= (:db/id (:watch/user watch)) auth-id))
                          {:record {:id watch-id}})))
