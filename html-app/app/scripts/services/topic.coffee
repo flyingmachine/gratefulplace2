@@ -1,4 +1,4 @@
 'use strict';
 angular.module("gratefulplaceApp").factory "Topic", ["$resource", ($resource) ->
-  $resource '/topics/:id', id: '@id'
+  service = $resource '/topics/:id', id: '@id'
 ]

@@ -5,6 +5,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
   scope:
     post: '=model'
     firstPost: '&'
+    peek: '='
   controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User)->
     # TODO refactor this - shouldn't need to be a function
     postResource = ->
@@ -19,8 +20,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
 
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->
-        # TODO get peek working
-        # $scope.peek.show("user", data)
+        $scope.peek.show("user", data)
 
 
     $scope.toggleEdit = ($event)->

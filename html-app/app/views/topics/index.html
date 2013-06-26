@@ -28,22 +28,5 @@
       </div>
     </form>
   </div>
-  <div class="post" ng-repeat="topic in topics">
-    <h3 class="title" ng-show="topic.title">{{topic.title}}</h3>
-    <div class="content" ng-bind-html-unsafe="topic['first-post']['formatted-content']"></div>
-    <footer>
-      <div class="author">
-        <img ng-src="{{topic.author.gravatar}}" class="gravatar"/>
-        <a href="" ng-click="peekAtAuthor(topic.author)">
-          {{topic.author.username}}
-        </a>
-      </div>
-      <div class="date">{{formatDateTime(topic['first-post']['created-at'])}}</div>
-
-      <i class="like icon-thumbs-up"></i>
-      <a href="/#/topics/{{topic.id}}/" class="comments">
-        {{formatPostCount(topic['post-count'])}}
-      </a>
-    </footer>
-  </div>
+  <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
 </div>

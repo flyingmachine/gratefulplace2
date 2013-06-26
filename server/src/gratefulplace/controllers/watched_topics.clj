@@ -19,10 +19,11 @@
   :available-media-types ["application/json"]
   :handle-ok (fn [ctx]
                (reverse-by :last-posted-to-at
-                           (map (comp record :db/id :watch/topic db/ent first)
-                                (d/q '[:find ?watch
+                           (map (comp record first)
+                                (d/q '[:find ?topic
                                        :in $ ?userid
-                                       :where [?watch :watch/user ?userid]
-                                              [(comp not :content/deleted :watch/topic ?watch)]]
+                                       :where [?topic :content/deleted false]
+                                              [?watch :watch/topic ?topic]
+                                              [?watch :watch/user ?userid]]
                                      (db/db)
                                      (:id auth))))))
