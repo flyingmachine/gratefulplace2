@@ -16,5 +16,6 @@
      (q/one [:watch/user userid])))
 
 (fact "deleting a watch as the creator results in success"
-  (res :delete (str "/watches/" (:db/id (watch))) nil (auth "flyingmachine"))
-  => (contains {:status 204}))
+  (let [response (res :delete (str "/watches/" (:db/id (watch))) nil (auth "flyingmachine"))]
+    (watch) => nil
+    response => (contains {:status 204})))

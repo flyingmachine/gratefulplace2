@@ -46,3 +46,7 @@
 (defn resolve-tempid
   [tempids tempid]
   (d/resolve-tempid (db) tempids tempid))
+
+(defn retract-entity
+  [eid]
+  (t [[:db.fn/retractEntity eid]]))

@@ -2,17 +2,28 @@
 
 angular.module('gratefulplaceApp')
   .controller 'SecondaryNavWatchesCtrl', ($scope, $routeParams, Watch) ->
-    watch = null
+    $scope.watch = null
+    deleted = false
+    
     $scope.watching = ->
-      watch ||= new Watch($scope.watch())
+      if $scope.watch
+        $scope.watch
+      else if !deleted && watchData = findWatch()
+        $scope.watch = new Watch(watchData)
 
-    $scope.watch = ->
+    findWatch = ->
       _.find $scope.secondaryNav.data.watches, (watch)->
-        watch['user-id'] == $scope.currentSession.id
+        watch['user-id'] == $scope.currentSession.id && watch
 
     $scope.createWatch = ->
-      watch = new Watch('topic-id': $scope.peek.data.id, 'user-id': $scope.currentSession.id)
-      watch.$save()
+      $scope.watch = new Watch
+        'topic-id': $scope.secondaryNav.data.id
+        'user-id': $scope.currentSession.id
+        
+      $scope.watch.$save (watchData)->
+        $scope.watch =  new Watch(watchData)
 
     $scope.destroyWatch = ->
-      watch.$delete()
+      $scope.watch.$delete()
+      $scope.watch = null
+      deleted = true
