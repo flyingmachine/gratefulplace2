@@ -1,5 +1,6 @@
 (ns gratefulplace.controllers.watched-topics
   (:require [gratefulplace.db.query :as db]
+            [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend])
@@ -18,5 +19,10 @@
   :available-media-types ["application/json"]
   :handle-ok (fn [ctx]
                (reverse-by :last-posted-to-at
-                           (map #(record (:db/id %))
-                                (db/all :topic/first-post [:content/deleted false])))))
+                           (map (comp record :db/id :watch/topic db/ent first)
+                                (d/q '[:find ?watch
+                                       :in $ ?userid
+                                       :where [?watch :watch/user ?userid]
+                                              [(comp not :content/deleted :watch/topic ?watch)]]
+                                     (db/db)
+                                     (:id auth))))))
