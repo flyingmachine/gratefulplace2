@@ -2,6 +2,7 @@
   (:require [datomic.api :as d]
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
+            [gratefulplace.db.transactions :as ts]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend])
@@ -39,19 +40,13 @@
   :malformed? (validator params (:create validations/post))
   :handle-malformed errors-in-ctx
 
+  ;; TODO possibly change mapify tx result so that it takes a certain
+  ;; kind of record that has all the details it needs?
   :post! (fn [_]
-           (let [post-tempid (d/tempid :db.part/user -1)
-                 topic-id (:topic-id params)
-                 post (remove-nils-from-map {:post/content (:content params)
-                                             :post/topic topic-id
-                                             :post/created-at (java.util.Date.)
-                                             :content/author (:id auth)
-                                             :db/id post-tempid})]
+           (let [{:keys [result post-tempid]} (ts/create-post (merge params {:author-id (:id auth)}))]
              {:record
               (mapify-tx-result
-               (db/t [post
-                      {:db/id topic-id
-                       :topic/last-posted-to-at (java.util.Date.)}])
+               result
                post-tempid
                mr/ent->post
                {:include author-inclusion-options})}))
