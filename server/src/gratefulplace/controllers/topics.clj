@@ -10,16 +10,16 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
-(def index-mapify-options
+(def query-mapify-options
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-(defn index-mapify
+(defn query-mapify
   [ent]
   (c/mapify
    ent
    mr/ent->topic
-   index-mapify-options))
+   query-mapify-options))
 
 (defmapifier record
   mr/ent->topic
@@ -30,7 +30,7 @@
   :available-media-types ["application/json"]
   :handle-ok (fn [ctx]
                (reverse-by :last-posted-to-at
-                           (map index-mapify
+                           (map query-mapify
                                 (db/all :topic/first-post [:content/deleted false])))))
 
 (defresource show [params]
@@ -67,7 +67,7 @@
                (db/t [topic post])
                topic-tempid
                mr/ent->topic
-               index-mapify-options)}))
+               query-mapify-options)}))
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]

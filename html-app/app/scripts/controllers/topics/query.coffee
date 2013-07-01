@@ -5,6 +5,7 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic,
     $scope.topics.unshift topic
   
   Topic.query (data)->
+    console.log data
     $scope.topics = data
 
   $scope.firstPost = (topic)->
