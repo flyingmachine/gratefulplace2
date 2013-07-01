@@ -20,7 +20,7 @@
 
  {:watch/user #db/id[:db.part/user -10]
   :watch/topic #db/id[:db.part/user -20]
-  :watch/kind :watch
+  :watch/update-count 0
   :db/id #db/id[:db.part/user -40]}
 
  {:post/content "T1 First post content"
@@ -51,4 +51,22 @@
   :post/topic #db/id[:db.part/user -21]
   :post/created-at #inst "2013-05-19T19:41:20.909-00:00"
   :content/author #db/id[:db.part/user -10]
-  :db/id #db/id[:db.part/user -33]}]
+  :db/id #db/id[:db.part/user -33]}
+
+ ;; update watches
+ {:db/id #db/id [:db.part/user]
+  :db/ident :increment-watch-count
+  :db/fn #db/fn {:lang :clojure
+                 :params [db topic]
+                 :code '(let [watches (datomic.api/q [:find ?watch
+                                                      :in $ ?topic
+                                                      :where [?watch :watch/topic ?topic]
+                                                      [?topic :content/deleted false]]
+                                                     db
+                                                     topic)]
+                          [(map
+                            (fn [watch]
+                              [:db/add
+                               watch
+                               :watch/update-count
+                               (inc (:watch/update-count watch))]) watches)])}}]
