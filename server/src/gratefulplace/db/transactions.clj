@@ -15,5 +15,5 @@
     
     {:result (db/t [post
                     {:db/id topic-id :topic/last-posted-to-at (java.util.Date.)}
-                    [:db/fn :increment-watch-count topic-id]])
+                    [:increment-watch-count topic-id]])
      :post-tempid post-tempid}))
