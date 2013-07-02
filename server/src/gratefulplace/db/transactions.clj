@@ -12,6 +12,8 @@
                                     :post/created-at (java.util.Date.)
                                     :content/author (:author-id params)
                                     :db/id post-tempid})]
+    
     {:result (db/t [post
-                    {:db/id topic-id :topic/last-posted-to-at (java.util.Date.)}])
+                    {:db/id topic-id :topic/last-posted-to-at (java.util.Date.)}
+                    [:db/fn :increment-watch-count topic-id]])
      :post-tempid post-tempid}))

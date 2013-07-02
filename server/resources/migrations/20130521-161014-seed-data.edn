@@ -20,7 +20,7 @@
 
  {:watch/user #db/id[:db.part/user -10]
   :watch/topic #db/id[:db.part/user -20]
-  :watch/update-count 0
+  :watch/unread-count 0
   :db/id #db/id[:db.part/user -40]}
 
  {:post/content "T1 First post content"
@@ -58,15 +58,18 @@
   :db/ident :increment-watch-count
   :db/fn #db/fn {:lang :clojure
                  :params [db topic]
-                 :code '(let [watches (datomic.api/q [:find ?watch
+                 :code (let [watches (datomic.api/q '[:find ?watch
                                                       :in $ ?topic
                                                       :where [?watch :watch/topic ?topic]
                                                       [?topic :content/deleted false]]
-                                                     db
-                                                     topic)]
-                          [(map
-                            (fn [watch]
+                                                    db
+                                                    topic)]
+                         (map
+                          (fn [x]
+                            (let [e (first x)
+                                  watch (datomic.api/entity db e)]
                               [:db/add
-                               watch
-                               :watch/update-count
-                               (inc (:watch/update-count watch))]) watches)])}}]
+                               e
+                               :watch/unread-count
+                               (inc (:watch/unread-count watch))]))
+                          watches))}}]
