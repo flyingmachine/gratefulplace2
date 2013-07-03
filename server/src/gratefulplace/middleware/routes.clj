@@ -32,8 +32,8 @@
               (env :html-paths)))
 
   ;; Topics
-  (GET "/topics" [] topics/query)
-  (route GET "/topics/:id" topics/show)
+  (route GET "/topics" topics/query)
+  (authroute GET "/topics/:id" topics/show)
   (authroute POST "/topics" topics/create!)
   (authroute DELETE "/topics/:id" topics/delete!)
 

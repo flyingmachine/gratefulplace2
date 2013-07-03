@@ -17,3 +17,8 @@
                     {:db/id topic-id :topic/last-posted-to-at (java.util.Date.)}
                     [:increment-watch-count topic-id]])
      :post-tempid post-tempid}))
+
+(defn reset-watch-count
+  [topic user]
+  (let [watch (db/one [:watch/topic topic] [:watch/user user])]
+    (db/t [{:db/id (:db/id watch) :watch/unread-count 0}])))

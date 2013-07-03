@@ -3,6 +3,7 @@
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
+            [gratefulplace.db.transactions :as t]
             [flyingmachine.cartographer.core :as c])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         [liberator.core :only [defresource]]
@@ -26,17 +27,20 @@
   {:include {:posts {:include author-inclusion-options}
              :watches {}}})
 
-(defresource query
+(defresource query [params]
   :available-media-types ["application/json"]
   :handle-ok (fn [ctx]
                (reverse-by :last-posted-to-at
                            (map query-mapify
                                 (db/all :topic/first-post [:content/deleted false])))))
 
-(defresource show [params]
+(defresource show [params auth]
   :available-media-types ["application/json"]
   :exists? (exists? (record (id)))
-  :handle-ok record-in-ctx)
+  :handle-ok (fn [ctx]
+               (if auth
+                 (t/reset-watch-count (id) (:id auth)))
+               (record-in-ctx ctx)))
 
 (defresource create! [params auth]
   :allowed-methods [:post]
