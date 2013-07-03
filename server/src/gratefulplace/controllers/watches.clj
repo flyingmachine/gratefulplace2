@@ -20,7 +20,7 @@
              {:record
               (mapify-tx-result
                (db/t [{:db/id watch-tempid
-                       :watch/kind :watch
+                       :watch/unread-count 0
                        :watch/topic (:topic-id params)
                        :watch/user (:user-id params)}])
                watch-tempid
