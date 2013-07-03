@@ -60,7 +60,7 @@
   :db/fn #db/fn {:lang :clojure
                  :params [db topic user]
                  :code (let [watches (datomic.api/q '[:find ?watch
-                                                      :in $ ?topic
+                                                      :in $ ?topic ?user
                                                       :where [?watch :watch/topic ?topic]
                                                       [?watch :watch/user ?watch-user]
                                                       [(not= ?watch-user ?user)]
