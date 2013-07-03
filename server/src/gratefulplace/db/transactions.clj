@@ -5,17 +5,18 @@
 
 (defn create-post
   [params]
-  (let [post-tempid (d/tempid :db.part/user -1)
-        topic-id (:topic-id params)
+  (let [{:keys [topic-id author-id]} params
+        post-tempid (d/tempid :db.part/user -1)
+        now (java.util.Date.)
         post (remove-nils-from-map {:post/content (:content params)
                                     :post/topic topic-id
-                                    :post/created-at (java.util.Date.)
-                                    :content/author (:author-id params)
+                                    :post/created-at now
+                                    :content/author author-id
                                     :db/id post-tempid})]
     
     {:result (db/t [post
-                    {:db/id topic-id :topic/last-posted-to-at (java.util.Date.)}
-                    [:increment-watch-count topic-id]])
+                    {:db/id topic-id :topic/last-posted-to-at now}
+                    [:increment-watch-count topic-id author-id]])
      :post-tempid post-tempid}))
 
 (defn reset-watch-count

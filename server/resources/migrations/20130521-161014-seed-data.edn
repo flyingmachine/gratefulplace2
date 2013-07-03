@@ -54,16 +54,20 @@
   :db/id #db/id[:db.part/user -33]}
 
  ;; update watches
+ ;; TODO choose better names to indicate that user's watch isn't updated
  {:db/id #db/id [:db.part/user]
   :db/ident :increment-watch-count
   :db/fn #db/fn {:lang :clojure
-                 :params [db topic]
+                 :params [db topic user]
                  :code (let [watches (datomic.api/q '[:find ?watch
                                                       :in $ ?topic
                                                       :where [?watch :watch/topic ?topic]
+                                                      [?watch :watch/user ?watch-user]
+                                                      [(not= ?watch-user ?user)]
                                                       [?topic :content/deleted false]]
                                                     db
-                                                    topic)]
+                                                    topic
+                                                    user)]
                          (map
                           (fn [x]
                             (let [e (first x)
