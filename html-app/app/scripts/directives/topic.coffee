@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp').directive 'topic', ->
-  restrict: 'EA'
+  restrict: 'E'
   scope:
     topic: '=model'
   controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', 'Like', 'CurrentSession',  ($scope, Authorize, Post, Topic, User, Like, CurrentSession)->
@@ -17,7 +17,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
       <h3 class="title" ng-show="topic.title">{{topic.title}}</h3>
       <div class="content" ng-bind-html-unsafe="post['formatted-content']"></div>
       <footer>
-        <div author="topic.author"></div>
+        <author model="topic.author"></author>
         <date data="post['created-at']"></date>
         
         <like-toggle likeable="post"></like-toggle>

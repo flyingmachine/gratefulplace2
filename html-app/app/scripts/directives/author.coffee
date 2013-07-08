@@ -1,9 +1,9 @@
 'use strict'
 
 angular.module('gratefulplaceApp').directive 'author', ->
-  restrict: 'EA'
+  restrict: 'E'
   scope:
-    author: '='
+    author: '=model'
   controller: ['$scope', 'User', 'Support', ($scope, User, Support)->
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->

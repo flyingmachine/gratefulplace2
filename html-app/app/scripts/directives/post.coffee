@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp').directive 'post', ->
-  restrict: 'EA'
+  restrict: 'E'
   scope:
     post: '=model'
     firstPost: '&'
@@ -60,7 +60,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
         </form>
       </div>
       <footer>
-        <div author="post.author"></div>
+        <author model="post.author"></author>
         <date data="post['created-at']"></date>
         <like-toggle likeable="post"></like-toggle>
       </footer>
