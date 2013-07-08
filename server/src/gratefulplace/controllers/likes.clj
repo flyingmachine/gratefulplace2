@@ -8,24 +8,28 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
-;; TODO how to enforce like uniqueness?
+(defn find-like
+  [params auth]
+  (db/one [:like/post (str->int (:post-id params))]
+          [:like/user (:id auth)]))
+
 (defresource create! [params auth]
   :allowed-methods [:post]
   :available-media-types ["application/json"]
   :authorized? (logged-in? auth)
 
   :post! (fn [_]
-           (db/t [{:db/id #db/id[:db.part/user]
-                   :like/user (:id auth)
-                   :like/post (str->int (:post-id params))}]))
+           (if-not  (find-like params auth)
+             (db/t [{:db/id #db/id[:db.part/user]
+                     :like/user (:id auth)
+                     :like/post (str->int (:post-id params))}])))
   :handle-created "")
 
 (defresource delete! [params auth]
   :allowed-methods [:delete]
   :available-media-types ["application/json"]
   :authorized? (fn [_]
-                 (let [like (db/one [:like/post (str->int (:post-id params))]
-                                    [:like/user (:id auth)])]
+                 (let [like (find-like params auth)]
                    (if like
                      {:record {:id (:db/id like)}})))
   :exists? exists-in-ctx?

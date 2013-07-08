@@ -57,7 +57,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
         <div class="date">{{formatDateTime(post['created-at'])}}</div>
 
         <div class="like" ng-class="{liked: liked()}" ng-click="toggleLike()">
-          <span ng-show="liked()">{{post.likers.length}}</span>
+          <span>{{post.likers.length}}</span>
           <i class="icon-thumbs-up"></i>
         </div>
         
