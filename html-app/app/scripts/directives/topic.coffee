@@ -6,10 +6,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
     topic: '=model'
     peek: '='
   controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', 'Like', 'CurrentSession', ($scope, Authorize, Post, Topic, User, Like, CurrentSession)->
-    $scope.currentSession = CurrentSession.get()    
-    
     $scope.post = $scope.topic['first-post']
-    
     $scope.formatPostCount = (postCount)->
       switch postCount
         when 1 then "no replies"
@@ -21,26 +18,6 @@ angular.module('gratefulplaceApp').directive 'topic', ->
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->
         $scope.peek.show("user", data)
-
-    newLike = ->
-      new Like(id: $scope.post.id)
-      
-    like = ->
-      newLike().$save ->
-        $scope.post.likers.push $scope.currentSession.id
-
-    unlike = ->
-      newLike().$delete ->
-        $scope.post.likers = _.without($scope.post.likers, $scope.currentSession.id)
-
-    $scope.toggleLike = ->
-      if $scope.liked()
-        unlike()
-      else
-        like()  
-
-    $scope.liked = ->
-      _.include $scope.post.likers, $scope.currentSession.id
       
   ]
   template: """
@@ -56,10 +33,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
         </div>
         <div class="date">{{formatDateTime(post['created-at'])}}</div>
 
-        <div class="like" ng-class="{liked: liked()}" ng-click="toggleLike()">
-          <span>{{post.likers.length}}</span>
-          <i class="icon-thumbs-up"></i>
-        </div>
+        <like-toggle likeable="post"></like-toggle>
         
         <a href="/#/topics/{{topic.id}}/" class="comments">
           {{formatPostCount(topic['post-count'])}}

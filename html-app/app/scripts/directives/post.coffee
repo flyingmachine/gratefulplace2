@@ -78,7 +78,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
           </a>
         </div>
         <div class="date">{{formatCreatedAt(post["created-at"])}}</div>
-        <i class="like icon-thumbs-up"></i>
+        <like-toggle likeable="post"></like-toggle>
       </footer>
     </div>'
   replace: true
