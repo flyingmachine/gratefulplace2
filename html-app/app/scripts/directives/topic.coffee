@@ -12,23 +12,13 @@ angular.module('gratefulplaceApp').directive 'topic', ->
         when 1 then "no replies"
         when 2 then "1 reply"
         else "#{postCount - 1} replies"
-    
-    $scope.peekAtAuthor = (author)->
-      User.get id: author.id, (data)->
-        Support.peek.show("user", data)
-      
   ]
   template: """
     <div class="post">
       <h3 class="title" ng-show="topic.title">{{topic.title}}</h3>
       <div class="content" ng-bind-html-unsafe="post['formatted-content']"></div>
       <footer>
-        <div class="author">
-          <img ng-src="{{topic.author.gravatar}}" class="gravatar"/>
-          <a href="" ng-click="peekAtAuthor(topic.author)">
-            {{topic.author.username}}
-          </a>
-        </div>
+        <div author="topic.author"></div>
         <date data="post['created-at']"></date>
         
         <like-toggle likeable="post"></like-toggle>

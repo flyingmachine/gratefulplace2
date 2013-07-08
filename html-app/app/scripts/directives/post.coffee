@@ -5,17 +5,12 @@ angular.module('gratefulplaceApp').directive 'post', ->
   scope:
     post: '=model'
     firstPost: '&'
-    peek: '='
-  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User, Support)->
+  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User)->
     postResource = ->
       new Post($scope.post)
 
     $scope.showEdit = ->
       $scope.post && !$scope.post.deleted && Authorize.canModifyContent($scope.post)
-
-    $scope.peekAtAuthor = (author)->
-      User.get id: author.id, (data)->
-        Support.peek.show("user", data)
 
     $scope.toggleEdit = ($event)->
       if Authorize.canModifyContent($scope.post)
@@ -65,12 +60,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
         </form>
       </div>
       <footer>
-        <div class="author">
-          <img ng-src="{{post.author.gravatar}}" class="gravatar"/>
-          <a href="" ng-click="peekAtAuthor(post.author)">
-            {{post.author.username}}
-          </a>
-        </div>
+        <div author="post.author"></div>
         <date data="post['created-at']"></date>
         <like-toggle likeable="post"></like-toggle>
       </footer>
