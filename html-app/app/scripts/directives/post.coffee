@@ -7,7 +7,6 @@ angular.module('gratefulplaceApp').directive 'post', ->
     firstPost: '&'
     peek: '='
   controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User)->
-    # TODO refactor this - shouldn't need to be a function
     postResource = ->
       new Post($scope.post)
     

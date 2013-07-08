@@ -16,8 +16,4 @@
 
 (defn initialize
   []
-  (manage/recreate)
-  ;; TODO Not sure why I have to put this doall here before the
-  ;; swap!
-  (doall (manage/load-schema))
-    (swap! initialized (fn [_] true)))
+  (doall (manage/reload)))
