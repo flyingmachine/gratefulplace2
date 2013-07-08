@@ -1,6 +1,6 @@
 #more {
   .peek {
-    padding: 0 $gutter-width;
+    // padding: 0 $gutter-width;
     @include padding-leader;
     @include padding-trailer;
     @include border-radius(2px);
