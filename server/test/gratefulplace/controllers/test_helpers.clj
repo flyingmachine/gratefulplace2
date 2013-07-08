@@ -52,3 +52,8 @@
 (defn topic-id
   []
   (:db/id (q/one [:topic/title])))
+
+(defn post-id
+  ([] (post-id "flyingmachine"))
+  ([author-username]
+     (:db/id (q/one [:post/content] [:content/author (:id (auth author-username))]))))

@@ -53,7 +53,7 @@
 
   ;; Likes
   (authroute POST "/likes/:post-id" likes/create!)
-  (authroute DELETE "/likes/:post-id" posts/delete!)
+  (authroute DELETE "/likes/:post-id" likes/delete!)
 
   ;; Users
   (authroute POST "/users" users/registration-success-response)

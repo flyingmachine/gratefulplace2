@@ -5,7 +5,11 @@ angular.module('gratefulplaceApp').directive 'topic', ->
   scope:
     topic: '=model'
     peek: '='
-  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User)->
+  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', 'Like', 'CurrentSession', ($scope, Authorize, Post, Topic, User, Like, CurrentSession)->
+    $scope.currentSession = CurrentSession.get()    
+    
+    $scope.post = $scope.topic['first-post']
+    
     $scope.formatPostCount = (postCount)->
       switch postCount
         when 1 then "no replies"
@@ -17,11 +21,32 @@ angular.module('gratefulplaceApp').directive 'topic', ->
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->
         $scope.peek.show("user", data)
+
+    newLike = ->
+      new Like(id: $scope.post.id)
+      
+    like = ->
+      newLike().$save ->
+        $scope.post.likers.push $scope.currentSession.id
+
+    unlike = ->
+      newLike().$delete ->
+        $scope.post.likers = _.without($scope.post.likers, $scope.currentSession.id)
+
+    $scope.toggleLike = ->
+      if $scope.liked()
+        unlike()
+      else
+        like()  
+
+    $scope.liked = ->
+      _.include $scope.post.likers, $scope.currentSession.id
+      
   ]
   template: """
     <div class="post">
       <h3 class="title" ng-show="topic.title">{{topic.title}}</h3>
-      <div class="content" ng-bind-html-unsafe="topic['first-post']['formatted-content']"></div>
+      <div class="content" ng-bind-html-unsafe="post['formatted-content']"></div>
       <footer>
         <div class="author">
           <img ng-src="{{topic.author.gravatar}}" class="gravatar"/>
@@ -29,9 +54,10 @@ angular.module('gratefulplaceApp').directive 'topic', ->
             {{topic.author.username}}
           </a>
         </div>
-        <div class="date">{{formatDateTime(topic['first-post']['created-at'])}}</div>
+        <div class="date">{{formatDateTime(post['created-at'])}}</div>
 
-        <div class="like">
+        <div class="like" ng-class="{liked: liked()}" ng-click="toggleLike()">
+          <span ng-show="liked()">{{post.likers.length}}</span>
           <i class="icon-thumbs-up"></i>
         </div>
         

@@ -9,11 +9,6 @@
 
 (setup-db-background)
 
-(defn post-id
-  ([] (post-id "flyingmachine"))
-  ([author-username]
-     (:db/id (q/one [:post/content] [:content/author (:id (auth author-username))]))))
-
 ;; Creation
 (fact "creating a valid post with a valid user results in success"
   (response-data :post "/posts" {:content "test" :topic-id (topic-id)} (auth))
