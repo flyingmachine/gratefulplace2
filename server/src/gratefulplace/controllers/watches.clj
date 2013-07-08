@@ -10,6 +10,21 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
+(defmapifier record
+  mr/ent->watch)
+
+(defresource query [params auth]
+  :available-media-types ["application/json"]
+  :handle-ok (fn [ctx]
+               (map (comp record first)
+                    (d/q '[:find ?watch
+                           :in $ ?userid
+                           :where [?watch :watch/user ?userid]
+                           [?watch :watch/topic ?topic]
+                           [?topic :content/deleted false]]
+                         (db/db)
+                         (:id auth)))))
+
 (defresource create! [params auth]
   :allowed-methods [:post]
   :available-media-types ["application/json"]

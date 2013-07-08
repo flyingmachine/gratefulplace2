@@ -38,6 +38,7 @@
   (authroute DELETE "/topics/:id" topics/delete!)
 
   ;; Watches
+  (authroute GET "/watches" watches/query)
   (authroute POST "/watches" watches/create!)
   (authroute DELETE "/watches/:id" watches/delete!)
 

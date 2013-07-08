@@ -200,62 +200,6 @@ table.input {
   @include trailer;
 }
 
-#user-content {
-  h2 {
-    margin-bottom: 0;
-  }
-  .local-nav {
-    @include clearfix;
-    li {
-      float:left;
-      margin-right: 1em;
-    }
-
-    @include trailer(.5);
-  }
-  
-  div.posts, div.comments {
-    border-bottom: 1px solid #eee;
-  }
-  div.post, div.comment {
-    display:block;
-    @include clearfix;
-    @include box-sizing(border-box);
-    @include padding-trailer(.5);
-    @include padding-leader(.5);
-    border-top: 1px solid #eee;
-
-    &.highlight {
-      border-top:1px solid $purple;
-    }
-
-    &:hover {
-      background: $light-blue;
-    }
-
-    a {
-      text-decoration: none;
-    }
-
-    .meta {
-      float: right;
-      padding: 0 4px;
-      margin: 0 .5em;
-
-      border-left: 1px solid #eee;
-    }
-    
-    .date, .author {
-      float:right;
-      padding: 0 .5em;
-      font-style: italic;
-      text-align: right;
-      @include adjust-font-size-to(13px);
-
-    }
-  }
-}
-
 .sub-section {
   @include box-sizing(border-box);
   border-bottom: 1px dotted #ccc;

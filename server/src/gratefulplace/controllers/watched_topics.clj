@@ -14,7 +14,6 @@
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-;; TODO check whether this is super roundabout
 (defresource query [params auth]
   :available-media-types ["application/json"]
   :handle-ok (fn [ctx]

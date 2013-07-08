@@ -73,7 +73,7 @@
 
 (defmaprules ent->watch
   (attr :id :db/id)
-  (attr :kind :watch/kind)
+  (attr :unread-count :watch/unread-count)
   (attr :user-id (comp :db/id :watch/user))
   (attr :topic-id (comp :db/id :watch/topic)))
 
