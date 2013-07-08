@@ -3,7 +3,7 @@
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.transactions :as t]
+            [gratefulplace.db.transactions :as ts]
             [flyingmachine.cartographer.core :as c])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         [liberator.core :only [defresource]]
@@ -51,27 +51,12 @@
   :handle-malformed errors-in-ctx
   
   :post! (fn [_]
-           (let [topic-tempid (d/tempid :db.part/user -1)
-                 post-tempid (d/tempid :db.part/user -2)
-                 author-id (:id auth)
-                 topic (remove-nils-from-map
-                        {:topic/title (:title params)
-                         :topic/first-post post-tempid
-                         :topic/last-posted-to-at (now)
-                         :content/author author-id
-                         :content/deleted false
-                         :db/id topic-tempid})
-                 post {:post/content (:content params)
-                       :post/topic topic-tempid
-                       :post/created-at (now)
-                       :content/author author-id
-                       :db/id post-tempid}]
-             {:record
-              (mapify-tx-result
-               (db/t [topic post])
-               topic-tempid
-               mr/ent->topic
-               query-mapify-options)}))
+           (let [{:keys [result topic-tempid]} (ts/create-topic (merge params {:author-id (:id auth)}))]
+             {:record (mapify-tx-result
+                       result
+                       topic-tempid
+                       mr/ent->topic
+                       query-mapify-options)}))
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]

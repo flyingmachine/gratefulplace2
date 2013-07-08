@@ -19,6 +19,26 @@
                     [:increment-watch-count topic-id author-id]])
      :post-tempid post-tempid}))
 
+(defn create-topic
+  [params]
+  (let [topic-tempid (d/tempid :db.part/user -1)
+        post-tempid (d/tempid :db.part/user -2)
+        author-id (:author-id params)
+        topic (remove-nils-from-map {:topic/title (:title params)
+                                     :topic/first-post post-tempid
+                                     :topic/last-posted-to-at (now)
+                                     :content/author author-id
+                                     :content/deleted false
+                                     :db/id topic-tempid})
+        post {:post/content (:content params)
+              :post/topic topic-tempid
+              :post/created-at (now)
+              :content/author author-id
+              :db/id post-tempid}]
+
+    {:result (db/t [topic post])
+     :topic-tempid topic-tempid}))
+
 (defn reset-watch-count
   [topic user]
   (let [watch (db/one [:watch/topic topic] [:watch/user user])]
