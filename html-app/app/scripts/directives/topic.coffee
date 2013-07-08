@@ -4,8 +4,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
   restrict: 'EA'
   scope:
     topic: '=model'
-    peek: '='
-  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', 'Like', 'CurrentSession', 'Support', ($scope, Authorize, Post, Topic, User, Like, CurrentSession, Support)->
+  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', 'Like', 'CurrentSession',  ($scope, Authorize, Post, Topic, User, Like, CurrentSession)->
     $scope.post = $scope.topic['first-post']
     $scope.formatPostCount = (postCount)->
       switch postCount
