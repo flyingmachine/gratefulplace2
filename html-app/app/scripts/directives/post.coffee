@@ -9,18 +9,13 @@ angular.module('gratefulplaceApp').directive 'post', ->
   controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User)->
     postResource = ->
       new Post($scope.post)
-    
-    $scope.formatCreatedAt = (date)->
-      moment(date).format("MMM D, YYYY h:mma")
 
     $scope.showEdit = ->
       $scope.post && !$scope.post.deleted && Authorize.canModifyContent($scope.post)
 
-
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->
         $scope.peek.show("user", data)
-
 
     $scope.toggleEdit = ($event)->
       if Authorize.canModifyContent($scope.post)
@@ -47,7 +42,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
           topic.$delete()
         postResource().$delete deleteSuccess
   ]
-  template: '
+  template: """
     <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">
       <i class="edit icon-pencil" ng-show="showEdit()" ng-click="toggleEdit()"></i>
       <div class="content"
@@ -76,8 +71,9 @@ angular.module('gratefulplaceApp').directive 'post', ->
             {{post.author.username}}
           </a>
         </div>
-        <div class="date">{{formatCreatedAt(post["created-at"])}}</div>
+        <date data="post['created-at']"></date>
         <like-toggle likeable="post"></like-toggle>
       </footer>
-    </div>'
+    </div>
+    """
   replace: true

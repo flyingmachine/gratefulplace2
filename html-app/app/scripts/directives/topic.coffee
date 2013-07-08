@@ -12,8 +12,6 @@ angular.module('gratefulplaceApp').directive 'topic', ->
         when 1 then "no replies"
         when 2 then "1 reply"
         else "#{postCount - 1} replies"
-    $scope.formatDateTime = (date)->
-      moment(date).format("MMM D, YYYY h:mma")
     
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->
@@ -31,8 +29,8 @@ angular.module('gratefulplaceApp').directive 'topic', ->
             {{topic.author.username}}
           </a>
         </div>
-        <div class="date">{{formatDateTime(post['created-at'])}}</div>
-
+        <date data="post['created-at']"></date>
+        
         <like-toggle likeable="post"></like-toggle>
         
         <a href="/#/topics/{{topic.id}}/" class="comments">

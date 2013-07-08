@@ -25,7 +25,8 @@ angular.module('gratefulplaceApp').directive 'likeToggle', ->
         like()  
 
     $scope.liked = ->
-      _.include $scope.post.likers, $scope.currentSession.id
+      if $scope.post
+        _.include $scope.post.likers, $scope.currentSession.id
   ]
   template: """
   <div class="like" ng-class="{liked: liked()}" ng-click="toggleLike()">
