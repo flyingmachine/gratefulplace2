@@ -6,7 +6,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
     post: '=model'
     firstPost: '&'
     peek: '='
-  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User)->
+  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User, Support)->
     postResource = ->
       new Post($scope.post)
 
@@ -15,7 +15,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
 
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->
-        $scope.peek.show("user", data)
+        Support.peek.show("user", data)
 
     $scope.toggleEdit = ($event)->
       if Authorize.canModifyContent($scope.post)

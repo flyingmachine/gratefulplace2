@@ -9,7 +9,7 @@ angular.module('gratefulplaceApp')
     User.get id: CurrentSession.get().id, (user)->
       $scope.user = user
 
-    $scope.secondaryNav.show "profile/about-nav", {tab: "password"}
+    $scope.support.secondaryNav.show "profile/about-nav", {tab: "password"}
 
     validate = ->
       $scope.errors = {}
@@ -32,5 +32,3 @@ angular.module('gratefulplaceApp')
       , (res)->
         $scope.errors = res.data.errors
       )
-
-    $scope.$on "$destroy", $scope.clearPeek

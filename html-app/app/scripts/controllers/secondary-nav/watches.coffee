@@ -12,12 +12,12 @@ angular.module('gratefulplaceApp')
         $scope.watch = new Watch(watchData)
 
     findWatch = ->
-      _.find $scope.secondaryNav.data.watches, (watch)->
+      _.find $scope.support.secondaryNav.data.watches, (watch)->
         watch['user-id'] == $scope.currentSession.id && watch
 
     $scope.createWatch = ->
       $scope.watch = new Watch
-        'topic-id': $scope.secondaryNav.data.id
+        'topic-id': $scope.support.secondaryNav.data.id
         'user-id': $scope.currentSession.id
         
       $scope.watch.$save (watchData)->

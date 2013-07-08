@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic, Watch, User) ->
+angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic, Watch, User, Support) ->
   $scope.$on 'topic.created', (e, topic)->
     $scope.topics.unshift topic
 
@@ -24,19 +24,13 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic,
     watches = data
     addWatchCounts()
 
-  
-
   $scope.firstPost = (topic)->
     topic.posts[0]
 
   $scope.formatDateTime = (date)->
     moment(date).format("MMM D, YYYY h:mma")
 
-  $scope.peekAtAuthor = (author)->
-    User.get id: author.id, (data)->
-      $scope.peek.show("user", data)
-
-  $scope.secondaryNav.show "topics"
+  Support.secondaryNav.show "topics"
   
   $scope.formatPostCount = (postCount)->
     switch postCount

@@ -23,4 +23,4 @@ angular.module('gratefulplaceApp')
         $scope.errorMessages = res.data.errors
       )
 
-    $scope.secondaryNav.show "profile/about-nav", {tab: "about"}
+    $scope.support.secondaryNav.show "profile/about-nav", {tab: "about"}

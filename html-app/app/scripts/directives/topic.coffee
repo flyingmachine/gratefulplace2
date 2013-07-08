@@ -5,7 +5,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
   scope:
     topic: '=model'
     peek: '='
-  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', 'Like', 'CurrentSession', ($scope, Authorize, Post, Topic, User, Like, CurrentSession)->
+  controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', 'Like', 'CurrentSession', 'Support', ($scope, Authorize, Post, Topic, User, Like, CurrentSession, Support)->
     $scope.post = $scope.topic['first-post']
     $scope.formatPostCount = (postCount)->
       switch postCount
@@ -15,7 +15,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
     
     $scope.peekAtAuthor = (author)->
       User.get id: author.id, (data)->
-        $scope.peek.show("user", data)
+        Support.peek.show("user", data)
       
   ]
   template: """
