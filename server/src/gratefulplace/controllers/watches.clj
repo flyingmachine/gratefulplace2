@@ -3,8 +3,7 @@
             [datomic.api :as d]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
-            [flyingmachine.cartographer.core :as c]
-            [cemerick.friend :as friend])
+            [flyingmachine.cartographer.core :as c])
   (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions

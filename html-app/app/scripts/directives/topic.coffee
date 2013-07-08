@@ -30,8 +30,11 @@ angular.module('gratefulplaceApp').directive 'topic', ->
           </a>
         </div>
         <div class="date">{{formatDateTime(topic['first-post']['created-at'])}}</div>
+
+        <div class="like">
+          <i class="icon-thumbs-up"></i>
+        </div>
         
-        <i class="like icon-thumbs-up"></i>
         <a href="/#/topics/{{topic.id}}/" class="comments">
           {{formatPostCount(topic['post-count'])}}
         </a>

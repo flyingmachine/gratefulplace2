@@ -43,6 +43,7 @@
   (attr :created-at (comp format-date :post/created-at))
   (attr :topic-id (comp :db/id :post/topic))
   (attr :author-id (comp :db/id :content/author))
+  (attr :like-count (ref-count :like/post))
   (has-one :author
            :rules gratefulplace.db.maprules/ent->user
            :retriever :content/author)

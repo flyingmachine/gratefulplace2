@@ -5,6 +5,7 @@
             [gratefulplace.controllers.watches :as watches]
             [gratefulplace.controllers.watched-topics :as watched-topics]
             [gratefulplace.controllers.posts :as posts]
+            [gratefulplace.controllers.likes :as likes]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
             [gratefulplace.controllers.js :as js]
@@ -49,6 +50,10 @@
   (authroute PUT  "/posts/:id" posts/update!)
   (authroute POST "/posts/:id" posts/update!)
   (authroute DELETE "/posts/:id" posts/delete!)
+
+  ;; Likes
+  (authroute POST "/likes/:post-id" likes/create!)
+  (authroute DELETE "/likes/:post-id" posts/delete!)
 
   ;; Users
   (authroute POST "/users" users/registration-success-response)

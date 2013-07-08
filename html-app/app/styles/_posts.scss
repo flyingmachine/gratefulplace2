@@ -69,17 +69,12 @@
   }
   
   .like {
+    margin-left: .5em;
     float:right;
     display:block;
-    background:#eee;
-    width: 2em;
-    height: 1.5em;
-    padding-top:.5em;
-    text-align:center;
     color: #aaa;
-    @include border-radius(1em);
     
-    &:hover {
+    &:hover, &.liked {
       color:#333;
       text-decoration:none;
       cursor: pointer;

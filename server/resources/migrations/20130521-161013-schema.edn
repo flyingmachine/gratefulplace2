@@ -97,6 +97,19 @@
   :db/doc "Number of updates the watched topic has received"
   :db.install/_attribute :db.part/db}
 
+ ;; likes
+  {:db/ident :like/user
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db.install/_attribute :db.part/db}
+
+ {:db/ident :like/post
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db.install/_attribute :db.part/db}
+ 
  ;; posts
  {:db/ident :post/content
   :db/id #db/id[:db.part/db]

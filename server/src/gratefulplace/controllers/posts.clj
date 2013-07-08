@@ -4,8 +4,7 @@
             [gratefulplace.db.query :as db]
             [gratefulplace.db.transactions :as ts]
             [gratefulplace.db.maprules :as mr]
-            [flyingmachine.cartographer.core :as c]
-            [cemerick.friend :as friend])
+            [flyingmachine.cartographer.core :as c])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
