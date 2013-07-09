@@ -49,8 +49,6 @@
   []
   (java.util.Date.))
 
-
-
 (defmacro defnpd
   ;; defn with default positional arguments
   [name args & body]
