@@ -26,7 +26,7 @@
 
 (defresource query [params]
   :available-media-types ["application/json"]
-  :handle-ok (fn [ctx]
+  :handle-ok (fn [_]
                (reverse-by :last-posted-to-at
                            (map query-record
                                 (db/all :topic/first-post [:content/deleted false])))))
@@ -48,10 +48,10 @@
   :handle-malformed errors-in-ctx
   
   :post! (fn [_]
-           (let [{:keys [result topic-tempid]} (ts/create-topic (merge params {:author-id (:id auth)}))]
+           (let [{:keys [result tempid]} (ts/create-topic (merge params {:author-id (:id auth)}))]
              {:record (mapify-tx-result
                        result
-                       topic-tempid
+                       tempid
                        mr/ent->topic
                        query-mapify-options)}))
   :handle-created record-in-ctx)

@@ -36,7 +36,6 @@
         ~@mapify-args)
        nil)))
 
-
 (defmacro validator
   "Used in malformed? which is why truth values are reversed"
   [params validation]
@@ -48,9 +47,7 @@
              :representation {:media-type "application/json"}}])))
 
 
-
 ;; working with liberator
-
 (defn exists?
   [record]
   (if record
