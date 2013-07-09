@@ -14,15 +14,6 @@
   {:body {:errors errors}
    :status 412})
 
-(def OK
-  {:status 200})>
-
-(def NOT-AUTHORIZED
-  {:status 401})
-
-(def NOT-FOUND
-  {:status 404})
-
 (defmacro id
   []
   '(str->int (:id params)))
