@@ -39,7 +39,7 @@
   :exists? (exists? (record (id)))
   :handle-ok (fn [ctx]
                (if auth
-                 (t/reset-watch-count (id) (:id auth)))
+                 (ts/reset-watch-count (id) (:id auth)))
                (record-in-ctx ctx)))
 
 (defresource create! [params auth]
