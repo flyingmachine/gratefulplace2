@@ -3,7 +3,8 @@
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
-        gratefulplace.models.permissions))
+        gratefulplace.models.permissions
+        gratefulplace.utils))
 
 (def author-inclusion-options
   {:author {:only [:id :username :gravatar]}})
@@ -81,3 +82,9 @@
      (let [record# ~record]
        (if (and (author? record# ~auth) (not (:deleted ~record)))
          {:record record#}))))
+
+(defn create-content
+  [creator params auth mapifier]
+  (fn [_]
+    (let [result (creator (merge params {:author-id (:id auth)}))]
+      {:record (mapify-tx-result result mapifier)})))

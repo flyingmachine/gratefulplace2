@@ -17,7 +17,7 @@
     {:result (db/t [post
                     {:db/id topic-id :topic/last-posted-to-at now}
                     [:increment-watch-count topic-id author-id]])
-     :post-tempid post-tempid}))
+     :tempid post-tempid}))
 
 (defn create-topic
   [params]

@@ -18,15 +18,14 @@
     str))
 
 (defn mapify-tx-result
-  ([tx tempid rules]
-     (mapify-tx-result tx tempid rules {}))
-  ([tx tempid rules mapify-options]
-     (-> tx
-         deref
-         :tempids
-         (db/resolve-tempid tempid)
-         db/ent
-         (c/mapify rules mapify-options))))
+  [tx-result mapifier]
+  (let [{:keys [result tempid]} tx-result]
+    (-> result
+        deref
+        :tempids
+        (db/resolve-tempid tempid)
+        db/ent
+        mapifier)))
 
 (defn- xml-str
  "Like clojure.core/str but escapes < > and &."

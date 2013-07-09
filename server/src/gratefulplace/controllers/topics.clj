@@ -47,13 +47,7 @@
   :malformed? (validator params validations/topic)
   :handle-malformed errors-in-ctx
   
-  :post! (fn [_]
-           (let [{:keys [result tempid]} (ts/create-topic (merge params {:author-id (:id auth)}))]
-             {:record (mapify-tx-result
-                       result
-                       tempid
-                       mr/ent->topic
-                       query-mapify-options)}))
+  :post! (create-content ts/create-topic params auth query-record)
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]

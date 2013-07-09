@@ -14,7 +14,8 @@
 (defmapifier record
   mr/ent->post
   {:include author-inclusion-options
-   :exclude [:content :created-at :topic-id]})
+   ;; :exclude [:content :created-at :topic-id]
+   })
 
 (defresource update! [params auth]
   :allowed-methods [:put :post]
@@ -41,14 +42,7 @@
 
   ;; TODO possibly change mapify tx result so that it takes a certain
   ;; kind of record that has all the details it needs?
-  :post! (fn [_]
-           (let [{:keys [result post-tempid]} (ts/create-post (merge params {:author-id (:id auth)}))]
-             {:record
-              (mapify-tx-result
-               result
-               post-tempid
-               mr/ent->post
-               {:include author-inclusion-options})}))
+  :post! (create-content ts/create-post params auth record)
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]
