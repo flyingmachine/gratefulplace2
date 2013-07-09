@@ -5,7 +5,7 @@ angular.module('gratefulplaceApp')
     Topic.get id: $routeParams.id, (topic)->
       $scope.topic = topic
       $scope.firstPost = $scope.topic.posts.shift()
-      $scope.secondaryNav.show "topics/watches", $scope.topic
+      $scope.support.secondaryNav.show "topics/watches", $scope.topic
         
     $scope.submitReply = ->
       post = new Post($scope.reply)
