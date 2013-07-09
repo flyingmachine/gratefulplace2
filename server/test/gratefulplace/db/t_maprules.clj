@@ -1,4 +1,4 @@
-(ns gratefulplace.db.t-serializers
+(ns gratefulplace.db.t-maprules
   (:require [gratefulplace.db.test :as tdb]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]

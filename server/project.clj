@@ -1,8 +1,8 @@
 (defproject gratefulplace "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
-  :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+  :license {:name "The MIT License"
+            :url "http://opensource.org/licenses/MIT"}
   :repositories [["central-proxy" "http://repository.sonatype.org/content/repositories/central/"]]
 
   :dependencies [[org.clojure/clojure "1.5.1"]
@@ -22,24 +22,19 @@
                  [markdown-clj "0.9.25"]
                  [clavatar "0.2.1"]
                  [org.clojure/data.json "0.2.2"]]
-
-  :plugins [[lein-ring "0.8.3"]
-            [lein-environ "0.4.0"]
-            [lein-datomic "0.2.0"]]
-
-  :profiles {:user
-             {:env {:moderator-names ["flyingmachine"]}}
-             
-             :dev
+  
+  :profiles {:dev
              {:dependencies [[midje "1.5.0"]]
               :env {:html-paths ["../html-app/app"
                                  "../html-app/.tmp"]
                     :datomic {:config "resources/datomic-transactor.properties"
                               :db-uri "datomic:free://localhost:4334/gp2"
-                              :test-uri "datomic:mem://gp2"}}}
+                              :test-uri "datomic:mem://gp2"}
+                    :moderator-names ["flyingmachine"]}}
              
              ;;
              :production
-             {:env {:html-paths ["public"]}}}
+             {:env {:html-paths ["public"]
+                    :moderator-names ["flyingmachine"]}}}
   
   :main gratefulplace.server)

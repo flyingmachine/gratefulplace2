@@ -13,6 +13,6 @@
   (q/one [:watch/topic]))
 
 (fact "increment-register"
-  (do (q/t [[:increment-watch-count (:db/id (:watch/topic (watch)))]])
-      (:watch/unread-count (watch)))
+  (q/t [[:increment-watch-count (-> (watch) :watch/topic :db/id) 1]])
+  (:watch/unread-count (watch))
   => 1)
