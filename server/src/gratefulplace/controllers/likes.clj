@@ -32,7 +32,7 @@
   :available-media-types ["application/json"]
   :authorized? (fn [_]
                  (if-let [like (find-like (clean-params params auth))]
-                   {:record {:id (:db/id like)}}))
+                   {:record (:db/id like)}))
   :exists? exists-in-ctx?
   :delete! (fn [ctx]
-             (db/retract-entity (get-in ctx [:record :id]))))
+             (db/retract-entity (:record ctx))))
