@@ -15,6 +15,8 @@
   [date]
   (.format date-format date))
 
+(def dbid #(or (str->int (:id %)) #db/id[:db.part/user]))
+
 (defmaprules ent->topic
   (attr :id :db/id)
   (attr :title :topic/title)
@@ -79,7 +81,7 @@
   (attr :topic-id (comp :db/id :watch/topic)))
 
 (defmaprules user->txdata
-  (attr :db/id #(or (str->int (:id %)) #db/id[:db.part/user]))
+  (attr :db/id dbid)
   (attr :user/username :username)
   (attr :user/email :email)
   (attr :user/about :about)
@@ -90,5 +92,10 @@
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:new-password %))))
 
 (defmaprules post->txdata
-  (attr :db/id #(or (str->int (:id %)) #db/id[:db.part/user]))
+  (attr :db/id dbid)
   (attr :post/content :content))
+
+(defmaprules like->txdata
+  (attr :db/id dbid)
+  (attr :like/user :user-id)
+  (attr :like/post #(str->int (:post-id %))))
