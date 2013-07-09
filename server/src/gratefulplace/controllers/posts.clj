@@ -17,6 +17,10 @@
    ;; :exclude [:content :created-at :topic-id]
    })
 
+(defn update-post
+  [params]
+  (fn [_] (db/t [(c/mapify params mr/post->txdata)])))
+
 (defresource update! [params auth]
   :allowed-methods [:put :post]
   :available-media-types ["application/json"]
@@ -26,8 +30,8 @@
 
   :authorized? (can-update-record? (record (id)) auth)
   :exists? record-in-ctx
-  :put! (fn [_] (db/t [(c/mapify params mr/post->txdata)]))
-  :post! (fn [_] (db/t [(c/mapify params mr/post->txdata)]))
+  :put! (update-post params)
+  :post! (update-post params)
   :new? false
   :respond-with-entity? true
   :handle-ok (fn [_] (record (id))))
