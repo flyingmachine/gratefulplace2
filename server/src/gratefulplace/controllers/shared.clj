@@ -30,7 +30,7 @@
   [fn-name & mapify-args]
   `(defn- ~fn-name
      [id#]
-     (if-let [ent# (db/ent id#)]
+     (if-let [ent# (or (db/ent? id#) (db/ent id#))]
        (c/mapify
         ent#
         ~@mapify-args)

@@ -20,6 +20,10 @@
     (d/entity (db) exists)
     nil))
 
+(defmulti ent? class)
+(defmethod ent? datomic.query.EntityMap [x] x)
+(defmethod ent? :default [x] false)
+
 (defn eid
   [& conditions]
   (let [conditions (map #(concat ['?c] %) conditions)]

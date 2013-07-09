@@ -15,12 +15,9 @@
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-(defn query-mapify
-  [ent]
-  (c/mapify
-   ent
-   mr/ent->topic
-   query-mapify-options))
+(defmapifier query-record
+  mr/ent->topic
+  query-mapify-options)
 
 (defmapifier record
   mr/ent->topic
@@ -31,7 +28,7 @@
   :available-media-types ["application/json"]
   :handle-ok (fn [ctx]
                (reverse-by :last-posted-to-at
-                           (map query-mapify
+                           (map query-record
                                 (db/all :topic/first-post [:content/deleted false])))))
 
 (defresource show [params auth]
