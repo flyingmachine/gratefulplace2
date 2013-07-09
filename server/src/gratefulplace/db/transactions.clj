@@ -7,7 +7,7 @@
   [params]
   (let [{:keys [topic-id author-id]} params
         post-tempid (d/tempid :db.part/user -1)
-        now (java.util.Date.)
+        now (now)
         post (remove-nils-from-map {:post/content (:content params)
                                     :post/topic topic-id
                                     :post/created-at now
@@ -37,7 +37,7 @@
               :db/id post-tempid}]
 
     {:result (db/t [topic post])
-     :topic-tempid topic-tempid}))
+     :tempid topic-tempid}))
 
 (defn reset-watch-count
   [topic user]
