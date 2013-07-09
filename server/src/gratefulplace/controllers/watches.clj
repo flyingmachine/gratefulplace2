@@ -3,6 +3,7 @@
             [datomic.api :as d]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
+            [gratefulplace.db.transactions :as ts]
             [flyingmachine.cartographer.core :as c])
   (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
@@ -29,16 +30,7 @@
   :available-media-types ["application/json"]
   :authorized? (logged-in? auth)
 
-  :post! (fn [_]
-           (let [watch-tempid (d/tempid :db.part/user -1)]
-             {:record
-              (mapify-tx-result
-               (db/t [{:db/id watch-tempid
-                       :watch/unread-count 0
-                       :watch/topic (:topic-id params)
-                       :watch/user (:user-id params)}])
-               watch-tempid
-               mr/ent->watch)}))
+  :post! (create-record ts/create-watch params record)
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]

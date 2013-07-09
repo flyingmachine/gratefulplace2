@@ -83,8 +83,12 @@
        (if (and (author? record# ~auth) (not (:deleted ~record)))
          {:record record#}))))
 
-(defn create-content
-  [creator params auth mapifier]
+(defn create-record
+  [creation-fn params mapifier]
   (fn [_]
-    (let [result (creator (merge params {:author-id (:id auth)}))]
+    (let [result (creation-fn params)]
       {:record (mapify-tx-result result mapifier)})))
+
+(defn create-content
+  [creation-fn params auth mapifier]
+  (create-record creation-fn (merge params {:author-id (:id auth)}) mapifier))
