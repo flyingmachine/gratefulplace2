@@ -28,8 +28,17 @@
       <nav class="primary">
         <ul>
           <li><a href="#/">Home</a></li>
-          <li ng-show="currentSession"><a href="#/watched-topics">Watched Topics</a></li>
-          <li ng-show="currentSession"><a href="#/profile/about">Your Profile</a></li>
+          <li ng-show="currentSession" ng-controller="WatchedTopicsNavCtrl">
+            <a href="#/watched-topics">
+              Watched Topics
+              <span ng-show="watchedTopicCount">
+                ({{watchedTopicCount}})
+              </span>
+            </a>
+          </li>
+          <li ng-show="currentSession">
+            <a href="#/profile/about">Your Profile</a>
+          </li>
           <li ng-show="currentSession">
             <a href="/logout">Log Out</a>
           </li>
@@ -136,6 +145,7 @@
     <script src="scripts/controllers/topics/query.js"></script>
     <script src="scripts/controllers/topics/show.js"></script>
     <script src="scripts/controllers/watched-topics.js"></script>
+    <script src="scripts/controllers/watched-topics-nav.js"></script>
     <script src="scripts/services/authorize.js"></script>
     <script src="scripts/services/current_session.js"></script>
     <script src="scripts/services/support.js"></script>

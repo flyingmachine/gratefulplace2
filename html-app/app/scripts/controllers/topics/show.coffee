@@ -1,8 +1,9 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'TopicsShowCtrl', ($scope, $routeParams, Topic, Post, User) ->
+  .controller 'TopicsShowCtrl', ($rootScope, $scope, $routeParams, Topic, Post, User) ->
     Topic.get id: $routeParams.id, (topic)->
+      $rootScope.$broadcast "view.topic", topic
       $scope.topic = topic
       $scope.firstPost = $scope.topic.posts.shift()
       $scope.support.secondaryNav.show "topics/watches", $scope.topic

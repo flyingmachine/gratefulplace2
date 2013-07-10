@@ -10,7 +10,6 @@ angular.module('gratefulplaceApp')
       email: ""
 
     registrationSuccess = (response)->
-      console.log "Reg success", response
       CurrentSession.set(response)
       $location.path "/"
 

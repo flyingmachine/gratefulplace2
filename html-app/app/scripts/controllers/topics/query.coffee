@@ -9,14 +9,12 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic,
   addWatchCounts = ->
     if $scope.topics && watches
       _.each watches, (watch)->
-        console.log watch
         _.each $scope.topics, (topic)->
           if watch['topic-id'] == topic.id && watch['unread-count']
             topic['unread-count'] = watch['unread-count']
             false
 
   Topic.query (data)->
-    console.log data
     $scope.topics = data
     addWatchCounts()
 
