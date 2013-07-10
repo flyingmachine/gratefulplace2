@@ -54,15 +54,18 @@
 (defmacro can-delete-record?
   [record auth]
   `(fn [_#]
-     (let [record# ~record]
-       (if (or (author? record# ~auth) (moderator? ~auth))
+     (let [record# ~record
+           auth# ~auth]
+       (if (or (author? record# auth#) (moderator? auth#))
          {:record record#}))))
 
 (defmacro can-update-record?
   [record auth]
   `(fn [_#]
-     (let [record# ~record]
-       (if (and (author? record# ~auth) (not (:deleted ~record)))
+     (let [auth# ~auth
+           record# ~record]
+       (if (or (moderator? auth#)
+               (and (author? record# auth#) (not (:deleted record#))))
          {:record record#}))))
 
 (defn create-record
