@@ -64,8 +64,9 @@
   `(fn [_#]
      (let [auth# ~auth
            record# ~record]
-       (if (or (moderator? auth#)
-               (and (author? record# auth#) (not (:deleted record#))))
+       (if (and (not (:deleted record#))
+                (or (moderator? auth#)
+                    (author? record# auth#)))
          {:record record#}))))
 
 (defn create-record
