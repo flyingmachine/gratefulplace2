@@ -253,9 +253,20 @@ table.input {
   }
 }
 
-#more #login {
+#login {
   ul {
     margin-bottom: 0;
+  }
+}
+
+.fancy #login {
+  background: rgba(255, 255, 255, 0.3);
+  padding: 0 1em;
+  @include padding-leader;
+  @include padding-trailer;
+
+  h3 {
+    margin-top: 0;
   }
 }
 
