@@ -1,4 +1,4 @@
-<h2>Gratitude</h2>
+<h2>Gratiteful Place</h2>
 <div class="chunk white">
   <blockquote>
     <p>
@@ -9,6 +9,102 @@
   </blockquote>
   <p>
     Most of us were taught that happiness can only be won by effort.
+    Pursue your dreams, rack up accomplishments, get everything just
+    right and &ndash; the thinking goes &ndash; you will be happy.
   </p>
-  <p>Happiness treadmill.</p>
+  <p>
+    Except that's not how it works. You've probably heard about
+    <a href="http://www.forbes.com/sites/susanadams/2012/11/28/why-winning-powerball-wont-make-you-happy/">winning
+    the lottery does not make people permaanently happier</a>. In
+    general, research shows that we adjust to positive changes to our
+    circumstances, leaving us about as happy as before.
+  </p>
+  <p>
+    Getting a raise, buying a house &mdash; these events only have a
+    short-term impact on happiness. There's even a spiffy name for
+    this phenomenon: the "hedonic treadmill."
+  </p>
+
+  <h3>Stepping Off the Treadmill</h3>
+  <p>
+    <a href="http://www.nytimes.com/2011/11/22/science/a-serving-of-gratitude-brings-healthy-dividends.html">Research
+    shows</a> that one way to achieve a lasting increaase in happiness
+    is to cultivate a sense of gratitude. This can be as simple as
+    taking a few minutes every day to write down a few things you're
+    grateful for.
+  </p>
+  <p>
+    Think of it this way: why should you put conditions on your
+    happiness? Instead of instead of believing that life be a certain
+    away before you feel OK, you can learn to be happy with life
+    exactly as it is.
+  </p>
+  <h3>Join the Community</h3>
+  <p>
+    This site is dedicated to providing a supportive community for
+    those looking to cultivate a sense of gratitude. It's a home for
+    those who want to increase their own happiness and peace and help
+    others do the same. If that sounds like you, then we'd love for
+    you to join:
+  </p>
+
+  <div id="signup">
+    <form ng-submit="submitRegistration()" novalidate>
+      <div class="clearfix">
+        <table class="input">
+          <tbody><tr>
+              <td>
+                <label for="registration-username">Username</label>
+              </td>
+              <td>
+                <input value=""
+                       type="text"
+                       name="username"
+                       id="registration-username"
+                       ng-model="registration.username"
+                       required >
+                <div class="error" error-messages="errors.username"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="registration-password">Password</label>
+              </td>
+              <td>
+                <input type="password"
+                       name="password"
+                       id="registration-password"
+                       ng-model="registration.password"
+                       required>
+                <div class="error" error-messages="errors.password"></div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <label for="signup-email">Email</label>
+              </td>
+              <td>
+                <input type="email"
+                       name="email"
+                       id="signup-email"
+                       ng-model="registration.email"
+                       required>
+                <div class="error" error-messages="errors.email"></div>
+              </td>
+            </tr>
+        </tbody></table>
+        <div class="option">
+          <input type="checkbox" name="receive_comment_notifications" id="receive_comment_notifications" checked="checked">
+          <label for="receive_comment_notifications">
+            Receive email when people post to topics you're watching
+          </label>
+        </div>
+      </div>
+      <div class="action">
+        <input value="Join Grateful Place"
+               type="submit"
+               ng-disabled="form.$invalid">
+      </div>
+    </form>
+  </div>
 </div>
