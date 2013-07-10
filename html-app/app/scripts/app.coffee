@@ -23,5 +23,7 @@ angular.module('gratefulplaceApp', @App.modules)
       .when '/watched-topics',
         templateUrl: 'views/watched-topics.html',
         controller: 'WatchedTopicsCtrl'
+      .when '/welcome',
+        templateUrl: 'views/welcome.html'
       .otherwise
         redirectTo: '/'

@@ -75,6 +75,13 @@ p, blockquote {
 blockquote {
   background: #f0fafd;
   padding: .5em 1em;
+
+  cite {
+    @include leader(-1);
+    display: block;
+    text-align: right;
+    font-style: italic;
+  }
 }
 
 ul {
@@ -301,6 +308,9 @@ input.ng-pristine {
 
 .chunk {
   @include chunk;
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 
