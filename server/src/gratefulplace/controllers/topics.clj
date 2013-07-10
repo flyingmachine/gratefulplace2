@@ -3,8 +3,7 @@
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.transactions :as ts]
-            [flyingmachine.cartographer.core :as c])
+            [gratefulplace.db.transactions :as ts])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         [liberator.core :only [defresource]]
         gratefulplace.controllers.shared

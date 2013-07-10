@@ -3,7 +3,7 @@
             [gratefulplace.db.query :as db]
             [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.transactions :as t]
+            [gratefulplace.db.transactions :as ts]
             [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
@@ -25,7 +25,7 @@
       (if-valid
        params (:create validations/user) errors
        (cemerick.friend.workflows/make-auth
-        (mapify-tx-result (t/create-user params) record)
+        (mapify-tx-result (ts/create-user params) record)
         {:cemerick.friend/redirect-on-auth? false})
        (invalid errors)))))
 

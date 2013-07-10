@@ -21,6 +21,10 @@
                     [:increment-watch-count topic-id author-id]])
      :tempid post-tempid}))
 
+(defn update-post
+  [params]
+  (fn [_] (db/t [(c/mapify params mr/post->txdata)])))
+
 (defn create-topic
   [params]
   (let [topic-tempid (d/tempid :db.part/user -1)
