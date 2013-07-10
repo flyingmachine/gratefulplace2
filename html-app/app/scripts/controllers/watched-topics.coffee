@@ -7,7 +7,6 @@ angular.module('gratefulplaceApp')
     addWatchCounts = ->
       if $scope.topics && watches
         _.each watches, (watch)->
-          console.log watch
           _.each $scope.topics, (topic)->
             if watch['topic-id'] == topic.id && watch['unread-count']
               topic['unread-count'] = watch['unread-count']
