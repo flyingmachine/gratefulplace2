@@ -247,6 +247,16 @@ table.input {
   @include border-radius(3px);
   @include trailer;
   border: 1px solid #a6e5a4;
+
+  ul {
+    margin-bottom: 0;
+  }
+}
+
+#more #login {
+  ul {
+    margin-bottom: 0;
+  }
 }
 
 form tr td:first-child{

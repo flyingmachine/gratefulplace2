@@ -7,7 +7,7 @@
   @include leader;
 }
 
-nav.primary {
+nav.primary, .fancy {
   @include padding-trailer;
   position: fixed;
   top: 0;
@@ -57,6 +57,14 @@ nav.primary {
     &:visited {
       color: #444;
     }
+  }
+}
+
+.fancy {
+  padding: 0 1em;
+  width: 189px;
+  table label {
+    text-align: left;
   }
 }
 
