@@ -3,13 +3,14 @@
             [gratefulplace.db.query :as db]
             [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
+            [gratefulplace.db.transactions :as t]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as q]
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         [liberator.core :only [defresource]]
         gratefulplace.models.permissions
+        gratefulplace.db.mapification
         gratefulplace.controllers.shared
         gratefulplace.utils))
 
@@ -23,14 +24,9 @@
                (= request-method :post))
       (if-valid
        params (:create validations/user) errors
-       (let [user-tempid (d/tempid :db.part/user -1)
-             user (mapify-tx-result
-                   (q/t [(c/mapify (merge params {:id user-tempid}) mr/user->txdata)])
-                   user-tempid
-                   mr/ent->user)]
-         (cemerick.friend.workflows/make-auth
-          user
-          {:cemerick.friend/redirect-on-auth? false}))
+       (cemerick.friend.workflows/make-auth
+        (mapify-tx-result (t/create-user params) record)
+        {:cemerick.friend/redirect-on-auth? false})
        (invalid errors)))))
 
 (defn registration-success-response

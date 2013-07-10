@@ -1,5 +1,7 @@
 (ns gratefulplace.db.transactions
   (:require [datomic.api :as d]
+            [gratefulplace.db.maprules :as mr]
+            [flyingmachine.cartographer.core :as c]
             [gratefulplace.db.query :as db])
   (:use gratefulplace.utils))
 
@@ -47,6 +49,12 @@
                      :watch/topic (:topic-id params)
                      :watch/user (:user-id params)}])
      :tempid watch-tempid}))
+
+(defn create-user
+  [params]
+  (let [params (remove-nils-from-map (c/mapify params mr/user->txdata))]
+    {:result (db/t [params])
+     :tempid (:db/id params)}))
 
 (defn reset-watch-count
   [topic user]

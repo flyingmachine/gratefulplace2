@@ -4,6 +4,7 @@
             [flyingmachine.cartographer.core :as c])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         gratefulplace.models.permissions
+        gratefulplace.db.mapification
         gratefulplace.utils))
 
 (def author-inclusion-options
@@ -17,16 +18,6 @@
 (defmacro id
   []
   '(str->int (:id params)))
-
-(defmacro defmapifier
-  [fn-name & mapify-args]
-  `(defn- ~fn-name
-     [id#]
-     (if-let [ent# (or (db/ent? id#) (db/ent id#))]
-       (c/mapify
-        ent#
-        ~@mapify-args)
-       nil)))
 
 (defmacro validator
   "Used in malformed? which is why truth values are reversed"

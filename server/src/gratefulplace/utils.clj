@@ -17,16 +17,6 @@
     (read-string (re-find #"^-?\d+$" str))
     str))
 
-(defn mapify-tx-result
-  [tx-result mapifier]
-  (let [{:keys [result tempid]} tx-result]
-    (-> result
-        deref
-        :tempids
-        (db/resolve-tempid tempid)
-        db/ent
-        mapifier)))
-
 (defn- xml-str
  "Like clojure.core/str but escapes < > and &."
  [x]
