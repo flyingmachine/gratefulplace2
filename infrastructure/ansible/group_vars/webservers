@@ -1,3 +1,4 @@
+# -*- mode: yaml -*-
 ---
 project_name: gp2
 project_root: /var/projects/gp2
