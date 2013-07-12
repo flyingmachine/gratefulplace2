@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: app
   sudo: true
 
   tasks:
@@ -64,3 +64,37 @@
 
 #   handlers:
 #     - include: handlers.yml
+- hosts: database
+  sudo: true
+
+  tasks:
+  - name: Check datomic installation
+    command: "[-e /usr/local/bin/transactor]"
+    register: datomic_exists
+    ignore_errors: true
+
+  - name: Create datomic directory
+    file: state=directory path=${datomic_dir}
+    when: datomic_exists|failed
+
+  - name: Download datomic
+    get_url: url=http://downloads.datomic.com/${datomic_version}/${datomic_filename}.zip dest=${datomic_dir}
+    when: datomic_exists|failed
+
+  - name: Unpack datomic
+    command: chdir=${datomic_dir} unzip ${datomic_filename}.zip
+    when: datomic_exists|failed
+
+  - name: Upload datomic properties file
+    copy: src=files/datomic-transactor.properties dest=${datomic_dir}
+    when: datomic_exists|failed
+
+  - name: Link datomic
+    command: ln -s ${datomic_dir}/${datomic_filename} ${datomic_dir}/current
+    when: datomic_exists|failed
+
+  - name: Link transactor
+    command: ln -s ${datomic_dir}/current/bin/transactor /usr/local/bin/transactor
+    when: datomic_exists|failed
+    
+  
