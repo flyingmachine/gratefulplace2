@@ -62,6 +62,12 @@
 #   - name: Create database.
 #     shell: ${project_root}/env/bin/python ${project_root}/code/webapp/manage.py sqlcreate --router=default | sudo -u postgres psql
 
+  - name: Get leiningen
+    get_url: url=https://raw.github.com/technomancy/leiningen/stable/bin/lein dest=/usr/local/bin/leiningen
+    
+  - name: Leiningen permissions
+    shell: chmod +x /usr/local/bin/lein
+
 #   handlers:
 #     - include: handlers.yml
 - hosts: database
@@ -69,7 +75,7 @@
 
   tasks:
   - name: Check datomic installation
-    command: "[-e /usr/local/bin/transactor]"
+    command: "ls ${datomic_dir}/${datomic_filename}"
     register: datomic_exists
     ignore_errors: true
 
@@ -93,8 +99,10 @@
     command: ln -s ${datomic_dir}/${datomic_filename} ${datomic_dir}/current
     when: datomic_exists|failed
 
-  - name: Link transactor
-    command: ln -s ${datomic_dir}/current/bin/transactor /usr/local/bin/transactor
-    when: datomic_exists|failed
-    
+#   - name: Link transactor
+#     command: ln -s ${datomic_dir}/current/bin/transactor /usr/local/bin/transactor
+#     when: datomic_exists|failed
+
+  - name: Change permissions
+    shell: chown -R ${project_name}:${project_name} ${datomic_dir}/${datomic_filename}
   
