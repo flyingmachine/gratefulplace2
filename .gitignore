@@ -4,3 +4,4 @@ dist
 .sass-cache
 *#*
 .lein-env
+.vagrant
