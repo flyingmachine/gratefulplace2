@@ -1,0 +1,7 @@
+---
+project_name: gp2
+project_root: /var/projects/gp2
+project_repo: git@github.com:flyingmachine/gratefulplace2.git
+system_packages:
+  - git
+  - openjdk-7-jre-headless

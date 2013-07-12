@@ -1,0 +1,66 @@
+---
+- hosts: webservers
+  sudo: true
+
+  tasks:
+  - name: Create the project directory.
+    file: state=directory path=${project_root}
+
+  - name: Create user.
+    user: home=${project_root}/home/ name=${project_name} state=present
+
+  - name: Update the project directory.
+    file: group=${project_name} owner=${project_name} mode=755 state=directory path=${project_root}
+
+  - name: Create the code directory.
+    file: group=${project_name} owner=${project_name} mode=755 state=directory path=${project_root}/code/
+
+  - name: Install required system packages.
+    apt: pkg=${item} state=installed update-cache=yes
+    with_items: ${system_packages}
+
+#   - name: Install required Python packages.
+#     easy_install: name=${item}
+#     with_items: ${python_packages}
+
+#   - name: Mount code folder.
+#     mount: fstype=vboxsf opts=uid=${project_name},gid=${project_name} name=${project_root}/code/ src=${project_name} state=mounted
+#     only_if: "$vm == 1"
+
+#   - name: Create the SSH directory.
+#     file: state=directory path=${project_root}/home/.ssh/
+#     only_if: "$vm == 0"
+# 
+#   - name: Upload SSH known hosts.
+#     copy: src=known_hosts dest=${project_root}/home/.ssh/known_hosts mode=0600
+#     only_if: "$vm == 0"
+# 
+#   - name: Upload SSH key.
+#     copy: src=key dest=${project_root}/home/.ssh/id_rsa mode=0600
+#     only_if: "$vm == 0"
+# 
+#   - name: Create the SSL directory.
+#     file: state=directory path=${project_root}/home/ssl/
+# 
+#   - name: Upload SSL private key.
+#     copy: src=files/ssl/${project_name}.pem dest=${project_root}/home/ssl/${project_name}.pem
+# 
+#   - name: Upload SSH public key.
+#     copy: src=files/ssl/${project_name}.key.encrypted dest=${project_root}/home/ssl/${project_name}.key
+
+  - name: Change permissions.
+    shell: chown -R ${project_name}:${project_name} ${project_root}
+
+#   - name: Install nginx configuration file.
+#     copy: src=files/conf/nginx.conf dest=/etc/nginx/sites-enabled/${project_name}
+#     notify: restart nginx
+# 
+#   - name: Install init scripts.
+#     copy: src=files/init/${item}.conf dest=/etc/init/${project_name}_${item}.conf
+#     with_items: ${initfiles}
+# 
+#   - name: Create database.
+#     shell: ${project_root}/env/bin/python ${project_root}/code/webapp/manage.py sqlcreate --router=default | sudo -u postgres psql
+
+#   handlers:
+#     - include: handlers.yml
