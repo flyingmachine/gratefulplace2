@@ -10,3 +10,4 @@ system_packages:
   - wget
   - unzip
   - vim
+  - nodejs

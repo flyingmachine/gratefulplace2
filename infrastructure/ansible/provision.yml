@@ -11,10 +11,19 @@
 
   - name: Update the project directory.
     file: group=${project_name} owner=${project_name} mode=755 state=directory path=${project_root}
-
+    
   - name: Create the code directory.
     file: group=${project_name} owner=${project_name} mode=755 state=directory path=${project_root}/code/
 
+  - name: Allow new package repos
+    apt: pkg=software-properties-common state=installed update-cache=yes
+
+  - name: Add nodejs repo
+    apt_repository: repo=ppa:chris-lea/node.js
+
+  - name: install grunt
+    shell: npm install -g grunt-cli
+    
   - name: Install required system packages.
     apt: pkg=${item} state=installed update-cache=yes
     with_items: ${system_packages}
@@ -63,7 +72,7 @@
 #     shell: ${project_root}/env/bin/python ${project_root}/code/webapp/manage.py sqlcreate --router=default | sudo -u postgres psql
 
   - name: Get leiningen
-    get_url: url=https://raw.github.com/technomancy/leiningen/stable/bin/lein dest=/usr/local/bin/leiningen
+    get_url: url=https://raw.github.com/technomancy/leiningen/stable/bin/lein dest=/usr/local/bin/lein
     
   - name: Leiningen permissions
     shell: chmod +x /usr/local/bin/lein
