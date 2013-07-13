@@ -74,6 +74,21 @@
   sudo: true
 
   tasks:
+  - name: Create datomic user.
+    user: name=datomic state=present
+
+  - name: Create datomic data directory
+    file: state=directory path=${datomic_data_dir}
+
+  - name: Change data permissions
+    shell: chown -R datomic:datomic ${datomic_data_dir}
+
+  - name: Make datomic log directory
+    file: state=directory path=/var/log/datomic
+    
+  - name: Change data permissions
+    shell: chown -R datomic:datomic /var/log/datomic
+
   - name: Check datomic installation
     command: "ls ${datomic_dir}/${datomic_filename}"
     register: datomic_exists
@@ -92,17 +107,17 @@
     when: datomic_exists|failed
 
   - name: Upload datomic properties file
-    copy: src=files/datomic-transactor.properties dest=${datomic_dir}
+    copy: src=files/datomic-transactor.properties dest=${datomic_dir}/transactor.properties
     when: datomic_exists|failed
-
+    
+  - name: Upload datomic upstart config file
+    copy: src=files/datomic-upstart.conf dest=/etc/init/datomic.conf
+    when: datomic_exists|failed
+    
   - name: Link datomic
-    command: ln -s ${datomic_dir}/${datomic_filename} ${datomic_dir}/current
+    command: ln -s ${datomic_dir}/${datomic_filename} ${datomic_dir}/runtime
     when: datomic_exists|failed
 
-#   - name: Link transactor
-#     command: ln -s ${datomic_dir}/current/bin/transactor /usr/local/bin/transactor
-#     when: datomic_exists|failed
-
-  - name: Change permissions
-    shell: chown -R ${project_name}:${project_name} ${datomic_dir}/${datomic_filename}
+  - name: Change lib permissions
+    shell: chown -R datomic:datomic ${datomic_dir}
   
