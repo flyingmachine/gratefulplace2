@@ -3,6 +3,9 @@
   sudo: true
   sudo_user: gp2
 
+  vars:
+    - html_app: ${project_root}/code/repo/html-app
+
   tasks:
   - name: Get git repo
     git: repo=https://github.com/flyingmachine/gratefulplace2.git
@@ -10,7 +13,10 @@
          depth=10
          
   - name: Install npm deps
-    shell: chdir=${project_root}/code/repo/html-app/ npm install && bower install
+    shell: chdir=${html_app} npm install && bower install
 
   - name: Install ruby deps
-    shell: chdir=${project_root}/code/repo/html-app/ /usr/local/rbenv/versions/1.9.3-p385/bin/bundle
+    shell: chdir=${html_app} /usr/local/rbenv/versions/1.9.3-p385/bin/bundle
+
+  - name: build html app
+    shell: chdir=${html_app} grunt build
