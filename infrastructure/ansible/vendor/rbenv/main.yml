@@ -73,4 +73,4 @@
       copy: src=files/gemrc dest=/root/.gemrc owner=root group=root mode=0644
 
     - name: install bundler
-      command: /usr/local/rbenv/shims/gem install bundler
+      shell: executable=/bin/bash source /etc/profile.d/rbenv.sh && gem install bundler

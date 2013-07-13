@@ -16,17 +16,17 @@
     file: group=${project_name} owner=${project_name} mode=755 state=directory path=${project_root}/code/
 
   - name: Allow new package repos
-    apt: pkg=software-properties-common state=installed update-cache=yes
+    apt: pkg=python-software-properties state=installed update-cache=yes
 
   - name: Add nodejs repo
     apt_repository: repo=ppa:chris-lea/node.js
 
-  - name: install grunt & bower
-    shell: npm install -g grunt-cli bower
-    
   - name: Install required system packages.
     apt: pkg=${item} state=installed update-cache=yes
     with_items: ${system_packages}
+
+  - name: install grunt & bower
+    shell: npm install -g grunt-cli bower
 
 #   - name: Create the SSH directory.
 #     file: state=directory path=${project_root}/home/.ssh/
@@ -58,7 +58,10 @@
   - name: Leiningen permissions
     shell: chmod +x /usr/local/bin/lein
 
-- include: vendor/rbenv/main.yml
+  - name: install bundler
+    shell: gem install bundler
+    
+# - include: vendor/rbenv/main.yml
     
 - hosts: database
   sudo: true

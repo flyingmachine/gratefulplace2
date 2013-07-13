@@ -16,7 +16,7 @@
     shell: chdir=${html_app} npm install && bower install
 
   - name: Install ruby deps
-    shell: chdir=${html_app} /usr/local/rbenv/versions/1.9.3-p385/bin/bundle
+    shell: chdir=${html_app} bundle
 
   - name: build html app
     shell: chdir=${html_app} grunt build
