@@ -22,6 +22,8 @@
                  [markdown-clj "0.9.25"]
                  [clavatar "0.2.1"]
                  [org.clojure/data.json "0.2.2"]]
+
+  :plugins [[lein-environ "0.4.0"]]
   
   :profiles {:dev
              {:dependencies [[midje "1.5.0"]]

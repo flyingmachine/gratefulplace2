@@ -9,3 +9,4 @@ system_packages:
   - openjdk-7-jre-headless
   - wget
   - unzip
+  - vim
