@@ -1,0 +1,12 @@
+---
+- hosts: app
+  sudo: true
+  sudo_user: gp2
+
+  tasks:
+  - name: Get git repo
+    git: repo=https://github.com/flyingmachine/gratefulplace2.git
+         dest=${project_root}/code/repo
+         depth=10
+         
+    

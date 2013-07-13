@@ -129,4 +129,6 @@
 
   - name: Change lib permissions
     shell: chown -R datomic:datomic ${datomic_dir}
-  
+
+  - name: ensure datomic is running
+    service: name=datomic state=started
