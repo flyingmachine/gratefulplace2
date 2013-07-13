@@ -21,20 +21,12 @@
   - name: Add nodejs repo
     apt_repository: repo=ppa:chris-lea/node.js
 
-  - name: install grunt
-    shell: npm install -g grunt-cli
+  - name: install grunt & bower
+    shell: npm install -g grunt-cli bower
     
   - name: Install required system packages.
     apt: pkg=${item} state=installed update-cache=yes
     with_items: ${system_packages}
-
-#   - name: Install required Python packages.
-#     easy_install: name=${item}
-#     with_items: ${python_packages}
-
-#   - name: Mount code folder.
-#     mount: fstype=vboxsf opts=uid=${project_name},gid=${project_name} name=${project_root}/code/ src=${project_name} state=mounted
-#     only_if: "$vm == 1"
 
 #   - name: Create the SSH directory.
 #     file: state=directory path=${project_root}/home/.ssh/
@@ -60,25 +52,14 @@
   - name: Change permissions.
     shell: chown -R ${project_name}:${project_name} ${project_root}
 
-#   - name: Install nginx configuration file.
-#     copy: src=files/conf/nginx.conf dest=/etc/nginx/sites-enabled/${project_name}
-#     notify: restart nginx
-# 
-#   - name: Install init scripts.
-#     copy: src=files/init/${item}.conf dest=/etc/init/${project_name}_${item}.conf
-#     with_items: ${initfiles}
-# 
-#   - name: Create database.
-#     shell: ${project_root}/env/bin/python ${project_root}/code/webapp/manage.py sqlcreate --router=default | sudo -u postgres psql
-
   - name: Get leiningen
     get_url: url=https://raw.github.com/technomancy/leiningen/stable/bin/lein dest=/usr/local/bin/lein
     
   - name: Leiningen permissions
     shell: chmod +x /usr/local/bin/lein
 
-#   handlers:
-#     - include: handlers.yml
+- include: vendor/rbenv/main.yml
+    
 - hosts: database
   sudo: true
 

@@ -9,4 +9,8 @@
          dest=${project_root}/code/repo
          depth=10
          
-    
+  - name: Install npm deps
+    shell: chdir=${project_root}/code/repo/html-app/ npm install && bower install
+
+  - name: Install ruby deps
+    shell: chdir=${project_root}/code/repo/html-app/ /usr/local/rbenv/versions/1.9.3-p385/bin/bundle
