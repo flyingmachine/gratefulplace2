@@ -61,6 +61,15 @@
   - name: install bundler
     shell: gem install bundler
     
+  - name: Upload web app upstart config file
+    copy: src=files/${project_name}-upstart.conf dest=/etc/init/${project_name}.conf
+
+  - name: Make app log directory
+    file: state=directory path=/var/log/${project_name}
+    
+  - name: Change app log permissions
+    shell: chown -R ${project_name}:${project_name} /var/log/${project_name}
+    
 # - include: vendor/rbenv/main.yml
     
 - hosts: database
