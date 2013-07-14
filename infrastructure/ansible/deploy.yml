@@ -17,7 +17,7 @@
          depth=10
          
   - name: Install npm deps
-    shell: chdir=${html_app} npm install && bower install
+    shell: chdir=${html_app} npm install
 
   - name: Install ruby deps
     shell: chdir=${html_app} bundle
