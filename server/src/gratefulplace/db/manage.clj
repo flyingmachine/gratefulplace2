@@ -1,4 +1,5 @@
 (ns gratefulplace.db.manage
+  (:gen-class)
   (:require [datomic.api :as d]
             [gratefulplace.db.query :as db])
   (:use environ.core)

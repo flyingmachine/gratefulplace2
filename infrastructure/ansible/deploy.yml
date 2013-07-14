@@ -21,6 +21,7 @@
 
   - name: Install ruby deps
     shell: chdir=${html_app} bundle
+    sudo_user: root
 
   - name: build html app
     shell: chdir=${html_app} grunt build
