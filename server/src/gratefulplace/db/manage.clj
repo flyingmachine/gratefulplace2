@@ -9,9 +9,13 @@
   []
   (d/create-database db/*db-uri*))
 
+(defn delete
+  []
+  (d/delete-database db/*db-uri*))
+
 (defn recreate
   []
-  (d/delete-database db/*db-uri*)
+  (delete)
   (create))
 
 (defn load-schema
@@ -27,4 +31,4 @@
 (defn setup
   []
   (if (create)
-    (load-schema)))
+    (doall (load-schema))))
