@@ -1,0 +1,11 @@
+#!/bin/bash
+
+cd html-app
+grunt build
+cp -R targets/public ../server/resources/html-app
+cd ../server
+lein uberjar
+cd ..
+cp  server/target/gratefulplace-0.1.0-SNAPSHOT.jar infrastructure/ansible/files/gp2.jar
+cd infrastructure/ansible/
+ansible -i dev deploy.yml

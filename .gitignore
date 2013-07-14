@@ -6,3 +6,4 @@ dist
 .lein-env
 .vagrant
 server/resources/html-app
+*.jar

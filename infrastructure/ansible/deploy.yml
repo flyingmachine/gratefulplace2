@@ -11,29 +11,31 @@
     - snapshot: ${server_app}/target/gratefulplace-0.1.0-SNAPSHOT-standalone.jar
 
   tasks:
-  - name: Get git repo
-    git: repo=https://github.com/flyingmachine/gratefulplace2.git
-         dest=${project_root}/code/repo
-         depth=10
-         
-  - name: Install npm deps
-    shell: chdir=${html_app} npm install
-
-  - name: Install ruby deps
-    shell: chdir=${html_app} bundle
-    sudo_user: root
-
-  - name: build html app
-    shell: chdir=${html_app} grunt build
-
-  - name: move html app to server app
-    shell: chdir=${server_app} cp -R ${html_app}/targets/public resources/html-app
-
-  - name: build uberjar
-    shell: chdir=${server_app} lein uberjar
-
+#   - name: Get git repo
+#     git: repo=https://github.com/flyingmachine/gratefulplace2.git
+#          dest=${project_root}/code/repo
+#          depth=10
+#          
+#   - name: Install npm deps
+#     shell: chdir=${html_app} npm install
+# 
+#   - name: Install ruby deps
+#     shell: chdir=${html_app} bundle
+#     sudo_user: root
+# 
+#   - name: build html app
+#     shell: chdir=${html_app} grunt build
+# 
+#   - name: move html app to server app
+#     shell: chdir=${server_app} cp -R ${html_app}/targets/public resources/html-app
+# 
+#   - name: build uberjar
+#     shell: chdir=${server_app} lein uberjar
+# 
+#   - name: copy uberjar
+#     shell: rm -f ${project_root}/code/gp2.jar && cp ${snapshot} ${project_root}/code/gp2.jar
   - name: copy uberjar
-    shell: rm -f ${project_root}/code/gp2.jar && cp ${snapshot} ${project_root}/code/gp2.jar
+    copy: src=files/gp2.jar dest=${project_root}/code/gp2.jar
 
   - name: restart web app
     service: name=${project_name} state=restarted
