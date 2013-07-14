@@ -8,6 +8,7 @@
   vars:
     - html_app: ${project_root}/code/repo/html-app
     - server_app: ${project_root}/code/repo/server
+    - snapshot: ${server_app}/target/gratefulplace-0.1.0-SNAPSHOT-standalone.jar
 
   tasks:
   - name: Get git repo
@@ -30,12 +31,10 @@
   - name: build uberjar
     shell: chdir=${server_app} lein uberjar
 
-  - name: link uberjar
-    file: src=${server_app}/target/gratefulplace-0.1.0-SNAPSHOT-standalone.jar
-          dest=${project_root}/code/${project_name}.jar
-          owner=${project_name}
-          group=${project_name}
-          state=link
+  - name: copy uberjar
+    shell: rm -f ${project_root}/code/gp2.jar && cp ${snapshot} ${project_root}/code/gp2.jar
 
   - name: restart web app
     service: name=${project_name} state=restarted
+    sudo: true
+    sudo_user: root

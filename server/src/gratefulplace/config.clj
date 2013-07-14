@@ -1,7 +1,7 @@
 (ns gratefulplace.config)
 
 (def conf
-  {:html-paths ["resources/html-app"
+  {:html-paths ["html-app"
                 "../html-app/app"
                 "../html-app/.tmp"]
    :datomic {:db-uri "datomic:free://localhost:4334/gp2"
