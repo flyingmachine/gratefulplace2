@@ -1,5 +1,6 @@
 (ns gratefulplace.server
   (:gen-class)
+  (:require [gratefulplace.db.manage :as db])
   (:use clojure.stacktrace
         [ring.adapter.jetty :only (run-jetty)]
         ring.middleware.params
@@ -45,4 +46,5 @@
 (defn -main
   "Start the jetty server"
   []
+  (db/setup)
   (run-jetty #'app {:port (Integer. (get (System/getenv) "PORT" 8080)) :join? false}))

@@ -125,3 +125,6 @@
 
   - name: ensure datomic is running
     service: name=datomic state=started
+
+- include: deploy.yml
+

@@ -5,10 +5,14 @@
   (:use environ.core)
   (:import java.io.File))
 
+(defn create
+  []
+  (d/create-database db/*db-uri*))
+
 (defn recreate
   []
   (d/delete-database db/*db-uri*)
-  (d/create-database db/*db-uri*))
+  (create))
 
 (defn load-schema
   []
@@ -19,3 +23,8 @@
   []
   (recreate)
   (load-schema))
+
+(defn setup
+  []
+  (if (create)
+    (load-schema)))
