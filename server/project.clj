@@ -24,7 +24,9 @@
                  [org.clojure/data.json "0.2.2"]]
 
   :plugins [[lein-environ "0.4.0"]]
+
+  :resource-paths ["resources"]
   
   :profiles {:dev {:dependencies [[midje "1.5.0"]]}}
   
-  :main gratefulplace.server)
+  :main gratefulplace.app)

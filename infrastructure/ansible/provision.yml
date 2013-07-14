@@ -28,27 +28,6 @@
   - name: install grunt & bower
     shell: npm install -g grunt-cli bower
 
-#   - name: Create the SSH directory.
-#     file: state=directory path=${project_root}/home/.ssh/
-#     only_if: "$vm == 0"
-# 
-#   - name: Upload SSH known hosts.
-#     copy: src=known_hosts dest=${project_root}/home/.ssh/known_hosts mode=0600
-#     only_if: "$vm == 0"
-# 
-#   - name: Upload SSH key.
-#     copy: src=key dest=${project_root}/home/.ssh/id_rsa mode=0600
-#     only_if: "$vm == 0"
-# 
-#   - name: Create the SSL directory.
-#     file: state=directory path=${project_root}/home/ssl/
-# 
-#   - name: Upload SSL private key.
-#     copy: src=files/ssl/${project_name}.pem dest=${project_root}/home/ssl/${project_name}.pem
-# 
-#   - name: Upload SSH public key.
-#     copy: src=files/ssl/${project_name}.key.encrypted dest=${project_root}/home/ssl/${project_name}.key
-
   - name: Change permissions.
     shell: chown -R ${project_name}:${project_name} ${project_root}
 
@@ -128,3 +107,9 @@
 
 - include: deploy.yml
 
+- hosts: app
+  sudo: true
+
+  tasks:
+  - name: load database
+    command: java -jar ${project_root}/code/gp2.jar db/reload

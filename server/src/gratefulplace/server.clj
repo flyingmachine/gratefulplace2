@@ -46,5 +46,4 @@
 (defn -main
   "Start the jetty server"
   []
-  (db/setup)
   (run-jetty #'app {:port (Integer. (get (System/getenv) "PORT" 8080)) :join? false}))
