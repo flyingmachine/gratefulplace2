@@ -1,4 +1,5 @@
 (ns gratefulplace.server
+  (:gen-class)
   (:use [ring.adapter.jetty :only (run-jetty)]
         ring.middleware.params
         ring.middleware.keyword-params

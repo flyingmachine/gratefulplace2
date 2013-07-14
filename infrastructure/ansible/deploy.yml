@@ -5,6 +5,7 @@
 
   vars:
     - html_app: ${project_root}/code/repo/html-app
+    - server_app: ${project_root}/code/repo/server
 
   tasks:
   - name: Get git repo
@@ -20,3 +21,6 @@
 
   - name: build html app
     shell: chdir=${html_app} grunt build
+
+  - name: move html app to server app
+    shell: chdir=${server_app} cp -R ${html_app}/targets/public resources/html-app
