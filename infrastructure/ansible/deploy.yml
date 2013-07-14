@@ -3,7 +3,7 @@
 ---
 - hosts: app
   sudo: true
-  sudo_user: ${project_name}
+  sudo_user: gp2
 
   vars:
     - html_app: ${project_root}/code/repo/html-app
