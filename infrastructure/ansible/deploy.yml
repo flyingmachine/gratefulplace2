@@ -1,3 +1,5 @@
+# TODO figure out how to compile locally and upload
+# ultimately I should only need to uplaod 1 jar file
 ---
 - hosts: app
   sudo: true

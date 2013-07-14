@@ -26,8 +26,7 @@
   :plugins [[lein-environ "0.4.0"]]
   
   :profiles {:user
-             {:dependencies [[midje "1.5.0"]]
-              :env {:datomic {:config "resources/datomic-transactor.properties"
+             {:env {:datomic {:config "resources/datomic-transactor.properties"
                               :db-uri "datomic:free://localhost:4334/gp2"
                               :test-uri "datomic:mem://gp2"}
                     :moderator-names ["flyingmachine"]}}
