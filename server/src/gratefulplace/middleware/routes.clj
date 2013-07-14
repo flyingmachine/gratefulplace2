@@ -1,6 +1,7 @@
 (ns gratefulplace.middleware.routes
   (:require compojure.route
             compojure.handler
+            [ring.util.response :as resp]
             [gratefulplace.controllers.topics :as topics]
             [gratefulplace.controllers.watches :as watches]
             [gratefulplace.controllers.watched-topics :as watched-topics]
@@ -27,11 +28,18 @@
 
 (defroutes routes
   (authroute GET "/scripts/load-session.js" js/load-session)
+
+  ;; TODO clean this up
   
   (apply compojure.core/routes
          (map #(compojure.route/files "/" {:root %})
               (config :html-paths)))
-
+  (apply compojure.core/routes
+         (map #(compojure.route/resources "/" {:root %})
+              (config :html-paths)))
+  (GET "/" [] (resp/file-response "index.html" {:root "html-app"}))
+  (GET "/" [] (resp/resource-response "index.html" {:root "html-app"}))
+  
   ;; Topics
   (route GET "/topics" topics/query)
   (authroute GET "/topics/:id" topics/show)
