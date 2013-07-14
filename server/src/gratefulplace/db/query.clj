@@ -1,8 +1,8 @@
 (ns gratefulplace.db.query
   (:require [datomic.api :as d])
-  (:use environ.core))
+  (:use gratefulplace.config))
 
-(def ^:dynamic *db-uri* (:db-uri (env :datomic)))
+(def ^:dynamic *db-uri* (config :datomic :db-uri))
 (defn conn
   []
   (d/connect *db-uri*))

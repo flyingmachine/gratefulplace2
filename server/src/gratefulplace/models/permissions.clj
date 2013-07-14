@@ -1,8 +1,8 @@
 (ns gratefulplace.models.permissions
   (:use gratefulplace.utils
-        environ.core))
+        gratefulplace.config))
 
-(def moderator-usernames (env :moderator-names))
+(def moderator-usernames (config :moderator-names))
 
 (defmulti moderator? class)
 (defmethod moderator? String

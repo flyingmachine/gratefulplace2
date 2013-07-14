@@ -2,10 +2,10 @@
   (:require [datomic.api :as d]
             [gratefulplace.db.query :as q]
             [gratefulplace.db.manage :as manage])
-  (:use environ.core)
+  (:use gratefulplace.config)
   (:import java.io.File))
 
-(def test-db-uri (:test-uri (env :datomic)))
+(def test-db-uri (config :datomic :test-uri))
 (def initialized (atom false))
 
 (defmacro with-test-db

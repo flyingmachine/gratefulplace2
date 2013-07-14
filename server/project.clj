@@ -25,17 +25,6 @@
 
   :plugins [[lein-environ "0.4.0"]]
   
-  :profiles {:dev
-             {:dependencies [[midje "1.5.0"]]
-              :env {:html-paths ["../html-app/app"
-                                 "../html-app/.tmp"]
-                    :datomic {:config "resources/datomic-transactor.properties"
-                              :db-uri "datomic:free://localhost:4334/gp2"
-                              :test-uri "datomic:mem://gp2"}
-                    :moderator-names ["flyingmachine"]}}
-             
-             ;;
-             :production
-             {:env {:html-paths ["public"]}}}
+  :profiles {:dev {:dependencies [[midje "1.5.0"]]}}
   
   :main gratefulplace.server)

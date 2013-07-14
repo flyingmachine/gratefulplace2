@@ -11,7 +11,7 @@
             [gratefulplace.controllers.js :as js]
             [cemerick.friend :as friend])
   (:use [compojure.core :as compojure.core :only (GET PUT POST DELETE ANY defroutes)]
-        environ.core))
+        gratefulplace.config))
 
 
 (defmacro route
@@ -30,7 +30,7 @@
   
   (apply compojure.core/routes
          (map #(compojure.route/files "/" {:root %})
-              (env :html-paths)))
+              (config :html-paths)))
 
   ;; Topics
   (route GET "/topics" topics/query)

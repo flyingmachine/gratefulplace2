@@ -1,6 +1,7 @@
 (ns gratefulplace.server
   (:gen-class)
-  (:use [ring.adapter.jetty :only (run-jetty)]
+  (:use clojure.stacktrace
+        [ring.adapter.jetty :only (run-jetty)]
         ring.middleware.params
         ring.middleware.keyword-params
         ring.middleware.nested-params
@@ -15,7 +16,7 @@
     (try (f request)
       (catch Exception e
         (do
-          (println e)
+          (.printStackTrace e)
           {:status 500
            :body "Exception caught"})))))
 
