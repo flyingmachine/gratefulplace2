@@ -75,7 +75,6 @@
   (ensure-schema-attribute conn schema-attr)
   (doseq [schema-name schema-names]
     (when-not (has-schema? (d/db conn) schema-attr schema-name)
-      (println schema-name schema-names)
       (let [{:keys [requires txes]} (get schema-map schema-name)]
         (apply ensure-schemas conn schema-attr schema-map requires)
         (if txes
