@@ -4,6 +4,7 @@
   :license {:name "The MIT License"
             :url "http://opensource.org/licenses/MIT"}
   :repositories [["central-proxy" "http://repository.sonatype.org/content/repositories/central/"]]
+  :jvm-opts ["-Xmx2G"]
 
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojure-contrib "1.2.0"]

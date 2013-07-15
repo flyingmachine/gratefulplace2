@@ -34,6 +34,7 @@
 # 
 #   - name: copy uberjar
 #     shell: rm -f ${project_root}/code/gp2.jar && cp ${snapshot} ${project_root}/code/gp2.jar
+
   - name: copy uberjar
     copy: src=files/gp2.jar dest=${project_root}/code/gp2.jar
 

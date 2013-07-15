@@ -132,7 +132,7 @@ module.exports = (grunt) ->
         dest: "<%= yeoman.dist %>"
 
     usemin:
-      html: ["<%= yeoman.dist %>/**/*.html"]
+      html: ["<%= yeoman.dist %>/views/**/*.html", "<%= yeoman.dist %>/index.html"]
       css: ["<%= yeoman.dist %>/styles/**/*.css"]
       options:
         dirs: ["<%= yeoman.dist %>"]
@@ -221,7 +221,7 @@ module.exports = (grunt) ->
             "scripts/config/*",
             "images/**/*.{gif,webp}"
           ]
-        ,     
+        ,
           expand: true
           cwd: ".tmp"
           dest: "<%= yeoman.dist %>"
