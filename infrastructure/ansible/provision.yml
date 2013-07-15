@@ -15,18 +15,18 @@
   - name: Create the code directory.
     file: group=${project_name} owner=${project_name} mode=755 state=directory path=${project_root}/code/
 
-  - name: Allow new package repos
-    apt: pkg=python-software-properties state=installed update-cache=yes
-
-  - name: Add nodejs repo
-    apt_repository: repo=ppa:chris-lea/node.js
+  # - name: Allow new package repos
+  #   apt: pkg=python-software-properties state=installed update-cache=yes
+  # 
+  # - name: Add nodejs repo
+  #   apt_repository: repo=ppa:chris-lea/node.js
 
   - name: Install required system packages.
     apt: pkg=${item} state=installed update-cache=yes
     with_items: ${system_packages}
 
-  - name: install grunt & bower
-    shell: npm install -g grunt-cli bower
+  # - name: install grunt & bower
+  #   shell: npm install -g grunt-cli bower
 
   - name: Change permissions.
     shell: chown -R ${project_name}:${project_name} ${project_root}
@@ -37,8 +37,8 @@
   - name: Leiningen permissions
     shell: chmod +x /usr/local/bin/lein
 
-  - name: install bundler
-    shell: gem install bundler
+  # - name: install bundler
+  #  shell: gem install bundler
     
   - name: Upload web app upstart config file
     copy: src=files/${project_name}-upstart.conf dest=/etc/init/${project_name}.conf
@@ -48,8 +48,6 @@
     
   - name: Change app log permissions
     shell: chown -R ${project_name}:${project_name} /var/log/${project_name}
-    
-# - include: vendor/rbenv/main.yml
     
 - hosts: database
   sudo: true
@@ -104,12 +102,3 @@
 
   - name: ensure datomic is running
     service: name=datomic state=started
-
-- include: deploy.yml
-
-- hosts: app
-  sudo: true
-
-  tasks:
-  - name: load database
-    command: java -jar ${project_root}/code/gp2.jar db/reload

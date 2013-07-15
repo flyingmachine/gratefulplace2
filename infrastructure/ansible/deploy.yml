@@ -38,6 +38,9 @@
   - name: copy uberjar
     copy: src=files/gp2.jar dest=${project_root}/code/gp2.jar
 
+  - name: migrate
+    command: java -jar ${project_root}/code/gp2.jar db/migrate
+    
   - name: restart web app
     service: name=${project_name} state=restarted
     sudo: true

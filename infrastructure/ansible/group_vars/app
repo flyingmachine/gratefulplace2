@@ -10,12 +10,12 @@ system_packages:
   - wget
   - unzip
   - vim
-  - nodejs
-  - libcurl4-openssl-dev
-  - libmysqlclient-dev
-  - libreadline6-dev
-  - libssl-dev
-  - libxml2-dev
-  - libxslt1-dev
-  - zlib1g-dev
-  - ruby1.9.3
+  # - nodejs
+  # - libcurl4-openssl-dev
+  # - libmysqlclient-dev
+  # - libreadline6-dev
+  # - libssl-dev
+  # - libxml2-dev
+  # - libxslt1-dev
+  # - zlib1g-dev
+  # - ruby1.9.3
