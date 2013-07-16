@@ -4,7 +4,7 @@
 
   tasks:
   - name: Create the project directory.
-    file: state=directory path=${project_root}
+    file: state=directory path=${project_root} owner=${project_name} group=${project_name}
 
   - name: Create user.
     user: home=${project_root}/home/ name=${project_name} state=present
@@ -15,40 +15,21 @@
   - name: Create the code directory.
     file: group=${project_name} owner=${project_name} mode=755 state=directory path=${project_root}/code/
 
-  # - name: Allow new package repos
-  #   apt: pkg=python-software-properties state=installed update-cache=yes
-  # 
-  # - name: Add nodejs repo
-  #   apt_repository: repo=ppa:chris-lea/node.js
-
   - name: Install required system packages.
     apt: pkg=${item} state=installed update-cache=yes
     with_items: ${system_packages}
 
-  # - name: install grunt & bower
-  #   shell: npm install -g grunt-cli bower
-
-  - name: Change permissions.
-    shell: chown -R ${project_name}:${project_name} ${project_root}
-
   - name: Get leiningen
-    get_url: url=https://raw.github.com/technomancy/leiningen/stable/bin/lein dest=/usr/local/bin/lein
-    
+    get_url: url=https://raw.github.com/technomancy/leiningen/stable/bin/lein dest=${lein_dir}
   - name: Leiningen permissions
-    shell: chmod +x /usr/local/bin/lein
-
-  # - name: install bundler
-  #  shell: gem install bundler
+    file: path=${lein_dir} mode=0755
     
   - name: Upload web app upstart config file
     copy: src=files/${project_name}-upstart.conf dest=/etc/init/${project_name}.conf
 
   - name: Make app log directory
-    file: state=directory path=/var/log/${project_name}
-    
-  - name: Change app log permissions
-    shell: chown -R ${project_name}:${project_name} /var/log/${project_name}
-    
+    file: state=directory path=/var/log/${project_name} owner=${project_name} group=${project_name}
+        
 - hosts: database
   sudo: true
 
@@ -57,24 +38,18 @@
     user: name=datomic state=present
 
   - name: Create datomic data directory
-    file: state=directory path=${datomic_data_dir}
-
-  - name: Change data permissions
-    shell: chown -R datomic:datomic ${datomic_data_dir}
+    file: state=directory path=${datomic_data_dir} owner=datomic group=datomic
 
   - name: Make datomic log directory
-    file: state=directory path=/var/log/datomic
+    file: state=directory path=/var/log/datomic owner=datomic group=datomic
     
-  - name: Change data permissions
-    shell: chown -R datomic:datomic /var/log/datomic
-
   - name: Check datomic installation
     command: "ls ${datomic_dir}/${datomic_filename}"
     register: datomic_exists
     ignore_errors: true
 
   - name: Create datomic directory
-    file: state=directory path=${datomic_dir}
+    file: state=directory path=${datomic_dir} owner=datomic group=datomic
     when: datomic_exists|failed
 
   - name: Download datomic
@@ -87,18 +62,17 @@
 
   - name: Upload datomic properties file
     copy: src=files/datomic-transactor.properties dest=${datomic_dir}/transactor.properties
-    when: datomic_exists|failed
     
   - name: Upload datomic upstart config file
     copy: src=files/datomic-upstart.conf dest=/etc/init/datomic.conf
-    when: datomic_exists|failed
     
   - name: Link datomic
-    command: ln -s ${datomic_dir}/${datomic_filename} ${datomic_dir}/runtime
+    file: src=${datomic_dir}/${datomic_filename}
+          dest=${datomic_dir}/runtime
+          owner=datomic
+          group=datomic
+          state=link
     when: datomic_exists|failed
-
-  - name: Change lib permissions
-    shell: chown -R datomic:datomic ${datomic_dir}
 
   - name: ensure datomic is running
     service: name=datomic state=started

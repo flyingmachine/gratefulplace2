@@ -7,3 +7,4 @@ dist
 .vagrant
 server/resources/html-app
 *.jar
+infrastructure/ansible/production

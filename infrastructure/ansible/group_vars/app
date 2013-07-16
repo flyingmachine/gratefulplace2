@@ -1,6 +1,7 @@
 # -*- mode: yaml -*-
 # TODO most of this should be shared with database
 ---
+lein_dir: /usr/local/bin/lein
 project_name: gp2
 project_root: /var/projects/gp2
 project_repo: git@github.com:flyingmachine/gratefulplace2.git
