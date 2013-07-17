@@ -5,6 +5,7 @@ dist
 *#*
 .lein-env
 .vagrant
-server/resources/html-app
 *.jar
+html-app/app/components
+server/resources/html-app
 infrastructure/ansible/prod*
