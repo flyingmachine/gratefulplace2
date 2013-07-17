@@ -63,6 +63,9 @@
     command: chdir=${datomic_dir} unzip ${datomic_filename}.zip
     when: datomic_exists|failed
 
+  - name: datomic dir permissions
+    shell: chown -R datomic:datomic ${datomic_dir}/${datomic_filename}
+
   - name: Upload datomic properties file
     copy: src=files/datomic-transactor.properties dest=${datomic_dir}/transactor.properties
     
