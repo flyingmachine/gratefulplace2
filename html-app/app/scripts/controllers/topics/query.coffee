@@ -1,26 +1,20 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic, Watch, User, Support) ->
+angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic, Watch, User, Support, Utils) ->
   $scope.$on 'topic.created', (e, topic)->
     $scope.topics.unshift topic
 
   watches = null
 
-  addWatchCounts = ->
-    if $scope.topics && watches
-      _.each watches, (watch)->
-        _.each $scope.topics, (topic)->
-          if watch['topic-id'] == topic.id && watch['unread-count']
-            topic['unread-count'] = watch['unread-count']
-            false
-
   Topic.query (data)->
     $scope.topics = data
-    addWatchCounts()
+    Utils.addWatchCountToTopics($scope.topics, watches)
 
-  Watch.query (data)->
-    watches = data
-    addWatchCounts()
+  $scope.$watch 'currentSession', ->
+    if $scope.currentSession
+      Watch.query (data)->
+        watches = data
+        Utils.addWatchCountToTopics($scope.topics, watches)
 
   $scope.firstPost = (topic)->
     topic.posts[0]

@@ -2,6 +2,8 @@
 
 angular.module('gratefulplaceApp')
   .controller 'WatchedTopicsNavCtrl', ($rootScope, $scope, Watch) ->
+    # TODO this is somewhat duplicated in the topics/query controller.
+      # Figure out how to only make one ajax call
     $scope.$watch 'currentSession', ->
       if $scope.currentSession
         watches = {}
