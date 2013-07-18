@@ -25,7 +25,8 @@ $total-columns  : 12;
 @include establish-baseline;
 
 body {
-  background: #87ddfd url("/images/blurbg2.jpg") no-repeat;
+  // background: #87ddfd url("/images/blurbg2.jpg") no-repeat;
+  background: #768aa8;
   color: #444;
   @include serif-family;
 }
