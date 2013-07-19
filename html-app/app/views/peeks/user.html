@@ -7,6 +7,9 @@
     <h4>Recent Posts</h4>
     <div class="post" ng-repeat="post in support.peek.data.posts">
       <date data="post['created-at']"></date>
+      <div>
+        <a href="#/topics/{{post.topic.id}}">{{post.topic.title}}</a>
+      </div>
       <div class="content" ng-bind-html-unsafe="post.content">
       </div>
     </div>

@@ -35,5 +35,9 @@
       float: right;
       font-style: italic;
     }
+
+    &:last-child {
+      @include trailing-border(1px, .5);
+    }
   }
 }

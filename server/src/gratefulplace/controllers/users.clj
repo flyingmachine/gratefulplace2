@@ -36,7 +36,7 @@
 
 (defresource show [params]
   :available-media-types ["application/json"]
-  :exists? (exists? (record (id) {:include :posts}))
+  :exists? (exists? (record (id) {:include {:posts {:include {:topic {:only [:title :id]}}}}}))
   :handle-ok record-in-ctx)
 
 (defn update!*
