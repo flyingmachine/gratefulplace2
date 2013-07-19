@@ -1,7 +1,7 @@
 #more {
   .peek {
     // padding: 0 $gutter-width;
-    @include padding-leader;
+    // @include padding-leader;
     @include padding-trailer;
     @include border-radius(2px);
   }
