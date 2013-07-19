@@ -3,14 +3,19 @@
             [gratefulplace.db.query :as db]))
 
 (defmacro defmapifier
-  [fn-name & mapify-args]
-  `(defn- ~fn-name
-     [id#]
-     (if-let [ent# (or (db/ent? id#) (db/ent id#))]
-       (c/mapify
-        ent#
-        ~@mapify-args)
-       nil)))
+  [fn-name rules & mapify-opts]
+  (let [fn-name fn-name]
+    `(defn- ~fn-name
+       ([id#]
+          (~fn-name id# {}))
+       ([id# addtl-mapify-args#]
+          (if-let [ent# (or (db/ent? id#) (db/ent id#))]
+            (let [mapify-opts# (merge-with (fn [_# x#] x#) ~@mapify-opts addtl-mapify-args#)]
+              (c/mapify
+               ent#
+               ~rules
+               mapify-opts#))
+            nil)))))
 
 (defn mapify-tx-result
   [tx-result mapifier]

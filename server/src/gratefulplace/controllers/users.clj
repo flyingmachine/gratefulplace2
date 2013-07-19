@@ -14,7 +14,7 @@
         gratefulplace.controllers.shared
         gratefulplace.utils))
 
-(defmapifier record mr/ent->user {:exclude [:password]})
+(defmapifier record mr/ent->user)
 (defmapifier authrecord mr/ent->userauth)
 
 (defn attempt-registration
@@ -36,7 +36,7 @@
 
 (defresource show [params]
   :available-media-types ["application/json"]
-  :exists? (exists? (record (id)))
+  :exists? (exists? (record (id) {:include :posts}))
   :handle-ok record-in-ctx)
 
 (defn update!*

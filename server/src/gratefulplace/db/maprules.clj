@@ -15,6 +15,10 @@
   [date]
   (.format date-format date))
 
+(defn sorted-content
+  [content-attribute sort-fn]
+  #(sort-by sort-fn (gratefulplace.db.query/all content-attribute [:content/author (:db/id %)])))
+
 (def dbid #(or (str->int (:id %)) #db/id[:db.part/user]))
 
 (defmaprules ent->topic
@@ -66,7 +70,7 @@
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))
   (has-many :posts
             :rules gratefulplace.db.maprules/ent->post
-            :retriever #(gratefulplace.db.query/all :post/content [:content/author (:db/id %)])))
+            :retriever (sorted-content :post/content :post/created-at)))
 
 (defmaprules ent->userauth
   (attr :id :db/id)
