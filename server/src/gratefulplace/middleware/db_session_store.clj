@@ -29,8 +29,6 @@
           txdata {:db/id (or eid (d/tempid partition))
                   key-attr uuid-key
                   data-attr sess-data}]
-      (println "UUID KEY" uuid-key)
-      (println "EID" eid)
       @(q/t [txdata])
       (str uuid-key)))
   (delete-session [_ key]
