@@ -51,6 +51,14 @@ h3 {
   @include trailer(.5, 21px);
 }
 
+h4 {
+  @include sans-family;
+  @include adjust-font-size-to(17px, 1);
+  @include box-sizing(border-box);
+  @include leader(1, 17px);
+  @include trailer(.5, 17px);
+}
+
 #signup h3, .chunk h3:first-child {
   margin-top:0;
 }

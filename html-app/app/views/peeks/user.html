@@ -4,9 +4,9 @@
     <div class="about" ng-bind-html-unsafe="support.peek.data['formatted-about']"></div>
   </div>
   <div class="recent-posts">
-    <h3>Recent Posts</h3>
-    <div class="post" ng-repeat="post in support.peek.data.recent_posts">
-      <div class="date">{{post.date}}</div>
+    <h4>Recent Posts</h4>
+    <div class="post" ng-repeat="post in support.peek.data.posts">
+      <date data="post['created-at']"></date>
       <div class="content" ng-bind-html-unsafe="post.content">
       </div>
     </div>
