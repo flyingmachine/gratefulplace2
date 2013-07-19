@@ -13,7 +13,6 @@
   :db/id #db/id[:db.part/db]
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/value
   :db/index true
   :db/doc "All session data"
   :db.install/_attribute :db.part/db}

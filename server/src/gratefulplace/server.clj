@@ -17,7 +17,7 @@
     (try (f request)
       (catch Exception e
         (do
-          (.printStackTrace e)
+          ;; (.printStackTrace e)
           {:status 500
            :body "Exception caught"})))))
 

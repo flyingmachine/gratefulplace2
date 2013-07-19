@@ -21,14 +21,17 @@
       {}))
   (write-session [_ key data]
     (let [uuid-key (str->uuid key)
-          eid (when uuid-key (q/eid [key-attr uuid-key]))
+          sess-data (str data)
+          eid (when uuid-key (q/eid [:session/key uuid-key]))
           key-change? (or (not eid) auto-key-change?)
           uuid-key (if key-change?
                      (java.util.UUID/randomUUID) uuid-key)
           txdata {:db/id (or eid (d/tempid partition))
                   key-attr uuid-key
-                  data-attr (str data)}]
-      (q/t [txdata])
+                  data-attr sess-data}]
+      (println "UUID KEY" uuid-key)
+      (println "EID" eid)
+      @(q/t [txdata])
       (str uuid-key)))
   (delete-session [_ key]
     (q/t [:db.fn/retractEntity (key->eid key-attr key)])
@@ -38,3 +41,20 @@
   [{:keys [key-attr data-attr partition auto-key-change?]
     :or {key-attr :session/key partition :db.part/user data-attr :session/data auto-key-change? true}}]
   (DbSessionStore. key-attr data-attr partition auto-key-change?))
+
+;;
+(defn write-session2
+  [key data]
+  (println "WRITING SESSION STORE")
+  (let [uuid-key (str->uuid key)
+        sess-data (str data)
+        eid (or (when uuid-key (q/eid [:session/key uuid-key]))
+                (q/eid [:session/data sess-data]))
+        key-change? true
+        uuid-key (if key-change? (java.util.UUID/randomUUID) uuid-key)
+        txdata {:db/id (or eid (d/tempid :db.part/user -1))
+                :session/key uuid-key
+                :session/data sess-data}]
+
+    @(q/t [txdata])
+    (str uuid-key)))
