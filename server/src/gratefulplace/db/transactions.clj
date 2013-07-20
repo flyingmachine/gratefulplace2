@@ -16,8 +16,12 @@
                                     :post/created-at now
                                     :content/author author-id
                                     :db/id post-tempid})
-        watches (db/all :watch/topic [:watch/topic topic-id])]
+        watches (db/all :watch/topic [:watch/topic topic-id])
+        result (db/t [post
+                      {:db/id topic-id :topic/last-posted-to-at now}
+                      [:increment-watch-count topic-id author-id]])]
 
+    ;; TODO find a better home for this
     (future
       (doseq [watch watches]
         (let [user (c/mapify (:watch/user watch) mr/ent->user)]
@@ -26,9 +30,7 @@
                (not= author-id (:id user)))
             (mailer/send-post-notification user params)))))
     
-    {:result (db/t [post
-                    {:db/id topic-id :topic/last-posted-to-at now}
-                    [:increment-watch-count topic-id author-id]])
+    {:result result
      :tempid post-tempid}))
 
 (defn update-post
