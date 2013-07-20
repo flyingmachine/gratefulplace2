@@ -18,12 +18,13 @@
                                     :db/id post-tempid})
         watches (db/all :watch/topic [:watch/topic topic-id])]
 
-    (doseq [watch watches]
-      (let [user (c/mapify (:watch/user watch) mr/ent->user)]
-        (if (and
-             (:receive-watch-notifications user)
-             (not= author-id (:id user)))
-          (mailer/send-post-notification user params))))
+    (future
+      (doseq [watch watches]
+        (let [user (c/mapify (:watch/user watch) mr/ent->user)]
+          (if (and
+               (:receive-watch-notifications user)
+               (not= author-id (:id user)))
+            (mailer/send-post-notification user params)))))
     
     {:result (db/t [post
                     {:db/id topic-id :topic/last-posted-to-at now}
