@@ -29,16 +29,16 @@
 (defroutes routes
   (authroute GET "/scripts/load-session.js" js/load-session)
 
-  ;; TODO clean this up
-  
+  ;; Server up angular app
   (apply compojure.core/routes
-         (map #(compojure.route/files "/" {:root %})
+         (map #(compojure.core/routes
+                (compojure.route/files "/" {:root %})
+                (compojure.route/resources "/" {:root %}))
               (config :html-paths)))
   (apply compojure.core/routes
-         (map #(compojure.route/resources "/" {:root %})
-              (config :html-paths)))
-  (GET "/" [] (resp/file-response "index.html" {:root "html-app"}))
-  (GET "/" [] (resp/resource-response "index.html" {:root "html-app"}))
+         (map (fn [response-fn]
+                (GET "/" [] (response-fn "index.html" {:root "html-app"})))
+              [resp/file-response resp/resource-response]))
   
   ;; Topics
   (route GET "/topics" topics/query)
