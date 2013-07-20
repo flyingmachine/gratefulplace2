@@ -8,6 +8,7 @@ angular.module('gratefulplaceApp')
       username: ""
       password: ""
       email: ""
+      'receive-watch-notifications': true
 
     registrationSuccess = (response)->
       CurrentSession.set(response)

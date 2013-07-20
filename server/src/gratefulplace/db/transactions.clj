@@ -65,6 +65,7 @@
 
 (defn create-user
   [params]
+  (println "USER PARAMS" params)
   (let [params (remove-nils-from-map (c/mapify params mr/user->txdata))]
     {:result (db/t [params])
      :tempid (:db/id params)}))

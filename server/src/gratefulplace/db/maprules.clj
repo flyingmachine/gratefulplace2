@@ -90,6 +90,7 @@
   (attr :user/username :username)
   (attr :user/email :email)
   (attr :user/about :about)
+  (attr :user/receive-watch-notifications :receive-watch-notifications)
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:password %))))
 
 (defmaprules change-password->txdata
