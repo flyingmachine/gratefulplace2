@@ -62,6 +62,7 @@
   (attr :username :user/username)
   (attr :email :user/email)
   (attr :about :user/about)
+  (attr :receive-watch-notifications :user/receive-watch-notifications)
   (attr :formatted-about #(md-content (:user/about %)))
   (attr :gravatar #(gravatar (:user/email %) :size 22 :default :identicon))
   (attr :large-gravatar #(gravatar (:user/email %) :size 48 :default :identicon))

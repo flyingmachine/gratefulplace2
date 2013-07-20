@@ -21,7 +21,7 @@ You can change your email preferences by going to http://gratefulplace.com/#/pro
 If you'd like to stop receiving emails but don't want to log in, please email notifications@gratefulplace.com, and I apologize for the inconvenience - one-click unsubscribe is on my to-do list.
 
 Take care!
-Daniel Higginbotham of Grateful Place"))
+Daniel Higginbotham, maintainer of Grateful Place"))
 
 (defn send-post-notification
   "send an email for a new comment"

@@ -1,8 +1,9 @@
 (ns gratefulplace.db.transactions
   (:require [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
-            [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as db])
+            [gratefulplace.db.query :as db]
+            [gratefulplace.models.mailer :as mailer]
+            [flyingmachine.cartographer.core :as c])
   (:use gratefulplace.utils))
 
 (defn create-post
@@ -14,7 +15,15 @@
                                     :post/topic topic-id
                                     :post/created-at now
                                     :content/author author-id
-                                    :db/id post-tempid})]
+                                    :db/id post-tempid})
+        watches (db/all :watch/topic [:watch/topic topic-id])]
+
+    (doseq [watch watches]
+      (let [user (c/mapify (:watch/user watch) mr/ent->user)]
+        (if (and
+             (:receive-watch-notifications user)
+             (not= author-id (:id user)))
+          (mailer/send-post-notification user params))))
     
     {:result (db/t [post
                     {:db/id topic-id :topic/last-posted-to-at now}
