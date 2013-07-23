@@ -41,10 +41,11 @@
 
 (defn update!*
   [params]
-  (db/t [(c/mapify
-          params
-          mr/user->txdata
-          {:exclude [:user/username :user/password]})]))
+  (db/t [(remove-nils-from-map
+          (c/mapify
+           params
+           mr/user->txdata
+           {:exclude [:user/username :user/password]}))]))
 
 (defresource update! [params auth]
   :allowed-methods [:put :post]
