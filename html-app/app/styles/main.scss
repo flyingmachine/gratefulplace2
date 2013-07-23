@@ -341,9 +341,15 @@ input.ng-pristine {
   }
 }
 
-.form-section {
-}
+#mailing-list {
+  padding: 0 1em;
+  position: absolute;
+  bottom: rhythm(1);
 
+  a:hover {
+    text-decoration: none;
+  }
+}
 
 @import "layout";
 @import "topics";

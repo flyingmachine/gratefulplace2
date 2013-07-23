@@ -9,3 +9,4 @@ dist
 html-app/app/components
 server/resources/html-app
 infrastructure/ansible/prod*
+infrastructure/ansible/demo
