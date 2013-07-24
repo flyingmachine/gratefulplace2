@@ -24,7 +24,12 @@
    ["You must enter a valid email address"
     #(and
       (not-empty %)
-      (re-find #"@" %))]})
+      (re-find #"@" %))
+
+    "That email address is already taken"
+    #(or
+      (empty? %)
+      (not (db/one [:user/email %])))]})
 
 (def user
   {:create (select-keys user-validations [:username :password :email])
