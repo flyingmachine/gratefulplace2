@@ -102,6 +102,6 @@
   (attr :post/content :content))
 
 (defmaprules like->txdata
-  (attr :db/id dbid)
+  (attr :db/id (fn [_] #db/id[:db.part/user]))
   (attr :like/user :user-id)
   (attr :like/post #(str->int (:post-id %))))
