@@ -41,6 +41,7 @@
   [params]
   (let [topic-tempid (d/tempid :db.part/user -1)
         post-tempid (d/tempid :db.part/user -2)
+        watch-tempid (d/tempid :db.part/user -3)
         author-id (:author-id params)
         topic (remove-nils-from-map {:topic/title (:title params)
                                      :topic/first-post post-tempid
@@ -48,13 +49,17 @@
                                      :content/author author-id
                                      :content/deleted false
                                      :db/id topic-tempid})
+        watch {:db/id watch-tempid
+               :watch/unread-count 0
+               :watch/topic topic-tempid
+               :watch/user author-id}
         post {:post/content (:content params)
               :post/topic topic-tempid
               :post/created-at (now)
               :content/author author-id
               :db/id post-tempid}]
 
-    {:result (db/t [topic post])
+    {:result (db/t [topic post watch])
      :tempid topic-tempid}))
 
 (defn create-watch
