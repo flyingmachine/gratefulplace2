@@ -51,7 +51,7 @@
   :allowed-methods [:put :post]
   :available-media-types ["application/json"]
 
-  :malformed? false ;;(validator params (:update validations/user))
+  :malformed? (validator params (validations/email-update auth))
   :handle-malformed errors-in-ctx
 
   :authorized? (current-user-id? (id) auth)
