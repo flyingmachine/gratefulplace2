@@ -29,7 +29,7 @@
 (defroutes routes
   (authroute GET "/scripts/load-session.js" js/load-session)
 
-  ;; Server up angular app
+  ;; Serve up angular app
   (apply compojure.core/routes
          (map #(compojure.core/routes
                 (compojure.route/files "/" {:root %})
