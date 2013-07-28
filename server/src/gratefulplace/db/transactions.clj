@@ -1,8 +1,9 @@
 (ns gratefulplace.db.transactions
   (:require [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
-            [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as db])
+            [gratefulplace.db.query :as db]
+            [gratefulplace.models.mailer :as mailer]
+            [flyingmachine.cartographer.core :as c])
   (:use gratefulplace.utils))
 
 (defn create-post
@@ -14,11 +15,22 @@
                                     :post/topic topic-id
                                     :post/created-at now
                                     :content/author author-id
-                                    :db/id post-tempid})]
+                                    :db/id post-tempid})
+        watches (db/all :watch/topic [:watch/topic topic-id])
+        result (db/t [post
+                      {:db/id topic-id :topic/last-posted-to-at now}
+                      [:increment-watch-count topic-id author-id]])]
+
+    ;; TODO find a better home for this
+    (future
+      (doseq [watch watches]
+        (let [user (c/mapify (:watch/user watch) mr/ent->user)]
+          (if (and
+               (:receive-watch-notifications user)
+               (not= author-id (:id user)))
+            (mailer/send-post-notification user params)))))
     
-    {:result (db/t [post
-                    {:db/id topic-id :topic/last-posted-to-at now}
-                    [:increment-watch-count topic-id author-id]])
+    {:result result
      :tempid post-tempid}))
 
 (defn update-post
@@ -29,6 +41,7 @@
   [params]
   (let [topic-tempid (d/tempid :db.part/user -1)
         post-tempid (d/tempid :db.part/user -2)
+        watch-tempid (d/tempid :db.part/user -3)
         author-id (:author-id params)
         topic (remove-nils-from-map {:topic/title (:title params)
                                      :topic/first-post post-tempid
@@ -36,13 +49,17 @@
                                      :content/author author-id
                                      :content/deleted false
                                      :db/id topic-tempid})
+        watch {:db/id watch-tempid
+               :watch/unread-count 0
+               :watch/topic topic-tempid
+               :watch/user author-id}
         post {:post/content (:content params)
               :post/topic topic-tempid
               :post/created-at (now)
               :content/author author-id
               :db/id post-tempid}]
 
-    {:result (db/t [topic post])
+    {:result (db/t [topic post watch])
      :tempid topic-tempid}))
 
 (defn create-watch
@@ -56,6 +73,7 @@
 
 (defn create-user
   [params]
+  (println "USER PARAMS" params)
   (let [params (remove-nils-from-map (c/mapify params mr/user->txdata))]
     {:result (db/t [params])
      :tempid (:db/id params)}))

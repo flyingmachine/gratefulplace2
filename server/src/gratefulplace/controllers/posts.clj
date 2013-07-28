@@ -41,8 +41,6 @@
   :malformed? (validator params (:create validations/post))
   :handle-malformed errors-in-ctx
 
-  ;; TODO possibly change mapify tx result so that it takes a certain
-  ;; kind of record that has all the details it needs?
   :post! (create-content ts/create-post params auth record)
   :handle-created record-in-ctx)
 

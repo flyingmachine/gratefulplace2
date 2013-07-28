@@ -52,6 +52,14 @@ h3 {
   @include trailer(.5, 21px);
 }
 
+h4 {
+  @include sans-family;
+  @include adjust-font-size-to(17px, 1);
+  @include box-sizing(border-box);
+  @include leader(1, 17px);
+  @include trailer(.5, 17px);
+}
+
 #signup h3, .chunk h3:first-child {
   margin-top:0;
 }
@@ -334,6 +342,16 @@ input.ng-pristine {
   }
 }
 
+#mailing-list {
+  padding: 0 1em;
+  position: absolute;
+  bottom: rhythm(1);
+  text-align: right;
+
+  a:hover {
+    text-decoration: none;
+  }
+}
 
 @import "layout";
 @import "topics";

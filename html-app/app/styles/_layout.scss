@@ -21,7 +21,7 @@ nav.primary, .fancy {
     background: rgba(252, 236, 205, .4); // orange
     //background: rgba(116, 147, 218, .4);
 
-    a {
+    ul a {
       background: rgba(255, 255, 255, 0.3);
     }
   }
@@ -31,31 +31,31 @@ nav.primary, .fancy {
   ul {
     @include trailer;
     list-style: none;
-  }
 
-  a {
-    background: rgba(255, 255, 255, 0.3);
-    color: #444;
-    // @include bshadow;
-    height: rhythm() - rhythm(.05);
-    @include sans-family;
-    @include trailer(.05);
-    @include padding-leader(.5);
-    @include padding-trailer(.5);
-    @include transition-property("all");
-    @include transition-duration(".3s");
-    padding-left: .5em;
-    padding-right: .5em;
-    display: block;
-    text-align: right;
-
-    &:hover {
-      text-decoration:none;
-      background: rgba(255, 255, 255, .8);
-    }
-
-    &:visited {
+    a {
+      background: rgba(255, 255, 255, 0.3);
       color: #444;
+      // @include bshadow;
+      height: rhythm() - rhythm(.05);
+      @include sans-family;
+      @include trailer(.05);
+      @include padding-leader(.5);
+      @include padding-trailer(.5);
+      @include transition-property("all");
+      @include transition-duration(".3s");
+      padding-left: .5em;
+      padding-right: .5em;
+      display: block;
+      text-align: right;
+
+      &:hover {
+        text-decoration:none;
+        background: rgba(255, 255, 255, .8);
+      }
+
+      &:visited {
+        color: #444;
+      }
     }
   }
 }

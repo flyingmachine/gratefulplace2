@@ -15,6 +15,10 @@
   [date]
   (.format date-format date))
 
+(defn sorted-content
+  [content-attribute sort-fn]
+  #(sort-by sort-fn (gratefulplace.db.query/all content-attribute [:content/author (:db/id %)])))
+
 (def dbid #(or (str->int (:id %)) #db/id[:db.part/user]))
 
 (defmaprules ent->topic
@@ -58,6 +62,7 @@
   (attr :username :user/username)
   (attr :email :user/email)
   (attr :about :user/about)
+  (attr :receive-watch-notifications :user/receive-watch-notifications)
   (attr :formatted-about #(md-content (:user/about %)))
   (attr :gravatar #(gravatar (:user/email %) :size 22 :default :identicon))
   (attr :large-gravatar #(gravatar (:user/email %) :size 48 :default :identicon))
@@ -66,7 +71,7 @@
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))
   (has-many :posts
             :rules gratefulplace.db.maprules/ent->post
-            :retriever #(gratefulplace.db.query/all :post/content [:content/author (:db/id %)])))
+            :retriever (gratefulplace.db.maprules/sorted-content :post/content :post/created-at)))
 
 (defmaprules ent->userauth
   (attr :id :db/id)
@@ -85,6 +90,7 @@
   (attr :user/username :username)
   (attr :user/email :email)
   (attr :user/about :about)
+  (attr :user/receive-watch-notifications :receive-watch-notifications)
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:password %))))
 
 (defmaprules change-password->txdata
@@ -96,6 +102,6 @@
   (attr :post/content :content))
 
 (defmaprules like->txdata
-  (attr :db/id dbid)
+  (attr :db/id (fn [_] #db/id[:db.part/user]))
   (attr :like/user :user-id)
   (attr :like/post #(str->int (:post-id %))))

@@ -1,7 +1,7 @@
 #more {
   .peek {
     // padding: 0 $gutter-width;
-    @include padding-leader;
+    // @include padding-leader;
     @include padding-trailer;
     @include border-radius(2px);
   }
@@ -18,9 +18,9 @@
   }
 
   .post {
-    @include leading-border;
-    @include trailer;
-    border-color: #ccc;
+    @include leading-border(1px, .5);
+    @include trailer(.5);
+    border-color: rgba(0, 0, 0, 0.1);
 
     p:last-child {
       margin-bottom:0;
@@ -31,9 +31,21 @@
       margin-left: 3px;
       margin-right: 1px;
       padding-left: 5px;
-      border-left: 1px solid #eee;
+      border-left: 1px solid rgba(0, 0, 0, 0.1);
       float: right;
       font-style: italic;
+    }
+
+    &:last-child {
+      @include trailing-border(1px, .5);
+    }
+
+    a:visited {
+      color: #5539d3;
+    }
+
+    a {
+      color: #2c6ac6;
     }
   }
 }

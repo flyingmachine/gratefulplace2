@@ -23,8 +23,6 @@
   (delete)
   (create))
 
-
-
 ;; Taken from day of datomic:
 ;; https://github.com/Datomic/day-of-datomic/blob/master/src/datomic/samples/schema.clj
 (defn has-attribute?

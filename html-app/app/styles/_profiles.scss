@@ -8,12 +8,8 @@
     @include padding-leader(.5);
     background: $light-blue;
   }
-  .chunk {
-    padding-bottom: 0;
-
-    .content-edit {
-      @include trailer;
-    }
+  .chunk .content-edit {
+    @include trailer;
   }
 }
 

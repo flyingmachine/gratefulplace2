@@ -35,7 +35,14 @@
   :db/id #db/id [:db.part/db]
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
+  :db/index true
   :db/fulltext true
+  :db.install/_attribute :db.part/db}
+
+ {:db/ident :user/receive-watch-notifications
+  :db/id #db/id [:db.part/db]
+  :db/valueType :db.type/boolean
+  :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}
 
  {:db/id #db/id [:db.part/db]
@@ -45,13 +52,6 @@
   :db/fulltext true
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id [:db.part/db]
-  :db/ident :user/watch-updates
-  :db/valueType :db.type/ref
-  :db/cardinality :db.cardinality/many
-  :db/doc "Topics the user is watching which have been updated"
-  :db.install/_attribute :db.part/db}
- 
  ;; topics
  {:db/ident :topic/title
   :db/id #db/id[:db.part/db]

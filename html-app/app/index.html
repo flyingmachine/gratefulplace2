@@ -45,6 +45,13 @@
             </li>
             <li ng-hide="currentSession"><a href="#/login">Log In / Register</a></li>
           </ul>
+
+          <div id="mailing-list">
+            Found a bug? Want a feature? Share your thoughts on the
+            <a href="mailto:gratefulplace-dev@googlegroups.com">development
+              mailing list!
+            </a>
+          </div>
         </nav>
         <div id="main">
           <div ng-view>
@@ -198,8 +205,11 @@
                       </tr>
                   </tbody></table>
                   <div class="option">
-                    <input type="checkbox" name="receive_comment_notifications" id="receive_comment_notifications" checked="checked">
-                    <label for="receive_comment_notifications">
+                    <input type="checkbox"
+                           name="receive-watch-notifications"
+                           id="receive-watch-notifications"
+                           ng-model="registration['receive-watch-notifications']">
+                    <label for="receive-watch-notifications">
                       Receive email when people post to topics you're watching
                     </label>
                   </div>

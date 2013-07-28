@@ -6,9 +6,10 @@ angular.module('gratefulplaceApp')
       $scope.user = user
 
     $scope.updateEmail = ->
-      $scope.user.$saveEmail((u)->
-        $scope.user['email'] = u['email']
-        $scope.successMessage = "Your email was updated successfully"
+      $scope.successMessage = null
+      $scope.errors = null
+      $scope.user.$save((u)->
+        $scope.successMessage = "Your preferences were updated successfully"
       , (res)->
         $scope.errors = res.data.errors
       )

@@ -14,7 +14,7 @@
         gratefulplace.controllers.shared
         gratefulplace.utils))
 
-(defmapifier record mr/ent->user {:exclude [:password]})
+(defmapifier record mr/ent->user)
 (defmapifier authrecord mr/ent->userauth)
 
 (defn attempt-registration
@@ -36,21 +36,22 @@
 
 (defresource show [params]
   :available-media-types ["application/json"]
-  :exists? (exists? (record (id)))
+  :exists? (exists? (record (id) {:include {:posts {:include {:topic {:only [:title :id]}}}}}))
   :handle-ok record-in-ctx)
 
 (defn update!*
   [params]
-  (db/t [(c/mapify
-          params
-          mr/user->txdata
-          {:exclude [:user/username :user/password]})]))
+  (db/t [(remove-nils-from-map
+          (c/mapify
+           params
+           mr/user->txdata
+           {:exclude [:user/username :user/password]}))]))
 
 (defresource update! [params auth]
   :allowed-methods [:put :post]
   :available-media-types ["application/json"]
 
-  :malformed? (validator params (:update validations/user))
+  :malformed? (validator params (validations/email-update auth))
   :handle-malformed errors-in-ctx
 
   :authorized? (current-user-id? (id) auth)

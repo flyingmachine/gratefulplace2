@@ -1,7 +1,5 @@
 (ns gratefulplace.controllers.shared
-  (:require [gratefulplace.db.query :as db]
-            [gratefulplace.db.maprules :as mr]
-            [flyingmachine.cartographer.core :as c])
+  (:require [gratefulplace.db.query :as db])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         gratefulplace.models.permissions
         gratefulplace.db.mapification
