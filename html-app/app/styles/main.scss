@@ -301,6 +301,9 @@ input.ng-pristine {
   @include chunk;
   @include padding-trailer;
   border-bottom: rhythm(.5) solid $medium-green;
+  textarea {
+    height: 3 * $base-line-height;
+  }
   h3 {
     margin-top: 0;
   }

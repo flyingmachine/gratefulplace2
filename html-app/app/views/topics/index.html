@@ -1,6 +1,20 @@
 <div id="topics">
   <div id="new-topic" ng-controller="TopicsNewCtrl" ng-show="showNewTopicForm">
-    <h3>Start a New Topic</h3>
+    <div ng-hide="currentSession.newRegistration">
+      <h3>Share Your Gratitude</h3>
+      <p>What are you grateful for?</p>
+    </div>
+    <div ng-show="currentSession.newRegistration">
+      <h3>Welcome!</h3>
+      <p>
+        Thank you for joining! Now that you're here, take a minute to
+         think of something you're thankful for and share it with the
+         community. It can be something good that you have, like
+         health or friends. It can be something simple, like food to
+         eat or a place to live. Taking a moment to feel grateful for
+         anything in your life will make you feel good:
+      </p>
+    </div>
     <form ng-submit="submitNewTopic()">
       <div>
         <input value=""
@@ -20,7 +34,7 @@
         <div class="error" error-messages="newTopicErrors.content"></div>
       </div>
       <div class="actions">
-        <input type="submit" class="save" value="Create Topic"/>
+        <input type="submit" class="save" value="Share"/>
         <a href="#"
            class="cancel"
            ng-click="toggleNewTopicForm($event)">Cancel</a>

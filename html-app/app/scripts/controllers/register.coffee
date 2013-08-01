@@ -11,6 +11,7 @@ angular.module('gratefulplaceApp')
       'receive-watch-notifications': true
 
     registrationSuccess = (response)->
+      response.newRegistration = true
       CurrentSession.set(response)
       $location.path "/"
 

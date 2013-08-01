@@ -6,5 +6,6 @@ angular.module('gratefulplaceApp')
     $scope.submitNewTopic = ->
       topic = new Topic($scope.newTopic)
       topic.$save (t)->
+        $scope.currentSession.hasPosted = false
         $scope.newTopic = {}
         $rootScope.$broadcast('topic.created', t)

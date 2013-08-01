@@ -1,6 +1,8 @@
 'use strict'
 
 angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $location, User, CurrentSession, Support) ->
+
+  $scope.showNewTopicForm = true
   refreshSession = ->
     $scope.currentSession = CurrentSession.get()
     console.log $scope.currentSession
@@ -13,7 +15,7 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
     Support.clear()
 
   $scope.toggleNewTopicForm = ()->
-    $scope.showNewTopicForm = !$scope.showNewTopicForm
+    $scope.showNewTopicForm = !$scope.showNewTopicForm || $scope.currentSession.newRegistration && !$scope.currentSesssion.hasPosted
     
   $scope.$on 'topic.created', ->
     $scope.showNewTopicForm = false
