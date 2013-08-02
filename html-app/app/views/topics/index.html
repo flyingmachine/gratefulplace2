@@ -1,7 +1,7 @@
 <div id="topics">
-  <div id="new-topic" ng-controller="TopicsNewCtrl" ng-show="showNewTopicForm">
+  <div id="new-topic" ng-controller="TopicsNewCtrl" ng-show="newTopicForm.show">
     <div ng-hide="currentSession.newRegistration">
-      <h3>Share Your Gratitude</h3>
+      <h3>Share Your Gratitude Today</h3>
       <p>What are you grateful for?</p>
     </div>
     <div ng-show="currentSession.newRegistration">
@@ -37,7 +37,7 @@
         <input type="submit" class="save" value="Share"/>
         <a href="#"
            class="cancel"
-           ng-click="toggleNewTopicForm($event)">Cancel</a>
+           ng-click="newTopicForm.toggle($event)">Cancel</a>
         <a href="#" class="toggle-formatting-help">formatting help</a>
       </div>
     </form>
