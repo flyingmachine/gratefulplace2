@@ -10,7 +10,7 @@
   [username post]
   (str "Hi " username ",
 
-You've received a new comment on Grateful Place. You can reply to it by visiting http://gratefulplace.com/#/topics/" (:topic_id post) ". Here's the comment:
+You've received a new comment on Grateful Place. You can reply to it by visiting http://gratefulplace.com/#/topics/" (:topic-id post) ". Here's the comment:
 
 " (:content post) "
 
