@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $q, $http, $rootScope, User)->
-  currentSession = null
+  currentSession =
+    loggedIn: -> @id
   loggedOut = !loadedSession
 
   loadedSessionUser = ->
@@ -9,12 +10,15 @@ angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $q,
       user = new User(loadedSession)
     else
       false
-  
+
   get = ()->
-    currentSession ||= loadedSessionUser()
+    if currentSession.loggedIn()
+      currentSession
+    else
+      _.merge(currentSession, loadedSessionUser())
   
   get: get
   set: (newSession)->
-    currentSession = newSession
+    _.merge(currentSession, newSession)
     $rootScope.$broadcast "auth.logged-in"
   

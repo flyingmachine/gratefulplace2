@@ -5,7 +5,7 @@ angular.module('gratefulplaceApp')
     # TODO this is somewhat duplicated in the topics/query controller.
       # Figure out how to only make one ajax call
     $scope.$watch 'currentSession', ->
-      if $scope.currentSession
+      if $scope.currentSession.loggedIn()
         watches = {}
         Watch.query (data)->
           _.each data, (watch)->

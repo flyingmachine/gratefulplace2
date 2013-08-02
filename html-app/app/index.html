@@ -25,11 +25,11 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div ng-show="currentSession">
+      <div ng-show="currentSession.loggedIn()">
         <nav class="primary">
           <ul>
             <li><a href="#/">Home</a></li>
-            <li ng-show="currentSession" ng-controller="WatchedTopicsNavCtrl">
+            <li ng-controller="WatchedTopicsNavCtrl">
               <a href="#/watched-topics">
                 Watched Topics
                 <span ng-show="watchedTopicCount > 0">
@@ -37,13 +37,12 @@
                 </span>
               </a>
             </li>
-            <li ng-show="currentSession">
+            <li>
               <a href="#/profile/about">Your Profile</a>
             </li>
-            <li ng-show="currentSession">
+            <li>
               <a href="/logout">Log Out</a>
             </li>
-            <li ng-hide="currentSession"><a href="#/login">Log In / Register</a></li>
           </ul>
 
           <div id="mailing-list">
@@ -65,7 +64,7 @@
         </div>
       </div>
 
-      <div ng-show="!currentSession">
+      <div ng-show="!currentSession.loggedIn()">
         <div class="fancy">
           <div id="login" ng-controller="LoginCtrl">
             <h3>Log In</h3>

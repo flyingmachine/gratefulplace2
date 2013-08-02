@@ -11,7 +11,7 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic,
     Utils.addWatchCountToTopics($scope.topics, watches)
 
   $scope.$watch 'currentSession', ->
-    if $scope.currentSession
+    if $scope.currentSession.loggedIn()
       Watch.query (data)->
         watches = data
         Utils.addWatchCountToTopics($scope.topics, watches)
