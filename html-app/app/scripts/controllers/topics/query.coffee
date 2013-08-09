@@ -19,9 +19,9 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic,
 
   setLoggedInStuff = ->
     if $scope.currentSession.loggedIn()
-      yesterday = moment().subtract("days", 1)
+      morning = moment().hour(6)
       $scope.currentSession.hasPostedToday = !!_.find($scope.topics, (topic)->
-        topic.author.id == $scope.currentSession.id && yesterday.isBefore(topic['first-post']['created-at'])
+        topic.author.id == $scope.currentSession.id && morning.isBefore(topic['first-post']['created-at'])
       )
       console.log $scope.currentSession.hasPostedToday
       if !$scope.currentSession.hasPostedToday || $scope.currentSession.new
