@@ -18,12 +18,15 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic,
       $scope.newTopicForm.show = !$scope.newTopicForm.show
 
   setLoggedInStuff = ->
-    if $scope.currentSession.loggedIn()
-      morning = moment().hour(6)
-      $scope.currentSession.hasPostedToday = !!_.find($scope.topics, (topic)->
-        topic.author.id == $scope.currentSession.id && morning.isBefore(topic['first-post']['created-at'])
+    if $scope.currentSession.loggedIn() && !$scope.currentSession.lastTopic?
+      today = moment().hour(0)
+      $scope.currentSession.lastTopicTime = _.find($scope.topics, (topic)->
+        topic.author.id == $scope.currentSession.id
       )
-      console.log $scope.currentSession.hasPostedToday
+      if $scope.currentSession.lastTopicTime
+        $scope.currentSession.lastTopicTime = moment($scope.currentSession.lastTopicTime['first-post']['created-at'])
+        $scope.currentSession.hasPostedToday = $scope.currentSession.lastTopicTime && today.isBefore($scope.currentSession.lastTopicTime)
+      
       if !$scope.currentSession.hasPostedToday || $scope.currentSession.new
         $scope.newTopicForm.show = true
       else
