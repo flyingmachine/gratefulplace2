@@ -25,7 +25,7 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div ng-show="currentSession.loggedIn()">
+      <div ng-show="currentSession.loggedIn()" ng-cloak>
         <nav class="primary">
           <ul>
             <li><a href="#/">Home</a></li>
@@ -64,7 +64,7 @@
         </div>
       </div>
 
-      <div ng-show="!currentSession.loggedIn()">
+      <div ng-show="!currentSession.loggedIn()" ng-cloak>
         <div class="fancy">
           <div id="login" ng-controller="LoginCtrl">
             <h3>Log In</h3>
