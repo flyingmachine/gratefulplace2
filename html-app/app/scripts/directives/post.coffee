@@ -20,7 +20,6 @@ angular.module('gratefulplaceApp').directive 'post', ->
     $scope.updatePost = ->
       postResource().$save((p)->
         $scope.toggleEdit()
-        $scope.post['formatted-content'] = p['formatted-content']
       , (res)->
         $scope.errors = res.data.errors
       )
@@ -40,10 +39,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
   template: """
     <div class="post" ng-class="{editing: post.editing, deleted: post.deleted}">
       <i class="edit icon-pencil" ng-show="showEdit()" ng-click="toggleEdit()"></i>
-      <div class="content"
-           ng-bind-html-unsafe="post[\'formatted-content\']"
-           ng-show="!post.editing">
-      </div>
+      <div class="content" btf-markdown="post['content']" ng-show="!post.editing"></div>
       <div class="content-edit" ng-show="post.editing">
         <div class="error" error-messages="errors.content"></div>
         <form ng-submit="updatePost()">

@@ -15,7 +15,7 @@ angular.module('gratefulplaceApp').directive 'topic', ->
   template: """
     <div class="post">
       <h3 class="title" ng-show="topic.title">{{topic.title}}</h3>
-      <div class="content" ng-bind-html-unsafe="post['formatted-content']"></div>
+      <div class="content" btf-markdown="post['content']"></div>
       <footer>
         <author model="topic.author"></author>
         

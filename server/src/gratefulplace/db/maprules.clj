@@ -44,7 +44,6 @@
 (defmaprules ent->post
   (attr :id :db/id)
   (attr :content (mask-deleted :post/content))
-  (attr :formatted-content (mask-deleted #(md-content (:post/content %))))
   (attr :deleted :content/deleted)
   (attr :created-at (comp format-date :post/created-at))
   (attr :topic-id (comp :db/id :post/topic))

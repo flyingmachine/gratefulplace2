@@ -1,8 +1,17 @@
-#topics h3.title {
-  margin-top: 0;
-  @include sans-family;
-  @include box-sizing(border-box);
-  color: #333;
+#topics {
+  h3.title {
+    margin-top: 0;
+    @include sans-family;
+    @include box-sizing(border-box);
+    color: #333;
+  }
+
+  .post {
+    .date {
+      float:right;
+      margin-right: .5em;
+    }
+  }
 }
 
 #topic h2 {

@@ -26,7 +26,7 @@ prototypeMocks.factory "$resource", ['$q', '$http', ($q, $http)->
     constructor
   ]
 
-modules = ['ngResource']
+modules = ['ngResource', 'btford.markdown']
 switch environment
   when 'prototype' then modules.push 'prototypeMocks'
 

@@ -13,7 +13,7 @@
         gratefulplace.utils))
 
 (def query-mapify-options
-  {:include (merge {:first-post {}}
+  {:include (merge {:first-post {:only [:content :likers]}}
                    author-inclusion-options)})
 
 (defmapifier query-record mr/ent->topic query-mapify-options)

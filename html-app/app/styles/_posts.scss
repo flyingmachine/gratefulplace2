@@ -1,4 +1,4 @@
-#main .post {
+.post {
   @include chunk;
   @include padding-trailer(.5);
 
@@ -60,8 +60,7 @@
   }
 
   .date {
-    float:right;
-    margin-right: .5em;
+    float:left;
   }
 
   .comments, .unread-count {
