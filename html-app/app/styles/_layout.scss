@@ -67,7 +67,6 @@ nav.primary, .fancy {
 }
 
 nav.secondary {
-  @include leader;
   ul {
     list-style: none;
   }
@@ -105,7 +104,6 @@ nav.secondary {
 }
 
 .secondary {
-  @include leader;
   @include trailer;
 }
 
