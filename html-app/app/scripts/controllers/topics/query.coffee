@@ -9,8 +9,6 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
   
   $scope.topics = []
   $scope.paginationData = {'current-page': currentPage()}
-  debugger
-
   
   $scope.$on 'topic.created', (e, topic)->
     $scope.topics.unshift topic
