@@ -16,10 +16,7 @@
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-(defmapifier query-topic mr/ent->topic)
-(defmapifier first-post mr/ent->post)
-(defmapifier author mr/ent->user author-inclusion-options)
-
+(defmapifier query-record mr/ent->topic query-mapify-options)
 
 (defmapifier record
   mr/ent->topic
