@@ -16,9 +16,10 @@
   {:include (merge {:first-post {}}
                    author-inclusion-options)})
 
-(defmapifier query-record
-  mr/ent->topic
-  query-mapify-options)
+(defmapifier query-topic mr/ent->topic)
+(defmapifier first-post mr/ent->post)
+(defmapifier author mr/ent->user author-inclusion-options)
+
 
 (defmapifier record
   mr/ent->topic
@@ -28,7 +29,7 @@
 
 (defn paginate
   [topics params]
-  (let [per-page 30
+  (let [per-page 15
         topic-count (count topics)
         page-count (math/ceil (/ topic-count per-page))
         current-page (or (str->int (:page params)) 1)
