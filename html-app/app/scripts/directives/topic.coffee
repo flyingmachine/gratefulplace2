@@ -18,13 +18,12 @@ angular.module('gratefulplaceApp').directive 'topic', ->
       <div class="content" ng-bind-html-unsafe="post['formatted-content']"></div>
       <footer>
         <author model="topic.author"></author>
-        <date data="post['created-at']"></date>
         
-        <like-toggle likeable="post"></like-toggle>
-        
+        <like-toggle likeable="post"></like-toggle>        
         <a href="/#/topics/{{topic.id}}/" class="comments">
           {{formatPostCount(topic['post-count'])}}
         </a>
+        <date data="topic['last-posted-to-at']"></date>
         <span class="unread-count" ng-show="topic['unread-count']">{{topic['unread-count']}} unread</span>
       </footer>
     </div>
