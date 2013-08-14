@@ -3,7 +3,8 @@
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.transactions :as ts])
+            [gratefulplace.db.transactions :as ts]
+            [clojure.math.numeric-tower :as math])
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
@@ -24,12 +25,25 @@
   {:include {:posts {:include author-inclusion-options}
              :watches {}}})
 
+
+(defn paginate
+  [topics params]
+  (let [per-page 30
+        topic-count (count topics)
+        page-count (math/ceil (/ topic-count per-page))
+        current-page (or (str->int (:page params)) 1)
+        skip (* (dec current-page) per-page)
+        paged-topics (take per-page (drop skip topics))]
+    (conj paged-topics {:page-count page-count :topic-count topic-count})))
+
 (defresource query [params]
   :available-media-types ["application/json"]
   :handle-ok (fn [_]
-               (reverse-by :last-posted-to-at
-                           (map query-record
-                                (db/all :topic/first-post [:content/deleted false])))))
+               (paginate
+                (reverse-by :last-posted-to-at
+                            (map query-record
+                                 (db/all :topic/first-post [:content/deleted false])))
+                params)))
 
 (defresource show [params auth]
   :available-media-types ["application/json"]

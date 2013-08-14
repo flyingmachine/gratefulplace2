@@ -8,6 +8,7 @@
 
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojure/clojure-contrib "1.2.0"]
+                 [org.clojure/math.numeric-tower "0.0.2"]
                  [com.datomic/datomic-free "0.8.3889"]
                  [environ "0.4.0"]
                  [ring "1.2.0-beta2"]

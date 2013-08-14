@@ -1,0 +1,43 @@
+ul {
+  @include clearfix;
+  list-style: none;
+
+  li {
+    float: left;
+  }
+
+  a {
+    background: rgba(255, 255, 255, 0.4);
+    color: #444;
+    // @include bshadow;
+    height: rhythm() - rhythm(.05);
+    @include padding-leader(.25);
+    @include padding-trailer(.25);
+    @include transition-property("all");
+    @include transition-duration(".3s");
+    @include border-radius(2px);
+    padding-left: .5em;
+    padding-right: .5em;
+    margin-right: .25em;
+    display: block;
+    text-align: right;
+
+    &:hover, &.active {
+      text-decoration:none;
+      background: rgba(255, 255, 255, 1);
+    }
+
+    &:visited {
+      color: #444;
+    }
+  }
+}
+.page-links {
+  li {
+    float: left;
+  }
+  a {
+    display: block;
+    
+  }
+}

@@ -1,15 +1,31 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic, Watch, User, Support, Utils) ->
+angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $location, Topic, Watch, User, Support, Utils) ->
+  currentPage = ->
+    if $location.search().page
+      parseInt $location.search().page
+    else
+      1
+  
+  $scope.topics = []
+  $scope.paginationData = {'current-page': currentPage()}
+  debugger
+
+  
   $scope.$on 'topic.created', (e, topic)->
     $scope.topics.unshift topic
 
   watches = null
 
-  Topic.query (data)->
-    $scope.topics = data
+  receiveData = (data)->
+    _.merge($scope.paginationData, data[0])
+    $scope.topics = _.rest(data)
     Utils.addWatchCountToTopics($scope.topics, watches)
-    setLoggedInStuff()
+
+  query = ->
+    params = {page: $scope.paginationData['current-page']}
+    Topic.query params, receiveData
+  query()
 
   $scope.newTopicForm =
     show: false
@@ -45,9 +61,3 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, Topic,
     moment(date).format("MMM D, YYYY h:mma")
 
   Support.secondaryNav.show "topics", $scope.newTopicForm
-  
-  $scope.formatPostCount = (postCount)->
-    switch postCount
-      when 1 then "no replies"
-      when 2 then "1 reply"
-      else "#{postCount - 1} replies"
