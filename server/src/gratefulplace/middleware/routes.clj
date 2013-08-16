@@ -7,6 +7,7 @@
             [gratefulplace.controllers.watched-topics :as watched-topics]
             [gratefulplace.controllers.posts :as posts]
             [gratefulplace.controllers.likes :as likes]
+            [gratefulplace.controllers.stats :as stats]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
             [gratefulplace.controllers.js :as js]
@@ -68,6 +69,9 @@
   (route GET "/users/:id" users/show)
   (authroute POST "/users/:id" users/update!)
   (authroute POST "/users/:id/password" users/change-password!)
+
+  ;; Stats
+  (route GET "/stats" stats/query)
 
   ;; auth
   (route POST "/login" session/create!)

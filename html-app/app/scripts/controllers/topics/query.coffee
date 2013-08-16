@@ -16,6 +16,7 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
   watches = null
 
   receiveData = (data)->
+    $scope.stats['last-post-at'] = data[1]['last-posted-to-at']
     _.merge($scope.paginationData, data[0])
     $scope.topics = _.rest(data)
     Utils.addWatchCountToTopics($scope.topics, watches)

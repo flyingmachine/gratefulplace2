@@ -221,9 +221,17 @@
             </div>
           </div>
         </div>
-      </div>
-      <div id="more">
-        
+        <div id="more">
+          <div id="stats">
+            <h4>Community Activity</h4>
+            <ul>
+              <li>{{stats['topic-count']}} topics</li>
+              <li>{{stats['post-count']}} posts</li>
+              <li>{{stats['like-count']}} likes</li>
+              <li ng-show="stats['last-post-at']">Last post <date data="stats['last-post-at']"></date></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
     <div class="markdown-help hidden">

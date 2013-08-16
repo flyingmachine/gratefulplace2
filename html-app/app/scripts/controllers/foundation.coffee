@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $location, User, CurrentSession, Support) ->
+angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $location, $http, User, CurrentSession, Support) ->
 
   refreshSession = ->
     $scope.currentSession = CurrentSession.get()
@@ -15,3 +15,6 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
     
   $scope.$on 'topic.created', ->
     $scope.showNewTopicForm = false
+
+  $http.get("/stats").success (data)->
+    $scope.stats = data

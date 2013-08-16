@@ -355,6 +355,13 @@ input.ng-pristine {
   }
 }
 
+#stats {
+  @include leader(4);
+  .date {
+    display: inline;
+  }
+}
+
 @import "layout";
 @import "topics";
 @import "posts";

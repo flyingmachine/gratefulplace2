@@ -6,6 +6,7 @@
 (defn conn
   []
   (d/connect *db-uri*))
+
 (defn db
   []
   (d/db (conn)))
@@ -43,6 +44,15 @@
                            (map #(concat ['?c] %) conditions))]
     (map #(ent (first %)) (q {:find ['?c]
                               :where conditions}))))
+
+(defn count
+  [attr]
+  (ffirst
+   (d/q '[:find (count ?e)
+          :in $ ?attr
+          :where [?e ?attr]]
+        (db)
+        attr)))
 
 (def t
   #(d/transact (conn) %))
