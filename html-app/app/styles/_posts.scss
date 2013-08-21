@@ -41,10 +41,6 @@
       @include trailer(1, 18px);
     }
 
-    p:last-child {
-      margin-bottom:0;
-    }
-
     .controls {
       @include alt-font;
       @include adjust-font-size-to(13px, 1, 18px);
