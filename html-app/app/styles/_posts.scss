@@ -37,6 +37,10 @@
   .content {
     @include adjust-font-size-to(18px);
 
+    p {
+      @include trailer(1, 18px);
+    }
+
     p:last-child {
       margin-bottom:0;
     }
