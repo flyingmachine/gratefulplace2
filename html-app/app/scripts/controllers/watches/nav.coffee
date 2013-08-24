@@ -10,7 +10,6 @@ angular.module('gratefulplaceApp')
         Watch.query (data)->
           _.each data, (watch)->
             watches[watch['topic-id']] = watch
-          console.log watches
           updateCount()
 
         updateCount = ->
