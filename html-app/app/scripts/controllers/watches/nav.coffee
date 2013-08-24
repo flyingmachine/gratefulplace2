@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'WatchedTopicsNavCtrl', ($rootScope, $scope, Watch) ->
+  .controller 'WatchesNavCtrl', ($rootScope, $scope, Watch) ->
     # TODO this is somewhat duplicated in the topics/query controller.
       # Figure out how to only make one ajax call
     $scope.$watch 'currentSession', ->
@@ -19,5 +19,5 @@ angular.module('gratefulplaceApp')
           , 0
         
         $rootScope.$on "view.topic", (e, topic)->
-          watches[topic.id]['unread-count'] = 0
+          watches[topic.id] && watches[topic.id]['unread-count'] = 0
           updateCount()

@@ -235,7 +235,7 @@ module.exports = (grunt) ->
     "compass:server",
     "livereload-start",
     "connect:livereload",
-    "open",
+    # "open",
     "watch"
     ]
   grunt.registerTask "test", [

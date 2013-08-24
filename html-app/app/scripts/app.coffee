@@ -22,7 +22,7 @@ angular.module('gratefulplaceApp', @App.modules)
         controller: 'ProfileEmailCtrl'
       .when '/watched-topics',
         templateUrl: 'views/watched-topics.html',
-        controller: 'WatchedTopicsCtrl'
+        controller: 'WatchesQueryCtrl'
       .when '/welcome',
         templateUrl: 'views/welcome.html'
       .otherwise

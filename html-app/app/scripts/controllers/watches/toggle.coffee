@@ -1,7 +1,6 @@
 'use strict'
-
 angular.module('gratefulplaceApp')
-  .controller 'SecondaryNavWatchesCtrl', ($scope, $routeParams, Watch) ->
+  .controller 'WatchesToggleCtrl', ($scope, $routeParams, Watch) ->
     $scope.watch = null
     deleted = false
     
@@ -12,12 +11,13 @@ angular.module('gratefulplaceApp')
         $scope.watch = new Watch(watchData)
 
     findWatch = ->
-      _.find $scope.support.secondaryNav.data.watches, (watch)->
-        watch['user-id'] == $scope.currentSession.id && watch
+      if $scope.topic
+        _.find $scope.topic.watches, (watch)->
+          watch['user-id'] == $scope.currentSession.id && watch
 
     $scope.createWatch = ->
       $scope.watch = new Watch
-        'topic-id': $scope.support.secondaryNav.data.id
+        'topic-id': $scope.topic.id
         'user-id': $scope.currentSession.id
         
       $scope.watch.$save (watchData)->

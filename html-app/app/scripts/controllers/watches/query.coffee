@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'WatchedTopicsCtrl', ($scope, WatchedTopic, Watch, Utils) ->
+  .controller 'WatchesQueryCtrl', ($scope, WatchedTopic, Watch, Utils) ->
     watches = null
 
     WatchedTopic.query (data)->
