@@ -45,7 +45,7 @@
     (map #(ent (first %)) (q {:find ['?c]
                               :where conditions}))))
 
-(defn count
+(defn ent-count
   [attr]
   (ffirst
    (d/q '[:find (count ?e)

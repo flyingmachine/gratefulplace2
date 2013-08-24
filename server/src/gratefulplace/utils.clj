@@ -1,7 +1,8 @@
 (ns gratefulplace.utils
   (:require [flyingmachine.cartographer.core :as c]
             [gratefulplace.db.query :as db]
-            [markdown.core :as markdown]))
+            [markdown.core :as markdown]
+            [clojure.java.io :as io]))
 
 (defn remove-nils-from-map
   [record]
@@ -64,3 +65,15 @@
        ~@(map #(list (:argnames %)
                      `(~name ~@(:application %)))
               (drop-last unpacked-args)))))
+
+(defn slurp-resource
+  [path]
+  (-> path
+      io/resource
+      slurp))
+
+(defn read-resource
+  [path]
+  (-> path
+      slurp-resource
+      read-string))

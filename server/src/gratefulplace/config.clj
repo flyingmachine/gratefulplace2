@@ -1,19 +1,22 @@
 (ns gratefulplace.config
-  (:use environ.core))
+  (:require [gratefulplace.utils :refer :all]
+            [environ.core :refer :all]))
 
 (def conf
-  (merge-with
-   merge
-   {:html-paths ["html-app"
-                 "../html-app/app"
-                 "../html-app/.tmp"]
-    :datomic {:db-uri "datomic:free://localhost:4334/gp2"
-              :test-uri "datomic:mem://gp2"}
-    :moderator-names ["flyingmachine"]
-    :gp-email {:from-address "notifications@gratefulplace.com"
-               :from-name "Grateful Place Notifications"}}
-   {:gp-email {:username (env :gp-email-username)
-               :password (env :gp-email-password)}}))
+  (let [environment (or (env :app-env) "development")]
+    (merge-with
+     merge
+     {:html-paths ["html-app"
+                   "../html-app/app"
+                   "../html-app/.tmp"]
+      :moderator-names ["flyingmachine"]
+      :send-email false
+      :email {:host "smtp.gmail.com"
+              :from-address "notifications@gratefulplace.com"
+              :from-name "Grateful Place Notifications"}}
+     {:email {:username (env :gp-email-username)
+              :password (env :gp-email-password)}}
+     (read-resource (str "config/environments/" environment ".edn")))))
 
 (defn config
   [& keys]

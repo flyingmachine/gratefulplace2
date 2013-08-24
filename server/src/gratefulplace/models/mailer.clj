@@ -1,38 +1,70 @@
 (ns gratefulplace.models.mailer
-  (:use gratefulplace.utils
-        gratefulplace.paths
-        gratefulplace.config
-        environ.core)
-  (:import org.apache.commons.mail.SimpleEmail))
-
-(defn msg 
-  "format the message"
-  [username post]
-  (str "Hi " username ",
-
-You've received a new comment on Grateful Place. You can reply to it by visiting http://gratefulplace.com/#/topics/" (:topic-id post) ". Here's the comment:
-
-" (:content post) "
+  (:require [gratefulplace.config :refer [config]]
+            [postal.core :as email]
+            [clojure.java.io :as io]
+            [stencil.core :as stencil]
+            [gratefulplace.utils :refer :all]))
 
 
-=========
-You can change your email preferences by going to http://gratefulplace.com/#/profile/email
+(defn template-path
+  [template-name extension]
+  (str "email-templates/" template-name "." extension))
 
-If you'd like to stop receiving emails but don't want to log in, please email notifications@gratefulplace.com, and I apologize for the inconvenience - one-click unsubscribe is on my to-do list.
+(defn slurp-if-exists
+  [x]
+  (if x (slurp x)))
 
-Take care!
-Daniel Higginbotham, maintainer of Grateful Place"))
+(defn template
+  [name extension]
+  (-> name
+      (template-path extension)
+      io/resource
+      slurp-if-exists))
 
-(defn send-post-notification
+(defn named-email-address
+  [user]
+  (str "\"" (:display-name user) "\" <" (:email user) ">"))
+
+(defn body
+  [template-name data]
+  (let [html-template (template template-name "html")
+        text-template (template template-name "text")]
+    (filter identity
+            [(if html-template
+               {:type "text/html"
+                :content (stencil/render-string html-template data)})
+             (if text-template
+               {:type "text/plain"
+                :content (stencil/render-string text-template data)})])))
+
+(defn send-email
+  [params]
+  (if-not (config :send-email)
+    params
+    (email/send-message ^{:host (config :email :host)
+                          :user (config :email :username)
+                          :pass (config :email :password)
+                          :ssl true}
+     params)))
+
+(defn send-reply-notification
   "send an email for a new comment"
-  [user post]
-  (doto (SimpleEmail.)
-    (.setHostName "smtp.gmail.com")
-    (.setSslSmtpPort "465")
-    (.setSSL true)
-    (.addTo (:email user))
-    (.setFrom (config :gp-email :from-address) (config :gp-email :from-name))
-    (.setSubject "You have a new comment on Grateful Place")
-    (.setMsg (msg (:username user) post))
-    (.setAuthentication (config :gp-email :username) (config :gp-email :password))
-    (.send)))
+  [users post topic]
+  (send-email {:from (config :email :from-address)
+               :to (map :email users)
+               :subject (str "[Grateful Place] Re: " (:title topic))
+               :body (body "reply-notification"
+                           {:topic-title (:title topic)
+                            :topic-id (:id topic)
+                            :content (:content post)
+                            :formatted-content (md-content post)})}))
+
+(defn send-topic-notification
+  [users topic]
+  (send-email {:from (named-email-address (:author topic))
+               :to (map :email users)
+               :subject (str "[Grateful Place] " (:title topic))
+               :body (body "topic"
+                           {:topic-id (:id topic)
+                            :content (:content (:post topic))
+                            :formatted-content (md-content (:post topic))})}))

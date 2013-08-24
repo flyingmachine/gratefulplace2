@@ -23,8 +23,10 @@
                  [flyingmachine/cartographer "0.1.1"]
                  [markdown-clj "0.9.25"]
                  [clavatar "0.2.1"]
-                 [org.apache.commons/commons-email "1.2"]
-                 [org.clojure/data.json "0.2.2"]]
+                 [org.clojure/data.json "0.2.2"]
+                 [me.raynes/cegdown "0.1.0"]
+                 [com.draines/postal "1.11.0"]
+                 [stencil "0.3.2"]]
 
   :plugins [[lein-environ "0.4.0"]]
 

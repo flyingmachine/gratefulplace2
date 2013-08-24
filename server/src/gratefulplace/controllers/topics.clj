@@ -4,13 +4,12 @@
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.transactions :as ts]
-            [clojure.math.numeric-tower :as math])
-  (:use [flyingmachine.webutils.validation :only (if-valid)]
-        [liberator.core :only [defresource]]
-        gratefulplace.controllers.shared
-        gratefulplace.models.permissions
-        gratefulplace.db.mapification
-        gratefulplace.utils))
+            [clojure.math.numeric-tower :as math]
+            [liberator.core :refer [defresource]]
+            [gratefulplace.controllers.shared :refer :all]
+            [gratefulplace.models.permissions :refer :all]
+            [gratefulplace.db.mapification :refer :all]
+            [gratefulplace.utils :refer :all]))
 
 (def query-mapify-options
   {:include (merge {:first-post {:only [:content :likers :id]}}
