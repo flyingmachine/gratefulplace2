@@ -21,14 +21,10 @@
       io/resource
       slurp-if-exists))
 
-(defn named-email-address
-  [user]
-  (str "\"" (:display-name user) "\" <" (:email user) ">"))
-
 (defn body
   [template-name data]
   (let [html-template (template template-name "html")
-        text-template (template template-name "text")]
+        text-template (template template-name "txt")]
     (filter identity
             [(if html-template
                {:type "text/html"
