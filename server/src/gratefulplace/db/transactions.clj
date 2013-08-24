@@ -28,7 +28,7 @@
           (if (and
                (:receive-watch-notifications user)
                (not= author-id (:id user)))
-            (mailer/send-post-notification user params)))))
+            (mailer/send-reply-notification user params)))))
     
     {:result result
      :tempid post-tempid}))

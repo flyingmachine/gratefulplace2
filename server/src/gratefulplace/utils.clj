@@ -1,6 +1,5 @@
 (ns gratefulplace.utils
   (:require [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as db]
             [markdown.core :as markdown]
             [clojure.java.io :as io]))
 

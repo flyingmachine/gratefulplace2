@@ -57,7 +57,7 @@
 
 (defn send-topic-notification
   [users topic]
-  (send-email {:from (named-email-address (:author topic))
+  (send-email {:from (config :email :from-address)
                :to (map :email users)
                :subject (str "[Grateful Place] " (:title topic))
                :body (body "topic"
