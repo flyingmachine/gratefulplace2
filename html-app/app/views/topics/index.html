@@ -1,51 +1,66 @@
-<div id="topics" ng-cloak>
-  <div id="new-topic"
-       ng-controller="TopicsNewCtrl"
-       ng-show="newTopicForm.show"
-       ng-cloak>
-    <div ng-hide="currentSession.newRegistration">
-      <h3>Share Your Gratitude Today</h3>
-      <p>What are you grateful for?</p>
+<div id="main">
+  <div id="topics" ng-cloak>
+    <div id="new-topic"
+         ng-controller="TopicsNewCtrl"
+         ng-show="newTopicForm.show"
+         ng-cloak>
+      <div ng-hide="currentSession.newRegistration">
+        <h3>Share Your Gratitude Today</h3>
+        <p>What are you grateful for?</p>
+      </div>
+      <div ng-show="currentSession.newRegistration">
+        <h3>Welcome!</h3>
+        <p>
+          Thank you for joining! Now that you're here, take a minute to
+          think of something you're thankful for and share it with the
+          community. It can be something good that you have, like
+          health or friends. It can be something simple, like food to
+          eat or a place to live. Taking a moment to feel grateful for
+          anything in your life will make you feel good:
+        </p>
+      </div>
+      <form ng-submit="submitNewTopic()">
+        <div>
+          <input value=""
+                 type="text"
+                 name="new-topic-title"
+                 id="new-topic-title"
+                 placeholder="Title (optional)"
+                 ng-model="newTopic.title"/>
+          <div class="error" error-messages="newTopicErrors.title"></div>
+        </div>
+        <div>
+          <textarea
+             name="new-topic-content"
+             id="new-topic-content"
+             ng-model="newTopic.content"
+             required></textarea>
+          <div class="error" error-messages="newTopicErrors.content"></div>
+        </div>
+        <div class="actions">
+          <input type="submit" class="save" value="Share"/>
+          <a href="#"
+             class="cancel"
+             ng-click="newTopicForm.toggle($event)">Cancel</a>
+          <a href="#" class="toggle-formatting-help">formatting help</a>
+        </div>
+      </form>
     </div>
-    <div ng-show="currentSession.newRegistration">
-      <h3>Welcome!</h3>
-      <p>
-        Thank you for joining! Now that you're here, take a minute to
-         think of something you're thankful for and share it with the
-         community. It can be something good that you have, like
-         health or friends. It can be something simple, like food to
-         eat or a place to live. Taking a moment to feel grateful for
-         anything in your life will make you feel good:
-      </p>
-    </div>
-    <form ng-submit="submitNewTopic()">
-      <div>
-        <input value=""
-               type="text"
-               name="new-topic-title"
-               id="new-topic-title"
-               placeholder="Title (optional)"
-               ng-model="newTopic.title"/>
-        <div class="error" error-messages="newTopicErrors.title"></div>
-      </div>
-      <div>
-        <textarea
-           name="new-topic-content"
-           id="new-topic-content"
-           ng-model="newTopic.content"
-           required></textarea>
-        <div class="error" error-messages="newTopicErrors.content"></div>
-      </div>
-      <div class="actions">
-        <input type="submit" class="save" value="Share"/>
-        <a href="#"
-           class="cancel"
-           ng-click="newTopicForm.toggle($event)">Cancel</a>
-        <a href="#" class="toggle-formatting-help">formatting help</a>
-      </div>
-    </form>
+    <pagination-nav pagination-data=paginationData></pagination-nav>
+    <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
+    <pagination-nav pagination-data=paginationData></pagination-nav>
   </div>
-  <pagination-nav pagination-data=paginationData></pagination-nav>
-  <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
-  <pagination-nav pagination-data=paginationData></pagination-nav>
+</div>
+
+
+<div id="more">
+  <nav class="secondary">
+    <ul class="nav">
+      <li ng-show="currentSession">
+        <a href="#"
+           ng-click="newTopicForm.toggle($event)"
+           ng-class="{active: newTopicForm.show}">Share Your Gratitude</a>
+      </li>
+    </ul>
+  </nav>
 </div>

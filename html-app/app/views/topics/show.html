@@ -1,25 +1,29 @@
-<div id="topic">
-  <div class="summary"></div>
-  <h2>{{topic.title}}</h2>
-  <div class="posts">
-    <post model="firstPost" peek="peek" first-post="true">
-    </post>
-    <div class="reply">
-      <form ng-submit="submitReply()">
-        <div class="error" error-messages="errors.content"></div>
-        <textarea
-           class="auto-expand"
-           ng-model="reply.content"
-           placeholder="Post a reply..."></textarea>
-        <div class="actions">
-          <input type="submit" class="save" value="Post Reply" />
-          <a href="#" class="toggle-formatting-help">formatting help</a>
-        </div>   
-      </form>
-    </div>
-    <div class="replies">
-      <post model="post" peek="peek" ng-repeat="post in topic.posts">
+<div id="main">
+  <div id="topic">
+    <div class="summary"></div>
+    <h2>{{topic.title}}</h2>
+    <div class="posts">
+      <post model="firstPost" peek="peek" first-post="true">
       </post>
+      <div class="reply">
+        <form ng-submit="submitReply()">
+          <div class="error" error-messages="errors.content"></div>
+          <textarea
+             class="auto-expand"
+             ng-model="reply.content"
+             placeholder="Post a reply..."></textarea>
+          <div class="actions">
+            <input type="submit" class="save" value="Post Reply" />
+            <a href="#" class="toggle-formatting-help">formatting help</a>
+          </div>   
+        </form>
+      </div>
+      <div class="replies">
+        <post model="post" peek="peek" ng-repeat="post in topic.posts">
+        </post>
+      </div>
     </div>
   </div>
 </div>
+
+

@@ -46,5 +46,3 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
 
   $scope.formatDateTime = (date)->
     moment(date).format("MMM D, YYYY h:mma")
-
-  Support.secondaryNav.show "topics", $scope.newTopicForm

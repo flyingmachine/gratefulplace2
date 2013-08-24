@@ -52,16 +52,7 @@
             </a>
           </div>
         </nav>
-        <div id="main">
-          <div ng-view>
-          </div>
-        </div>
-        <div id="more">
-          <nav class="secondary">
-            <ng-include src="support.secondaryNav.include()"></ng-include>
-          </nav>
-          <ng-include src="support.peek.include()"></ng-include>
-        </div>
+        <ng-view></ng-view>
       </div>
 
       <div ng-show="!currentSession.loggedIn()" ng-cloak>
