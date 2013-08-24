@@ -13,5 +13,3 @@ angular.module('gratefulplaceApp')
       , (res)->
         $scope.errors = res.data.errors
       )
-
-    $scope.support.secondaryNav.show "profile/about-nav", {tab: "email"}

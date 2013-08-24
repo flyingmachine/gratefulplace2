@@ -26,26 +26,27 @@
   </div>
 </div>
 
-<div id="watch-status" class="secondary" ng-controller="WatchesToggleCtrl">
-  <div ng-show="watching()">
-    <h3>Watching</h3>
-    <p>
-      You will get notifications when this topic is updated. This
-      topic will appear in your "watched topics" list.
-    </p>
-    <form ng-submit="destroyWatch()">
-      <input type="submit" value="Stop Watching" />
-    </form>
-  </div>
-  <div ng-hide="watching()">
-    <h3>Not Watching</h3>
-    <p>
-      Watch this topic to get notifications when it's updated. It will
-      appear in your "watched topics" list.
-    </p>
-    <form ng-submit="createWatch()">
-      <input type="submit" value="Watch" />
-    </form>
+<div id="more">
+  <div id="watch-status" class="secondary" ng-controller="WatchesToggleCtrl">
+    <div ng-show="watching()">
+      <h3>Watching</h3>
+      <p>
+        You will get notifications when this topic is updated. This
+        topic will appear in your "watched topics" list.
+      </p>
+      <form ng-submit="destroyWatch()">
+        <input type="submit" value="Stop Watching" />
+      </form>
+    </div>
+    <div ng-hide="watching()">
+      <h3>Not Watching</h3>
+      <p>
+        Watch this topic to get notifications when it's updated. It will
+        appear in your "watched topics" list.
+      </p>
+      <form ng-submit="createWatch()">
+        <input type="submit" value="Watch" />
+      </form>
+    </div>
   </div>
 </div>
-

@@ -9,8 +9,6 @@ angular.module('gratefulplaceApp')
     User.get id: CurrentSession.get().id, (user)->
       $scope.user = user
 
-    $scope.support.secondaryNav.show "profile/about-nav", {tab: "password"}
-
     validate = ->
       $scope.errors = {}
       _.each passwordFields, (field)->
