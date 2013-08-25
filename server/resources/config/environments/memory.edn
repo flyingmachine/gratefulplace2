@@ -1,0 +1,2 @@
+{:datomic {:db-uri "datomic://mem/gp2"
+           :test-uri "datomic:mem://gp2-test"}}
