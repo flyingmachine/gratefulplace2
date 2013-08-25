@@ -1,0 +1,27 @@
+<div id="main" ng-show="user">
+  <h2>{{user.username}}</h2>
+  <div id="about">
+    <h3>About {{user.username}}</h3>
+    <div class="chunk">
+      <div ng-show="hasAbout">
+        <div ng-bind-html-unsafe="user['formatted-about']">
+        </div>
+      </div>
+      <div ng-hide="hasAbout">
+        <p>{{user.username}} hasn't filled out a profile yet</p>
+      </div>
+    </div>
+
+    <div class="posts">
+      <h3>Posts by {{user.username}} ({{user.posts.length}})</h3>
+      <post model="post" context="'profile'" ng-repeat="post in user.posts">
+      </post>
+    </div>
+  </div>
+</div>
+
+<div id="more">
+  <div class="profile-pic">
+    
+  </div>
+</div>

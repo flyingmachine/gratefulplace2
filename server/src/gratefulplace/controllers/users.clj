@@ -34,9 +34,17 @@
   "If the request gets this far, it means that user registration was successful."
   (if auth {:body auth}))
 
+(defn show-opts
+  [params]
+  (if (:include-posts params)
+    {:include
+     {:posts {:include
+              {:topic {:only [:title :id]}}}}}
+    {}))
+
 (defresource show [params]
   :available-media-types ["application/json"]
-  :exists? (exists? (record (id) {:include {:posts {:include {:topic {:only [:title :id]}}}}}))
+  :exists? (exists? (record (id) (show-opts params)))
   :handle-ok record-in-ctx)
 
 (defn update!*

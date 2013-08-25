@@ -4,8 +4,15 @@ angular.module('gratefulplaceApp').directive 'post', ->
   restrict: 'E'
   scope:
     post: '=model'
-    firstPost: '&'
+    context: '='
   controller: ['$scope', 'Authorize', 'Post', 'Topic', 'User', ($scope, Authorize, Post, Topic, User)->
+    $scope.visibility = {}
+    console.log "Context", $scope.context
+    if $scope.context == "profile"
+      $scope.visibility.topic = true
+    else
+      $scope.visibility.topic = false
+    
     postResource = ->
       new Post($scope.post)
 
@@ -58,6 +65,10 @@ angular.module('gratefulplaceApp').directive 'post', ->
       <footer>
         <author model="post.author"></author>
         <date data="post['created-at']"></date>
+        <div class="in-topic" ng-show="visibility.topic">
+          in
+          <a ng-href="/#/topics/{{post['topic-id']}}">{{post['topic']['title']}}</a>
+        </div>
         <like-toggle likeable="post"></like-toggle>
       </footer>
     </div>

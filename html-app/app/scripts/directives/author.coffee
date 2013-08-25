@@ -7,7 +7,7 @@ angular.module('gratefulplaceApp').directive 'author', ->
   template: """
   <div class="author">
     <img ng-src="{{author.gravatar}}" class="gravatar"/>
-    <a href="/#/users/{{author.id}}">
+    <a href="/#/profiles/{{author.id}}">
       {{author.username}}
     </a>
   </div>

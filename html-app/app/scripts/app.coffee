@@ -20,6 +20,9 @@ angular.module('gratefulplaceApp', @App.modules)
       .when '/manage-profile/email',
         templateUrl: 'views/manage-profile/email.html'
         controller: 'ManageProfileEmailCtrl'
+      .when '/profiles/:id',
+        templateUrl: 'views/profiles/show.html'
+        controller: 'ProfilesShowCtrl'
       .when '/watched-topics',
         templateUrl: 'views/watched-topics.html',
         controller: 'WatchesQueryCtrl'

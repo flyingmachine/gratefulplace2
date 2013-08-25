@@ -55,43 +55,8 @@
   .author {
     font-weight:bold;
     line-height: 22px;
-    float: left;
-    margin-right:.5em;
-  }
-
-  .date {
-    float:left;
-  }
-
-  .comments, .unread-count {
-    float:right;
-    margin-right:.5em;
   }
   
-  .like {
-    margin-left: .5em;
-    float:right;
-    display:block;
-    color: #aaa;
-    
-    &:hover, &.liked {
-      color:#333;
-      text-decoration:none;
-      cursor: pointer;
-    }
-
-
-    &.added {
-      background: #ebf4f6;
-      color: $blue;
-      @include transition-property("all");
-      @include rotate(360deg);
-      @include transition-duration(".5s");
-      position: relative;
-      left: 1px;
-    }
-  }
-
   .moderate {
     float:right;
     margin-left: .5em;
@@ -173,4 +138,8 @@ textarea {
       color: #a99de3;
     }
   }
+}
+
+#about .post footer{
+  padding-left: 0;
 }
