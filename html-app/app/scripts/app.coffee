@@ -11,15 +11,15 @@ angular.module('gratefulplaceApp', @App.modules)
         controller: 'TopicsShowCtrl'
       .when '/login',
         templateUrl: 'views/login.html'
-      .when '/profile/about',
-        templateUrl: 'views/profile/about.html'
-        controller: 'ProfileAboutCtrl'
-      .when '/profile/password',
-        templateUrl: 'views/profile/password.html'
-        controller: 'ProfilePasswordCtrl'
-      .when '/profile/email',
-        templateUrl: 'views/profile/email.html'
-        controller: 'ProfileEmailCtrl'
+      .when '/manage-profile/about',
+        templateUrl: 'views/manage-profile/about.html'
+        controller: 'ManageProfileAboutCtrl'
+      .when '/manage-profile/password',
+        templateUrl: 'views/manage-profile/password.html'
+        controller: 'ManageProfilePasswordCtrl'
+      .when '/manage-profile/email',
+        templateUrl: 'views/manage-profile/email.html'
+        controller: 'ManageProfileEmailCtrl'
       .when '/watched-topics',
         templateUrl: 'views/watched-topics.html',
         controller: 'WatchesQueryCtrl'

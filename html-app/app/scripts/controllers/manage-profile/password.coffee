@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'ProfilePasswordCtrl', ($scope, User, CurrentSession) ->
+  .controller 'ManageProfilePasswordCtrl', ($scope, User, CurrentSession) ->
     $scope.password = {}
     $scope.editing = false
     passwordFields = ['current-password', 'new-password', 'new-password-confirmation']
