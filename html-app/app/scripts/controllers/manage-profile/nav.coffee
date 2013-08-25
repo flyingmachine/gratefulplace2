@@ -1,5 +1,5 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'ProfileNavCtrl', ($scope, $location)->
+  .controller 'ManageProfileNavCtrl', ($scope, $location)->
     $scope.tab = /\/([^\/]+)$/.exec($location.path())[1]
