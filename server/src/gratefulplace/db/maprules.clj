@@ -70,7 +70,7 @@
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))
   (has-many :posts
             :rules gratefulplace.db.maprules/ent->post
-            :retriever (gratefulplace.db.maprules/sorted-content :post/content :post/created-at)))
+            :retriever (comp reverse (gratefulplace.db.maprules/sorted-content :post/content :post/created-at))))
 
 (defmaprules ent->userauth
   (attr :id :db/id)
