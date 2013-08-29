@@ -1,4 +1,4 @@
-Hi,
+Hi {{username}},
 
 There's a new reply to {{topic-title}} on Grateful Place. You can reply to it by visiting http://gratefulplace.com/#/topics/{{topic-id}}. Here's the comment:
 

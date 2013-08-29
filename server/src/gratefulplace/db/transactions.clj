@@ -23,12 +23,13 @@
 
     ;; TODO find a better home for this
     (future
-      (doseq [watch watches]
-        (let [user (c/mapify (:watch/user watch) mr/ent->user)]
-          (if (and
-               (:receive-watch-notifications user)
-               (not= author-id (:id user)))
-            (mailer/send-reply-notification user params)))))
+      (let [topic (c/mapify (db/ent topic-id) mr/ent->topic {:except [:last-posted-to-at]})]
+        (doseq [watch watches]
+          (let [user (c/mapify (:watch/user watch) mr/ent->user)]
+            (if (and
+                 (:receive-watch-notifications user)
+                 (not= author-id (:id user)))
+              (mailer/send-reply-notification user params topic))))))
     
     {:result result
      :tempid post-tempid}))

@@ -5,13 +5,14 @@
 (def conf
   (let [environment (or (env :app-env) "development")]
     (merge
-     {:html-paths ["html-app"
+     {:app-env environment
+      :html-paths ["html-app"
                    "../html-app/app"
                    "../html-app/.tmp"]
       :datomic {:db-uri "datomic:free://localhost:4334/gp2"
                 :test-uri "datomic:mem://gp2-test"}
       :moderator-names ["flyingmachine"]
-      :send-email true
+      :send-email false
       :email {:host "smtp.gmail.com"
               :from-address "notifications@gratefulplace.com"
               :from-name "Grateful Place Notifications"

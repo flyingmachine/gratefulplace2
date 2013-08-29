@@ -1,2 +1,3 @@
-{:datomic {:db-uri "datomic:free://localhost:4334/gp2"
+{:send-email false
+ :datomic {:db-uri "datomic:free://localhost:4334/gp2"
            :test-uri "datomic:mem://gp2-test"}}

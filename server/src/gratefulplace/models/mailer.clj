@@ -3,7 +3,8 @@
             [postal.core :as email]
             [clojure.java.io :as io]
             [stencil.core :as stencil]
-            [gratefulplace.utils :refer :all]))
+            [gratefulplace.utils :refer :all])
+  (:import org.apache.commons.mail.HtmlEmail))
 
 
 (defn template-path
@@ -25,32 +26,40 @@
   [template-name data]
   (let [html-template (template template-name "html")
         text-template (template template-name "txt")]
-    (filter identity
-            [(if html-template
-               {:type "text/html"
-                :content (stencil/render-string html-template data)})
-             (if text-template
-               {:type "text/plain"
-                :content (stencil/render-string text-template data)})])))
+    {:text(stencil/render-string text-template data)
+     :html (stencil/render-string html-template data)}))
 
 (defn send-email
   [params]
-  (if-not (config :send-email)
-    params
-    (email/send-message ^{:host (config :email :host)
-                          :user (config :email :username)
-                          :pass (config :email :password)
-                          :ssl true}
-     params)))
+  (if (config :send-email)
+    (doto (HtmlEmail.)
+      (.setHostName "smtp.gmail.com")
+      (.setSslSmtpPort "465")
+      (.setSSL true)
+      (.addTo (:to params))
+      (.setFrom (config :email :from-address) (config :email :from-name))
+      (.setSubject (:subject params))
+      (.setTextMsg (:text (:body params)))
+      (.setHtmlMsg (:html (:body params)))
+      (.setAuthentication (config :email :username) (config :email :password))
+      (.send))
+    ;; (email/send-message ^{:host (config :email :host)
+    ;;                       :user (config :email :username)
+    ;;                       :pass (config :email :password)
+    ;;                       :ssl true}
+    ;;                     params)
+    )
+  params)
 
 (defn send-reply-notification
   "send an email for a new comment"
-  [users post topic]
+  [user post topic]
   (send-email {:from (config :email :from-address)
-               :to (map :email users)
+               :to (:email user)
                :subject (str "[Grateful Place] Re: " (:title topic))
                :body (body "reply-notification"
                            {:topic-title (:title topic)
+                            :username (:username user)
                             :topic-id (:id topic)
                             :content (:content post)
                             :formatted-content (md-content post)})}))
