@@ -5,6 +5,8 @@ There's a new reply to {{topic-title}} on Grateful Place. You can reply to it by
 {{content}}
 
 =========
+
+
 You can change your email preferences by going to http://gratefulplace.com/#/manage-profile/email
 
 If you'd like to stop receiving emails but don't want to log in, please email notifications@gratefulplace.com, and I apologize for the inconvenience - one-click unsubscribe is on my to-do list.
