@@ -26,6 +26,9 @@ angular.module('gratefulplaceApp', @App.modules)
       .when '/watched-topics',
         templateUrl: 'views/watched-topics.html',
         controller: 'WatchesQueryCtrl'
+      .when '/admin/users',
+        templateUrl: 'views/admin/users/index.html',
+        controller: 'AdminUsersQueryCtrl'
       .when '/welcome',
         templateUrl: 'views/welcome.html'
       .otherwise

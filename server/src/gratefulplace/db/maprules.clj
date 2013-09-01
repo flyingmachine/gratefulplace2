@@ -65,6 +65,7 @@
   (attr :formatted-about #(md-content (:user/about %)))
   (attr :gravatar #(gravatar (:user/email %) :size 22 :default :identicon))
   (attr :large-gravatar #(gravatar (:user/email %) :size 48 :default :identicon))
+  (attr :post-count (ref-count :content/author))
   (has-many :topics
             :rules gratefulplace.db.maprules/ent->topic
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))

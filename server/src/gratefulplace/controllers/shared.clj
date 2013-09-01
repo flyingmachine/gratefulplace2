@@ -49,6 +49,7 @@
   (db/t [{:db/id (get-in ctx [:record :id])
           :content/deleted true}]))
 
+;; TODO figure out how to refactor this
 (defmacro can-delete-record?
   [record auth]
   `(fn [_#]

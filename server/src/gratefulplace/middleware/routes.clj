@@ -10,6 +10,9 @@
             [gratefulplace.controllers.stats :as stats]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
+
+            [gratefulplace.controllers.admin.users :as ausers]
+            
             [gratefulplace.controllers.js :as js]
             [cemerick.friend :as friend])
   (:use [compojure.core :as compojure.core :only (GET PUT POST DELETE ANY defroutes)]
@@ -73,6 +76,9 @@
   ;; Stats
   (route GET "/stats" stats/query)
 
+  ;; Admin users
+  (authroute GET "/admin/users" ausers/query)
+  
   ;; auth
   (route POST "/login" session/create!)
   (friend/logout
