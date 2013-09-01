@@ -2,7 +2,9 @@
   {{users.length}} users
   <table id="users">
     <tr ng-repeat="user in users">
-      <td>{{user.username}}</td>
+      <td>
+        <a href="/#/profiles/{{user.id}}">{{user.username}}</a>
+      </td>
       <td>{{user['post-count']}}</td>
     </tr>
   </table>
