@@ -9,9 +9,10 @@
 
 (setup-db-background)
 
-(fact "query returns all topics"
-  (response-data :get "/topics" {})
-  => (two-of map?))
+(facts "query returns topics and pagination info"
+  (let [data (response-data :get "/topics" {})]
+    (first data) => {"page-count" 1 "topic-count" 2}
+    data => (three-of map?)))
 
 (fact "creating a topic with a valid user results in success"
   (let [response (res :post "/topics" {:content "test"} (auth))

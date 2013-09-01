@@ -32,7 +32,7 @@
           post-id (post-id username)]
       (response-data :put (post-path post-id) {:content "new content"} (auth username))
       => (contains {"id" post-id
-                    "formatted-content" "<p>new content</p>"}))))
+                    "content" "new content"}))))
 
 (facts "posts can only be deleted by their authors or moderators"
   (fact "deleting a post as the author results in success"
