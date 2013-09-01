@@ -16,6 +16,7 @@
       :email {:host "smtp.gmail.com"
               :from-address "notifications@gratefulplace.com"
               :from-name "Grateful Place Notifications"
+              :test-recipient "nonrecursive@gmail.com"
               :username (env :gp-email-username)
               :password (env :gp-email-password)}}
      (read-resource (str "config/environments/" environment ".edn")))))

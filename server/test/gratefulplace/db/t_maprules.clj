@@ -10,10 +10,10 @@
 
 (fact "topic serializer correctly serializes attributes"
   (c/mapify (q/one [:topic/title "First topic"]) mr/ent->topic)
-  => (contains {:id 17592186045420
+  => (contains {:id number?
                 :title "First topic"
                 :post-count 2
-                :author-id 17592186045418}))
+                :author-id number?}))
 
 (fact "topic serializer correctly serializes relationships"
   (:first-post (c/mapify (q/one [:topic/title "First topic"]) mr/ent->topic {:include :first-post}))

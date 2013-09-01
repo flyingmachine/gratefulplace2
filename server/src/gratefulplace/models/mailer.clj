@@ -29,27 +29,27 @@
     {:text(stencil/render-string text-template data)
      :html (stencil/render-string html-template data)}))
 
+(defn send-email*
+  [deliver? params]
+  (if deliver?
+    (do
+      (doto (HtmlEmail.)
+        (.setHostName "smtp.gmail.com")
+        (.setSslSmtpPort "465")
+        (.setSSL true)
+        (.addTo (:to params))
+        (.setFrom (config :email :from-address) (config :email :from-name))
+        (.setSubject (:subject params))
+        (.setTextMsg (:text (:body params)))
+        (.setHtmlMsg (:html (:body params)))
+        (.setAuthentication (config :email :username) (config :email :password))
+        (.send))
+      true)
+    params))
+
 (defn send-email
   [params]
-  (if (config :send-email)
-    (doto (HtmlEmail.)
-      (.setHostName "smtp.gmail.com")
-      (.setSslSmtpPort "465")
-      (.setSSL true)
-      (.addTo (:to params))
-      (.setFrom (config :email :from-address) (config :email :from-name))
-      (.setSubject (:subject params))
-      (.setTextMsg (:text (:body params)))
-      (.setHtmlMsg (:html (:body params)))
-      (.setAuthentication (config :email :username) (config :email :password))
-      (.send))
-    ;; (email/send-message ^{:host (config :email :host)
-    ;;                       :user (config :email :username)
-    ;;                       :pass (config :email :password)
-    ;;                       :ssl true}
-    ;;                     params)
-    )
-  params)
+  (send-email* (config :send-email) params))
 
 (defn send-reply-notification
   "send an email for a new comment"
