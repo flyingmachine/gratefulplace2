@@ -6,8 +6,13 @@
         [clavatar.core]))
 
 (defn ref-count
-  [ref-attr]
-  #(ffirst (db/q [:find '(count ?c) :where ['?c ref-attr (:db/id %)]])))
+  [ref-attr & conds]
+  (fn [ent]
+    (let [conditions (map #(into ['?c] %) conds)]
+      (ffirst
+       (db/q (into [:find '(count ?c)
+                    :where ['?c ref-attr (:db/id ent)]]
+                   conditions))))))
 
 (def date-format (java.text.SimpleDateFormat. "yyyy-MM-dd HH:mm:ss Z"))
 
@@ -65,7 +70,8 @@
   (attr :formatted-about #(md-content (:user/about %)))
   (attr :gravatar #(gravatar (:user/email %) :size 22 :default :identicon))
   (attr :large-gravatar #(gravatar (:user/email %) :size 48 :default :identicon))
-  (attr :post-count (ref-count :content/author))
+  (attr :post-count (ref-count :content/author [:post/content]))
+  (attr :topic-count (ref-count :content/author [:topic/title] [:content/deleted false]))
   (has-many :topics
             :rules gratefulplace.db.maprules/ent->topic
             :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))
