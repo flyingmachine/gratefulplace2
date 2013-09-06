@@ -344,17 +344,6 @@ input.ng-pristine {
   }
 }
 
-#mailing-list {
-  padding: 0 1em;
-  position: absolute;
-  bottom: rhythm(1);
-  text-align: right;
-
-  a:hover {
-    text-decoration: none;
-  }
-}
-
 #stats {
   @include leader(4);
   .date {

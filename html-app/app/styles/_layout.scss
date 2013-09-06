@@ -1,5 +1,8 @@
 @import "base";
 
+$M: 52em;
+$L: 75em;
+
 .container {
   // page acts as a container for our grid.
   @include container;
@@ -8,11 +11,37 @@
 }
 
 nav.primary, .fancy {
-  @include padding-trailer;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  width: 223px;
+  @include trailer;
+
+  #mailing-list {
+    display: none;
+  }
+
+  @include at-breakpoint($M) {
+    @include padding-trailer;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 223px;
+    margin-bottom: 0;
+
+    ul a {
+      text-align: right;
+    }
+
+    #mailing-list {
+      display: block;
+      padding: 0 1em;
+      position: absolute;
+      bottom: rhythm(1);
+      text-align: right;
+
+      a:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
   background: rgba(252, 236, 205, .2); // orange
   
   @include transition-property("all");
@@ -46,7 +75,6 @@ nav.primary, .fancy {
       padding-left: .5em;
       padding-right: .5em;
       display: block;
-      text-align: right;
 
       &:hover {
         text-decoration:none;
@@ -108,13 +136,17 @@ nav.secondary {
 }
 
 #main {
-  @include span-columns(6, 12);
-  @include push(3);
+  @include at-breakpoint($M) {
+    @include span-columns(6, 12);
+    @include push(3, 12);
+  }
 }
 
 #more {
-  @include span-columns(3 omega, 12);
-  @include padding-trailer;
+  @include at-breakpoint($M) {
+    @include span-columns(3 omega, 12);
+    @include padding-trailer;
+  }
 }
 
 .vertical-fields {

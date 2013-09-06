@@ -1,3 +1,15 @@
+<div id="more">
+  <nav class="secondary">
+    <ul class="nav">
+      <li ng-show="currentSession">
+        <a href="#"
+           ng-click="newTopicForm.toggle($event)"
+           ng-class="{active: newTopicForm.show}">Share Your Gratitude</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
 <div id="main">
   <div id="topics" ng-show="topics.length > 0">
     <div id="new-topic"
@@ -50,17 +62,4 @@
     <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
     <pagination-nav pagination-data=paginationData></pagination-nav>
   </div>
-</div>
-
-
-<div id="more">
-  <nav class="secondary">
-    <ul class="nav">
-      <li ng-show="currentSession">
-        <a href="#"
-           ng-click="newTopicForm.toggle($event)"
-           ng-class="{active: newTopicForm.show}">Share Your Gratitude</a>
-      </li>
-    </ul>
-  </nav>
 </div>
