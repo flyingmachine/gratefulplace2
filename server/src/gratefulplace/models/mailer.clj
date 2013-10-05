@@ -65,11 +65,14 @@
                             :formatted-content (md-content post)})}))
 
 (defn send-topic-notification
-  [users topic]
+  [user topic]
   (send-email {:from (config :email :from-address)
                :to (map :email users)
                :subject (str "[Grateful Place] " (:title topic))
-               :body (body "topic"
-                           {:topic-id (:id topic)
+               :body (body "new-topic"
+                           {:topic-title (:title topic)
+                            :topic-id (:id topic)
+                            :username (:username user)
                             :content (:content (:post topic))
                             :formatted-content (md-content (:post topic))})}))
+

@@ -58,9 +58,22 @@
               :post/topic topic-tempid
               :post/created-at (now)
               :content/author author-id
-              :db/id post-tempid}]
+              :db/id post-tempid}
+        result (db/t [topic post watch])]
 
-    {:result (db/t [topic post watch])
+    ;; TODO find a better home for this
+    ;; get topic reuslt here and actualize it
+    (comment
+      (future
+        (let [topic (c/mapify (db/ent topic-id) mr/ent->topic {:except [:last-posted-to-at]})]
+          (doseq [watch watches]
+            (let [user (c/mapify (:watch/user watch) mr/ent->user)]
+              (if (and
+                   (get-in user [:preferences "receive-watch-notifications"])
+                   (not= author-id (:id user)))
+                (mailer/send-reply-notification user params topic)))))))
+    
+    {:result result
      :tempid topic-tempid}))
 
 (defn create-watch
