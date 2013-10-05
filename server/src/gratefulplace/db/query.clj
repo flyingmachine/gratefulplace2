@@ -40,7 +40,8 @@
 
 (defn all
   [common-attribute & conditions]
-  (let [conditions (concat [['?c common-attribute]]
+  (let [common (flatten ['?c common-attribute])
+        conditions (concat [common]
                            (map #(concat ['?c] %) conditions))]
     (map #(ent (first %)) (q {:find ['?c]
                               :where conditions}))))
