@@ -1,0 +1,7 @@
+[{:db/ident :user/preferences
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/many
+  :db/index true
+  :db/doc "Set of boolean trues"
+  :db.install/_attribute :db.part/db}]

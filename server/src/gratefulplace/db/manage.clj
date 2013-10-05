@@ -8,7 +8,8 @@
 
 (def migrations
   [:20130521-161013-schema
-   :20130521-161014-seed-data])
+   :20130521-161014-seed-data
+   :20131003-111111-user-prefs])
 
 (defn create
   []
