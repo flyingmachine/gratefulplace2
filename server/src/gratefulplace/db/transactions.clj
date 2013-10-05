@@ -27,7 +27,7 @@
         (doseq [watch watches]
           (let [user (c/mapify (:watch/user watch) mr/ent->user)]
             (if (and
-                 (:receive-watch-notifications user)
+                 (get-in user [:preferences "receive-watch-notifications"])
                  (not= author-id (:id user)))
               (mailer/send-reply-notification user params topic))))))
     
