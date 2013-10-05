@@ -150,6 +150,7 @@ nav.secondary {
 }
 
 .vertical-fields {
+  @include trailer;
   .field {
     @include trailer;
   }

@@ -14,16 +14,15 @@
         </div>
       </div>
       <div class="vertical-fields">
-        <div class="field">
+        <div class="selection" ng-repeat="pref in preferences">
           <div>
             <label>
               <input
                  type="checkbox"
-                 id="receive-watch-notifications"
-                 name="receive-watch-notifications"
-                 ng-model="user['receive-watch-notifications']" />
-              Receive email when someone posts to a topic you're
-              watching
+                 id="{{pref.key}}"
+                 name="{{pref.key}}"
+                 ng-model="user[pref.key]" />
+              {{pref.descr}}
             </label>
           </div>
         </div>
