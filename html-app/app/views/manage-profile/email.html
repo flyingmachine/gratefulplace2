@@ -20,8 +20,10 @@
               <input
                  type="checkbox"
                  id="{{pref.key}}"
-                 name="{{pref.key}}"
-                 ng-model="user[pref.key]" />
+                 name="preferences[]"
+                 value="{{pref.key}}"
+                 ng-checked="checked(pref)"
+                 ng-model="pref.checked" />
               {{pref.descr}}
             </label>
           </div>

@@ -4,11 +4,20 @@ angular.module('gratefulplaceApp')
   .controller 'ManageProfileEmailCtrl', ($scope, User, CurrentSession, preferences) ->
     User.get id: CurrentSession.get().id, (user)->
       $scope.user = user
+      $scope.preferences = user.preferences || []
+      
+      $scope.checked = (pref)->
+        _.contains($scope.user.preferences, pref.key)
+        
       $scope.preferences = _.map preferences, (descr, key)->
         descr: descr
         key: key
+        checked: $scope.checked(key: key)
+        
       console.log $scope.preferences
+      
     $scope.updateEmail = ->
+      $scope.user.preferences = _.map(_.filter($scope.preferences, checked: true), 'key')
       $scope.successMessage = null
       $scope.errors = null
       $scope.user.$save((u)->

@@ -66,6 +66,7 @@
   (attr :username :user/username)
   (attr :email :user/email)
   (attr :about :user/about)
+  (attr :preferences :user/preferences)
   (attr :receive-watch-notifications :user/receive-watch-notifications)
   (attr :formatted-about #(md-content (:user/about %)))
   (attr :gravatar #(gravatar (:user/email %) :size 22 :default :identicon))
@@ -96,6 +97,7 @@
   (attr :user/username :username)
   (attr :user/email :email)
   (attr :user/about :about)
+  (attr :user/preferences :preferences)
   (attr :user/receive-watch-notifications :receive-watch-notifications)
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:password %))))
 

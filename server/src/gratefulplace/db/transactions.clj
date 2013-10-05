@@ -74,7 +74,7 @@
 
 (defn create-user
   [params]
-  (let [params (merge {:user/receive-watch-notifications true}
+  (let [params (merge {:user/preferences ["receive-watch-notifications" "receive-new-topic-notifications" "receive-weekly-digest"] }
                       (remove-nils-from-map (c/mapify params mr/user->txdata)))]
     {:result (db/t [params])
      :tempid (:db/id params)}))
