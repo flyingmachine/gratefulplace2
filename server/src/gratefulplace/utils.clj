@@ -76,3 +76,7 @@
   (-> path
       slurp-resource
       read-string))
+
+(defn ifn
+  [val fun]
+  (if val (fun val)))

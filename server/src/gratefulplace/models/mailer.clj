@@ -3,31 +3,9 @@
             [postal.core :as email]
             [clojure.java.io :as io]
             [stencil.core :as stencil]
-            [gratefulplace.utils :refer :all])
+            [gratefulplace.utils :refer :all]
+            [gratefulplace.email.send.content :refer [body]])
   (:import org.apache.commons.mail.HtmlEmail))
-
-
-(defn template-path
-  [template-name extension]
-  (str "email-templates/" template-name "." extension))
-
-(defn slurp-if-exists
-  [x]
-  (if x (slurp x)))
-
-(defn template
-  [name extension]
-  (-> name
-      (template-path extension)
-      io/resource
-      slurp-if-exists))
-
-(defn body
-  [template-name data]
-  (let [html-template (template template-name "html")
-        text-template (template template-name "txt")]
-    {:text(stencil/render-string text-template data)
-     :html (stencil/render-string html-template data)}))
 
 (defn send-email*
   [deliver? params]
@@ -67,7 +45,7 @@
 (defn send-topic-notification
   [user topic]
   (send-email {:from (config :email :from-address)
-               :to (map :email users)
+               :to (:email user)
                :subject (str "[Grateful Place] " (:title topic))
                :body (body "new-topic"
                            {:topic-title (:title topic)
