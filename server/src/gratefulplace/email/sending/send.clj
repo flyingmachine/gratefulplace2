@@ -5,7 +5,7 @@
             [clojure.string :as s]
             [stencil.core :as stencil]
             [gratefulplace.utils :refer :all]
-            [gratefulplace.email.send.content :refer [body]])
+            [gratefulplace.email.sending.content :refer [body]])
   (:import org.apache.commons.mail.HtmlEmail))
 
 (defn send-email*
