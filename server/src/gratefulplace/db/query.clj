@@ -21,6 +21,10 @@
     (d/entity (db) exists)
     nil))
 
+(defn ents
+  [results]
+  (map (comp ent first) results))
+
 (defmulti ent? class)
 (defmethod ent? datomic.query.EntityMap [x] x)
 (defmethod ent? :default [x] false)
@@ -43,8 +47,8 @@
   (let [common (flatten ['?c common-attribute])
         conditions (concat [common]
                            (map #(concat ['?c] %) conditions))]
-    (map #(ent (first %)) (q {:find ['?c]
-                              :where conditions}))))
+    (map ents (q {:find ['?c]
+                  :where conditions}))))
 
 (defn ent-count
   [attr]

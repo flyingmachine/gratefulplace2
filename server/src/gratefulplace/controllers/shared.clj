@@ -1,9 +1,9 @@
 (ns gratefulplace.controllers.shared
-  (:require [gratefulplace.db.query :as db])
-  (:use [flyingmachine.webutils.validation :only (if-valid)]
-        gratefulplace.models.permissions
-        gratefulplace.db.mapification
-        gratefulplace.utils))
+  (:require [gratefulplace.db.query :as db]
+            [gratefulplace.models.permissions :refer :all]
+            [gratefulplace.db.mapification :refer :all]
+            [gratefulplace.utils :refer :all]
+            [flyingmachine.webutils.validation :refer (if-valid)]))
 
 (def author-inclusion-options
   {:author {:only [:id :username :gravatar]}})
@@ -71,8 +71,7 @@
 (defn create-record
   [creation-fn params mapifier]
   (fn [_]
-    (let [result (creation-fn params)]
-      {:record (mapify-tx-result result mapifier)})))
+    {:record (creation-fn params)}))
 
 (defn create-content
   [creation-fn params auth mapifier]

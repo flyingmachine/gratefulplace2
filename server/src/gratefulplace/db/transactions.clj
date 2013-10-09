@@ -2,9 +2,18 @@
   (:require [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.query :as db]
+            [gratefulplace.db.mapification :refer [mapify-tx-result]]
             [gratefulplace.models.mailer :as mailer]
-            [flyingmachine.cartographer.core :as c])
-  (:use gratefulplace.utils))
+            [flyingmachine.cartographer.core :as c]
+            [gratefulplace.utils :refer :all]))
+
+(defn users-to-notify-of-post
+  [topic-id author-id]
+  (db/ents (db/q (conj '[:find ?u :where]
+                       (conj '[?w :watch/topic] topic-id)
+                       '[?w :watch/user ?u]
+                       '[?u :user/preferences "receive-watch-notifications"]
+                       [(list 'not= '?u author-id)]))))
 
 (defn create-post
   [params]
@@ -16,23 +25,19 @@
                                     :post/created-at now
                                     :content/author author-id
                                     :db/id post-tempid})
-        watches (db/all :watch/topic [:watch/topic topic-id])
         result (db/t [post
                       {:db/id topic-id :topic/last-posted-to-at now}
-                      [:increment-watch-count topic-id author-id]])]
+                      [:increment-watch-count topic-id author-id]])
+        record (mapify-tx-result {:result result
+                                  :tempid post-tempid})]
 
     ;; TODO find a better home for this
     (future
-      (let [topic (c/mapify (db/ent topic-id) mr/ent->topic {:except [:last-posted-to-at]})]
-        (doseq [watch watches]
-          (let [user (c/mapify (:watch/user watch) mr/ent->user)]
-            (if (and
-                 (get-in user [:preferences "receive-watch-notifications"])
-                 (not= author-id (:id user)))
-              (mailer/send-reply-notification user params topic))))))
-    
-    {:result result
-     :tempid post-tempid}))
+      (let [users (users-to-notify-of-post topic-id author-id)
+            topic (c/mapify (db/ent topic-id) mr/ent->topic {:except [:last-posted-to-at]})]
+        (doseq [user users]
+          (mailer/send-reply-notification user params topic))))
+    record))
 
 (defn update-post
   [params]
