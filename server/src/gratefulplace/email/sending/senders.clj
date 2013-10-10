@@ -12,19 +12,13 @@
                :username (:username user)}}
 
   (send-reply-notification
-   [post topic]
+   [post]
    :subject (str "[Grateful Place] Re: " (:title topic))
-   :body-data {:topic-title (:title topic)
-               :topic-id (:id topic)
-               :username (:username user)
-               :content (:content post)
+   :body-data {:content (:content post)
                :formatted-content (md-content post)})
   
   (send-new-topic-notification
-   [topic]
+   []
    :subject (str "[Grateful Place] " (:title topic))
-   :body-data {:topic-title (:title topic)
-               :topic-id (:id topic)
-               :username (:username user)
-               :content (:content (:post topic))
+   :body-data {:content (:content (:post topic))
                :formatted-content (md-content (:post topic))}))

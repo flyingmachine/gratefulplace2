@@ -33,7 +33,7 @@
 (defn final-sender-params
   [defaults addl template-name]
   (let [final (merge defaults addl)
-        body-data (:body-data final)]
+        body-data (merge (:body-data defaults) (:body-data addl))]
     (-> final
         (merge {:body (list body template-name body-data)})
         (dissoc :body-data))))
