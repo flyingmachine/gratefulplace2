@@ -30,18 +30,32 @@
   [params]
   (send-email* (config :send-email) params))
 
-(defn parse-sender-config
-  [sender-config template-name]
-  (let [sender-config (into {} (map vec (partition 2 sender-config)))]
-    (merge sender-config
-           {:body (list body template-name (:body sender-config))})))
+(defn final-sender-params
+  [defaults addl template-name]
+  (let [final (merge defaults addl)
+        body-data (:body-data final)]
+    (-> final
+        (merge {:body (list body template-name body-data)})
+        (dissoc :body-data))))
 
-(defmacro defsender
-  [name args & sender-config]
-  (let [defaults (quote {:from (gratefulplace.config/config :email :from-address)
-                         :to (:email user)})
-        template-name (s/replace name #"^send-" "")
-        sender-config (merge defaults (parse-sender-config sender-config template-name))]
-    `(defn ~name
-       ~(into ['user] args)
-       (send-email ~sender-config))))
+(defn defsender
+  [varnames sender-param-defaults sender]
+  (let [{:keys [args user-doseq]} varnames
+        [sender-name addl-args & sender-params] sender
+        template-name (s/replace sender-name #"^send-" "")
+        sender-params (final-sender-params sender-param-defaults
+                                           (apply hash-map sender-params)
+                                           template-name)
+        args (into args addl-args)]
+    
+    (comment (list 'defn sender-name args
+                   (list 'doseq user-doseq
+                         (list 'send-email sender-params))))
+    `(defn ~sender-name
+       ~args
+       (doseq ~user-doseq
+         (send-email ~sender-params)))))
+
+(defmacro defsenders
+  [varnames sender-param-defaults & senders]
+  `(do ~@(map #(defsender varnames sender-param-defaults %) senders)))
