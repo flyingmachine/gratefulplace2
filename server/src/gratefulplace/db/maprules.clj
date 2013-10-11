@@ -15,6 +15,9 @@
                    conditions))))))
 
 (def date-format (java.text.SimpleDateFormat. "yyyy-MM-dd HH:mm:ss Z"))
+(defn nowfn
+  [_]
+  (now))
 
 (defn format-date
   [date]
@@ -107,7 +110,10 @@
 
 (defmaprules post->txdata
   (attr :db/id dbid)
-  (attr :post/content :content))
+  (attr :post/content :content)
+  (attr :post/topic :topic-id)
+  (attr :post/created-at nowfn)
+  (attr :content/author :author-id))
 
 (defmaprules like->txdata
   (attr :db/id (fn [_] #db/id[:db.part/user]))

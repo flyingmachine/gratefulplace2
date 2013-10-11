@@ -7,37 +7,6 @@
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
 
-(defn users-to-notify-of-post
-  [topic-id author-id]
-  (db/ents (db/q (conj '[:find ?u :where]
-                       (conj '[?w :watch/topic] topic-id)
-                       '[?w :watch/user ?u]
-                       '[?u :user/preferences "receive-watch-notifications"]
-                       [(list 'not= '?u author-id)]))))
-
-(defn create-post
-  [params]
-  (let [{:keys [topic-id author-id]} params
-        post-tempid (d/tempid :db.part/user -1)
-        now (now)
-        post (remove-nils-from-map {:post/content (:content params)
-                                    :post/topic topic-id
-                                    :post/created-at now
-                                    :content/author author-id
-                                    :db/id post-tempid})
-        result (db/t [post
-                      {:db/id topic-id :topic/last-posted-to-at now}
-                      [:increment-watch-count topic-id author-id]])
-        record (mapify-tx-result {:result result
-                                  :tempid post-tempid})]
-
-    ;; TODO find a better home for this
-    (future
-      (let [users (users-to-notify-of-post topic-id author-id)
-            topic (c/mapify (db/ent topic-id) mr/ent->topic {:except [:last-posted-to-at]})]
-        (doseq [user users]
-          (mailer/send-reply-notification user params topic))))
-    record))
 
 (defn update-post
   [params]

@@ -1,6 +1,5 @@
 (ns gratefulplace.controllers.t-topics
-  (:require [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.query :as q]
+  (:require [gratefulplace.db.query :as q]
             [gratefulplace.db.manage :as db-manage]
             [gratefulplace.controllers.topics :as topics])
   (:use midje.sweet

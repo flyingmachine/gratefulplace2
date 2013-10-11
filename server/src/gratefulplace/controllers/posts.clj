@@ -4,12 +4,11 @@
             [gratefulplace.db.query :as db]
             [gratefulplace.db.transactions :as ts]
             [gratefulplace.db.maprules :as mr]
+            [gratefulplace.db.mapification :refer :all]
             [flyingmachine.cartographer.core :as c])
-  (:use [flyingmachine.webutils.validation :only (if-valid)]
-        [liberator.core :only [defresource]]
+  (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
-        gratefulplace.db.mapification
         gratefulplace.utils))
 
 (defmapifier record

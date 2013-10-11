@@ -71,7 +71,8 @@
 (defn create-record
   [creation-fn params mapifier]
   (fn [_]
-    {:record (creation-fn params)}))
+    (let [result (creation-fn params)]
+      {:record (mapify-tx-result result mapifier)})))
 
 (defn create-content
   [creation-fn params auth mapifier]
