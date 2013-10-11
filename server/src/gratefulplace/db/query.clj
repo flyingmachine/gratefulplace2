@@ -47,8 +47,7 @@
   (let [common (flatten ['?c common-attribute])
         conditions (concat [common]
                            (map #(concat ['?c] %) conditions))]
-    (map ents (q {:find ['?c]
-                  :where conditions}))))
+    (ents (q {:find ['?c] :where conditions}))))
 
 (defn ent-count
   [attr]
