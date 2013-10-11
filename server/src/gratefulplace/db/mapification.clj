@@ -17,12 +17,17 @@
                mapify-opts#))
             nil)))))
 
-(defn mapify-tx-result
-  [tx-result mapifier]
+(defn tx-result->ent
+  [tx-result]
   (let [{:keys [result tempid]} tx-result]
     (-> result
         deref
         :tempids
         (db/resolve-tempid tempid)
-        db/ent
-        mapifier)))
+        db/ent)))
+
+(defn mapify-tx-result
+  [tx-result mapifier]
+  (-> tx-result
+      tx-result->ent
+      mapifier))

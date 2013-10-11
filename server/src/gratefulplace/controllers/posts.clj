@@ -2,7 +2,7 @@
   (:require [datomic.api :as d]
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
-            [gratefulplace.db.transactions :as ts]
+            [gratefulplace.db.transactions.posts :as tx]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]
             [flyingmachine.cartographer.core :as c])
@@ -26,8 +26,8 @@
 
   :authorized? (can-update-record? (record (id)) auth)
   :exists? record-in-ctx
-  :put! (ts/update-post params)
-  :post! (ts/update-post params)
+  :put! (update-record params tx/update-post)
+  :post! (update-record params tx/update-post)
   :new? false
   :respond-with-entity? true
   :handle-ok (fn [_] (record (id))))
@@ -40,7 +40,7 @@
   :malformed? (validator params (:create validations/post))
   :handle-malformed errors-in-ctx
 
-  :post! (create-content ts/create-post params auth record)
+  :post! (create-content tx/create-post params auth record)
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]

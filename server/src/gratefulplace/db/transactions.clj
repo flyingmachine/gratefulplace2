@@ -7,11 +7,6 @@
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
 
-
-(defn update-post
-  [params]
-  (fn [_] (db/t [(c/mapify params mr/post->txdata)])))
-
 (defn create-topic
   [params]
   (let [topic-tempid (d/tempid :db.part/user -1)

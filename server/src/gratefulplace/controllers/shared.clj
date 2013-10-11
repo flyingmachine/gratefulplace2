@@ -68,6 +68,11 @@
                     (author? record# auth#)))
          {:record record#}))))
 
+(defn update-record
+  [params update-fn]
+  (fn [_]
+    (update-fn params)))
+
 (defn create-record
   [creation-fn params mapifier]
   (fn [_]

@@ -2,7 +2,7 @@
   (:require [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.query :as db]
-            [gratefulplace.models.mailer :as mailer]
+            [gratefulplace.email.sending.senders :as email]
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
 
@@ -18,8 +18,8 @@
   [params]
   (let [{:keys [topic-id author-id]} params
         users (users-to-notify-of-post topic-id author-id)
-        topic (c/mapify (db/ent topic-id) mr/ent->topic {:except [:last-posted-to-at]})]
-        (mailer/send-reply-notification users params topic)))
+        topic (c/mapify (db/ent topic-id) mr/ent->topic)]
+        (email/send-reply-notification users params topic)))
 
 (defn- after-create-post
   [result params]
@@ -36,3 +36,7 @@
                 :tempid (:db/id post)}]
     (after-create-post result params)
     result))
+
+(defn update-post
+  [params]
+  (db/t [(c/mapify params mr/post->txdata {:only [:db/id :post/content]})]))
