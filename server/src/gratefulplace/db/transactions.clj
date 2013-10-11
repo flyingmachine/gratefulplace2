@@ -3,7 +3,6 @@
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.mapification :refer [mapify-tx-result]]
-            [gratefulplace.models.mailer :as mailer]
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
 
@@ -40,7 +39,7 @@
               (if (and
                    (get-in user [:preferences "receive-watch-notifications"])
                    (not= author-id (:id user)))
-                (mailer/send-reply-notification user params topic)))))))
+                ))))))
     
     {:result result
      :tempid topic-tempid}))
