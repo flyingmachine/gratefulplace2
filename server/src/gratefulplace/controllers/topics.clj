@@ -3,7 +3,8 @@
             [gratefulplace.db.validations :as validations]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.transactions :as ts]
+            [gratefulplace.db.transactions.topics :as topic-tx]
+            [gratefulplace.db.transactions.watches :as watch-tx]
             [clojure.math.numeric-tower :as math]
             [liberator.core :refer [defresource]]
             [gratefulplace.controllers.shared :refer :all]
@@ -46,8 +47,8 @@
   :available-media-types ["application/json"]
   :exists? (exists? (record (id)))
   :handle-ok (fn [ctx]
-               (if auth
-                 (ts/reset-watch-count (id) (:id auth)))
+               (comment (if auth
+                          (watch-tx/reset-watch-count (id) (:id auth))))
                (record-in-ctx ctx)))
 
 (defresource create! [params auth]
@@ -58,7 +59,7 @@
   :malformed? (validator params validations/topic)
   :handle-malformed errors-in-ctx
   
-  :post! (create-content ts/create-topic params auth query-record)
+  :post! (create-content topic-tx/create-topic params auth query-record)
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]

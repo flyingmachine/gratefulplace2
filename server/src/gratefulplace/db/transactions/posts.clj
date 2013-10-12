@@ -1,6 +1,5 @@
 (ns gratefulplace.db.transactions.posts
-  (:require [datomic.api :as d]
-            [gratefulplace.db.maprules :as mr]
+  (:require [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.query :as db]
             [gratefulplace.email.sending.senders :as email]
             [flyingmachine.cartographer.core :as c]
@@ -15,7 +14,7 @@
                        [(list 'not= '?u author-id)]))))
 
 (defn- notify-users-of-post
-  [params]
+  [result params]
   (let [{:keys [topic-id author-id]} params
         users (users-to-notify-of-post topic-id author-id)
         topic (c/mapify (db/ent topic-id) mr/ent->topic)]

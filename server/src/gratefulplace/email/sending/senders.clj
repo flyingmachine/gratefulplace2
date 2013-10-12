@@ -7,10 +7,10 @@
   {:args [users topic]
    :user-doseq [user users]}
   {:from (config :email :from-address)
-   :to (:email user)
+   :to (:user/email user)
    :body-data {:topic-title (:title topic)
                :topic-id (:id topic)
-               :username (:username user)}}
+               :username (:user/username user)}}
 
   (send-reply-notification
    [post]

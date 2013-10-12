@@ -49,9 +49,6 @@
                                            template-name)
         args (into args addl-args)]
     
-    (comment (list 'defn sender-name args
-                   (list 'doseq user-doseq
-                         (list 'send-email sender-params))))
     `(defn ~sender-name
        ~args
        (doseq ~user-doseq
