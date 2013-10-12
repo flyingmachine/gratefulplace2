@@ -39,6 +39,7 @@
               (if (and
                    (get-in user [:preferences "receive-watch-notifications"])
                    (not= author-id (:id user)))
+                ;; TODO actually handle this
                 ))))))
     
     {:result result
