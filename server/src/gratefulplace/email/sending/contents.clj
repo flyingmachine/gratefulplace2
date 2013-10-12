@@ -1,4 +1,4 @@
-(ns gratefulplace.email.sending.content
+(ns gratefulplace.email.sending.contents
   (:require [clojure.java.io :as io]
             [stencil.core :as stencil]
             [gratefulplace.utils :refer :all])

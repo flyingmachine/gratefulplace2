@@ -1,16 +1,17 @@
-(ns gratefulplace.email.sending.send
+;; sendit is silly but clojure won't let me use "send"
+(ns gratefulplace.email.sending.sendit
   (:require [gratefulplace.config :refer [config]]
             [postal.core :as email]
             [clojure.java.io :as io]
             [clojure.string :as s]
             [stencil.core :as stencil]
             [gratefulplace.utils :refer :all]
-            [gratefulplace.email.sending.content :refer [body]])
+            [gratefulplace.email.sending.contents :refer [body]])
   (:import org.apache.commons.mail.HtmlEmail))
 
 (defn send-email*
-  [deliver? params]
-  (if deliver?
+  [for-reals? params]
+  (if for-reals?
     (do
       (doto (HtmlEmail.)
         (.setHostName "smtp.gmail.com")
