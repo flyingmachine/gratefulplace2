@@ -4,16 +4,21 @@
             [gratefulplace.db.mapification :refer :all]
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.db.query :as q]
-            [gratefulplace.db.transactions.posts :as t]
-            [gratefulplace.db.transactions :as tx])
+            [gratefulplace.db.transactions.posts :as p]
+            [gratefulplace.db.transactions.topics :as t]
+            [gratefulplace.db.transactions.watches :as w])
   (:use midje.sweet
         gratefulplace.controllers.test-helpers))
 
 (setup-db-background)
 (background
- (before :contents (tx/create-topic {:author-id (:id (auth))
-                                     :title "test topic"
-                                     :content "test"})))
+ (before :contents (t/create-topic {:author-id (:id (auth))
+                                    :title "test topic"
+                                    :content "test"})))
+
+(defn topic
+  []
+  (q/one [:topic/title "test topic"]))
 
 (defn create-post
   ([params]
@@ -21,13 +26,9 @@
                      :author-id (:id (auth))
                      :content "here's some content"}
            params (merge defaults params)]
-       (t/create-post params)))
+       (p/create-post params)))
   ([]
      (create-post {})))
-
-(defn topic
-  []
-  (q/one [:topic/title "test topic"]))
 
 (defmapifier post mr/ent->post)
 
@@ -38,7 +39,7 @@
 
 (fact "update-post updates a post"
   (let [post-id (:db/id (tx-result->ent (create-post)))]
-    (t/update-post {:id post-id
+    (p/update-post {:id post-id
                     :content "new content"})
     (:post/content (q/ent post-id))
     => "new content"))
@@ -47,7 +48,7 @@
   (let [topic-id (:db/id (topic))
         user-id (:id (auth "joebob"))
         author-id (:id (auth))]
-    (tx/create-watch {:topic-id topic-id
-                      :user-id user-id})
-    (t/users-to-notify-of-post topic-id author-id)
+    (w/create-watch {:topic-id topic-id
+                     :user-id user-id})
+    (p/users-to-notify-of-post topic-id author-id)
     => []))

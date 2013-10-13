@@ -1,4 +1,4 @@
-(ns gratefulplace.email.sending.sender
+(ns gratefulplace.email.sending.senders
   (:require [gratefulplace.email.sending.send :refer [defsenders]]
             [gratefulplace.utils :refer :all]
             [gratefulplace.config :refer [config]]))

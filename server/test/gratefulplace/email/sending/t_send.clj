@@ -1,6 +1,6 @@
 (ns gratefulplace.email.sending.t-send
   (:require [gratefulplace.email.sending.send :as email]
-            [gratefulplace.email.sending.contents :as email-content]
+            [gratefulplace.email.sending.content :as email-content]
             [gratefulplace.config :refer [config]])
   (:use midje.sweet))
 

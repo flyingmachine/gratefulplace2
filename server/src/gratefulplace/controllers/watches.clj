@@ -3,7 +3,7 @@
             [datomic.api :as d]
             [gratefulplace.db.query :as db]
             [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.transactions :as ts])
+            [gratefulplace.db.transactions.watches :as tx])
   (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
@@ -30,7 +30,7 @@
   :available-media-types ["application/json"]
   :authorized? (logged-in? auth)
 
-  :post! (create-record ts/create-watch params record)
+  :post! (create-record tx/create-watch params record)
   :handle-created record-in-ctx)
 
 (defresource delete! [params auth]

@@ -6,15 +6,6 @@
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
 
-(defn create-watch
-  [params]
-  (let [watch-tempid (d/tempid :db.part/user -1)]
-    {:result (db/t [{:db/id watch-tempid
-                     :watch/unread-count 0
-                     :watch/topic (:topic-id params)
-                     :watch/user (:user-id params)}])
-     :tempid watch-tempid}))
-
 (defn create-user
   [params]
   (let [params (merge {:user/preferences ["receive-watch-notifications" "receive-new-topic-notifications" "receive-weekly-digest"] }
