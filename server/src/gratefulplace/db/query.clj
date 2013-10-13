@@ -65,6 +65,10 @@
   [tempids tempid]
   (d/resolve-tempid (db) tempids tempid))
 
+(defn tempids
+  [& keys]
+  (into {} (map #(vector %1 (d/tempid :db.part/user %2)) keys (iterate dec -1))))
+
 (defn retract-entity
   [eid]
   (t [[:db.fn/retractEntity eid]]))

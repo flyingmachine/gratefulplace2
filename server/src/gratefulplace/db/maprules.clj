@@ -27,7 +27,14 @@
   [content-attribute sort-fn]
   #(sort-by sort-fn (gratefulplace.db.query/all content-attribute [:content/author (:db/id %)])))
 
-(def dbid #(or (str->int (:id %)) #db/id[:db.part/user]))
+(defn dbid
+  ([]
+     (dbid (constantly false)))
+  ([& id-fns]
+     (fn [params]
+       (or (str->int (or (first (filter identity (map #(% params) id-fns)))
+                         (:id params)))
+           #db/id[:db.part/user]))))
 
 (defmaprules ent->topic
   (attr :id :db/id)
@@ -96,7 +103,7 @@
   (attr :topic-id (comp :db/id :watch/topic)))
 
 (defmaprules user->txdata
-  (attr :db/id dbid)
+  (attr :db/id (dbid :author-id :user-id))
   (attr :user/username :username)
   (attr :user/email :email)
   (attr :user/about :about)
@@ -109,14 +116,14 @@
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:new-password %))))
 
 (defmaprules post->txdata
-  (attr :db/id dbid)
+  (attr :db/id  (dbid :post-id))
   (attr :post/content :content)
   (attr :post/topic :topic-id)
   (attr :post/created-at nowfn)
   (attr :content/author :author-id))
 
 (defmaprules topic->txdata
-  (attr :db/id dbid)
+  (attr :db/id (dbid :topic-id))
   (attr :topic/title :title)
   (attr :topic/first-post :post-id)
   (attr :topic/last-posted-to-at nowfn)
@@ -124,7 +131,7 @@
   (attr :content/deleted (constantly false)))
 
 (defmaprules watch->txdata
-  (attr :db/id dbid)
+  (attr :db/id (dbid :watch-id))
   (attr :watch/unread-count #(or (:unread-count %) 0))
   (attr :watch/topic :topic-id)
   (attr :watch/user :author-id))

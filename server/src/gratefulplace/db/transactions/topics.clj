@@ -29,19 +29,11 @@
 
 (defn create-topic
   [params]
-  (let [topic-tempid (d/tempid :db.part/user -1)
-        post-tempid (d/tempid :db.part/user -2)
-        watch-tempid (d/tempid :db.part/user -3)
-        author-id (:author-id params)
-        topic (remove-nils-from-map
-               (c/mapify (merge params {:post-id post-tempid :id topic-tempid})
-                         mr/topic->txdata))
-        watch (c/mapify {:id watch-tempid :topic-id topic-tempid :author-id author-id}
-                        mr/watch->txdata)
-        post (c/mapify (merge params {:id post-tempid :topic-id topic-tempid})
-                       mr/post->txdata)
-        result {:result (db/t [topic post watch])
-                :tempid topic-tempid}]
-
-    (after-create-topic result params)
-    result))
+  (let [params (merge params (db/tempids :topic-id :post-id :watch-id))
+        topic (remove-nils-from-map (c/mapify params mr/topic->txdata))
+        watch (c/mapify params mr/watch->txdata)
+        post (c/mapify params mr/post->txdata)]
+    (let [result {:result (db/t [topic post watch])
+                  :tempid (:topic-id params)}]
+      (after-create-topic result params)
+      result)))
