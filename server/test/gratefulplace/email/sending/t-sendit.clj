@@ -1,4 +1,4 @@
-(ns gratefulplace.models.t-mailer
+(ns gratefulplace.email.sending.t-sendit
   (:require [gratefulplace.email.sending.sendit :as email]
             [gratefulplace.email.sending.contents :as email-content]
             [gratefulplace.config :refer [config]])

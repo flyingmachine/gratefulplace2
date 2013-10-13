@@ -1,4 +1,4 @@
-(ns gratefulplace.models.t-mailer
+(ns gratefulplace.email.sending.t-content
   (:require [gratefulplace.email.sending.content :as email-content]
             [gratefulplace.config :refer [config]])
   (:use midje.sweet))
