@@ -1,5 +1,5 @@
 ;; sendit is silly but clojure won't let me use "send"
-(ns gratefulplace.email.sending.sendit
+(ns gratefulplace.email.sending.send
   (:require [gratefulplace.config :refer [config]]
             [postal.core :as email]
             [clojure.java.io :as io]
