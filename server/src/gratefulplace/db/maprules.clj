@@ -115,6 +115,20 @@
   (attr :post/created-at nowfn)
   (attr :content/author :author-id))
 
+(defmaprules topic->txdata
+  (attr :db/id dbid)
+  (attr :topic/title :title)
+  (attr :topic/first-post :post-id)
+  (attr :topic/last-posted-to-at nowfn)
+  (attr :content/author :author-id)
+  (attr :content/deleted (constantly false)))
+
+(defmaprules watch->txdata
+  (attr :db/id dbid)
+  (attr :watch/unread-count #(or (:unread-count %) 0))
+  (attr :watch/topic :topic-id)
+  (attr :watch/user :author-id))
+
 (defmaprules like->txdata
   (attr :db/id (fn [_] #db/id[:db.part/user]))
   (attr :like/user :user-id)

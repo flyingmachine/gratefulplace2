@@ -33,21 +33,13 @@
         post-tempid (d/tempid :db.part/user -2)
         watch-tempid (d/tempid :db.part/user -3)
         author-id (:author-id params)
-        topic (remove-nils-from-map {:topic/title (:title params)
-                                     :topic/first-post post-tempid
-                                     :topic/last-posted-to-at (now)
-                                     :content/author author-id
-                                     :content/deleted false
-                                     :db/id topic-tempid})
-        watch {:db/id watch-tempid
-               :watch/unread-count 0
-               :watch/topic topic-tempid
-               :watch/user author-id}
-        post {:post/content (:content params)
-              :post/topic topic-tempid
-              :post/created-at (now)
-              :content/author author-id
-              :db/id post-tempid}
+        topic (remove-nils-from-map
+               (c/mapify (merge params {:post-id post-tempid :id topic-tempid})
+                         mr/topic->txdata))
+        watch (c/mapify {:id watch-tempid :topic-id topic-tempid :author-id author-id}
+                        mr/watch->txdata)
+        post (c/mapify (merge params {:id post-tempid :topic-id topic-tempid})
+                       mr/post->txdata)
         result {:result (db/t [topic post watch])
                 :tempid topic-tempid}]
 
