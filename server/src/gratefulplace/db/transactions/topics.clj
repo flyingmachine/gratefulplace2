@@ -7,7 +7,7 @@
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
 
-(defmapifier record mr/ent->topic)
+(defmapifier record mr/ent->topic {:include [:first-post]})
 
 ;: TODO refactor with post notification query
 (defn users-to-notify-of-topic
@@ -25,7 +25,7 @@
 
 (defn- after-create-topic
   [result params]
-  (notify-users-of-topic result params))
+  (future (notify-users-of-topic result params)))
 
 (defn create-topic
   [params]

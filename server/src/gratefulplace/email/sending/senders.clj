@@ -21,5 +21,5 @@
   (send-new-topic-notification
    []
    :subject (str "[Grateful Place] " (:title topic))
-   :body-data {:content (:content (:post topic))
-               :formatted-content (md-content (:post topic))}))
+   :body-data {:content (:content (:first-post topic))
+               :formatted-content (md-content (:first-post topic))}))
