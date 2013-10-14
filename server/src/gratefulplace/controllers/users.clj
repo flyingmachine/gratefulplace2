@@ -25,7 +25,7 @@
       (if-valid
        params (:create validations/user) errors
        (cemerick.friend.workflows/make-auth
-        (mapify-tx-result (ts/create-user params) record)
+        (mapify-tx-result (tx/create-user params) record)
         {:cemerick.friend/redirect-on-auth? false})
        (invalid errors)))))
 
