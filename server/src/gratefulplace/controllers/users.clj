@@ -3,7 +3,7 @@
             [gratefulplace.db.query :as db]
             [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.transactions :as ts]
+            [gratefulplace.db.transactions.users :as tx]
             [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend]
             cemerick.friend.workflows)
@@ -49,11 +49,11 @@
 
 (defn update!*
   [params]
-  (db/t [(remove-nils-from-map
-          (c/mapify
-           params
-           mr/user->txdata
-           {:exclude [:user/username :user/password]}))]))
+  (db/t [[:db/retract (str->int (:id params)) :user/preferences tx/preferences] ; remove all existing prefs
+         (remove-nils-from-map
+          (c/mapify params
+                    mr/user->txdata
+                    {:exclude [:user/username :user/password]}))]))
 
 (defresource update! [params auth]
   :allowed-methods [:put :post]
