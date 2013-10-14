@@ -5,12 +5,10 @@
             [gratefulplace.utils :refer :all]))
 
 (def preferences ["receive-watch-notifications"
-                  "receive-new-topic-notifications"
-                  "receive-weekly-digest"])
+                  "receive-new-topic-notifications"])
 
 (def default-preferences ["receive-watch-notifications"
-                          "receive-new-topic-notifications"
-                          "receive-weekly-digest"])
+                          "receive-new-topic-notifications"])
 
 (defn create-user
   [params]
