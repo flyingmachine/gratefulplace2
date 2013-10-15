@@ -114,11 +114,3 @@
   []
   (delete)
   (migrate))
-
-(defn pref-update-transactions
-  []
-  (map
-   (fn [ent]
-     {:db/id (:db/id ent)
-      :user/preferences ["receive-watch-notifications" "receive-new-topic-notifications"]})
-   (db/all [:user/receive-watch-notifications true])))
