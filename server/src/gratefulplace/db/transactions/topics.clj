@@ -9,12 +9,12 @@
 
 (defmapifier record mr/ent->topic {:include [:first-post]})
 
-(defmapifier topic-txdata* mr/topic->txdata)
-(def topic-txdata (comp remove-nils-from-map topic-txdata*))
+(defmapifier topic-params->txdata* mr/topic->txdata)
+(def topic-params->txdata (comp remove-nils-from-map topic-txdata*))
 
-(defmapifier watch-txdata mr/watch->txdata)
+(defmapifier watch-params->txdata mr/watch->txdata)
 
-(defmapifier post-txdata mr/post->txdata)
+(defmapifier post-params->txdata mr/post->txdata)
 
 ;: TODO refactor with post notification query
 (defn users-to-notify-of-topic
@@ -40,7 +40,7 @@
 
 (defn- topic-transaction-data
   [params]
-  (map #(% params) [topic-txdata watch-txdata post-txdata]))
+  (map #(% params) [topic-params->txdata post-params->txdata watch-params->txdata]))
 
 (defn create-topic
   [params]
