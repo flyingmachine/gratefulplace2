@@ -8,6 +8,9 @@ angular.module('gratefulplaceApp')
       $rootScope.$broadcast "view.topic", topic
         
     $scope.submitReply = ->
+      $scope.topic.watches.push
+        'user-id': $scope.currentSession.id
+        
       post = new Post($scope.reply)
       post['topic-id'] = $scope.topic.id
       post.$save((p)->

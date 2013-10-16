@@ -13,7 +13,7 @@ angular.module('gratefulplaceApp')
     findWatch = ->
       if $scope.topic
         _.find $scope.topic.watches, (watch)->
-          watch['user-id'] == $scope.currentSession.id && watch
+          watch['user-id'] == $scope.currentSession.id
 
     $scope.createWatch = ->
       $scope.watch = new Watch
