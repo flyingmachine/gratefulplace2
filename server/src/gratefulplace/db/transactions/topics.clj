@@ -10,7 +10,7 @@
 (defmapifier record mr/ent->topic {:include [:first-post]})
 
 (defmapifier topic-params->txdata* mr/topic->txdata)
-(def topic-params->txdata (comp remove-nils-from-map topic-txdata*))
+(def topic-params->txdata (comp remove-nils-from-map topic-params->txdata*))
 
 (defmapifier watch-params->txdata mr/watch->txdata)
 
