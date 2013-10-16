@@ -9,6 +9,13 @@
 
 (defmapifier record mr/ent->topic {:include [:first-post]})
 
+(defmapifier topic-txdata* mr/topic->txdata)
+(def topic-txdata (comp remove-nils-from-map topic-txdata*))
+
+(defmapifier watch-txdata mr/watch->txdata)
+
+(defmapifier post-txdata mr/post->txdata)
+
 ;: TODO refactor with post notification query
 (defn users-to-notify-of-topic
   [author-id]
@@ -27,13 +34,20 @@
   [result params]
   (future (notify-users-of-topic result params)))
 
+(defn- add-create-params
+  [params]
+  (merge params (db/tempids :topic-id :post-id :watch-id)))
+
+(defn- topic-transaction-data
+  [params]
+  (map #(% params) [topic-txdata watch-txdata post-txdata]))
+
 (defn create-topic
   [params]
-  (let [params (merge params (db/tempids :topic-id :post-id :watch-id))
-        topic (remove-nils-from-map (c/mapify params mr/topic->txdata))
-        watch (c/mapify params mr/watch->txdata)
-        post (c/mapify params mr/post->txdata)]
-    (let [result {:result (db/t [topic post watch])
-                  :tempid (:topic-id params)}]
-      (after-create-topic result params)
-      result)))
+  (let [final-params (add-create-params params)
+        result {:result (-> final-params
+                            topic-transaction-data
+                            db/t)
+                :tempid (:topic-id final-params)}]
+    (after-create-topic result final-params)
+    result))
