@@ -18,11 +18,11 @@
   (let [{:keys [topic-id author-id]} params
         users (users-to-notify-of-post topic-id author-id)
         topic (c/mapify (db/ent topic-id) mr/ent->topic)]
-        (email/send-reply-notification users params topic)))
+        (email/send-reply-notification users topic params)))
 
 (defn- after-create-post
   [result params]
-  (future (notify-users-of-post params)))
+  (future (notify-users-of-post result params)))
 
 (defn create-post
   [params]
