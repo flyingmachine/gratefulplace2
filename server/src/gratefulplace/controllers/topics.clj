@@ -47,8 +47,8 @@
   :available-media-types ["application/json"]
   :exists? (exists? (record (id)))
   :handle-ok (fn [ctx]
-               (comment (if auth
-                          (watch-tx/reset-watch-count (id) (:id auth))))
+               (if auth
+                 (watch-tx/reset-watch-count (id) (:id auth)))
                (record-in-ctx ctx)))
 
 (defresource create! [params auth]
