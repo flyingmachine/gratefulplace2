@@ -25,10 +25,10 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div ng-show="currentSession.loggedIn()">
-        <nav class="primary">
+      <div>
+        <nav class="primary" ng-show="currentSession.loggedIn()">
           <ul>
-            <li><a href="#/">Home</a></li>
+            <li><a href="#/topics">Home</a></li>
             <li ng-controller="WatchesNavCtrl">
               <a href="#/watched-topics">
                 Watched Topics
@@ -52,11 +52,7 @@
             </a>
           </div>
         </nav>
-        <ng-view></ng-view>
-      </div>
-
-      <div ng-show="!currentSession.loggedIn()" ng-cloak>
-        <div class="fancy">
+        <div class="fancy" ng-show="!currentSession.loggedIn()">
           <div id="login" ng-controller="LoginCtrl">
             <h3>Log In</h3>
             <form ng-submit="submitLogin()" novalidate>
@@ -103,122 +99,7 @@
             </a>
           </div>
         </div>
-        <div id="main">
-          <h2>Grateful Place</h2>
-          <div class="chunk white">
-            <p>Hello, visitor,</p>
-            <p>
-              Grateful Place is a wall-style site for people to
-              consciously lift each other up. If you'd like to belong
-              to a community which supports you in leading a happier,
-              more positive life, then this is the place for you :)
-            </p>
-
-            <p>
-              I was motivated to create this site after beginning a
-              "daily gratitude" practice, where I'd think of something
-              I was grateful for every morning. I started doing this
-              after reading that it was an easy, powerful way to step
-              off the "happiness treadmill", the constant striving for
-              more things and accomplishments.
-              <a href="http://www.nytimes.com/2011/11/22/science/a-serving-of-gratitude-brings-healthy-dividends.html">Research
-              shows</a> that cultivating gratitude is a great way to
-              become happier.
-            </p>
-
-            <p>
-              After a short time, I noticed that I did in fact feel
-              happier. Then I tried something new: sharing my
-              gratitude on Facebook and Twitter. In doing so I learned
-              that sharing my gratitude and seeing others' positive
-              responses made me feel even happier.
-            </p>
-
-            <p>
-              So I made this site. Sharing gratitude is such a simple,
-              easy way for you to become happier. Plus, you'll enjoy
-              reading what everyone else is grateful for!
-            </p>
-
-            <p>If this sounds like the place for you, please join!</p>
-            <p>
-              <img src="/images/mug.jpg"
-                   style="height:80px; float: left;
-                          margin-right: 1em;">
-              Sincerely,
-              <br/>
-              Daniel Higginbotham
-              <br />
-              <br />
-            </p>
-
-            
-            <div id="signup" ng-controller="RegisterCtrl">
-              <form ng-submit="submitRegistration()" novalidate>
-                <div class="clearfix">
-                  <table class="input">
-                    <tbody><tr>
-                        <td>
-                          <label for="registration-username">Username</label>
-                        </td>
-                        <td>
-                          <input value=""
-                                 type="text"
-                                 name="username"
-                                 id="registration-username"
-                                 ng-model="registration.username"
-                                 required >
-                          <div class="error" error-messages="errors.username"></div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <label for="registration-password">Password</label>
-                        </td>
-                        <td>
-                          <input type="password"
-                                 name="password"
-                                 id="registration-password"
-                                 ng-model="registration.password"
-                                 required>
-                          <div class="error" error-messages="errors.password"></div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <label for="signup-email">Email</label>
-                        </td>
-                        <td>
-                          <input type="email"
-                                 name="email"
-                                 id="signup-email"
-                                 ng-model="registration.email"
-                                 required>
-                          <div class="error" error-messages="errors.email"></div>
-                        </td>
-                      </tr>
-                  </tbody></table>
-                </div>
-                <div class="action">
-                  <input value="Join Grateful Place"
-                         type="submit"
-                         ng-disabled="form.$invalid">
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        <div id="more">
-          <div id="stats">
-            <h4>Community Activity</h4>
-            <ul>
-              <li>{{stats['topic-count']}} topics</li>
-              <li>{{stats['post-count']}} posts</li>
-              <li>{{stats['like-count']}} likes</li>
-              <li ng-show="stats['last-post-at']">Last post <date data="stats['last-post-at']"></date></li>
-            </ul>
-          </div>
-        </div>
+        <ng-view></ng-view>
       </div>
     </div>
     <div class="markdown-help hidden">

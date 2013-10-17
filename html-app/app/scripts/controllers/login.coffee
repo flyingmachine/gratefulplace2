@@ -10,7 +10,6 @@ angular.module('gratefulplaceApp')
 
     loginSuccess = (response)->
       CurrentSession.set(response)
-      $location.path "/"
 
     loginFailure = (response)->
       $scope.errors = response.errors
