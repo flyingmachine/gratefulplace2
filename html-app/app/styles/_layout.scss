@@ -86,6 +86,19 @@ nav.primary, .fancy {
       }
     }
   }
+
+  .credential-recovery-links {
+    @include leader(.5);
+    padding-left: 1em;
+    a {
+      color: $dark-blue;
+      display: block;
+      &:hover, &:visited {
+        color: $dark-purple;
+        text-decoration: none;
+      }
+    }
+  }
 }
 
 .fancy {
