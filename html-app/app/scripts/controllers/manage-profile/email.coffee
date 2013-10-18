@@ -2,6 +2,7 @@
 
 angular.module('gratefulplaceApp')
   .controller 'ManageProfileEmailCtrl', ($scope, User, CurrentSession, preferences) ->
+    Authorize.requireLogin()
     User.get id: CurrentSession.get().id, (user)->
       $scope.user = user
       $scope.preferences = user.preferences || []

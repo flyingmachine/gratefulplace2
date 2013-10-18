@@ -1,6 +1,7 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $location, Topic, Watch, User, Utils) ->
+angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $location, Topic, Watch, User, Utils, Authorize) ->
+  Authorize.requireLogin()
   currentPage = ->
     if $location.search().page
       parseInt $location.search().page

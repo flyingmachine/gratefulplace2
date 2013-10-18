@@ -2,7 +2,7 @@
 
 angular.module('gratefulplaceApp')
   .controller 'ManageProfileAboutCtrl', ($scope, User, CurrentSession) ->
-
+    Authorize.requireLogin()
     $scope.editing = false
     
     User.get id: CurrentSession.get().id, (user)->

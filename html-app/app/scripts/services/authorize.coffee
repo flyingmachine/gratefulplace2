@@ -1,6 +1,9 @@
 'use strict'
-angular.module("gratefulplaceApp").factory "Authorize", (CurrentSession)->
+angular.module("gratefulplaceApp").factory "Authorize", (CurrentSession, $location)->
   moderators = ['flyingmachine']
+  requireLogin: ()->
+    unless CurrentSession.get().loggedIn()
+      $location.path "/"
   canModifyContent: (content)->
     sess = CurrentSession.get()
     return false unless sess && content

@@ -1,7 +1,8 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'TopicsShowCtrl', ($rootScope, $scope, $routeParams, Topic, Post, User, Watch) ->
+  .controller 'TopicsShowCtrl', ($rootScope, $scope, $routeParams, Topic, Post, User, Watch, Authorize) ->
+    Authorize.requireLogin()
     Topic.get id: $routeParams.id, (topic)->
       $scope.topic = topic
       $scope.firstPost = $scope.topic.posts.shift()

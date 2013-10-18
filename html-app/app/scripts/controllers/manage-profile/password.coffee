@@ -2,6 +2,7 @@
 
 angular.module('gratefulplaceApp')
   .controller 'ManageProfilePasswordCtrl', ($scope, User, CurrentSession) ->
+    Authorize.requireLogin()
     $scope.password = {}
     $scope.editing = false
     passwordFields = ['current-password', 'new-password', 'new-password-confirmation']
