@@ -76,3 +76,13 @@
   {:content
    ["Your post can't be blank."
     #(not-empty %)]})
+
+(def forgot-username
+  {:email
+   ["Your email address can't be blank."
+    #(not-empty %)
+
+    "That doesn't really look like an email address."
+    #(or
+      (empty? %)
+      (re-seq #"@" %))]})

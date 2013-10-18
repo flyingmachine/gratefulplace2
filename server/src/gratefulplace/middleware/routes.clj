@@ -10,6 +10,7 @@
             [gratefulplace.controllers.stats :as stats]
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
+            [gratefulplace.controllers.credential-recovery.forgot-username :as forgot-username]
 
             [gratefulplace.controllers.admin.users :as ausers]
             
@@ -72,6 +73,8 @@
   (route GET "/users/:id" users/show)
   (authroute POST "/users/:id" users/update!)
   (authroute POST "/users/:id/password" users/change-password!)
+
+  (route POST "/credential-recovery/forgot-username" forgot-username/create!)
 
   ;; Stats
   (route GET "/stats" stats/query)
