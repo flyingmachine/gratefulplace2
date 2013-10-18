@@ -86,3 +86,8 @@
     #(or
       (empty? %)
       (re-seq #"@" %))]})
+
+(def forgot-password
+  {:username
+   ["Please enter a username"
+    #(not-empty %)]})

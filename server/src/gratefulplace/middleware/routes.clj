@@ -11,6 +11,7 @@
             [gratefulplace.controllers.users :as users]
             [gratefulplace.controllers.session :as session]
             [gratefulplace.controllers.credential-recovery.forgot-username :as forgot-username]
+            [gratefulplace.controllers.credential-recovery.forgot-password :as forgot-password]
 
             [gratefulplace.controllers.admin.users :as ausers]
             
@@ -75,6 +76,7 @@
   (authroute POST "/users/:id/password" users/change-password!)
 
   (route POST "/credential-recovery/forgot-username" forgot-username/create!)
+  (route POST "/credential-recovery/forgot-password" forgot-password/create!)
 
   ;; Stats
   (route GET "/stats" stats/query)

@@ -9,7 +9,8 @@
 (def migrations
   [:20130521-161013-schema
    :20130521-161014-seed-data
-   :20131003-111111-user-prefs])
+   :20131003-111111-user-prefs
+   :20131018-000000-password-reset])
 
 (defn create
   []

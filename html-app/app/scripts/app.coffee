@@ -50,4 +50,4 @@ angular.module('gratefulplaceApp', @App.modules)
       .when '/welcome',
         templateUrl: 'views/welcome.html'
       .otherwise
-        redirectTo: '/'
+        redirectTo: '/topics'

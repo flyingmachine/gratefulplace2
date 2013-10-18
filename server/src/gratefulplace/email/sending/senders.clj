@@ -36,5 +36,10 @@
   (send-forgot-username
    []
    :subject (str "Your Grateful Place username")
-   :body-data {}))
+   :body-data {})
+
+  (send-password-reset-token
+   []
+   :subject (str "Grateful Place password reset")
+   :body-data {:token (:user/password-reset-token user)}))
 
