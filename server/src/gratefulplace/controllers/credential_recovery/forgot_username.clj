@@ -14,6 +14,11 @@
   
   :malformed? (validator params validations/forgot-username)
   :handle-malformed errors-in-ctx
+
+  :exists? (fn [_] (exists? (seq (db/all [:user/email (:email params)]))))
+  :can-post-to-missing? false
+  :handle-not-found (fn [_] {:errors {:email ["That email address doesn't exist"]}})
   
-  :post! (fn [_] {})
+  :post! (fn [ctx]
+           (email/send-forgot-username (:record ctx)))
   :handle-created {})

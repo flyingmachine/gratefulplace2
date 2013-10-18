@@ -1,0 +1,6 @@
+Hello,
+
+Your username for Grateful Place is {{username}}.
+
+Thanks!
+- Daniel Higginbotham

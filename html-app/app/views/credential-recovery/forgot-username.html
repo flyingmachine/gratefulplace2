@@ -11,10 +11,13 @@
       email <a href="mailto:daniel@gratefulplace.com">daniel@gratefulplace.com</a>.
     </p>
     <form ng-submit="submitForgotUsernameRequest()">
+      <div ng-show="success" class="success">
+        Your usename has been sent!
+      </div>
       <div class="vertical-fields">
         <div class="field">
           <label for="email">Email Address</label>
-          <div><input type="email" id="email" name="email" ng-model="user['email']" required/></div>
+          <div><input type="email" id="email" name="email" ng-model="forgotUsernameRequest['email']" required/></div>
           <div class="error" error-messages="errorMessages['email']"></div>
         </div>
       </div>

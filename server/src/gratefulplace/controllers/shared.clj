@@ -40,6 +40,7 @@
 
 (def exists-in-ctx? record-in-ctx)
 
+;; TODO something like slice
 (defn errors-in-ctx
   [ctx]
   {:errors (get ctx :errors)})
