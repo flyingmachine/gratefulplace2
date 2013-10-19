@@ -4,11 +4,12 @@
             [gratefulplace.db.query :as db]
             [gratefulplace.email.sending.senders :as email]
             [flyingmachine.cartographer.core :as c]
+            [crypto.random]
             [gratefulplace.utils :refer :all]))
 
 (defn generate-token
   []
-  "moosh")
+  (crypto.random/url-part 10))
 
 (defn create-token
   [user]
