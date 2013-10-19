@@ -104,3 +104,7 @@
         (time/after? (time/plus (DateTime. (:user/password-reset-token-generated-at user))
                                 (time/days 1))
                      (time/now))))]})
+
+(def password-reset
+  (merge password-reset-token
+         (select-keys change-password [:new-password])))

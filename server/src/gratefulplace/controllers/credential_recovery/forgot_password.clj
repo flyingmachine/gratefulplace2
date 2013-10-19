@@ -25,3 +25,19 @@
                (email/send-password-reset-token [(db/ent (:db/id user))])))
            {})
   :handle-created {})
+
+(defresource update! [params]
+  :allowed-methods [:put :post]
+  :available-media-types ["application/json"]
+
+  :malformed? (validator params validations/password-reset)
+  :handle-malformed errors-in-ctx
+
+  :exists? (fn [_] (if-let [user (db/one [:user/password-reset-token (:token params)])]
+                    {:record user}))
+  
+  :put! (fn [ctx] (tx/consume-token (:record ctx) (:new-password params)))
+  :post! (fn [ctx] (tx/consume-token (:record ctx) (:new-password params)))
+  :new? false
+  :respond-with-entity? false
+  :handle-ok (fn [_] {}))
