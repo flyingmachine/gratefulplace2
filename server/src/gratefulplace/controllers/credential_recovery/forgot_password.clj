@@ -20,7 +20,8 @@
   
   :post! (fn [ctx]
            (let [[user] (:record ctx)]
-             (tx/create-token user)
-             (email/send-password-reset-token [(db/ent (:db/id user))]))
+             (future
+               (tx/create-token user)
+               (email/send-password-reset-token [(db/ent (:db/id user))])))
            {})
   :handle-created {})
