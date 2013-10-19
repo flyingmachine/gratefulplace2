@@ -16,3 +16,13 @@
   (db/t [{:db/id (:db/id user)
           :user/password-reset-token (generate-token)
           :user/password-reset-token-generated-at (now)}]))
+
+;; TODO handle case where token is already consumed?
+(defn consume-token
+  [user, new-password]
+  (db/t (conj (map #(vector :db/retract (:db/id user) % (get user %))
+                   [:user/password-reset-token
+                    :user/password-reset-token-generated-at])
+              (c/mapify {:id (:db/id user)
+                         :new-password new-password}
+                        mr/change-password->txdata))))
