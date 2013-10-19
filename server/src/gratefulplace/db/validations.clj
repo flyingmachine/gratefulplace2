@@ -1,6 +1,9 @@
 (ns gratefulplace.db.validations
-  (:require [gratefulplace.db.query :as db])
-  (:import org.mindrot.jbcrypt.BCrypt))
+  (:require [gratefulplace.db.query :as db]
+            [gratefulplace.utils :refer :all]
+            [clj-time.core :as time])
+  (:import org.mindrot.jbcrypt.BCrypt
+           (org.joda.time DateTime)))
 
 (def user-validations
   {:username
@@ -91,3 +94,13 @@
   {:username
    ["Please enter a username"
     #(not-empty %)]})
+
+(def password-reset-token
+  {:token
+   ["Your password reset token is invalid. Please go through the password reset process again."
+    (fn [token]
+      (if-let [user (db/one [:user/password-reset-token token])]
+        ;; 24 hour expiration
+        (time/after? (time/plus (DateTime. (:user/password-reset-token-generated-at user))
+                                (time/days 1))
+                     (time/now))))]})

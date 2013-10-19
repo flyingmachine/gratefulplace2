@@ -19,7 +19,7 @@
 
 ;; TODO handle case where token is already consumed?
 (defn consume-token
-  [user, new-password]
+  [user new-password]
   (db/t (conj (map #(vector :db/retract (:db/id user) % (get user %))
                    [:user/password-reset-token
                     :user/password-reset-token-generated-at])

@@ -27,7 +27,8 @@
                  [me.raynes/cegdown "0.1.0"]
                  [com.draines/postal "1.11.0"]
                  [org.apache.commons/commons-email "1.2"]
-                 [stencil "0.3.2"]]
+                 [stencil "0.3.2"]
+                 [clj-time "0.6.0"]]
 
   :plugins [[lein-environ "0.4.0"]]
 
