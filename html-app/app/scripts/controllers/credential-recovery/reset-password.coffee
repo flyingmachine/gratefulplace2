@@ -6,10 +6,9 @@ angular.module('gratefulplaceApp')
     $scope.stage = (comp)->
       comp == stage
 
-    ForgotPasswordRequest.get token: $routeParams.token, ->
-      stage = 'validToken'
-    , ->
-      stage = 'invalidToken'
+    ForgotPasswordRequest.get token: $routeParams.token,
+      -> stage = 'validToken',
+      -> stage = 'invalidToken'
     
     $scope.success = false
     $scope.forgotPasswordRequest = {}
