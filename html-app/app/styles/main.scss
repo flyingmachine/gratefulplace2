@@ -176,6 +176,9 @@ sup {
 form {
   @include sans-family;
   @include adjust-font-size-to(14px);
+  &.reset-password {
+    @include trailer;
+  }
 }
 
 table.input {

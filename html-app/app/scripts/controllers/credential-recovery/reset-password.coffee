@@ -1,9 +1,16 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'CredentialRecoveryResetPasswordCtrl', ($rootScope, $scope, ForgotPasswordRequest) ->
-    # check token expiration
-    # show error message if expired
+  .controller 'CredentialRecoveryResetPasswordCtrl', ($scope, $routeParams, ForgotPasswordRequest) ->
+    stage = 'checkingToken'
+    $scope.stage = (comp)->
+      comp == stage
+
+    ForgotPasswordRequest.get token: $routeParams.token, ->
+      stage = 'validToken'
+    , ->
+      stage = 'invalidToken'
+    
     $scope.success = false
     $scope.forgotPasswordRequest = {}
     $scope.submitForgotPasswordRequest = ->

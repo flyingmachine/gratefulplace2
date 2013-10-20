@@ -7,6 +7,12 @@
             [liberator.core :refer [defresource]]
             [gratefulplace.utils :refer :all]))
 
+(defresource show [params]
+  :available-media-types ["application/json"]
+  :malformed? (validator params validations/password-reset-token)
+  :handle-malformed errors-in-ctx
+  :handle-ok {})
+
 (defresource create! [params]
   :allowed-methods [:post]
   :available-media-types ["application/json"]
@@ -40,4 +46,4 @@
   :post! (fn [ctx] (tx/consume-token (:record ctx) (:new-password params)))
   :new? false
   :respond-with-entity? false
-  :handle-ok (fn [_] {}))
+  :handle-ok {})
