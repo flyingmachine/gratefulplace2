@@ -14,8 +14,9 @@ the front end.
 4. `cd gp2/server`
 5. `APP_ENV=memory lein run server` - this will start a web server on
    port 8080. Every time you start the server, the application will
-   create an in-memory database and run all migrations. You should be
-   able to log in using your ADS username and password.
+   create an in-memory database and run all migrations. Two users are
+   available by default: "flyingmachine" and "joebob", both with the
+   password "password".
 
    *Optional* check out `server/resources/config/development.edn` for
    Datomic URI options. Run the app with `lein run server`
