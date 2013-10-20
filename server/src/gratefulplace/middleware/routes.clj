@@ -76,7 +76,9 @@
   (authroute POST "/users/:id/password" users/change-password!)
 
   (route POST "/credential-recovery/forgot-username" forgot-username/create!)
-  (route GET "/credential-recovery/forgot-password" forgot-password/show)
+  (route GET "/credential-recovery/forgot-password/:token" forgot-password/show)
+  (route PUT "/credential-recovery/forgot-password/:token" forgot-password/update!)
+  (route POST "/credential-recovery/forgot-password/:token" forgot-password/update!)
   (route POST "/credential-recovery/forgot-password" forgot-password/create!)
 
   ;; Stats

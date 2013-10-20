@@ -36,7 +36,7 @@
   :allowed-methods [:put :post]
   :available-media-types ["application/json"]
 
-  :malformed? (validator params validations/password-reset)
+  :malformed? (validator (merge params {:new-password params}) validations/password-reset)
   :handle-malformed errors-in-ctx
 
   :exists? (fn [_] (if-let [user (db/one [:user/password-reset-token (:token params)])]

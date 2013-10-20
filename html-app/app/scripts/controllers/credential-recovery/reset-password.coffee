@@ -3,23 +3,23 @@
 angular.module('gratefulplaceApp')
   .controller 'CredentialRecoveryResetPasswordCtrl', ($scope, $routeParams, ForgotPasswordRequest) ->
     stage = 'checkingToken'
+    $scope.forgotPasswordRequest = token: $routeParams.token
     $scope.stage = (comp)->
       comp == stage
 
-    ForgotPasswordRequest.get token: $routeParams.token,
+    ForgotPasswordRequest.get $scope.forgotPasswordRequest,
       -> stage = 'validToken',
       -> stage = 'invalidToken'
     
     $scope.success = false
-    $scope.forgotPasswordRequest = {}
-    $scope.submitForgotPasswordRequest = ->
+    $scope.resetPassword = ->
       forgotPasswordRequest = new ForgotPasswordRequest($scope.forgotPasswordRequest)
       forgotPasswordRequest.$save(->
         $scope.success = true
         $scope.forgotPasswordRequest = {}
         $scope.errorMessages = null
       , (res)->
-        $scope.errorMessages = res.data.errors
+        $scope.errors = res.data.errors
       )
     
     
