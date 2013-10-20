@@ -5,6 +5,7 @@ angular.module('gratefulplaceApp', @App.modules)
     $routeProvider
       .when '/',
         templateUrl: 'views/welcome.html',
+        controller: 'WelcomeCtrl'
       .when '/topics',
         templateUrl: 'views/topics/index.html',
         controller: 'TopicsQueryCtrl'
