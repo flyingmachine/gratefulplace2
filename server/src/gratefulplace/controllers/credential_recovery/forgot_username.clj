@@ -18,5 +18,5 @@
   :handle-not-found (fn [_] {:errors {:email ["That email address doesn't exist"]}})
   
   :post! (fn [ctx]
-           (email/send-forgot-username (:record ctx)))
+           (future (email/send-forgot-username (:record ctx))))
   :handle-created {})
