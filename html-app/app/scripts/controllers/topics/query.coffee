@@ -27,6 +27,8 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
     Topic.query params, receiveData
   query()
 
+  $scope.$on 'auth.logged-in', query
+
   $scope.newTopicForm =
     show: false
     toggle: ($event)->
