@@ -41,6 +41,9 @@
   (attr :title :topic/title)
   (attr :post-count (ref-count :post/topic))
   (attr :author-id (comp :db/id :content/author))
+  (attr :visibility #(clojure.string/replace (str (:topic/visibility %))
+                                             #":visibility/"
+                                             ""))
   (attr :last-posted-to-at (comp format-date :topic/last-posted-to-at))
   (has-one :first-post
            :rules gratefulplace.db.maprules/ent->post
@@ -127,6 +130,10 @@
   (attr :topic/title :title)
   (attr :topic/first-post :post-id)
   (attr :topic/last-posted-to-at nowfn)
+  (attr :topic/visibility (fn [topic]
+                            (if-let [visibility (:visibility topic)]
+                              (symbol (str ":visibility/" visibility))
+                              :visibility/public)))
   (attr :content/author :author-id)
   (attr :content/deleted (constantly false)))
 
