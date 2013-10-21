@@ -1,0 +1,9 @@
+[{:db/ident :topic/visibility
+  :db/id #db/id[:db.part/db]
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc "Privacy setting"
+  :db.install/_attribute :db.part/db}
+
+ [:db/add #db/id[:db.part/user] :db/ident :visibility/public]
+ [:db/add #db/id[:db.part/user] :db/ident :visibility/authenticated]]

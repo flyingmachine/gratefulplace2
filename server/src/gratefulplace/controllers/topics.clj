@@ -34,13 +34,20 @@
         paged-topics (take per-page (drop skip topics))]
     (conj paged-topics {:page-count page-count :topic-count topic-count})))
 
-(defresource query [params]
+(defn visibility
+  [auth]
+  (when-not (logged-in? auth)
+    [:topic/visibility :visibility/public]))
+
+(defresource query [params auth]
   :available-media-types ["application/json"]
   :handle-ok (fn [_]
                (paginate
                 (reverse-by :last-posted-to-at
                             (map query-record
-                                 (db/all :topic/first-post [:content/deleted false])))
+                                 (db/all :topic/first-post
+                                         [:content/deleted false]
+                                         (visibility auth))))
                 params)))
 
 (defresource show [params auth]
