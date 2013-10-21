@@ -1,7 +1,6 @@
 'use strict'
 
 angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $location, Topic, Watch, User, Utils, Authorize) ->
-  Authorize.requireLogin()
   currentPage = ->
     if $location.search().page
       parseInt $location.search().page
@@ -17,9 +16,10 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
   watches = null
 
   receiveData = (data)->
-    $scope.stats['last-post-at'] = data[1]['last-posted-to-at']
     _.merge($scope.paginationData, data[0])
     $scope.topics = _.rest(data)
+    if !_.isEmpty($scope.topics)
+      $scope.stats['last-post-at'] = data[1]['last-posted-to-at']
     Utils.addWatchCountToTopics($scope.topics, watches)
 
   query = ->
