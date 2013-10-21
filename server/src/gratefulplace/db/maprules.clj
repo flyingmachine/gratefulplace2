@@ -132,7 +132,7 @@
   (attr :topic/last-posted-to-at nowfn)
   (attr :topic/visibility (fn [topic]
                             (if-let [visibility (:visibility topic)]
-                              (symbol (str ":visibility/" visibility))
+                              (keyword (str "visibility/" visibility))
                               :visibility/public)))
   (attr :content/author :author-id)
   (attr :content/deleted (constantly false)))

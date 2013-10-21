@@ -23,3 +23,9 @@
   @include trailer(.5, 27px);
   @include leader(0);
 }
+
+select.privacy {
+  font-family: 'FontAwesome', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  float: right;
+  margin-right: .5em;
+}

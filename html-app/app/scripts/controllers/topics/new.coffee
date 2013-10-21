@@ -2,12 +2,15 @@
 
 angular.module('gratefulplaceApp')
   .controller 'TopicsNewCtrl', ($rootScope, $scope, $routeParams, $resource, Topic, CurrentSession) ->
-    $scope.newTopic = {}
-
+    newTopic = ->
+      $scope.newTopic =
+        visibility: "public"
+    newTopic()
+    
     $scope.submitNewTopic = ->
       topic = new Topic($scope.newTopic)
       topic.$save (t)->
         $scope.currentSession.hasPostedToday = true
         $scope.newTopicForm.show = false
-        $scope.newTopic = {}
+        newTopic()
         $rootScope.$broadcast('topic.created', t)
