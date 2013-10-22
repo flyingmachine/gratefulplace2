@@ -347,7 +347,6 @@ input.ng-pristine {
 }
 
 #stats {
-  @include leader(4);
   .date {
     display: inline;
   }

@@ -1,110 +1,112 @@
-<div id="login" class="new" ng-controller="LoginCtrl">
-  <h2>Log In</h2>
-  <div class="clearfix"></div>
-  <form ng-submit="submitLogin()" novalidate>
-    <div class="clearfix">
-      <table class="input">
-        <tbody>
-          <tr>
-            <td>
-              <label for="login-username">Username</label>
-            </td>
-            <td>
-              <input value=""
-                     type="text"
-                     name="username"
-                     id="login-username"
-                     ng-model="login.username"
-                     required />
-              <div class="error" error-messages="errors.username"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label for="login-password">Password</label>
-            </td>
-            <td>
-              <input type="password"
-                     name="password"
-                     id="login-password"
-                     ng-model="login.password"
-                     required />
-            </td>
-          </tr>
-      </tbody></table>
-    </div>
-    <input value="Log In" type="submit">
-  </form>
-</div>
-
-<div id="new-user" ng-controller="RegisterCtrl">
-  <h2>Join the Community</h2>
-  <div id="signup">
-    <form ng-submit="submitRegistration()" novalidate>
+<div id="main">
+  <div id="login" class="new" ng-controller="LoginCtrl">
+    <h2>Log In</h2>
+    <div class="clearfix"></div>
+    <form ng-submit="submitLogin()" novalidate>
       <div class="clearfix">
         <table class="input">
-          <tbody><tr>
+          <tbody>
+            <tr>
               <td>
-                <label for="registration-username">Username</label>
+                <label for="login-username">Username</label>
               </td>
               <td>
                 <input value=""
                        type="text"
                        name="username"
-                       id="registration-username"
-                       ng-model="registration.username"
-                       required >
+                       id="login-username"
+                       ng-model="login.username"
+                       required />
                 <div class="error" error-messages="errors.username"></div>
               </td>
             </tr>
             <tr>
               <td>
-                <label for="registration-password">Password</label>
+                <label for="login-password">Password</label>
               </td>
               <td>
                 <input type="password"
                        name="password"
-                       id="registration-password"
-                       ng-model="registration.password"
-                       required>
-                <div class="error" error-messages="errors.password"></div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <label for="signup-email">Email</label>
-              </td>
-              <td>
-                <input type="email"
-                       name="email"
-                       id="signup-email"
-                       ng-model="registration.email"
-                       required>
-                <div class="error" error-messages="errors.email"></div>
+                       id="login-password"
+                       ng-model="login.password"
+                       required />
               </td>
             </tr>
         </tbody></table>
-        <div class="option">
-          <input type="checkbox" name="receive_comment_notifications" id="receive_comment_notifications" checked="checked">
-          <label for="receive_comment_notifications">
-            Receive email when people comment on your posts
-          </label>
-        </div>
-        <div class="option">
-          <input type="checkbox" name="receive_newsletter" id="receive_newsletter">
-          <label for="receive_newsletter">
-            Receive biweekly email newsletter, "Cultivating Gratitude"
-          </label>
-        </div>
       </div>
-      <div class="action">
-        <input value="Join Grateful Place"
-               type="submit"
-               ng-disabled="form.$invalid">
-      </div>
+      <input value="Log In" type="submit">
     </form>
   </div>
-  <p>Join Grateful Place and become part of a community dedicated to cultivating gratitude.</p>
-  <p>Taking a few minutes of every day to express what you are grateful for will improve your life and have a positive impact on others. Not only does expressing your gratitude make others feel appreciated, it also makes you aware of the positive in your life.</p>
-  <p>It allows you to look past the small, petty things and focus on what's important. It enables you to turn the negative into something positive, letting you see the good in what may seem bad.</p>
+
+  <div id="new-user" ng-controller="RegisterCtrl">
+    <h2>Join the Community</h2>
+    <div id="signup">
+      <form ng-submit="submitRegistration()" novalidate>
+        <div class="clearfix">
+          <table class="input">
+            <tbody><tr>
+                <td>
+                  <label for="registration-username">Username</label>
+                </td>
+                <td>
+                  <input value=""
+                         type="text"
+                         name="username"
+                         id="registration-username"
+                         ng-model="registration.username"
+                         required >
+                  <div class="error" error-messages="errors.username"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="registration-password">Password</label>
+                </td>
+                <td>
+                  <input type="password"
+                         name="password"
+                         id="registration-password"
+                         ng-model="registration.password"
+                         required>
+                  <div class="error" error-messages="errors.password"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="signup-email">Email</label>
+                </td>
+                <td>
+                  <input type="email"
+                         name="email"
+                         id="signup-email"
+                         ng-model="registration.email"
+                         required>
+                  <div class="error" error-messages="errors.email"></div>
+                </td>
+              </tr>
+          </tbody></table>
+          <div class="option">
+            <input type="checkbox" name="receive_comment_notifications" id="receive_comment_notifications" checked="checked">
+            <label for="receive_comment_notifications">
+              Receive email when people comment on your posts
+            </label>
+          </div>
+          <div class="option">
+            <input type="checkbox" name="receive_newsletter" id="receive_newsletter">
+            <label for="receive_newsletter">
+              Receive biweekly email newsletter, "Cultivating Gratitude"
+            </label>
+          </div>
+        </div>
+        <div class="action">
+          <input value="Join Grateful Place"
+                 type="submit"
+                 ng-disabled="form.$invalid">
+        </div>
+      </form>
+    </div>
+    <p>Join Grateful Place and become part of a community dedicated to cultivating gratitude.</p>
+    <p>Taking a few minutes of every day to express what you are grateful for will improve your life and have a positive impact on others. Not only does expressing your gratitude make others feel appreciated, it also makes you aware of the positive in your life.</p>
+    <p>It allows you to look past the small, petty things and focus on what's important. It enables you to turn the negative into something positive, letting you see the good in what may seem bad.</p>
+  </div>
 </div>

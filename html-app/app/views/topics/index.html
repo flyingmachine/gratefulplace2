@@ -1,4 +1,4 @@
-<div id="more">
+<div id="more" ng-show="currentSession.loggedIn()">
   <nav class="secondary">
     <ul class="nav">
       <li ng-show="currentSession">
@@ -19,7 +19,82 @@
   </div>
 </div>
 
+<div id="more" ng-hide="currentSession.loggedIn()">
+  <div id="stats">
+    <h4>Community Activity</h4>
+    <ul>
+      <li>{{stats['topic-count']}} topics</li>
+      <li>{{stats['post-count']}} posts</li>
+      <li>{{stats['like-count']}} likes</li>
+      <li ng-show="stats['last-post-at']">Last post <date data="stats['last-post-at']"></date></li>
+    </ul>
+  </div>
+</div>
+
+
 <div id="main">
+  <div ng-hide="currentSession.loggedIn()" class="chunk">
+    <p>
+      Grateful Place is a wall-style site for people to
+      consciously lift each other up. If you'd like to belong
+      to a community which supports you in leading a happier,
+      more positive life, then this is the place for you :)
+      <a href="#/welcome">read more</a>
+    </p>
+    <div id="signup" ng-controller="RegisterCtrl">
+      <form ng-submit="submitRegistration()" novalidate>
+        <div class="clearfix">
+          <table class="input">
+            <tbody><tr>
+                <td>
+                  <label for="registration-username">Username</label>
+                </td>
+                <td>
+                  <input value=""
+                         type="text"
+                         name="username"
+                         id="registration-username"
+                         ng-model="registration.username"
+                         required >
+                  <div class="error" error-messages="errors.username"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="registration-password">Password</label>
+                </td>
+                <td>
+                  <input type="password"
+                         name="password"
+                         id="registration-password"
+                         ng-model="registration.password"
+                         required>
+                  <div class="error" error-messages="errors.password"></div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label for="signup-email">Email</label>
+                </td>
+                <td>
+                  <input type="email"
+                         name="email"
+                         id="signup-email"
+                         ng-model="registration.email"
+                         required>
+                  <div class="error" error-messages="errors.email"></div>
+                </td>
+              </tr>
+          </tbody></table>
+        </div>
+        <div class="action">
+          <input value="Join Grateful Place"
+                 type="submit"
+                 ng-disabled="form.$invalid">
+        </div>
+      </form>
+    </div>
+  </div>
   <div id="topics" ng-show="topics.length > 0">
     <div id="new-topic"
          ng-controller="TopicsNewCtrl"

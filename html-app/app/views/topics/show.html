@@ -26,7 +26,12 @@
   </div>
 </div>
 
-<div id="more">
+<div id="more" ng-hide="currentSession.loggedIn()">
+  <a href="#/login">Login or join to post a reply</a>
+</div>
+
+
+<div id="more" ng-show="currentSession.loggedIn()">
   <div id="watch-status" class="secondary" ng-controller="WatchesToggleCtrl">
     <div ng-show="watching()">
       <h3>Watching</h3>
