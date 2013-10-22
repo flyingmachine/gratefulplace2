@@ -1,6 +1,7 @@
 (ns gratefulplace.middleware.auth
   (:require [gratefulplace.controllers.users :as users]
             [gratefulplace.db.query :as q]
+            [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend]
@@ -10,7 +11,15 @@
 
 (defn user
   [username]
-  (if-let [user-ent (q/one [:user/username username])]
+  (if-let [user-ent (-> (d/q '[:find ?e :in $ ?username 
+                                          :where
+                                          [?e :user/username ?u] 
+                                          [(clojure.string/lower-case ?u) ?lower-username]
+                                          [(= ?lower-username ?username)]], 
+                                        (q/db)
+                                        (clojure.string/lower-case username))
+                        ffirst
+                        q/ent)]
     (c/mapify user-ent mr/ent->userauth)))
 
 (defn credential-fn
