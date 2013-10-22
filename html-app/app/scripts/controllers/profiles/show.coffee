@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'ProfilesShowCtrl', ($scope, $routeParams, User) ->
+  .controller 'ProfilesShowCtrl', ($scope, $routeParams, User, Authorize) ->
     Authorize.requireLogin()
     $scope.hasAbout = ->
       $scope.user['formatted-about'] && $scope.user['formatted-about'].length
