@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module('gratefulplaceApp')
-  .controller 'ManageProfileEmailCtrl', ($scope, User, CurrentSession, preferences) ->
+  .controller 'ManageProfileEmailCtrl', ($scope, User, CurrentSession, preferences, Authorize) ->
     Authorize.requireLogin()
     User.get id: CurrentSession.get().id, (user)->
       $scope.user = user
