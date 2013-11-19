@@ -37,7 +37,9 @@
 
   ;; Watches
   (auth-resource-routes watches :_only [:query :create! :delete!])
-  (authroute GET "/watched-topics" watched-topics/query authfn)
+
+  ;; Watched Topics
+  (auth-resource-routes watched-topics :_only [:query])
 
   ;; Posts
   (auth-resource-routes posts :_only [:create! :update! :delete!])
