@@ -33,21 +33,21 @@
               [resp/file-response resp/resource-response]))
 
   ;; Topics
-  (auth-resource-routes topics :_only [:query :show :create! :delete!])
+  (auth-resource-routes topics :only [:query :show :create! :delete!])
 
   ;; Watches
-  (auth-resource-routes watches :_only [:query :create! :delete!])
+  (auth-resource-routes watches :only [:query :create! :delete!])
 
   ;; Watched Topics
-  (auth-resource-routes watched-topics :_only [:query])
+  (auth-resource-routes watched-topics :only [:query])
 
   ;; Posts
-  (auth-resource-routes posts :_only [:create! :update! :delete!])
+  (auth-resource-routes posts :only [:create! :update! :delete!])
   (authroute POST "/posts/:id" posts/update! authfn)
 
   ;; Likes
   (auth-resource-routes likes
-                        :_only [:create! :delete!]
+                        :only [:create! :delete!]
                         :suffixes [":post-id"])
 
   ;; Users

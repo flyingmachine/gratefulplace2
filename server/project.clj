@@ -19,7 +19,7 @@
                  [com.cemerick/friend "0.1.5"]
                  [crypto-random "1.1.0"]
                  [org.clojure/tools.namespace "0.2.2"]
-                 [com.flyingmachine/webutils "0.1.3"]
+                 [com.flyingmachine/webutils "0.1.4"]
                  [flyingmachine/cartographer "0.1.1"]
                  [markdown-clj "0.9.25"]
                  [clavatar "0.2.1"]
