@@ -2,38 +2,24 @@
   (:require compojure.route
             compojure.handler
             [ring.util.response :as resp]
-            [gratefulplace.controllers.topics :as topics]
-            [gratefulplace.controllers.watches :as watches]
-            [gratefulplace.controllers.watched-topics :as watched-topics]
-            [gratefulplace.controllers.posts :as posts]
-            [gratefulplace.controllers.likes :as likes]
-            [gratefulplace.controllers.stats :as stats]
-            [gratefulplace.controllers.users :as users]
-            [gratefulplace.controllers.session :as session]
             [gratefulplace.controllers.credential-recovery.forgot-username :as forgot-username]
             [gratefulplace.controllers.credential-recovery.forgot-password :as forgot-password]
-
             [gratefulplace.controllers.admin.users :as ausers]
-            
-            [gratefulplace.controllers.js :as js]
-            [cemerick.friend :as friend])
+            [cemerick.friend :as friend]
+            [flyingmachine.webutils.routes :refer :all])
   (:use [compojure.core :as compojure.core :only (GET PUT POST DELETE ANY defroutes)]
         gratefulplace.config))
 
+(doseq [as '[topics watches watched-topics posts likes stats users session js]]
+  (require [(symbol (str "gratefulplace.controllers." as)) :as as]))
 
-(defmacro route
-  [method path handler]
-  `(~method ~path {params# :params}
-            (~handler params#)))
-
-(defmacro authroute
-  [method path handler]
-  (let [params (quote params)]
-    `(~method ~path {:keys [~params] :as req#}
-              (~handler ~params (friend/current-authentication req#)))))
+(def authfn friend/current-authentication)
+(defroutemacro auth-resource-routes
+  :route-op authroute
+  :route-args [authfn])
 
 (defroutes routes
-  (authroute GET "/scripts/load-session.js" js/load-session)
+  (authroute GET "/scripts/load-session.js" js/load-session authfn)
 
   ;; Serve up angular app
   (apply compojure.core/routes
@@ -45,35 +31,28 @@
          (map (fn [response-fn]
                 (GET "/" [] (response-fn "index.html" {:root "html-app"})))
               [resp/file-response resp/resource-response]))
-  
+
   ;; Topics
-  (authroute GET "/topics" topics/query)
-  (authroute GET "/topics/:id" topics/show)
-  (authroute POST "/topics" topics/create!)
-  (authroute DELETE "/topics/:id" topics/delete!)
+  (auth-resource-routes topics :_only [:query :show :create! :delete!])
 
   ;; Watches
-  (authroute GET "/watches" watches/query)
-  (authroute POST "/watches" watches/create!)
-  (authroute DELETE "/watches/:id" watches/delete!)
+  (auth-resource-routes watches :_only [:query :create! :delete!])
+  (authroute GET "/watched-topics" watched-topics/query authfn)
 
-  (authroute GET "/watched-topics" watched-topics/query)
-  
   ;; Posts
-  (authroute POST "/posts" posts/create!)
-  (authroute PUT  "/posts/:id" posts/update!)
-  (authroute POST "/posts/:id" posts/update!)
-  (authroute DELETE "/posts/:id" posts/delete!)
+  (auth-resource-routes posts :_only [:create! :update! :delete!])
+  (authroute POST "/posts/:id" posts/update! authfn)
 
   ;; Likes
-  (authroute POST "/likes/:post-id" likes/create!)
-  (authroute DELETE "/likes/:post-id" likes/delete!)
+  (auth-resource-routes likes
+                        :_only [:create! :delete!]
+                        :suffixes [":post-id"])
 
   ;; Users
-  (authroute POST "/users" users/registration-success-response)
+  (authroute POST "/users" users/registration-success-response authfn)
   (route GET "/users/:id" users/show)
-  (authroute POST "/users/:id" users/update!)
-  (authroute POST "/users/:id/password" users/change-password!)
+  (authroute POST "/users/:id" users/update! authfn)
+  (authroute POST "/users/:id/password" users/change-password! authfn)
 
   (route POST "/credential-recovery/forgot-username" forgot-username/create!)
   (route GET "/credential-recovery/forgot-password/:token" forgot-password/show)
@@ -85,8 +64,8 @@
   (route GET "/stats" stats/query)
 
   ;; Admin users
-  (authroute GET "/admin/users" ausers/query)
-  
+  (authroute GET "/admin/users" ausers/query authfn)
+
   ;; auth
   (route POST "/login" session/create!)
   (friend/logout
@@ -95,5 +74,5 @@
 
   (ANY "/debug" {:keys [x] :as r}
        (str x))
-  
+
   (compojure.route/not-found "Sorry, there's nothing here."))
