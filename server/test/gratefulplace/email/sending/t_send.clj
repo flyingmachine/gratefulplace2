@@ -12,9 +12,9 @@
 
 (def mail-options
   {:from (config :email :from-address)
-    :to (config :email :test-recipient)
-    :subject "[Grateful Place] test"
-    :body (email-content/body "test" template-vars)})
+   :to (config :email :test-recipient)
+   :subject "[Grateful Place] test"
+   :body (email-content/body "test" template-vars)})
 
 (fact "if deliver? is false, return params"
   (email/send-email*
