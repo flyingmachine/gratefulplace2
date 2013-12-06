@@ -1,13 +1,14 @@
 (ns gratefulplace.email.sending.senders
-  (:require [gratefulplace.email.sending.send :refer [defsenders]]
-            [gratefulplace.utils :refer :all]
-            [gratefulplace.config :refer [config]]))
+  (:require com.flyingmachine.penny-black-apache-commons
+            [com.flyingmachine.penny-black.core.send :refer [defsenders]]
+            [com.flyingmachine.penny-black.core.config :refer [config]]
+            [gratefulplace.utils :refer :all]))
 
 ;; Topics/posts
 (defsenders
   {:args [users topic]
    :user-doseq [user users]}
-  {:from (config :email :from-address)
+  {:from (config :from-address)
    :to (:user/email user)
    :body-data {:topic-title (:title topic)
                :topic-id (:id topic)
@@ -29,7 +30,7 @@
 (defsenders
   {:args [users]
    :user-doseq [user users]}
-  {:from (config :email :from-address)
+  {:from (config :from-address)
    :to (:user/email user)
    :body-data {:username (:user/username user)}}
 
@@ -41,4 +42,3 @@
    []
    :subject (str "Grateful Place password reset")
    :body-data {:token (:user/password-reset-token user)}))
-

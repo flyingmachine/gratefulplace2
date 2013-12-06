@@ -6,9 +6,10 @@ dist
 .lein-env
 .vagrant
 *.jar
+profiles.clj
 html-app/app/components
 server/resources/html-app
 infrastructure/ansible/prod*
 infrastructure/ansible/demo
 infrastructure/ansible/files/env
-infrastructure/ansible/files/profiles.clj
+
