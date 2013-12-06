@@ -38,6 +38,9 @@
   - name: copy uberjar
     copy: src=files/gp2.jar dest=${project_root}/code/gp2.jar
 
+  - name: copy profile
+    copy: src=files/profiles.clj dest=${project_root}/code/profiles.clj
+    
   - name: migrate
     command: java -jar ${project_root}/code/gp2.jar db/migrate
     

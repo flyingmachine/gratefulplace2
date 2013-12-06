@@ -11,3 +11,4 @@ server/resources/html-app
 infrastructure/ansible/prod*
 infrastructure/ansible/demo
 infrastructure/ansible/files/env
+infrastructure/ansible/files/profiles.clj
