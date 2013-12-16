@@ -11,3 +11,5 @@ server/resources/html-app
 infrastructure/ansible/prod*
 infrastructure/ansible/demo
 infrastructure/ansible/files/env
+.nrepl-port
+profiles.clj

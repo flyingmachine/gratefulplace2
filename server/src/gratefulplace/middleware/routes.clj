@@ -26,7 +26,8 @@
          (map #(compojure.core/routes
                 (compojure.route/files "/" {:root %})
                 (compojure.route/resources "/" {:root %}))
-              (reverse (config :html-paths))))
+              (config :html-paths)))
+  
   (apply compojure.core/routes
          (map (fn [response-fn]
                 (GET "/" [] (response-fn "index.html" {:root "html-app"})))
