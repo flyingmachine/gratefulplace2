@@ -33,6 +33,9 @@
   - name: Upload env file
     copy: src=files/env dest=${project_root}/code/env
 
+  - name: Upload profiles file
+    copy: src=files/profiles.clj dest=${project_root}/code/profiles.clj
+
   - name: Make app log directory
     file: state=directory path=/var/log/${project_name} owner=${project_name} group=${project_name}
         

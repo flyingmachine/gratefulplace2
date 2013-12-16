@@ -24,14 +24,15 @@
   ;; Serve up angular app
   (apply compojure.core/routes
          (map #(compojure.core/routes
-                (compojure.route/files "/" {:root %})
-                (compojure.route/resources "/" {:root %}))
+                (GET "/" [] (resp/file-response "index.html" {:root %}))
+                (GET "/" [] (resp/resource-response "index.html" {:root %})))
               (config :html-paths)))
   
   (apply compojure.core/routes
-         (map (fn [response-fn]
-                (GET "/" [] (response-fn "index.html" {:root "html-app"})))
-              [resp/file-response resp/resource-response]))
+         (map #(compojure.core/routes
+                (compojure.route/files "/" {:root %})
+                (compojure.route/resources "/" {:root %}))
+              (config :html-paths)))
 
   ;; Topics
   (auth-resource-routes topics :only [:query :show :create! :delete!])
