@@ -12,12 +12,12 @@
 (defn user
   [username]
   (if-let [user-ent (-> (d/q '[:find ?e :in $ ?username 
-                                          :where
-                                          [?e :user/username ?u] 
-                                          [(clojure.string/lower-case ?u) ?lower-username]
-                                          [(= ?lower-username ?username)]], 
-                                        (q/db)
-                                        (clojure.string/lower-case username))
+                               :where
+                               [?e :user/username ?u] 
+                               [(clojure.string/lower-case ?u) ?lower-username]
+                               [(= ?lower-username ?username)]], 
+                             (q/db)
+                             (clojure.string/lower-case username))
                         ffirst
                         q/ent)]
     (c/mapify user-ent mr/ent->userauth)))
@@ -27,9 +27,9 @@
   (user username))
 
 (defn session-store-authorize [{:keys [uri request-method params session]}]
-   (when (nil? (:cemerick.friend/identity session))
-     (if-let [username (get-in session [:cemerick.friend/identity :current])]
-       (workflows/make-auth (select-keys (user username) [:id :username])))))
+  (when (nil? (:cemerick.friend/identity session))
+    (if-let [username (get-in session [:cemerick.friend/identity :current])]
+      (workflows/make-auth (select-keys (user username) [:id :username])))))
 
 (defn auth
   [ring-app]
