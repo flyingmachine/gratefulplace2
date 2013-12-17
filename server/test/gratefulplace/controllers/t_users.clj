@@ -26,7 +26,7 @@
           :new-password "new-password"
           :new-password-confirmation "new-password"}
          (auth "joebob"))
-    => (contains {:status 401})))
+    => (contains {:status 400})))
 
 
 (facts "Users can update stuff"
