@@ -6,9 +6,9 @@
   (let [environment (or (env :app-env) "development")]
     (merge
      {:app-env environment
-      :html-paths ["html-app"
+      :html-paths ["../html-app/.tmp"
                    "../html-app/app"
-                   "../html-app/.tmp"]
+                   "html-app"]
       :datomic {:db-uri "datomic:free://localhost:4334/gp2"
                 :test-uri "datomic:mem://gp2-test"}
       :moderator-names ["flyingmachine"]
