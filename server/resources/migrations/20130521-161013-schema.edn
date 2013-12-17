@@ -1,5 +1,4 @@
-[
- ;; session
+[;; session
  {:db/ident :session/key
   :db/id #db/id[:db.part/db]
   :db/valueType :db.type/uuid
@@ -13,7 +12,6 @@
   :db/id #db/id[:db.part/db]
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/index true
   :db/doc "All session data"
   :db.install/_attribute :db.part/db}
  
@@ -45,8 +43,8 @@
   :db/cardinality :db.cardinality/one
   :db.install/_attribute :db.part/db}
 
- {:db/id #db/id [:db.part/db]
-  :db/ident :user/about
+ {:db/ident :user/about
+  :db/id #db/id [:db.part/db]
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/fulltext true

@@ -1,0 +1,56 @@
+[{:user/username "flyingmachine"
+  :user/password "$2a$10$iLBiogT.GcTHz1nDpZ.tR.X/hClBNICizX2wqyPLwt3KCxmSFs6eW" ;; "password"
+  :user/email "daniel@flyingmachinestudios.com"
+  :user/about "Pizza\n\nTacos\n\n* list item 1\n* list item 2"
+  :db/id #db/id [:db.part/user -10]}
+
+ {:user/username "joebob"
+  :user/password "$2a$10$iLBiogT.GcTHz1nDpZ.tR.X/hClBNICizX2wqyPLwt3KCxmSFs6eW" ;; "password"
+  :user/email "joebob@bobjoe.com"
+  :user/about "I hail from a long line of joebobs"
+  :db/id #db/id [:db.part/user -11]}
+
+ ;; first topic 
+ {:topic/title "First topic"
+  :topic/first-post #db/id[:db.part/user -30]
+  :topic/last-posted-to-at #inst "2013-05-10T19:41:20.909-00:00"
+  :topic/visibility :visibility/public
+  :content/author #db/id[:db.part/user -10]
+  :content/deleted false
+  :db/id #db/id[:db.part/user -20]}
+
+ {:watch/user #db/id[:db.part/user -10]
+  :watch/topic #db/id[:db.part/user -20]
+  :watch/unread-count 0
+  :db/id #db/id[:db.part/user -40]}
+
+ {:post/content "T1 First post content"
+  :post/topic #db/id[:db.part/user -20]
+  :post/created-at #inst "2013-05-09T19:41:20.909-00:00"
+  :content/author #db/id[:db.part/user -10]
+  :db/id #db/id[:db.part/user -30]}
+ {:post/content "T1 Second post content"
+  :post/topic #db/id[:db.part/user -20]
+  :post/created-at #inst "2013-05-10T19:41:20.909-00:00"
+  :content/author #db/id[:db.part/user -11]
+  :db/id #db/id[:db.part/user -31]}
+
+ ;; second topic
+ {:topic/title "Second topic"
+  :topic/first-post #db/id [:db.part/user -32]
+  :topic/last-posted-to-at #inst "2013-05-19T19:41:20.909-00:00"
+  :topic/visibility :visibility/public
+  :content/author #db/id[:db.part/user -11]
+  :content/deleted false
+  :db/id #db/id[:db.part/user -21]}
+
+ {:post/content "T2 First post content"
+  :post/topic #db/id[:db.part/user -21]
+  :post/created-at #inst "2013-05-19T19:41:20.909-00:00"
+  :content/author #db/id[:db.part/user -11]
+  :db/id #db/id[:db.part/user -32]}
+ {:post/content "T2 Second post content"
+  :post/topic #db/id[:db.part/user -21]
+  :post/created-at #inst "2013-05-19T19:41:20.909-00:00"
+  :content/author #db/id[:db.part/user -10]
+  :db/id #db/id[:db.part/user -33]}]

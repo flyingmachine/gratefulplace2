@@ -46,7 +46,9 @@
 (defmacro setup-db-background
   []
   `(background
-    (before :contents (tdb/with-test-db (db-manage/reload)))
+    (before :contents (tdb/with-test-db
+                        (db-manage/reload)
+                        (q/t (read-resource "fixtures/seeds.edn"))))
     (around :facts (tdb/with-test-db ?form))))
 
 (defn topic-id

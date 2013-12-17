@@ -11,11 +11,7 @@
         gratefulplace.models.permissions
         gratefulplace.utils))
 
-(defmapifier record
-  mr/ent->post
-  {:include author-inclusion-options
-   ;; :exclude [:content :created-at :topic-id]
-   })
+(defmapifier record  mr/ent->post {:include author-inclusion-options})
 
 (defresource update! [params auth]
   :allowed-methods [:put :post]

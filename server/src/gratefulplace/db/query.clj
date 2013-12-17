@@ -12,8 +12,7 @@
   (d/db (conn)))
 
 ;; '[:find ?c :where [?c :topic/title]]
-(def q
-  #(d/q % (db)))
+(def q #(d/q % (db)))
 
 (defn ent
   [id]
@@ -25,9 +24,7 @@
   [results]
   (map (comp ent first) results))
 
-(defmulti ent? class)
-(defmethod ent? datomic.query.EntityMap [x] x)
-(defmethod ent? :default [x] false)
+(defn ent? [x] (instance? datomic.query.EntityMap x))
 
 (defn eid
   [& conditions]
@@ -58,8 +55,7 @@
         (db)
         attr)))
 
-(def t
-  #(d/transact (conn) %))
+(def t #(d/transact (conn) %))
 
 (defn resolve-tempid
   [tempids tempid]

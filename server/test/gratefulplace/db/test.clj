@@ -11,7 +11,6 @@
 (defmacro with-test-db
   [& body]
   `(binding [q/*db-uri* test-db-uri]
-     (initialize)
      ~@body))
 
 (defn initialize
