@@ -2,7 +2,8 @@
   (:gen-class)
   (:require [datomic.api :as d]
             [com.flyingmachine.datomic-junk :as dj]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [gratefulplace.utils :refer :all])
   (:use environ.core)
   (:import java.io.File))
 
@@ -111,6 +112,10 @@
   []
   (create)
   (apply ensure-schemas (into [(dj/conn) :gp2/schema (migrations-map migrations)] migrations)))
+
+(defn seed
+  []
+  (dj/t (read-resource "fixtures/seeds.edn")))
 
 (defn reload
   []
