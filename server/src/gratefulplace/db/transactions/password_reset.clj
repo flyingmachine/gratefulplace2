@@ -5,7 +5,7 @@
             [gratefulplace.email.sending.senders :as email]
             [flyingmachine.cartographer.core :as c]
             [crypto.random]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]))
 
 (defn generate-token
   []

@@ -4,7 +4,7 @@
             [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.mapification :refer [mapify-tx-result]]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]))
 
 (defn create-user
   [params]

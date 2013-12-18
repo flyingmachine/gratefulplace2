@@ -2,7 +2,7 @@
   (:require [gratefulplace.db.maprules :as mr]
             [com.flyingmachine.datomic-junk :as dj]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]))
 
 (def preferences ["receive-watch-notifications"
                   "receive-new-topic-notifications"])

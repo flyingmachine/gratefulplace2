@@ -8,7 +8,7 @@
   (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
-        gratefulplace.utils))
+        flyingmachine.webutils.utils))
 
 (defmapifier record  mr/ent->post {:include author-inclusion-options})
 

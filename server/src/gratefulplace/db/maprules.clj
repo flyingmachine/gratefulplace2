@@ -1,9 +1,10 @@
 (ns gratefulplace.db.maprules
   (:require [com.flyingmachine.datomic-junk :as dj]
-            cemerick.friend.credentials)
-  (:use [flyingmachine.cartographer.core]
-        [gratefulplace.utils]
-        [clavatar.core]))
+            cemerick.friend.credentials
+            [flyingmachine.cartographer.core :refer :all]
+            [flyingmachine.webutils.utils :refer :all]
+            [clavatar.core :refer :all]
+            [gratefulplace.lib.html :refer :all]))
 
 (defn ref-count
   [ref-attr & conds]

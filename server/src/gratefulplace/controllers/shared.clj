@@ -2,7 +2,7 @@
   (:require [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.models.permissions :refer :all]
             [gratefulplace.db.mapification :refer :all]
-            [gratefulplace.utils :refer :all]
+            [flyingmachine.webutils.utils :refer :all]
             [flyingmachine.webutils.validation :refer (if-valid)]))
 
 (def author-inclusion-options

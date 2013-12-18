@@ -5,7 +5,7 @@
             [gratefulplace.server :as server]
             [clojure.data.json :as json])
   (:use midje.sweet
-        gratefulplace.utils
+        flyingmachine.webutils.utils
         gratefulplace.paths
         [ring.mock.request :only [request header content-type]]))
 

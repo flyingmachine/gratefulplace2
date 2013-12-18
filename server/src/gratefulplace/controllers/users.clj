@@ -12,7 +12,7 @@
         gratefulplace.models.permissions
         gratefulplace.db.mapification
         gratefulplace.controllers.shared
-        gratefulplace.utils))
+        flyingmachine.webutils.utils))
 
 (defmapifier record mr/ent->user)
 (defmapifier authrecord mr/ent->userauth)

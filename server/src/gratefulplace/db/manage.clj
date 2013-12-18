@@ -3,7 +3,7 @@
   (:require [datomic.api :as d]
             [com.flyingmachine.datomic-junk :as dj]
             [clojure.java.io :as io]
-            [gratefulplace.utils :refer :all])
+            [flyingmachine.webutils.utils :refer :all])
   (:use environ.core)
   (:import java.io.File))
 

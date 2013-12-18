@@ -4,7 +4,7 @@
             [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.email.sending.senders :as email]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]))
 
 (defmapifier post-params->txdata* mr/post->txdata)
 (def post-params->txdata (comp remove-nils-from-map post-params->txdata*))

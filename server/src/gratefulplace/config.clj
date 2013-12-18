@@ -1,5 +1,5 @@
 (ns gratefulplace.config
-  (:require [gratefulplace.utils :refer :all]
+  (:require [flyingmachine.webutils.utils :refer :all]
             [environ.core :refer :all]))
 
 (def conf

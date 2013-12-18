@@ -6,7 +6,7 @@
   (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
-        gratefulplace.utils))
+        flyingmachine.webutils.utils))
 
 (defn find-like
   [like]

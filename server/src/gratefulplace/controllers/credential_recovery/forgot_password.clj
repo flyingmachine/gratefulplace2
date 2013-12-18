@@ -5,7 +5,7 @@
             [gratefulplace.email.sending.senders :as email]
             [gratefulplace.controllers.shared :refer :all]
             [liberator.core :refer [defresource]]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]))
 
 (defresource show [params]
   :available-media-types ["application/json"]

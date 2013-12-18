@@ -10,7 +10,7 @@
             [gratefulplace.controllers.shared :refer :all]
             [gratefulplace.models.permissions :refer :all]
             [gratefulplace.db.mapification :refer :all]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]))
 
 (def query-mapify-options
   {:include (merge {:first-post {:only [:content :likers :id]}}

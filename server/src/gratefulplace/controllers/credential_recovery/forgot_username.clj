@@ -4,7 +4,7 @@
             [gratefulplace.email.sending.senders :as email]
             [gratefulplace.controllers.shared :refer :all]
             [liberator.core :refer [defresource]]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]))
 
 (defresource create! [params]
   :allowed-methods [:post]

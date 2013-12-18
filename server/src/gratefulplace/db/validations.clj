@@ -1,6 +1,6 @@
 (ns gratefulplace.db.validations
   (:require [com.flyingmachine.datomic-junk :as dj]
-            [gratefulplace.utils :refer :all]
+            [flyingmachine.webutils.utils :refer :all]
             [clj-time.core :as time])
   (:import org.mindrot.jbcrypt.BCrypt
            (org.joda.time DateTime)))

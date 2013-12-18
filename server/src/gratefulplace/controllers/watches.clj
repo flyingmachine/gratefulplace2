@@ -8,7 +8,7 @@
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
         gratefulplace.db.mapification
-        gratefulplace.utils))
+        flyingmachine.webutils.utils))
 
 (defmapifier record
   mr/ent->watch)

@@ -5,7 +5,6 @@
             [gratefulplace.db.mapification :refer :all]
             [gratefulplace.controllers.shared :refer :all]
             [gratefulplace.models.permissions :refer [moderator?]]
-            [gratefulplace.utils :refer :all]
             [flyingmachine.cartographer.core :as c]
             [liberator.core :refer [defresource]]))
 

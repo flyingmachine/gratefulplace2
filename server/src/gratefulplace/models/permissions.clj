@@ -1,5 +1,5 @@
 (ns gratefulplace.models.permissions
-  (:use gratefulplace.utils
+  (:use flyingmachine.webutils.utils
         gratefulplace.config))
 
 (def moderator-usernames (config :moderator-names))

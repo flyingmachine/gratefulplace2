@@ -2,7 +2,8 @@
   (:require com.flyingmachine.penny-black-apache-commons
             [com.flyingmachine.penny-black.core.send :refer [defsenders]]
             [com.flyingmachine.penny-black.core.config :refer [config]]
-            [gratefulplace.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]
+            [gratefulplace.lib.html :refer :all]))
 
 ;; Topics/posts
 (defsenders
