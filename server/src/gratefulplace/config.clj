@@ -11,8 +11,7 @@
                    "html-app"]
       :datomic {:db-uri "datomic:free://localhost:4334/gp2"
                 :test-uri "datomic:mem://gp2-test"}
-      :moderator-names ["flyingmachine"]
-      :send-email false}
+      :moderator-names ["flyingmachine"]}
      (read-resource (str "config/environments/" environment ".edn")))))
 
 (defn config
