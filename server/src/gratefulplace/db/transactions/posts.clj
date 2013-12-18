@@ -1,7 +1,7 @@
 (ns gratefulplace.db.transactions.posts
   (:require [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]
-            [gratefulplace.db.query :as db]
+            [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.email.sending.senders :as email]
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
@@ -13,18 +13,18 @@
 
 (defn users-to-notify-of-post
   [topic-id author-id]
-  (db/ents (db/q (conj '[:find ?u :where]
-                       (conj '[?w :watch/topic] topic-id)
-                       '[?w :watch/user ?u]
-                       '[?u :user/preferences "receive-watch-notifications"]
-                       [(list 'not= '?u author-id)]))))
+  (dj/ents (dj/q {:find '[?u]
+                  :where [['?w :watch/topic topic-id]
+                          ['?w :watch/user '?u]
+                          ['?u :user/preferences "receive-watch-notifications"]
+                          [(list 'not= '?u author-id)]]})))
 
 (defn- notify-users-of-post
   [result params]
   (let [{:keys [topic-id author-id]} params
         users (users-to-notify-of-post topic-id author-id)
-        topic (c/mapify (db/ent topic-id) mr/ent->topic)]
-        (email/send-reply-notification users topic params)))
+        topic (c/mapify (dj/ent topic-id) mr/ent->topic)]
+    (email/send-reply-notification users topic params)))
 
 (defn- after-create-post
   [result params]
@@ -32,14 +32,14 @@
 
 (defn- add-create-params
   [params]
-  (merge params (db/tempids :watch-id)))
+  (merge params (dj/tempids :watch-id)))
 
 (defn create-post
   [params]
   (let [final-params (add-create-params params)
         {:keys [topic-id author-id]} final-params
         post (post-params->txdata final-params)
-        result {:result (db/t [post
+        result {:result (dj/t [post
                                {:db/id topic-id
                                 :topic/last-posted-to-at (:post/created-at post)}
                                (watch-params->txdata final-params)
@@ -50,4 +50,4 @@
 
 (defn update-post
   [params]
-  (db/t [(c/mapify params mr/post->txdata {:only [:db/id :post/content]})]))
+  (dj/t [(c/mapify params mr/post->txdata {:only [:db/id :post/content]})]))

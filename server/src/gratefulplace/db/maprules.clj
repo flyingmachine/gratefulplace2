@@ -1,5 +1,5 @@
 (ns gratefulplace.db.maprules
-  (:require [gratefulplace.db.query :as db]
+  (:require [com.flyingmachine.datomic-junk :as dj]
             cemerick.friend.credentials)
   (:use [flyingmachine.cartographer.core]
         [gratefulplace.utils]
@@ -10,7 +10,7 @@
   (fn [ent]
     (let [conditions (map #(into ['?c] %) conds)]
       (ffirst
-       (db/q (into [:find '(count ?c)
+       (dj/q (into [:find '(count ?c)
                     :where ['?c ref-attr (:db/id ent)]]
                    conditions))))))
 
@@ -25,7 +25,7 @@
 
 (defn sorted-content
   [content-attribute sort-fn]
-  #(sort-by sort-fn (gratefulplace.db.query/all content-attribute [:content/author (:db/id %)])))
+  #(sort-by sort-fn (com.flyingmachine.datomic-junk/all content-attribute [:content/author (:db/id %)])))
 
 (defn dbid
   ([]
@@ -88,7 +88,7 @@
   (attr :topic-count (ref-count :content/author [:topic/title] [:content/deleted false]))
   (has-many :topics
             :rules gratefulplace.db.maprules/ent->topic
-            :retriever #(gratefulplace.db.query/all :topic/title [:content/author (:db/id %)]))
+            :retriever #(com.flyingmachine.datomic-junk/all :topic/title [:content/author (:db/id %)]))
   (has-many :posts
             :rules gratefulplace.db.maprules/ent->post
             :retriever (comp reverse (gratefulplace.db.maprules/sorted-content :post/content :post/created-at))))

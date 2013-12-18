@@ -1,7 +1,7 @@
 (ns gratefulplace.controllers.watches
   (:require [gratefulplace.db.validations :as validations]
             [datomic.api :as d]
-            [gratefulplace.db.query :as db]
+            [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.transactions.watches :as tx])
   (:use [liberator.core :only [defresource]]
@@ -22,7 +22,7 @@
                            :where [?watch :watch/user ?userid]
                            [?watch :watch/topic ?topic]
                            [?topic :content/deleted false]]
-                         (db/db)
+                         (dj/db)
                          (:id auth)))))
 
 (defresource create! [params auth]
@@ -38,10 +38,10 @@
   :available-media-types ["application/json"]
   :authorized? (fn [_]
                  (let [watch-id (str->int (:id params))
-                       watch (db/ent watch-id)]
+                       watch (dj/ent watch-id)]
                    (if (and watch
                             (= (:db/id (:watch/user watch)) (:id auth)))
                      {:record {:id watch-id}})))
   :exists? exists-in-ctx?
   :delete! (fn [ctx]
-             (db/retract-entity (get-in ctx [:record :id]))))
+             (dj/retract (get-in ctx [:record :id]))))

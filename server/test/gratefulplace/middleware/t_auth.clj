@@ -2,8 +2,11 @@
   (:use midje.sweet
         ring.mock.request)
   (:require [gratefulplace.db.test :as tdb]
+            [gratefulplace.controllers.test-helpers :refer :all]
             [gratefulplace.middleware.auth :as auth]
             [gratefulplace.server :as server]))
+
+(setup-db-background)
 
 (tdb/with-test-db
   (fact "a successful form login returns a success status code and user info"

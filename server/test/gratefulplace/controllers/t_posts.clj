@@ -1,8 +1,5 @@
 (ns gratefulplace.controllers.t-posts
-  (:require [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.query :as q]
-            [gratefulplace.db.manage :as db-manage]
-            [gratefulplace.controllers.posts :as posts])
+  (:require [gratefulplace.controllers.posts :as posts])
   (:use midje.sweet
         gratefulplace.paths
         gratefulplace.controllers.test-helpers))

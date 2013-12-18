@@ -1,6 +1,6 @@
 (ns gratefulplace.controllers.test-helpers
-  (:require [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.query :as q]
+  (:require [com.flyingmachine.datomic-junk :as dj]
+            [gratefulplace.db.test :as tdb]
             [gratefulplace.db.manage :as db-manage]
             [gratefulplace.server :as server]
             [clojure.data.json :as json])
@@ -12,7 +12,7 @@
 (defn auth
   ([] (auth "flyingmachine"))
   ([username]
-     {:id (:db/id (q/one [:user/username username]))
+     {:id (:db/id (dj/one [:user/username username]))
       :username username}))
 
 (defn authenticated
@@ -44,18 +44,19 @@
   (data (res method path params auth)))
 
 (defmacro setup-db-background
-  []
+  [& before]
   `(background
     (before :contents (tdb/with-test-db
                         (db-manage/reload)
-                        (q/t (read-resource "fixtures/seeds.edn"))))
+                        (dj/t (read-resource "fixtures/seeds.edn"))
+                        ~@before))
     (around :facts (tdb/with-test-db ?form))))
 
 (defn topic-id
   []
-  (:db/id (q/one [:topic/title])))
+  (:db/id (dj/one [:topic/title])))
 
 (defn post-id
   ([] (post-id "flyingmachine"))
   ([author-username]
-     (:db/id (q/one [:post/content] [:content/author (:id (auth author-username))]))))
+     (:db/id (dj/one [:post/content] [:content/author (:id (auth author-username))]))))

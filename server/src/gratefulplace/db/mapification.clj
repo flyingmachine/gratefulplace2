@@ -1,11 +1,11 @@
 (ns gratefulplace.db.mapification
   (:require [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as db]))
+            [com.flyingmachine.datomic-junk :as dj]))
 
 (defn entify-if-id
   [to-map]
   (if (number? to-map)
-    (db/ent to-map)
+    (dj/ent to-map)
     to-map))
 
 (defmacro defmapifier
@@ -29,8 +29,8 @@
     (-> result
         deref
         :tempids
-        (db/resolve-tempid tempid)
-        db/ent)))
+        (dj/resolve-tempid tempid)
+        dj/ent)))
 
 (defn mapify-tx-result
   [tx-result mapifier]

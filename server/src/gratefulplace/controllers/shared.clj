@@ -1,5 +1,5 @@
 (ns gratefulplace.controllers.shared
-  (:require [gratefulplace.db.query :as db]
+  (:require [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.models.permissions :refer :all]
             [gratefulplace.db.mapification :refer :all]
             [gratefulplace.utils :refer :all]
@@ -47,7 +47,7 @@
 
 (defn delete-record-in-ctx
   [ctx]
-  (db/t [{:db/id (get-in ctx [:record :id])
+  (dj/t [{:db/id (get-in ctx [:record :id])
           :content/deleted true}]))
 
 ;; TODO figure out how to refactor this

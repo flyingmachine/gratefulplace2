@@ -1,6 +1,6 @@
 (ns gratefulplace.db.transactions.users
   (:require [gratefulplace.db.maprules :as mr]
-            [gratefulplace.db.query :as db]
+            [com.flyingmachine.datomic-junk :as dj]
             [flyingmachine.cartographer.core :as c]
             [gratefulplace.utils :refer :all]))
 
@@ -14,6 +14,6 @@
   [params]
   (let [params (merge {:user/preferences default-preferences}
                       (remove-nils-from-map (c/mapify params mr/user->txdata)))]
-    {:result (db/t [params])
+    {:result (dj/t [params])
      :tempid (:db/id params)}))
 

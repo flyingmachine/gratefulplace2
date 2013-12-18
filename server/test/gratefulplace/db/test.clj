@@ -1,6 +1,6 @@
 (ns gratefulplace.db.test
   (:require [datomic.api :as d]
-            [gratefulplace.db.query :as q]
+            [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.manage :as manage])
   (:use gratefulplace.config)
   (:import java.io.File))
@@ -10,7 +10,7 @@
 
 (defmacro with-test-db
   [& body]
-  `(binding [q/*db-uri* test-db-uri]
+  `(binding [dj/*db-uri* test-db-uri]
      ~@body))
 
 (defn initialize

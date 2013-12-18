@@ -1,5 +1,5 @@
 (ns gratefulplace.controllers.admin.users
-  (:require [gratefulplace.db.query :as db]
+  (:require [com.flyingmachine.datomic-junk :as dj]
             [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]
@@ -16,4 +16,4 @@
   :available-media-types ["application/json"]
   :handle-ok (fn [_]
                (map record
-                    (db/all :user/username))))
+                    (dj/all :user/username))))

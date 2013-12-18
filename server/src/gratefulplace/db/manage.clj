@@ -1,7 +1,7 @@
 (ns gratefulplace.db.manage
   (:gen-class)
   (:require [datomic.api :as d]
-            [gratefulplace.db.query :as db]
+            [com.flyingmachine.datomic-junk :as dj]
             [clojure.java.io :as io])
   (:use environ.core)
   (:import java.io.File))
@@ -15,11 +15,11 @@
 
 (defn create
   []
-  (d/create-database db/*db-uri*))
+  (d/create-database dj/*db-uri*))
 
 (defn delete
   []
-  (d/delete-database db/*db-uri*))
+  (d/delete-database dj/*db-uri*))
 
 (defn recreate
   []
@@ -110,7 +110,7 @@
 (defn migrate
   []
   (create)
-  (apply ensure-schemas (into [(db/conn) :gp2/schema (migrations-map migrations)] migrations)))
+  (apply ensure-schemas (into [(dj/conn) :gp2/schema (migrations-map migrations)] migrations)))
 
 (defn reload
   []

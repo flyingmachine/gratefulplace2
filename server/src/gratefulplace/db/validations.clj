@@ -1,5 +1,5 @@
 (ns gratefulplace.db.validations
-  (:require [gratefulplace.db.query :as db]
+  (:require [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.utils :refer :all]
             [clj-time.core :as time])
   (:import org.mindrot.jbcrypt.BCrypt
@@ -15,7 +15,7 @@
     "That username is already taken"
     #(or
       (empty? %)
-      (not (db/one [:user/username %])))]
+      (not (dj/one [:user/username %])))]
    
    :password
    ["Your password must be at least 4 characters long"
@@ -32,7 +32,7 @@
     "That email address is already taken"
     #(or
       (empty? %)
-      (not (db/one [:user/email %])))]})
+      (not (dj/one [:user/email %])))]})
 
 (def user
   {:create (select-keys user-validations [:username :password :email])
@@ -46,7 +46,7 @@
            (fn [email]
              (or
               (empty? email)
-              (if-let [user (db/one [:user/email email])]
+              (if-let [user (dj/one [:user/email email])]
                 (= (:id existing-user) (:db/id user))
                 true))))}))
 
@@ -99,7 +99,7 @@
   {:token
    ["Your password reset token is invalid. Please go through the password reset process again."
     (fn [token]
-      (if-let [user (db/one [:user/password-reset-token token])]
+      (if-let [user (dj/one [:user/password-reset-token token])]
         ;; 24 hour expiration
         (time/after? (time/plus (DateTime. (:user/password-reset-token-generated-at user))
                                 (time/days 1))

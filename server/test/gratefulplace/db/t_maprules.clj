@@ -2,19 +2,19 @@
   (:require [gratefulplace.db.test :as tdb]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as q])
+            [com.flyingmachine.datomic-junk :as dj])
   (:use midje.sweet
         gratefulplace.controllers.test-helpers))
 
 (setup-db-background)
 
 (fact "topic serializer correctly serializes attributes"
-  (c/mapify (q/one [:topic/title "First topic"]) mr/ent->topic)
+  (c/mapify (dj/one [:topic/title "First topic"]) mr/ent->topic)
   => (contains {:id number?
                 :title "First topic"
                 :post-count 2
                 :author-id number?}))
 
 (fact "topic serializer correctly serializes relationships"
-  (:first-post (c/mapify (q/one [:topic/title "First topic"]) mr/ent->topic {:include :first-post}))
+  (:first-post (c/mapify (dj/one [:topic/title "First topic"]) mr/ent->topic {:include :first-post}))
   => (contains {:content "T1 First post content"}))

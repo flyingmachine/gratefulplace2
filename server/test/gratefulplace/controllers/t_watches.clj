@@ -1,7 +1,5 @@
 (ns gratefulplace.controllers.t-watches
-  (:require [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.query :as q]
-            [gratefulplace.db.manage :as db-manage]
+  (:require [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.controllers.watches :as watches])
   (:use midje.sweet
         gratefulplace.paths
@@ -13,7 +11,7 @@
   ([]
      (watch (:id (auth))))
   ([userid]
-     (q/one [:watch/user userid])))
+     (dj/one [:watch/user userid])))
 
 (fact "creating a watch results in success"
   (let [auth (auth "joebob")

@@ -1,7 +1,6 @@
 (ns gratefulplace.controllers.posts
   (:require [datomic.api :as d]
             [gratefulplace.db.validations :as validations]
-            [gratefulplace.db.query :as db]
             [gratefulplace.db.transactions.posts :as tx]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]

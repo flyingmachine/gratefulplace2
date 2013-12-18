@@ -1,6 +1,6 @@
 (ns gratefulplace.controllers.users
   (:require [gratefulplace.db.validations :as validations]
-            [gratefulplace.db.query :as db]
+            [com.flyingmachine.datomic-junk :as dj]
             [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.transactions.users :as tx]
@@ -49,7 +49,7 @@
 
 (defn update!*
   [params]
-  (db/t [[:db/retract (str->int (:id params)) :user/preferences tx/preferences] ; remove all existing prefs
+  (dj/t [[:db/retract (str->int (:id params)) :user/preferences tx/preferences] ; remove all existing prefs
          (remove-nils-from-map
           (c/mapify params
                     mr/user->txdata
@@ -86,4 +86,4 @@
   
   :authorized? (fn [_] (current-user-id? (id) auth))
   
-  :post! (fn [_] (db/t [(c/mapify params mr/change-password->txdata)])))
+  :post! (fn [_] (dj/t [(c/mapify params mr/change-password->txdata)])))

@@ -1,5 +1,5 @@
 (ns gratefulplace.controllers.watched-topics
-  (:require [gratefulplace.db.query :as db]
+  (:require [com.flyingmachine.datomic-junk :as dj]
             [datomic.api :as d]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]
@@ -25,5 +25,5 @@
                                        :where [?watch :watch/user ?userid]
                                        [?watch :watch/topic ?topic]
                                        [?topic :content/deleted false]]
-                                     (db/db)
+                                     (dj/db)
                                      (:id auth))))))

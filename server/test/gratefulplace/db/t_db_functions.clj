@@ -2,7 +2,7 @@
   (:require [gratefulplace.db.test :as tdb]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as q])
+            [com.flyingmachine.datomic-junk :as dj])
   (:use midje.sweet
         gratefulplace.controllers.test-helpers))
 
@@ -10,9 +10,9 @@
 
 (defn watch
   []
-  (q/one [:watch/topic]))
+  (dj/one [:watch/topic]))
 
 (fact "increment-register"
-  (q/t [[:increment-watch-count (-> (watch) :watch/topic :db/id) 1]])
+  (dj/t [[:increment-watch-count (-> (watch) :watch/topic :db/id) 1]])
   (:watch/unread-count (watch))
   => 1)

@@ -1,8 +1,5 @@
 (ns gratefulplace.controllers.t-users
-  (:require [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.query :as q]
-            [gratefulplace.db.manage :as db-manage]
-            [gratefulplace.controllers.users :as users])
+  (:require [gratefulplace.controllers.users :as users])
   (:use midje.sweet
         gratefulplace.paths
         gratefulplace.controllers.test-helpers))

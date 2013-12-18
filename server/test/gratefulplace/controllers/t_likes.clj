@@ -1,6 +1,6 @@
 (ns gratefulplace.controllers.t-likes
-  (:require [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.query :as q]
+  (:require [com.flyingmachine.datomic-junk :as dj]
+            [gratefulplace.db.test :as tdb]
             [gratefulplace.db.manage :as db-manage]
             [gratefulplace.controllers.likes :as likes])
   (:use midje.sweet
@@ -13,7 +13,7 @@
   ([]
      (like (:id (auth))))
   ([userid]
-     (q/one [:like/user userid])))
+     (dj/one [:like/user userid])))
 
 (fact "creating a like results in success"
   (let [response (res :post (str "/likes/" (post-id)) nil (auth "flyingmachine"))]

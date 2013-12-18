@@ -1,7 +1,7 @@
 (ns gratefulplace.controllers.topics
   (:require [datomic.api :as d]
             [gratefulplace.db.validations :as validations]
-            [gratefulplace.db.query :as db]
+            [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.transactions.topics :as topic-tx]
             [gratefulplace.db.transactions.watches :as watch-tx]
@@ -45,7 +45,7 @@
                (paginate
                 (reverse-by :last-posted-to-at
                             (map query-record
-                                 (db/all :topic/first-post
+                                 (dj/all :topic/first-post
                                          [:content/deleted false]
                                          (visibility auth))))
                 params)))

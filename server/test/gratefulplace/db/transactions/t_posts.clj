@@ -3,22 +3,21 @@
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.db.query :as q]
+            [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.transactions.posts :as p]
             [gratefulplace.db.transactions.topics :as t]
             [gratefulplace.db.transactions.watches :as w])
   (:use midje.sweet
         gratefulplace.controllers.test-helpers))
 
-(setup-db-background)
-(background
- (before :contents (t/create-topic {:author-id (:id (auth))
-                                    :title "test topic"
-                                    :content "test"})))
+(setup-db-background
+ (t/create-topic {:author-id (:id (auth))
+                            :title "test topic"
+                            :content "test"}))
 
 (defn topic
   []
-  (q/one [:topic/title "test topic"]))
+  (dj/one [:topic/title "test topic"]))
 
 (defn create-post
   ([params]
@@ -41,7 +40,7 @@
   (let [post-id (:db/id (tx-result->ent (create-post)))]
     (p/update-post {:id post-id
                     :content "new content"})
-    (:post/content (q/ent post-id))
+    (:post/content (dj/ent post-id))
     => "new content"))
 
 (fact "users-to-notify-of-post returns a correct seq of users"

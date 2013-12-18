@@ -2,7 +2,7 @@
   (:require [gratefulplace.db.test :as tdb]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]
-            [gratefulplace.db.query :as q]
+            [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.transactions.password-reset :as pr]
             [gratefulplace.db.validations :as validations]
             [flyingmachine.cartographer.core :as c]
@@ -17,7 +17,7 @@
   ([]
      (user "flyingmachine"))
   ([username]
-     (q/one [:user/username username])))
+     (dj/one [:user/username username])))
 
 (fact "generating a token and consuming it will change a password"
   (pr/create-token (user))
@@ -40,7 +40,7 @@
 
   (fact "a token is invalid if it's more than 24 hours old"
     (pr/create-token (user))
-    (q/t [{:db/id (:db/id (user))
+    (dj/t [{:db/id (:db/id (user))
            :user/password-reset-token-generated-at (.toDate (time/ago (time/hours 25)))}])
     (validate {:token (:user/password-reset-token (user))}
               validations/password-reset-token)

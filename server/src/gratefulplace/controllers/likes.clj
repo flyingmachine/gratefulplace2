@@ -1,6 +1,6 @@
 (ns gratefulplace.controllers.likes
   (:require [datomic.api :as d]
-            [gratefulplace.db.query :as db]
+            [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c])
   (:use [liberator.core :only [defresource]]
@@ -10,7 +10,7 @@
 
 (defn find-like
   [like]
-  (db/one [:like/post (:like/post like)]
+  (dj/one [:like/post (:like/post like)]
           [:like/user (:like/user like)]))
 
 (defn clean-params
@@ -24,7 +24,7 @@
   :post! (fn [_]
            (let [like-params (clean-params params auth)]
              (if-not (find-like like-params)
-               (db/t [like-params]))))
+               (dj/t [like-params]))))
   :handle-created "")
 
 (defresource delete! [params auth]
@@ -35,4 +35,4 @@
                    {:record (:db/id like)}))
   :exists? exists-in-ctx?
   :delete! (fn [ctx]
-             (db/retract-entity (:record ctx))))
+             (dj/retract (:record ctx))))
