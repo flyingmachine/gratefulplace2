@@ -42,7 +42,7 @@
     copy: src=files/.lein-env dest=${project_root}/code/.lein-env
     
   - name: migrate
-    command: java -jar ${project_root}/code/gp2.jar db/migrate
+    command: chdir=${project_root}/code java -jar gp2.jar db/migrate
     
   - name: restart web app
     service: name=${project_name} state=restarted
