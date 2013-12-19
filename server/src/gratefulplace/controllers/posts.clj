@@ -20,7 +20,7 @@
   :handle-malformed errors-in-ctx
 
   :authorized? (can-update-record? (record (id)) auth)
-  :exists? record-in-ctx
+  :exists? exists-in-ctx?
   :put! (update-record params tx/update-post)
   :post! (update-record params tx/update-post)
   :new? false

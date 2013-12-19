@@ -21,8 +21,8 @@ angular.module('gratefulplaceApp')
       $scope.user.preferences = _.map(_.filter($scope.preferences, checked: true), 'key')
       $scope.successMessage = null
       $scope.errors = null
-      $scope.user.$save((u)->
+      User.update $scope.user, (u)->
         $scope.successMessage = "Your preferences were updated successfully"
       , (res)->
         $scope.errors = res.data.errors
-      )
+      

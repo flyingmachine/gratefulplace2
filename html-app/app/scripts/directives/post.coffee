@@ -25,7 +25,7 @@ angular.module('gratefulplaceApp').directive 'post', ->
       $event && $event.preventDefault()
 
     $scope.updatePost = ->
-      postResource().$save((p)->
+      Post.update($scope.post, (p)->
         $scope.toggleEdit()
       , (res)->
         $scope.errors = res.data.errors

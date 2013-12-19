@@ -45,7 +45,6 @@
 
   ;; Posts
   (auth-resource-routes posts :only [:create! :update! :delete!])
-  (authroute POST "/posts/:id" posts/update! authfn)
 
   ;; Likes
   (auth-resource-routes likes
@@ -55,14 +54,13 @@
   ;; Users
   (authroute POST "/users" users/registration-success-response authfn)
   (route GET "/users/:id" users/show)
-  (authroute POST "/users/:id" users/update! authfn)
+  (authroute PUT "/users/:id" users/update! authfn)
   (authroute POST "/users/:id/password" users/change-password! authfn)
 
   (route POST "/credential-recovery/forgot-username" forgot-username/create!)
   
   (route GET "/credential-recovery/forgot-password/:token" forgot-password/show)
   (route PUT "/credential-recovery/forgot-password/:token" forgot-password/update!)
-  (route POST "/credential-recovery/forgot-password/:token" forgot-password/update!)
   (route POST "/credential-recovery/forgot-password" forgot-password/create!)
 
   ;; Stats

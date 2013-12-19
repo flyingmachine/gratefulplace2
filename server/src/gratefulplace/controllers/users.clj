@@ -65,7 +65,7 @@
   :authorized? (current-user-id? (id) auth)
   :exists? record-in-ctx
   
-  :post! (fn [_] (update!* params))
+  :put! (fn [_] (update!* params))
   :new? false
   :respond-with-entity? true
   :handle-ok (fn [_] (record (id))))

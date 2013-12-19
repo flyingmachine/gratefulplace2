@@ -13,8 +13,8 @@ angular.module('gratefulplaceApp')
     
     $scope.success = false
     $scope.resetPassword = ->
-      forgotPasswordRequest = new ForgotPasswordRequest($scope.forgotPasswordRequest)
-      forgotPasswordRequest.$save(->
+      request = new ForgotPasswordRequest($scope.forgotPasswordRequest)
+      ForgotPasswordRequest.update(request, ->
         $scope.success = true
         $scope.forgotPasswordRequest = {}
         $scope.errorMessages = null
