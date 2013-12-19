@@ -35,10 +35,14 @@ angular.module('gratefulplaceApp').directive 'post', ->
       $scope.post['formatted-content'] = '<em>deleted</em>'
       $scope.post.deleted = true
       $scope.post.editing = false
+
+    firstPost = ->
+      console.log $scope.post, $scope.$parent.firstPost
+      $scope.post == $scope.$parent.firstPost
     
     $scope.delete = ->
       if confirm "Are you sure you want to delete this post?"
-        if $scope.firstPost()
+        if firstPost()
           topic = new Topic(id: $scope.post['topic-id'])
           topic.$delete()
         postResource().$delete deleteSuccess

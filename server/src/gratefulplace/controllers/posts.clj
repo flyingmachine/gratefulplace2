@@ -4,7 +4,8 @@
             [gratefulplace.db.transactions.posts :as tx]
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]
-            [flyingmachine.cartographer.core :as c])
+            [flyingmachine.cartographer.core :as c]
+            [gratefulplace.lib.liberator-templates :refer (defupdate! defcreate! defdelete!)])
   (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
@@ -12,35 +13,22 @@
 
 (defmapifier record  mr/ent->post {:include author-inclusion-options})
 
-(defresource update! [params auth]
-  :allowed-methods [:put :post]
-  :available-media-types ["application/json"]
 
-  :malformed? (validator params (:update validations/post))
-  :handle-malformed errors-in-ctx
-
+(defupdate!
+  [params auth]
+  :valid? (validator params (:update validations/post))
   :authorized? (can-update-record? (record (id)) auth)
-  :exists? exists-in-ctx?
   :put! (update-record params tx/update-post)
-  :post! (update-record params tx/update-post)
-  :new? false
-  :respond-with-entity? true
-  :handle-ok (fn [_] (record (id))))
+  :return (fn [_] (record (id))))
 
-(defresource create! [params auth]
-  :allowed-methods [:post]
-  :available-media-types ["application/json"]
+(defcreate!
+  [params auth]
+  :valid? (validator params (:create validations/post))
   :authorized? (logged-in? auth)
-
-  :malformed? (validator params (:create validations/post))
-  :handle-malformed errors-in-ctx
-
   :post! (create-content tx/create-post params auth record)
-  :handle-created record-in-ctx)
+  :return record-in-ctx)
 
-(defresource delete! [params auth]
-  :allowed-methods [:delete]
-  :available-media-types ["application/json"]
+(defdelete!
+  [params auth]
   :authorized? (can-delete-record? (record (id)) auth)
-  :exists? exists-in-ctx?
   :delete! delete-record-in-ctx)
