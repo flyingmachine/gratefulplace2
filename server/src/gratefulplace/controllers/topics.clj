@@ -68,5 +68,4 @@
 (defdelete!
   [params auth]
   :authorized? (can-delete-record? (record (id)) auth)
-  :exists? exists-in-ctx?
   :delete! delete-record-in-ctx)
