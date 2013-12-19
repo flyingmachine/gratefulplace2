@@ -43,6 +43,13 @@
     (expander action form)
     [key form]))
 
+(defmacro defshow
+  [paramlist & args]
+  `(defresource ~'show ~paramlist
+     :available-media-types ["application/json"]
+     ~@(reduce into (map #(expand :update! %)
+                         (partition 2 args)))))
+
 (defmacro defupdate!
   [paramlist & args]
   `(defresource ~'update! ~paramlist

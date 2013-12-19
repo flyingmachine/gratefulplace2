@@ -10,7 +10,8 @@
             [gratefulplace.controllers.shared :refer :all]
             [gratefulplace.models.permissions :refer :all]
             [gratefulplace.db.mapification :refer :all]
-            [flyingmachine.webutils.utils :refer :all]))
+            [flyingmachine.webutils.utils :refer :all]
+            [gratefulplace.lib.liberator-templates :refer (defshow defcreate! defdelete!)]))
 
 (def query-mapify-options
   {:include (merge {:first-post {:only [:content :likers :id]}}
@@ -50,28 +51,22 @@
                                          (visibility auth))))
                 params)))
 
-(defresource show [params auth]
-  :available-media-types ["application/json"]
+(defshow
+  [params auth]
   :exists? (exists? (record (id)))
   :handle-ok (fn [ctx]
-               (if auth
-                 (watch-tx/reset-watch-count (id) (:id auth)))
+               (if auth (watch-tx/reset-watch-count (id) (:id auth)))
                (record-in-ctx ctx)))
 
-(defresource create! [params auth]
-  :allowed-methods [:post]
-  :available-media-types ["application/json"]
+(defcreate!
+  [params auth]
   :authorized? (logged-in? auth)
-
-  :malformed? (validator params validations/topic)
-  :handle-malformed errors-in-ctx
-  
+  :valid? (validator params validations/topic)
   :post! (create-content topic-tx/create-topic params auth query-record)
-  :handle-created record-in-ctx)
+  :return record-in-ctx)
 
-(defresource delete! [params auth]
-  :allowed-methods [:delete]
-  :available-media-types ["application/json"]
+(defdelete!
+  [params auth]
   :authorized? (can-delete-record? (record (id)) auth)
   :exists? exists-in-ctx?
   :delete! delete-record-in-ctx)
