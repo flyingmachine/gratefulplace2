@@ -21,7 +21,7 @@
 
 (defn valid?
   [action form]
-  `[:malformed ~form :handle-malformed errors-in-ctx])
+  `[:malformed? ~form :handle-malformed errors-in-ctx])
 
 (defn new?
   [action]

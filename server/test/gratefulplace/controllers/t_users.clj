@@ -28,9 +28,9 @@
 
 (facts "Users can update stuff"
   (fact "A user can update his own profile"
-    (response-data :post (user-path (:id (auth))) {:about "new about" :email "daniel@flyingmachinestudios.com"} (auth))
+    (response-data :put (user-path (:id (auth))) {:about "new about" :email "daniel@flyingmachinestudios.com"} (auth))
     => (contains {"about" "new about"}))
 
   (fact "Your email address must look kind of like an email address"
-    (res :post (user-path (:id (auth))) {:about "new about" :email "daniel"} (auth))
+    (res :put (user-path (:id (auth))) {:about "new about" :email "daniel"} (auth))
     => (contains {:status 400})))

@@ -16,7 +16,7 @@
   => (contains {:status 401}))
 
 (fact "creating a post without content returns errors"
-  (res :post "/posts" {:topic-id (topic-id)} nil)
+  (res :post "/posts" {:topic-id (topic-id)} (auth))
   => (contains {:status 400}))
 
 (fact "creating a post without a topic id returns errors"

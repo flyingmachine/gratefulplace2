@@ -111,7 +111,8 @@
 (defn migrate
   []
   (create)
-  (apply ensure-schemas (into [(dj/conn) :gp2/schema (migrations-map migrations)] migrations)))
+  (apply ensure-schemas
+         (into [(dj/conn) :gp2/schema (migrations-map migrations)] migrations)))
 
 (defn seed
   []
