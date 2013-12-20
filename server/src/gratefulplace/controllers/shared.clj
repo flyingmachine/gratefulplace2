@@ -18,7 +18,7 @@
   '(str->int (:id params)))
 
 (defmacro validator
-  "Used in malformed? which is why truth values are reversed"
+  "Used in invalid? which is why truth values are reversed"
   [params validation]
   `(fn [ctx#]
      (if-valid
@@ -26,7 +26,6 @@
       false
       [true {:errors errors#
              :representation {:media-type "application/json"}}])))
-
 
 ;; working with liberator
 (defn exists?

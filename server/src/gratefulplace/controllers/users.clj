@@ -6,6 +6,8 @@
             [gratefulplace.db.transactions.users :as tx]
             [flyingmachine.cartographer.core :as c]
             [cemerick.friend :as friend]
+            [com.flyingmachine.liberator-templates.sets.json-crud
+             :refer (defshow defupdate!)]
             cemerick.friend.workflows)
   (:use [flyingmachine.webutils.validation :only (if-valid)]
         [liberator.core :only [defresource]]
@@ -42,10 +44,9 @@
               {:topic {:only [:title :id]}}}}}
     {}))
 
-(defresource show [params]
-  :available-media-types ["application/json"]
+(defshow
   :exists? (exists? (record (id) (show-opts params)))
-  :handle-ok record-in-ctx)
+  :return record-in-ctx)
 
 (defn update!*
   [params]
@@ -55,21 +56,12 @@
                     mr/user->txdata
                     {:exclude [:user/username :user/password]}))]))
 
-(defresource update! [params auth]
-  :allowed-methods [:put :post]
-  :available-media-types ["application/json"]
-
-  :malformed? (validator params (validations/email-update auth))
-  :handle-malformed errors-in-ctx
-
+(defupdate!
+  :invalid? (validator params (validations/email-update auth))
   :authorized? (current-user-id? (id) auth)
-  :exists? record-in-ctx
-  
+  :exists? (fn [_] (dj/ent (id)))
   :put! (fn [_] (update!* params))
-  :new? false
-  :respond-with-entity? true
-  :handle-ok (fn [_] (record (id))))
-
+  :return (fn [_] (record (id))))
 
 (defn- password-params
   [params]

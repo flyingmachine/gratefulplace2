@@ -3,7 +3,8 @@
             [com.flyingmachine.datomic-junk :as dj]
             [gratefulplace.db.maprules :as mr]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.lib.liberator-templates :refer (defcreate! defdelete!)])
+            [com.flyingmachine.liberator-templates.sets.json-crud
+             :refer (defcreate! defdelete!)])
   (:use [liberator.core :only [defresource]]
         gratefulplace.controllers.shared
         gratefulplace.models.permissions
@@ -19,8 +20,6 @@
   (c/mapify (merge params {:user-id (:id auth)}) mr/like->txdata))
 
 (defcreate!
-  [params auth]
-  :authorized? (logged-in? auth)
   :post! (fn [_]
            (let [like-params (clean-params params auth)]
              (if-not (find-like like-params)
@@ -28,7 +27,6 @@
   :return "")
 
 (defdelete!
-  [params auth]
   :authorized? (fn [_]
                  (if-let [like (find-like (clean-params params auth))]
                    {:record (:db/id like)}))

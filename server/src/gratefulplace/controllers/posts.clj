@@ -5,9 +5,9 @@
             [gratefulplace.db.maprules :as mr]
             [gratefulplace.db.mapification :refer :all]
             [flyingmachine.cartographer.core :as c]
-            [gratefulplace.lib.liberator-templates :refer (defupdate! defcreate! defdelete!)])
-  (:use [liberator.core :only [defresource]]
-        gratefulplace.controllers.shared
+            [com.flyingmachine.liberator-templates.sets.json-crud
+             :refer (defupdate! defcreate! defdelete!)])
+  (:use gratefulplace.controllers.shared
         gratefulplace.models.permissions
         flyingmachine.webutils.utils))
 
@@ -15,20 +15,17 @@
 
 
 (defupdate!
-  [params auth]
-  :valid? (validator params (:update validations/post))
+  :invalid? (validator params (:update validations/post))
   :authorized? (can-update-record? (record (id)) auth)
   :put! (update-record params tx/update-post)
   :return (fn [_] (record (id))))
 
 (defcreate!
-  [params auth]
-  :valid? (validator params (:create validations/post))
+  :invalid? (validator params (:create validations/post))
   :authorized? (logged-in? auth)
   :post! (create-content tx/create-post params auth record)
   :return record-in-ctx)
 
 (defdelete!
-  [params auth]
   :authorized? (can-delete-record? (record (id)) auth)
   :delete! delete-record-in-ctx)

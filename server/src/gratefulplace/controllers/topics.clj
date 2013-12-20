@@ -11,7 +11,8 @@
             [gratefulplace.models.permissions :refer :all]
             [gratefulplace.db.mapification :refer :all]
             [flyingmachine.webutils.utils :refer :all]
-            [gratefulplace.lib.liberator-templates :refer (defshow defcreate! defdelete!)]))
+            [com.flyingmachine.liberator-templates.sets.json-crud
+             :refer (defquery defshow defcreate! defdelete!)]))
 
 (def query-mapify-options
   {:include (merge {:first-post {:only [:content :likers :id]}}
@@ -40,9 +41,8 @@
   (when-not (logged-in? auth)
     [:topic/visibility :visibility/public]))
 
-(defresource query [params auth]
-  :available-media-types ["application/json"]
-  :handle-ok (fn [_]
+(defquery
+  :return (fn [_]
                (paginate
                 (reverse-by :last-posted-to-at
                             (map query-record
@@ -52,20 +52,17 @@
                 params)))
 
 (defshow
-  [params auth]
   :exists? (exists? (record (id)))
   :handle-ok (fn [ctx]
                (if auth (watch-tx/reset-watch-count (id) (:id auth)))
                (record-in-ctx ctx)))
 
 (defcreate!
-  [params auth]
   :authorized? (logged-in? auth)
-  :valid? (validator params validations/topic)
+  :invalid? (validator params validations/topic)
   :post! (create-content topic-tx/create-topic params auth query-record)
   :return record-in-ctx)
 
 (defdelete!
-  [params auth]
   :authorized? (can-delete-record? (record (id)) auth)
   :delete! delete-record-in-ctx)
