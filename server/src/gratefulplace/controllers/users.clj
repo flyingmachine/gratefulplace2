@@ -45,6 +45,7 @@
     {}))
 
 (defshow
+  [params]
   :exists? (exists? (record (id) (show-opts params)))
   :return record-in-ctx)
 
