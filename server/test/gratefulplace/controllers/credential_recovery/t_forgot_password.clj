@@ -1,8 +1,6 @@
 (ns gratefulplace.controllers.credential-recovery.t-forgot-password
-  (:require [gratefulplace.controllers.credential-recovery.forgot-password :as fp]
-            [com.flyingmachine.datomic-junk :as dj])
+  (:require [com.flyingmachine.datomic-junk :as dj])
   (:use midje.sweet
-        gratefulplace.paths
         gratefulplace.controllers.test-helpers))
 
 (setup-db-background)

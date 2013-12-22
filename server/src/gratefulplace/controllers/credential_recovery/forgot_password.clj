@@ -8,7 +8,6 @@
             [com.flyingmachine.liberator-templates.sets.json-crud
              :refer (defshow defcreate! defupdate!)]))
 
-
 (defshow
   [params]
   :invalid? (validator params validations/password-reset-token)
