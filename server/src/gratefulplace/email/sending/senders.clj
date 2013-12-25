@@ -1,5 +1,5 @@
 (ns gratefulplace.email.sending.senders
-  (:require com.flyingmachine.penny-black-apache-commons
+  (:require com.flyingmachine.penny-black-postal
             [com.flyingmachine.penny-black.core.send :refer [defsenders]]
             [com.flyingmachine.penny-black.core.config :refer [config]]
             [flyingmachine.webutils.utils :refer :all]

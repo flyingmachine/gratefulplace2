@@ -13,7 +13,6 @@
 
 (defmapifier record  mr/ent->post {:include author-inclusion-options})
 
-
 (defupdate!
   :invalid? (validator params (:update validations/post))
   :authorized? (can-update-record? (record (id)) auth)

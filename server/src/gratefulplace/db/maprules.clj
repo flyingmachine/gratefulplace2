@@ -26,7 +26,7 @@
 
 (defn sorted-content
   [content-attribute sort-fn]
-  #(sort-by sort-fn (com.flyingmachine.datomic-junk/all content-attribute [:content/author (:db/id %)])))
+  #(sort-by sort-fn (dj/all content-attribute [:content/author (:db/id %)])))
 
 (defn dbid
   ([]
@@ -81,7 +81,6 @@
   (attr :email :user/email)
   (attr :about :user/about)
   (attr :preferences :user/preferences)
-  (attr :receive-watch-notifications :user/receive-watch-notifications)
   (attr :formatted-about #(md-content (:user/about %)))
   (attr :gravatar #(gravatar (:user/email %) :size 22 :default :identicon))
   (attr :large-gravatar #(gravatar (:user/email %) :size 48 :default :identicon))
@@ -112,7 +111,6 @@
   (attr :user/email :email)
   (attr :user/about :about)
   (attr :user/preferences :preferences)
-  (attr :user/receive-watch-notifications :receive-watch-notifications)
   (attr :user/password #(cemerick.friend.credentials/hash-bcrypt (:password %))))
 
 (defmaprules change-password->txdata

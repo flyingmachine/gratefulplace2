@@ -5,8 +5,7 @@
   (:use gratefulplace.config)
   (:import java.io.File))
 
-(def test-db-uri (config :datomic :test-uri))
-(def initialized (atom false))
+(def test-db-uri (dj/config :test-uri))
 
 (defmacro with-test-db
   [& body]
