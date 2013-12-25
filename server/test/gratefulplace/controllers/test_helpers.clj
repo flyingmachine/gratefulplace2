@@ -1,12 +1,12 @@
 (ns gratefulplace.controllers.test-helpers
   (:require [com.flyingmachine.datomic-junk :as dj]
-            [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.manage :as db-manage]
+            [rabble.db.test :as tdb]
+            [rabble.db.manage :as db-manage]
             [gratefulplace.server :as server]
             [clojure.data.json :as json])
   (:use midje.sweet
         flyingmachine.webutils.utils
-        gratefulplace.paths
+        rabble.paths
         [ring.mock.request :only [request header content-type]]))
 
 (defn auth

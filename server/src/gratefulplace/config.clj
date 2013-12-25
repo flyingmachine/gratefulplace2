@@ -6,9 +6,7 @@
   (let [environment (or (env :app-env) "development")]
     (merge
      {:app-env environment
-      :html-paths ["../html-app/.tmp"
-                   "../html-app/app"
-                   "html-app"]
+      
       :moderator-names ["flyingmachine"]}
      (read-resource (str "config/environments/" environment ".edn")))))
 

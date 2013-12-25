@@ -18,6 +18,20 @@
   :route-op authroute
   :route-args [authfn])
 
+(defroutes files
+  ;; Serve up angular app
+  (apply compojure.core/routes
+         (map #(compojure.core/routes
+                (GET "/" [] (resp/file-response "index.html" {:root %}))
+                (GET "/" [] (resp/resource-response "index.html" {:root %})))
+              (config :html-paths)))
+  
+  (apply compojure.core/routes
+         (map #(compojure.core/routes
+                (compojure.route/files "/" {:root %})
+                (compojure.route/resources "/" {:root %}))
+              (config :html-paths))))
+
 (defroutes routes
   (authroute GET "/scripts/load-session.js" js/load-session authfn)
 

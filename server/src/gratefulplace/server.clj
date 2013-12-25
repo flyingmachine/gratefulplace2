@@ -1,47 +1,17 @@
 (ns gratefulplace.server
   (:gen-class)
-  (:require [gratefulplace.db.manage :as db])
-  (:use clojure.stacktrace
-        [ring.adapter.jetty :only (run-jetty)]
-        ring.middleware.params
-        ring.middleware.keyword-params
-        ring.middleware.nested-params
-        ring.middleware.session
-        ring.middleware.format
-        [gratefulplace.middleware.routes :only (routes)]
-        [gratefulplace.middleware.auth :only (auth)]
-        [gratefulplace.middleware.db-session-store :only (db-session-store)]))
-
-(defn wrap-exception [f]
-  (fn [request]
-    (try (f request)
-      (catch Exception e
-        (do
-          (.printStackTrace e)
-          {:status 500
-           :body "Exception caught"})))))
+  (:require [gratefulplace.db.manage :as db]
+            [compojure.core :as compojure]
+            [rabble.ring-app :as ring-app]
+            [rabble.middleware.routes :as routes]
+            [ring.adapter.jetty :refer (run-jetty)]))
 
 (defn debug [f]
   (fn [{:keys [uri request-method params session] :as request}]
     (println params)
     (f request)))
 
-(defn wrap
-  [to-wrap]
-  (-> to-wrap
-      (wrap-session {:cookie-name "gratefulplace-session" :store (db-session-store {})})
-      (wrap-restful-format :formats [:json-kw])
-      wrap-exception
-      wrap-keyword-params
-      wrap-nested-params
-      wrap-params))
-
-; The ring app
-(def app
-  (-> routes
-      auth
-      ;; debug
-      wrap))
+(def app (ring-app/wrap (compojure/routes routes/auth-routes routes/rabble-routes)))
 
 (defn -main
   "Start the jetty server"

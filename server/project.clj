@@ -22,6 +22,7 @@
                  [clavatar "0.2.1"]
                  [org.clojure/data.json "0.2.2"]
                  [me.raynes/cegdown "0.1.0"]
+                 [rabble "0.1.0-SNAPSHOT"]
                  [com.flyingmachine/webutils "0.1.6"]
                  [flyingmachine/cartographer "0.1.1"]
                  [com.flyingmachine/penny-black-apache-commons "0.1.0"]
