@@ -18,5 +18,3 @@
    (request :post "/login" {:username "flyingmachine"
                             :password "badpass"}))
   => (contains {:status 401}))
-
-
