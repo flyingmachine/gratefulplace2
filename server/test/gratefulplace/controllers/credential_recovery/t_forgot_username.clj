@@ -1,7 +1,7 @@
 (ns gratefulplace.controllers.credential-recovery.t-forgot-username
-  (:require [com.flyingmachine.datomic-junk :as dj])
-  (:use midje.sweet
-        gratefulplace.controllers.test-helpers))
+  (:require [com.flyingmachine.datomic-junk :as dj]
+            [rabble.test.controller-helpers :refer :all])
+  (:use midje.sweet))
 
 (setup-db-background)
 

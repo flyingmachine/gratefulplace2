@@ -1,14 +1,14 @@
 (ns gratefulplace.controllers.t-topics
-  (:require [gratefulplace.controllers.topics :as topics])
+  (:require [gratefulplace.controllers.topics :as topics]
+            [rabble.test.controller-helpers :refer :all])
   (:use midje.sweet
-        gratefulplace.paths
-        gratefulplace.controllers.test-helpers))
+        gratefulplace.paths))
 
 (setup-db-background)
 
 (facts "query returns topics and pagination info"
   (let [data (response-data :get "/topics" {})]
-    (first data) => {"page-count" 1 "topic-count" 2}
+    (first data) => {"page-count" 1 "topic-count" 2 "current-page" 1}
     data => (three-of map?)))
 
 (fact "creating a topic with a valid user results in success"

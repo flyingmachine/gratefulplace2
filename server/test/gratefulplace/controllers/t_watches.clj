@@ -1,9 +1,9 @@
 (ns gratefulplace.controllers.t-watches
   (:require [com.flyingmachine.datomic-junk :as dj]
-            [gratefulplace.controllers.watches :as watches])
+            [gratefulplace.controllers.watches :as watches]
+            [rabble.test.controller-helpers :refer :all])
   (:use midje.sweet
-        gratefulplace.paths
-        gratefulplace.controllers.test-helpers))
+        gratefulplace.paths))
 
 (setup-db-background)
 

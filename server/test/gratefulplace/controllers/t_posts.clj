@@ -1,8 +1,8 @@
 (ns gratefulplace.controllers.t-posts
-  (:require [gratefulplace.controllers.posts :as posts])
+  (:require [gratefulplace.controllers.posts :as posts]
+            [rabble.test.controller-helpers :refer :all])
   (:use midje.sweet
-        gratefulplace.paths
-        gratefulplace.controllers.test-helpers))
+        gratefulplace.paths))
 
 (setup-db-background)
 

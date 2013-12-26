@@ -1,11 +1,9 @@
 (ns gratefulplace.controllers.t-likes
   (:require [com.flyingmachine.datomic-junk :as dj]
-            [gratefulplace.db.test :as tdb]
-            [gratefulplace.db.manage :as db-manage]
+            [rabble.test.controller-helpers :refer :all]
             [gratefulplace.controllers.likes :as likes])
   (:use midje.sweet
-        gratefulplace.paths
-        gratefulplace.controllers.test-helpers))
+        gratefulplace.paths))
 
 (setup-db-background)
 

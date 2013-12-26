@@ -1,8 +1,8 @@
 (ns gratefulplace.controllers.t-watched-topics
-  (:require [gratefulplace.controllers.watched-topics :as watched-topics])
+  (:require [gratefulplace.controllers.watched-topics :as watched-topics]
+            [rabble.test.controller-helpers :refer :all])
   (:use midje.sweet
-        gratefulplace.paths
-        gratefulplace.controllers.test-helpers))
+        gratefulplace.paths))
 
 (setup-db-background)
 
