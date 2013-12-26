@@ -41,8 +41,8 @@
   - name: Upload .lein-env file
     copy: src=files/.lein-env dest=${project_root}/code/.lein-env
     
-  - name: migrate
-    command: chdir=${project_root}/code java -jar gp2.jar db/migrate
+  - name: install schemas
+    command: chdir=${project_root}/code java -jar gp2.jar db/install-schemas
     
   - name: restart web app
     service: name=${project_name} state=restarted
