@@ -1,14 +1,18 @@
 (ns gratefulplace.app
   (:gen-class)
   (:require [gratefulplace.server :as server]
-            [gratefulplace.db.manage :as db]
+            [rabble.db.tasks :as db-tasks]
             [gratefulplace.config :as config]))
+
+(defmacro final
+  [& body]
+  `(do ~@body (System/exit 0)))
 
 (defn -main
   [cmd]
   (cond 
    (= cmd "server") (server/-main)
-   (= cmd "db/reload") (do (println (db/reload)) (System/exit 0))
-   (= cmd "db/seed") (do (println (db/seed)) (System/exit 0))
-   (= cmd "db/migrate") (do (println (db/migrate)) (System/exit 0))
-   (= cmd "config/print-config") (do (config/print-config) (System/exit 0))))
+   (= cmd "db/reload") (final (println (db-tasks/reload)))
+   (= cmd "db/seed") (final (println (db-tasks/seed)))
+   (= cmd "db/install-schemas") (final (println (db-tasks/install-schemas)))
+   (= cmd "config/print-config") (final (config/print-config))))
