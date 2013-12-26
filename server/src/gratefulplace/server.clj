@@ -1,7 +1,6 @@
 (ns gratefulplace.server
   (:gen-class)
-  (:require [gratefulplace.db.manage :as db]
-            [compojure.core :as compojure]
+  (:require [compojure.core :as compojure]
             [rabble.ring-app :as ring-app]
             [rabble.middleware.routes :as routes]
             [ring.adapter.jetty :refer (run-jetty)]))
