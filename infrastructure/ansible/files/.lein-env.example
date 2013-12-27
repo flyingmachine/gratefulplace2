@@ -1,0 +1,21 @@
+{:com-flyingmachine-penny-black
+ {:template-path "email-templates"
+  :send-email true
+  :host "smtp.gmail.com"
+  :from-address "notifications@gratefulplace.com"
+  :from-name "Grateful Place Notifications"
+  :authentication {:username "username"
+                   :password "password"}
+  :use-ssl true
+  :ssl-smtp-port "465"}
+ 
+ :datomic {:db-uri "datomic:free://localhost:4334/gp2"
+           :test-uri "datomic:mem://gp2-test"}
+ 
+ :rabble {:moderator-names ["flyingmachine"]
+          :html-paths ["../html-app/.tmp"
+                       "../html-app/app"
+                       "html-app"]
+          :angular-module-name "gratefulplaceApp"
+          :schema-attr :gp2/schema
+          :forum-name "Grateful Place"}}
