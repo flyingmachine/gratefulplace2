@@ -17,5 +17,7 @@
                        "../html-app/app"
                        "html-app"]
           :angular-module-name "gratefulplaceApp"
+          :per-page 15
           :schema-attr :gp2/schema
+          :session-name "gratefulplace-session"
           :forum-name "Grateful Place"}}
