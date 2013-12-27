@@ -3,14 +3,11 @@
   (:require [compojure.core :as compojure]
             [rabble.ring-app :as ring-app]
             [rabble.middleware.routes :as routes]
+            [rabble.middleware.auth :refer (auth)]
             [ring.adapter.jetty :refer (run-jetty)]))
 
-(defn debug [f]
-  (fn [{:keys [uri request-method params session] :as request}]
-    (println params)
-    (f request)))
-
-(def app (ring-app/wrap (compojure/routes routes/auth-routes routes/rabble-routes)))
+(def app (ring-app/wrap
+          (auth (compojure/routes routes/auth-routes routes/rabble-routes))))
 
 (defn -main
   "Start the jetty server"
