@@ -27,6 +27,7 @@
                  [flyingmachine/cartographer "0.1.1"]
                  [com.flyingmachine/penny-black-apache-commons "0.1.0"]
                  [com.flyingmachine/datomic-junk "0.1.3"]
+                 [com.flyingmachine/config "2.0.0"]
                  [com.flyingmachine/liberator-templates "0.1.1"]
                  [stencil "0.3.2"]
                  [clj-time "0.6.0"]]

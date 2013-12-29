@@ -1,19 +1,10 @@
 (ns gratefulplace.config
   (:require [flyingmachine.webutils.utils :refer :all]
-            [environ.core :refer :all]))
+            [com.flyingmachine.config :refer (defconfig)]
+            environ.core))
 
-(def conf
-  (let [environment (or (env :app-env) "development")]
-    (merge
-     {:app-env environment
-      
-      :moderator-names ["flyingmachine"]}
-     (read-resource (str "config/environments/" environment ".edn")))))
-
-(defn config
-  [& keys]
-  (get-in conf keys))
+(defconfig config environ.core/env :app)
 
 (defn print-config
   []
-  (println env))
+  (println (config)))

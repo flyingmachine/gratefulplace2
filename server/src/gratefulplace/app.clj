@@ -11,7 +11,7 @@
 (defn -main
   [cmd]
   (cond 
-   (= cmd "server") (server/-main)
+   (= cmd "server") (server/start)
    (= cmd "db/reload") (final (println (db-tasks/reload)))
    (= cmd "db/seed") (final (println (db-tasks/seed)))
    (= cmd "db/install-schemas") (final (println (db-tasks/install-schemas)))
