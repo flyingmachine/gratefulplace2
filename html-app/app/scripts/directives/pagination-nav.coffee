@@ -19,7 +19,7 @@ angular.module('gratefulplaceApp').directive 'paginationNav', ->
         <a href="/#/?page={{pageNum}}" ng-class="{active: isActive(pageNum)}" >{{pageNum}}</a>
       </li>
     </ul>
-    <div class="topic-count"></div>
+    <div class="ent-count"></div>
   </div>
   """
   replace: true
