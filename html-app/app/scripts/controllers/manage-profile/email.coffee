@@ -15,8 +15,6 @@ angular.module('gratefulplaceApp')
         key: key
         checked: $scope.checked(key: key)
         
-      console.log $scope.preferences
-      
     $scope.updateEmail = ->
       $scope.user.preferences = _.map(_.filter($scope.preferences, checked: true), 'key')
       $scope.successMessage = null
