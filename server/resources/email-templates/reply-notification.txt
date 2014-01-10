@@ -1,6 +1,6 @@
 Hi {{username}},
 
-There's a new reply to {{topic-title}} at http://gratefulplace.com/#/topics/{{topic-id}}:
+There's a new reply from {{author.username}} to {{topic-title}} at http://gratefulplace.com/#/topics/{{topic-id}}:
 
 =========
 
