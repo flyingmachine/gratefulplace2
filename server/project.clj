@@ -25,7 +25,6 @@
                  [rabble "0.1.0-SNAPSHOT"]
                  [com.flyingmachine/webutils "0.1.6"]
                  [flyingmachine/cartographer "0.1.1"]
-                 [com.flyingmachine/penny-black-apache-commons "0.1.1"]
                  [com.flyingmachine/datomic-junk "0.1.3"]
                  [com.flyingmachine/config "2.0.0"]
                  [com.flyingmachine/liberator-templates "0.1.1"]

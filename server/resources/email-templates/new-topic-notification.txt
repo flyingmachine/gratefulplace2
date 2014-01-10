@@ -1,7 +1,6 @@
 Hi {{username}},
 
-There's a new topic, "{{topic-title}}", by {{author.username}} on
-Grateful Place at http://gratefulplace.com/#/topics/{{topic-id}}:
+There's a new topic, "{{topic-title}}", by {{author.username}} at http://gratefulplace.com/#/topics/{{topic-id}}:
 
 =========
 
@@ -12,8 +11,7 @@ Grateful Place at http://gratefulplace.com/#/topics/{{topic-id}}:
 
 You can change your email preferences by going to http://gratefulplace.com/#/manage-profile/email
 
-If you'd like to stop receiving emails but don't want to log in,
-please email notifications@gratefulplace.com and let me know :)
+If you'd like to stop receiving emails but don't want to log in, please email daniel@gratefulplace.com and let me know :)
 
 Take care!
 Daniel Higginbotham, maintainer of Grateful Place
