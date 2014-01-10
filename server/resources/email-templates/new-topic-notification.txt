@@ -1,6 +1,7 @@
 Hi {{username}},
 
-There's a new topic, "{{topic-title}}", on Grateful Place. You can reply to it by visiting http://gratefulplace.com/#/topics/{{topic-id}}. Here's the post:
+There's a new topic, "{{topic-title}}", by {{author.username}} on
+Grateful Place at http://gratefulplace.com/#/topics/{{topic-id}}:
 
 =========
 
