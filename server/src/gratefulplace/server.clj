@@ -8,4 +8,4 @@
 (defn start
   "Start the jetty server"
   []
-  (run-jetty #'app {:port (config :port) :join? false}))
+  (run-jetty #'app {:port (or (config :port) 8080) :join? false}))
