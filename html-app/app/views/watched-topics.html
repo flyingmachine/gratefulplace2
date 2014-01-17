@@ -2,6 +2,11 @@
   <h2>Watched Topics</h2>
 
   <div id="topics">
-    <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
+    <loader></loader>
+    <div ng-show="!loading">
+      <pagination-nav pagination-data=paginationData></pagination-nav>
+      <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
+      <pagination-nav pagination-data=paginationData></pagination-nav>
+    </div>
   </div>
 </div>

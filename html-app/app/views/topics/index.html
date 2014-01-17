@@ -95,7 +95,7 @@
       </form>
     </div>
   </div>
-  <div id="topics" ng-show="topics.length > 0">
+  <div id="topics">
     <div id="new-topic"
          ng-controller="TopicsNewCtrl"
          ng-show="newTopicForm.show">
@@ -149,8 +149,11 @@
         </div>
       </form>
     </div>
-    <pagination-nav pagination-data=paginationData></pagination-nav>
-    <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
-    <pagination-nav pagination-data=paginationData></pagination-nav>
+    <loader></loader>
+    <div ng-show="!loading">
+      <pagination-nav pagination-data=paginationData></pagination-nav>
+      <topic model="topic" peek="peek" ng-repeat="topic in topics"></topic>
+      <pagination-nav pagination-data=paginationData></pagination-nav>
+    </div>
   </div>
 </div>

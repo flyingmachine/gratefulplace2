@@ -8,6 +8,11 @@ $L: 75em;
   @include container;
   @include trailer;
   @include leader;
+  position: relative;
+}
+
+#search-results .posts, #topics {
+  position: relative;
 }
 
 nav.primary, .fancy {

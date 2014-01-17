@@ -1,0 +1,25 @@
+// from http://codepen.io/unmeshpro/pen/wrate
+
+$loading-color:#fff;
+$loading-size:4;
+$delay:0.9;
+.zeload{
+  position:absolute;
+  border:1px solid $loading-color;
+  left:50%;
+  top: 2em;
+  border-radius:100%;
+  animation:loading-anim $delay + s ease-in-out infinite;
+  -webkit-animation:loading-anim $delay + s ease-in-out infinite;
+}
+@keyframes loading-anim {
+  0%{box-shadow:-30px 0 0 $loading-size+px $loading-color, -26px -15px 0 $loading-size+px $loading-color, 26px 15px 0 $loading-size+px $loading-color,30px 0 0 $loading-size+px $loading-color, 26px -15px 0 $loading-size+px $loading-color,-26px 15px 0 $loading-size+px $loading-color;}
+  50%{$loading-size:$loading-size - 0.1; box-shadow:-26px -15px 0 $loading-size+px $loading-color, 26px 15px 0 $loading-size+px $loading-color,30px 0 0 $loading-size+px $loading-color, 26px -15px 0 $loading-size+px $loading-color,-26px 15px 0 $loading-size+px $loading-color,-30px 0 0 $loading-size+px $loading-color;}
+  100%{$loading-size:$loading-size + 0.1;box-shadow:26px 15px 0 $loading-size+px $loading-color,30px 0 0 $loading-size+px $loading-color, 26px -15px 0 $loading-size+px $loading-color,-26px 15px 0 $loading-size+px $loading-color,-30px 0 0 $loading-size+px $loading-color,-26px -15px 0 $loading-size+px $loading-color;}
+}
+
+@-webkit-keyframes loading-anim {
+  0%{box-shadow:-30px 0 0 $loading-size+px $loading-color, -26px -15px 0 $loading-size+px $loading-color, 26px 15px 0 $loading-size+px $loading-color,30px 0 0 $loading-size+px $loading-color, 26px -15px 0 $loading-size+px $loading-color,-26px 15px 0 $loading-size+px $loading-color;}
+  50%{$loading-size:$loading-size - 0.1; box-shadow:-26px -15px 0 $loading-size+px $loading-color, 26px 15px 0 $loading-size+px $loading-color,30px 0 0 $loading-size+px $loading-color, 26px -15px 0 $loading-size+px $loading-color,-26px 15px 0 $loading-size+px $loading-color,-30px 0 0 $loading-size+px $loading-color;}
+  100%{$loading-size:$loading-size + 0.1;box-shadow:26px 15px 0 $loading-size+px $loading-color,30px 0 0 $loading-size+px $loading-color, 26px -15px 0 $loading-size+px $loading-color,-26px 15px 0 $loading-size+px $loading-color,-30px 0 0 $loading-size+px $loading-color,-26px -15px 0 $loading-size+px $loading-color;}
+}

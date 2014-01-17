@@ -5,11 +5,11 @@ angular.module('gratefulplaceApp').controller 'FoundationCtrl', ($scope, $locati
   refreshSession = ->
     $scope.currentSession = CurrentSession.get()
     console.log $scope.currentSession
-    
-  $scope.$on 'auth.logged-in', ->
-    refreshSession()
-    $location.path("/topics")
-    
+
+  $scope.loading = true
+  $scope.$on '$locationChangeStart', ->
+    $scope.loading = true
+            
   refreshSession()
 
   $scope.$on 'topic.created', ->

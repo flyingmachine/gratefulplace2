@@ -1,14 +1,15 @@
 'use strict'
 
-angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $location, Topic, Watch, User, Utils, Authorize) ->
+angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $location, Topic, Watch, User, Utils, Authorize, Paginator) ->
   currentPage = ->
     if $location.search().page
       parseInt $location.search().page
     else
       1
-  
+
+  paginator = new Paginator
+  $scope.paginationData = paginator.data
   $scope.topics = []
-  $scope.paginationData = {'current-page': currentPage()}
   
   $scope.$on 'topic.created', (e, topic)->
     $scope.topics.unshift topic
@@ -16,8 +17,8 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
   watches = null
 
   receiveData = (data)->
-    _.merge($scope.paginationData, data[0])
-    $scope.topics = _.rest(data)
+    $scope.topics = paginator.receive(data)
+    $scope.loading = false
     if !_.isEmpty($scope.topics)
       $scope.stats['last-post-at'] = data[1]['last-posted-to-at']
     Utils.addWatchCountToTopics($scope.topics, watches)
@@ -26,8 +27,6 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
     params = {page: $scope.paginationData['current-page']}
     Topic.query params, receiveData
   query()
-
-  $scope.$on 'auth.logged-in', query
 
   $scope.newTopicForm =
     show: false
@@ -42,7 +41,6 @@ angular.module('gratefulplaceApp').controller 'TopicsQueryCtrl', ($scope, $locat
         Utils.addWatchCountToTopics($scope.topics, watches)
 
   $scope.$watch 'currentSession', setLoggedInStuff
-  
 
   $scope.firstPost = (topic)->
     topic.posts[0]
