@@ -38,7 +38,7 @@
     @include adjust-font-size-to(18px);
 
     p {
-      @include trailer(1, 18px);
+      @include trailer(.5, 18px);
     }
 
     .controls {
