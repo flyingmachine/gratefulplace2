@@ -5,11 +5,11 @@
     <div id="about">
       <h3>About {{user.username}}</h3>
       <div class="chunk">
-        <div ng-show="hasAbout">
+        <div ng-show="hasAbout()">
           <div ng-bind-html-unsafe="user['formatted-about']">
           </div>
         </div>
-        <div ng-hide="hasAbout">
+        <div ng-hide="hasAbout()">
           <p>{{user.username}} hasn't filled out a profile yet</p>
         </div>
       </div>
