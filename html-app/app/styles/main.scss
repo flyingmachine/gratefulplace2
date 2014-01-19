@@ -341,7 +341,7 @@ input.ng-pristine {
 
 .chunk {
   @include chunk;
-  p:last-child {
+  p:last-child, p.last {
     margin-bottom: 0;
   }
 }

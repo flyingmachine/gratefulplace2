@@ -9,7 +9,7 @@
     background: $light-blue;
   }
   .chunk .content-edit {
-    @include trailer;
+    @include leader;
   }
 }
 
