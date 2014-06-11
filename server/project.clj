@@ -23,7 +23,7 @@
                  [org.clojure/data.json "0.2.2"]
                  [me.raynes/cegdown "0.1.0"]
                  [twitter-api "0.7.5"]
-                 [rabble "0.1.0-SNAPSHOT"]
+                 [rabble "0.1.1-SNAPSHOT"]
                  [com.flyingmachine/webutils "0.1.6"]
                  [flyingmachine/cartographer "0.1.1"]
                  [com.flyingmachine/datomic-junk "0.1.3"]

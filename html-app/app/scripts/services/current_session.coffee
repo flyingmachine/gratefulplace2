@@ -1,6 +1,8 @@
 'use strict'
 
 angular.module("gratefulplaceApp").factory "CurrentSession", (loadedSession, $q, $http, $rootScope, User)->
+  $http.defaults.headers.common['X-CSRF-TOKEN'] = loadedSession['anti-forgery-token']
+  
   currentSession =
     loggedIn: -> @id
   loggedOut = !loadedSession
