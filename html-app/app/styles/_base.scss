@@ -11,10 +11,6 @@
   font-family: "Bitstream Vera Sans Mono", monospace;
 }
 
-@mixin bshadow {
-  @include single-box-shadow(rgba(0, 0, 0, 0.2), 0, 1px, 2px, 0px);
-}
-
 @mixin chunk {
   background: white;
   @include border-radius(2px); 
