@@ -9,6 +9,8 @@
 
 (defn notify-users-of-topic
   [topic params]
-  (n/notify-users-of-topic topic params)
+  (let [{:keys [author-id]} params
+        users (users-to-notify-of-topic author-id)]
+    (email/send-new-topic-notification users topic (author author-id)))
   (if (and (= (:visibility params) "public") (config :send-twitter))
     (t/tweet-topic topic params)))
