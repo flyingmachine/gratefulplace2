@@ -8,14 +8,16 @@ angular.module('gratefulplaceApp').directive 'likeToggle', ->
     $scope.currentSession = CurrentSession.get()
     
     newLike = ->
-      new Like(id: $scope.post.id)
+      new Like('post-id': $scope.post.id)
       
     like = ->
       newLike().$save ->
         $scope.post.likers.push $scope.currentSession.id
 
     unlike = ->
-      newLike().$delete ->
+      toDelete = newLike()
+      toDelete.id = toDelete['post-id']
+      toDelete.$delete ->
         $scope.post.likers = _.without($scope.post.likers, $scope.currentSession.id)
 
     $scope.toggleLike = ->
