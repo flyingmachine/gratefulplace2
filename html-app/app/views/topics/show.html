@@ -5,6 +5,10 @@
     <div class="posts">
       <post model="firstPost" peek="peek" first-post="true">
       </post>
+      <div class="replies">
+        <post model="post" peek="peek" ng-repeat="post in topic.posts">
+        </post>
+      </div>
       <div class="reply">
         <form ng-submit="submitReply()">
           <div class="error" error-messages="errors.content"></div>
@@ -17,10 +21,6 @@
             <a href="#" class="toggle-formatting-help">formatting help</a>
           </div>   
         </form>
-      </div>
-      <div class="replies">
-        <post model="post" peek="peek" ng-repeat="post in topic.posts">
-        </post>
       </div>
     </div>
   </div>
